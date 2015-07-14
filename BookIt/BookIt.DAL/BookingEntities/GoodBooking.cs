@@ -20,6 +20,7 @@ namespace BookIt.DAL
 
 		public BookingTypeEnum Type { get; set; }
 
+
 		public virtual ICollection<GoodBookingItem> Items { get; set; }
 
 		public virtual Good Good { get; set; }

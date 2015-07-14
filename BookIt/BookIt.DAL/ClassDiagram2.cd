@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BookIt.DAL.BookingContext">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAggAAAAAAAAAAAAEAAAEAAAAAAACAAAACA=</HashCode>
+      <FileName>BookingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookIt.DAL.Booking">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAQAAAAAAgAAAAAAAAAggAAAAAAAAACAAAEAAAAA=</HashCode>
+      <FileName>BookingEntities\Booking.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookIt.DAL.GoodBooking">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAiAAAAAAAAAAgAAAAACAAAQAAAEAAAAE=</HashCode>
+      <FileName>BookingEntities\GoodBooking.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookIt.DAL.GoodBookingItem">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BookingEntities\GoodBookingItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookIt.DAL.Category">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAggAAAAAAAAAQAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Dictionaries\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookIt.DAL.Good">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACCAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Dictionaries\Good.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookIt.DAL.User">
+    <Position X="9.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAg=</HashCode>
+      <FileName>Dictionaries\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BookIt.DAL.BookingTypeEnum">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dictionaries\BookingType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BookIt.DAL.UserRoleEnum">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dictionaries\UserRole.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
