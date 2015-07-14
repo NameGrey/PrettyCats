@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingContext.cs" />
+    <Compile Include="BookingEntities\Booking.cs" />
     <Compile Include="BookingEntities\GoodBooking.cs" />
+    <Compile Include="BookingEntities\GoodBookingItem.cs" />
     <Compile Include="Dictionaries\BookingType.cs" />
     <Compile Include="Dictionaries\Category.cs" />
     <Compile Include="Dictionaries\Good.cs" />

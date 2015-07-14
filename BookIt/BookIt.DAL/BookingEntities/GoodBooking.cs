@@ -18,6 +18,10 @@ namespace BookIt.DAL
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 
+		public BookingTypeEnum Type { get; set; }
+
+		public virtual ICollection<GoodBookingItem> Items { get; set; }
+
 		public virtual Good Good { get; set; }
 	}
 }
