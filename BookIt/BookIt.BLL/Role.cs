@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BookIt.Models
+namespace BookIt.BLL
 {
-    public class Person
+    public enum Role
     {
-        int Id;
+        User = 1,
+        Administrator
     }
 }

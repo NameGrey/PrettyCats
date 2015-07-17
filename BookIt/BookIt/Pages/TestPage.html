@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <div style="width: 800px">
+        <div>
+            <h2>Show only free</h2>
+            <input type="checkbox" id="cbFree" size="5" />
+            <input type="button" value="Search" onclick="filter();" />
+        </div>
+        <div>
+            <h2>Entities for booking</h2>
+            <p>Это типа справочник вещей, которые к нас есть. Новые может добавить только Администратор. Пользователь может добавлять свои предложения для бронирования, но они не будут попадать в этот справочник"</p>
+            <ul id="bookingEntities" />
+            <input id="bookingEntities" type="button" onclick="RefreshSubjects();" value="Обновить" />
+        </div>
+        <div>
+            <h2>Offers for booking</h2>
+            <p>Это предложения для бронирования. Их можно создать либо выбрав какую-то вещь из справочника, либо создать свою, но она в справочник не попадет. Эти предложения могут быть уже забуканными, либо нет.</p>
+            <ul id="bookingOffers" />
+            <input id="bookingEntities" type="button" onclick="RefreshOffers();" value="Обновить" />
+        </div>
+        <div style="background-color: grey; height: 12px; width: 800px; position:relative"></div>
+        <div style="position:relative">
+            Subject Name <input id="subjectName" type="text" />На даты: с <input id="freeFrom1" type="date" /> по <input id="freeTill1" type="date" />
+            <input id="addOffer" type="button" onclick="CreateBookingOffer();" value="Создать предложение" />
+            <p>По этой кнопке создается пользовтельское предложение для бронирования, которое не попадет в справочник и будет удалено после истечения срока. Такой тип предложений обязательно должен иметь даты. (Функционал для пользователя, который хочет отдать что-то на время)</p>
+        </div>
+
+        <div style="background-color: grey; height: 12px; width: 800px" ></div>
+        <div>
+            Subject Id <input id="offerFoSubjectId" type="text" />Бесконечный срок<input type="checkbox" id="isInfinite" /> На даты: с <input id="freeFrom2" type="date" /> по <input id="freeTill2" type="date" />
+            <p>Если предмет доступен для бронирования всегда - обязательно установить галочку - "бесконечно" и даты вводить не обязательно. Иначе - даты являются обязательными</p>
+            <input id="addOfferForSubj" type="button" onclick="CreateBookingOfferForSubject();" value="Опубликовать" />
+            <p>По этой кнопке создается предложение для бронирования существующего в справочнике предмета. Такое предложение может не иметь дат и связяться "бесконечным" (например книги). (Функционал для пользователя, который хочет отдать что-то на время)</p>
+
+        </div>
+        <div style="background-color: grey; height: 12px; width: 800px" ></div>
+        <div>
+            Offer Id <input id="bookItOfferId" type="text" />На даты: с <input id="bookItFrom" type="date" /> по <input id="bookItTill" type="date" />
+            <input id="bookIt" type="button" onclick="BookIt();" value="Забукать" />
+            <p>Забукать мы может только предложение на бронирование (а не сам предмет). Здесь даты обязательны. (Функционал для пользователя, который хочет взять)</p>
+        </div>
+    </div>
+
+    <script>
+        var uriSubjects = '/api/Booking/subjects';
+        var uriOffers = '/api/Booking/offers';
+        var uriOffersForSubject = '/api/Booking/subjects/{0}/offers';
+        var uriBookIt = '/api/Booking/offers/{0}';
+
+
+
+        String.prototype.format = function () {
+            var args = arguments;
+            return this.replace(/\{(\d+)\}/g, function (m, n) {
+                return args[n] ? args[n] : m;
+            });
+        };
+
+        $(document).ready(function () {
+            RefreshSubjects();
+        });
+
+        function RefreshSubjects() {
+            $.getJSON(uriSubjects)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $('#bookingEntities li').remove();
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: item.Id + " " + item.Name }).appendTo($('#bookingEntities'));
+                    });
+                });
+        }
+
+        function RefreshOffers() {
+            $.getJSON(uriOffers)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $('#bookingOffers li').remove();
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        var liText = item.Id + " " + item.SubjectName;
+                        var liId = "li" + item.Id;
+                        $('<li>', { text: liText, id: liId }).appendTo($('#bookingOffers'));
+                       
+                        if (item.TimeSlots != null) {
+                            var ulId = "ul" + item.Id;
+                            $('<ul>', { id: ulId }).appendTo($("#" + liId));
+                            $.each(item.TimeSlots, function (i, innerItem) {
+                                // Add a list item for the product.
+                                var txt = "";
+                                if (innerItem.IsOccupied) txt = "занят";
+                                else txt = "свободен";
+                                $('<li>', { text: txt + " c " + innerItem.StartDate + " по " + innerItem.EndDate }).appendTo($("#" + ulId));
+                            });
+                        }                    
+                    });
+                });
+        }
+
+        function CreateBookingOfferForSubject() {
+            var bookingSubjectId = $('#offerFoSubjectId').val();
+            var subjectName = $('#subjectName').val();
+            var freeFrom = $('#freeFrom2').val();
+            var freeTill = $('#freeTill2').val();
+            var isInfinite = $('#isInfinite').is(':checked');
+            var uri = uriOffersForSubject.format(bookingSubjectId);
+            $.ajax({
+                url: uri,
+                type: "POST",
+                data: { SubjectName: subjectName, StartDate: freeFrom, EndDate: freeTill, IsInfinite: isInfinite },
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    //alert("ок");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("Ошибка: ");
+                }
+            });
+        }
+
+        function CreateBookingOffer() {
+            var uri = uriOffers;
+            var subjectName = $('#subjectName').val();
+            var freeFrom = $('#freeFrom1').val();
+            var freeTill = $('#freeTill1').val();
+            $.ajax({
+                url: uriOffers,
+                type: "POST",
+                data: { SubjectName: subjectName, StartDate: freeFrom, EndDate: freeTill },
+                dataType: "application/json",
+                success: function (data, textStatus, jqXHR) {
+                    //alert("ок");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("Ошибка: " + textStatus + " " + errorThrown);
+                }
+            });
+        }
+
+        function BookIt() {
+            var bookingOfferId = $('#bookItOfferId').val();
+            var bookItFrom = $('#bookItFrom').val();
+            var bookItTill = $('#bookItTill').val();
+            $.ajax({
+                url: uriBookIt.format(bookingOfferId),
+                type: "POST",
+                data: { StartDate: bookItFrom, EndDate: bookItTill },
+                dataType: "application/json",
+                success: function (data, textStatus, jqXHR) {
+                    //alert("ок");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("Ошибка: " + textStatus + " " + errorThrown);
+                }
+            });
+        }
+
+
+        function filter() {
+            //todo filter here
+        }
+    </script>
+
+</body>
+</html>

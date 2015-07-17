@@ -84,18 +84,16 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Pages\default.html" />
+    <Content Include="Pages\TestPage.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BookingEntitiesController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookingEntity.cs" />
-    <Compile Include="Models\BookingTimeSlot.cs" />
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +107,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookIt.BLL\BookIt.BLL.csproj">
+      <Project>{bd8f78e9-f4d0-47ab-9cc7-a4c9e3c15330}</Project>
+      <Name>BookIt.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookIt.DAL\BookIt.DAL.csproj">
+      <Project>{579defbc-4220-4b81-8ab8-4983eeb708b4}</Project>
+      <Name>BookIt.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookIt.Repository\BookIt.Repository.csproj">
+      <Project>{bf418429-9852-4eb8-9c41-6c920d1b57c5}</Project>
+      <Name>BookIt.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
