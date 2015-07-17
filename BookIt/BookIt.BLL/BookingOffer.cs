@@ -41,7 +41,6 @@ namespace BookIt.BLL
                     slotsList.RemoveAt(i + 1);
                     count--;
                 }
-
             }
             TimeSlots = slotsList;
         }

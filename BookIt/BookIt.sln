@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.BLL", "BookIt.BLL\Bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Repository", "BookIt.Repository\BookIt.Repository.csproj", "{BF418429-9852-4EB8-9C41-6C920D1B57C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.UI", "BookIt.UI\BookIt.UI.csproj", "{79970608-1CE4-411E-9100-246E59B3B1E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BF418429-9852-4EB8-9C41-6C920D1B57C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF418429-9852-4EB8-9C41-6C920D1B57C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF418429-9852-4EB8-9C41-6C920D1B57C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79970608-1CE4-411E-9100-246E59B3B1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79970608-1CE4-411E-9100-246E59B3B1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79970608-1CE4-411E-9100-246E59B3B1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79970608-1CE4-411E-9100-246E59B3B1E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

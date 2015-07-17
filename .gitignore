@@ -39,3 +39,4 @@ publish/
 # NuGet Packages
 *.nupkg
 packages/
+/BookIt/Web1
