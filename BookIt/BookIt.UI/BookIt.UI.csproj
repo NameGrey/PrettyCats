@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\main-page.css" />
     <Content Include="Css\reservation-details.css" />
     <Content Include="Css\reservations-search.css" />
     <Content Include="Css\reservations.css" />
