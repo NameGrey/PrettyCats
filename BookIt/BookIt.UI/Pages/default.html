@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html ng-app="bookItApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Hello BookIt!</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- jQuery Core -->
+    <script src="../Content/EpamElements/js/lib/jquery-1.11.1.min.js"></script>
+
+    <!-- Bootstrap Core -->
+    <link rel="stylesheet" href="../Content/EpamElements/bootstrap/css/bootstrap.min.css" />
+    <script src="../Content/EpamElements/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- EPAM UUI JavaScript Core -->
+    <script src="../Content/EpamElements/js/uui-core.min.js" type="text/javascript"></script>
+
+    <!-- EPAM UUI Styles Core -->
+    <link rel="stylesheet" href="../Content/EpamElements/css/uui-all.css" />
+
+    <!-- Scroll for UUI Sidebar -->
+    <link rel="stylesheet" href="../Content/EpamElements/css/lib/components/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="../Content/EpamElements/fonts/font-awesome/css/font-awesome.min.css" />
+
+    <script src="../Content/EpamElements/js/lib/components/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- AngularJS references -->
+    <script src="../Scripts/vendor/angular.min.js" type="text/javascript"></script>
+    <script src="../Scripts/vendor/angular-route.js" type="text/javascript"></script>
+
+    <!-- Angular module for master page -->
+    <script type="text/javascript" src="../Scripts/master-page.js"></script>
+    <!-- Angular module for controllers page -->
+    <script type="text/javascript" src="../Scripts/controllers.js"></script>
+    
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    
+    <!-- CSS tables for html-partials-->
+    <link rel="stylesheet" href="../css/reservation-details.css" />
+    <link rel="stylesheet" href="../css/reservations.css" />
+    <link rel="stylesheet" href="../css/reservations-search.css" />
+    
+    <!-- For autofilter component-->
+    <script src="../Content/EpamElements/js/lib/components/bootstrap3-typeahead.min.js"></script>
+    
+    <!-- For custom checkbox-->
+    <link rel="stylesheet" href="../Content/EpamElements/css/lib/components/awesome-bootstrap-checkbox.css" />
+    <link rel="stylesheet" href="../Content/EpamElements/fonts/font-awesome/css/font-awesome.min.css" />
+
+    <!-- For custom combobox-->
+    <link rel="stylesheet" href="../Content/EpamElements/css/lib/components/bootstrap-select.min.css" />
+    <script src="../Content/EpamElements/js/lib/components/bootstrap-select.min.js"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="uui-header dark-gray">
+                <nav role="navigation">
+                    <div class="sidebar-toggle-box blue">
+                        <div data-original-title="" title="">
+                            <span id="toggleNavigation" class="fa fa-reorder">
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="epam-logo">
+                        <img src="../Content/EpamElements/images/Logo_Epam_Color.svg" alt="" width="86" />
+                    </div>
+                    <a href="#" class="brand-logo">
+                        <img src="../Content/EpamElements/images/ic_logo_UUi.svg" alt="" width="38" />
+                        UNIFIED UI
+                    </a>
+                    <ul class="uui-navigation nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Item 1
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Sub Item 1</a></li>
+                                <li><a href="#">Sub Item 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Item 2
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Sub Item 1</a></li>
+                                <li><a href="#">Sub Item 2</a></li>
+                                <li class="active"><span>Sub Item 3</span></li>
+                                <li class="disable"><span>Sub Item 4</span></li>
+                                <li><a href="#">Sub Item 5</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Item 3</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <aside>
+            <div class="uui-side-bar blue">
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>Item 1</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu active">
+                        <a href="#">
+                            <i class="fa fa-cogs"></i>
+                            <span>Item 2</span>
+                            <div class="fa fa-caret-right arrow"></div>
+                        </a>
+                        <ul class="sub">
+                            <li>
+                                <a href="#">
+                                    <p>
+                                        <span>Sub Item 1</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p>
+                                        <span>Sub Item 2</span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="uui-main-container">
+            <main ng-view=""></main>
+        </div>
+        <script type="text/javascript">UUI.Vertical_Menu.init({ open: true });
+            UUI.Panels.init();
+           
+        </script>
+    </div>
+</body>
+</html>

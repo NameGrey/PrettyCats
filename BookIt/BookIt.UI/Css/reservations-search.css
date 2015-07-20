@@ -1,0 +1,25 @@
+﻿#button-search {
+    margin-bottom: 15px;
+    margin-right: 30px;
+    width: 150px;
+}
+
+#category-picker {
+    width: 300px;
+    margin-right: 30px;
+}
+
+#text-search {
+     width: 300px;
+}
+
+#text-label {
+    margin-left: 230px;
+}
+
+#category-lagel {
+    
+}
+.inline-elem {
+    display: inline-block;
+}

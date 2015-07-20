@@ -1,0 +1,28 @@
+﻿<h1>You can book:</h1>
+<section class="uui-info-panel-horizontal blue">
+    <div class="info-panel-body">
+        <div class="info-panel-section" ng-controller="ReservationSearchCtrl">
+
+
+            <button id="button-search" class="uui-button dark-blue round">Filter</button>
+            <p class="checkbox inline-elem">
+                <input type="checkbox" id="onlyfree" class="uui-form-element dark-blue" />
+                <label for="onlyfree">Only free</label>
+            </p>
+            <br>
+            <h3 id="category-lagel" class="inline-elem">Category:</h3>
+            <h3 id="text-label" class="inline-elem">Text:</h3>
+            
+            <br>
+            <select id="category-picker" class="selectpicker uui-form-element lime-green" data-live-search="true">
+                <option>Custom Drop-down 1</option>
+                <option>Custom Drop-down 2</option>
+                <option>Custom Drop-down 3</option>
+            </select>
+
+            <input id="text-search" type="text" class="uui-form-element inline-elem" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' />
+
+
+        </div>
+    </div>
+</section>
