@@ -1,23 +1,30 @@
-﻿<xmp>
-    <!DOCTYPE HTML>
+﻿    <!DOCTYPE HTML>
     <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title></title>
+        <script src="/Scripts/vendor/angular.js"></script>
+        <script src="/Scripts/app.js"></script>
+        <script src="/Scripts/mainCtrl.js"></script>
+        <script src="/Scripts/bookingService.js"></script>
     </head>
     <body>
-        <div data-ng-app="app" data-ng-controller="mainCtrl as bm">
-         
 
+        <div ng-app="app" ng-controller="bookingCtrl" ng-model="bookingModel">
+            <table class="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>
+                        Time
+                    </th>
+                </tr>
+              
+                <tr ng-repeat="s in subjects">
+                    <td>{{s.Id}}</td>
+                    <td>{{s.Name}}</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
-        <script src="Scripts/vendor/angular.js"></script>
-
-        <script>
-
-        </script>
-        <script src="app.js"></script>
-        <script src="mainCtrl.js"></script>
-        <script src="bookingService.js"></script>
-
-    </body>
+</body>
 </html>
-</xmp>

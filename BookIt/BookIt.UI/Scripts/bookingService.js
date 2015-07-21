@@ -5,9 +5,19 @@
     function bookingService($http, $q) {
         // Define the functions and properties to reveal.
         var service = {
-            registerUser: registerUser,    
+            getSubjects: getSubjects,
+            getOffers: getOffers,
         };
-        var serverBaseUrl = "http://localhost:60737";
+
+        var serverBaseUrl = "http://localhost:55060/api/Booking";
+
+        function getSubjects() {
+            return $http.get(serverBaseUrl + '/subjects');
+        }
+
+        function getOffers() {
+            return $http.get(serverBaseUrl + '/offers');
+        }
 
         return service;
     }
