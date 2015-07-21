@@ -57,9 +57,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\index.html" />
-    <Content Include="Scripts\bookingService.js" />
-    <Content Include="Scripts\mainCtrl.js" />
+    <Content Include="Css\main-page.css" />
+    <Content Include="Css\reservation-details.css" />
+    <Content Include="Css\reservations-search.css" />
+    <Content Include="Css\reservations.css" />
+    <Content Include="Images\CP-Logo_full1.png" />
+    <Content Include="Images\CP-Logo_full2.png" />
+    <Content Include="Pages\default.html" />
+    <Content Include="Pages\html-partials\reservation-detail.html" />
+    <Content Include="Pages\html-partials\reservations-search.html" />
+    <Content Include="Pages\html-partials\reservations.html" />
+    <Content Include="Scripts\controllers.js" />
+    <Content Include="Scripts\master-page.js" />
+    <Content Include="Scripts\vendor\angular-route.js" />
     <Content Include="Scripts\vendor\angular.min.js.map" />
     <Content Include="packages.config" />
     <Content Include="Content\EpamElements\bootstrap\css\bootstrap-theme.css.map" />
@@ -210,7 +220,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\app.js" />
     <Content Include="Content\EpamElements\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\EpamElements\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Content\EpamElements\bootstrap\css\bootstrap.css" />
