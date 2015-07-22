@@ -42,6 +42,7 @@
     <Compile Include="BookingSubject.cs" />
     <Compile Include="BookingOffer.cs" />
     <Compile Include="BookingTimeSlot.cs" />
+    <Compile Include="BookingTimeSlotComparer.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
