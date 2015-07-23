@@ -67,6 +67,7 @@
     <Content Include="Pages\html-partials\reservation-detail.html" />
     <Content Include="Pages\html-partials\reservations-search.html" />
     <Content Include="Pages\html-partials\reservations.html" />
+    <Content Include="Scripts\bookingService.js" />
     <Content Include="Scripts\controllers.js" />
     <Content Include="Scripts\master-page.js" />
     <Content Include="Scripts\vendor\angular-route.js" />

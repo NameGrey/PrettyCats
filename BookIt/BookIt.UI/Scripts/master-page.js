@@ -7,7 +7,7 @@ bookItApp.config(['$routeProvider',
                 templateUrl: 'html-partials/reservations.html',
                 controller: 'ReservationListCtrl'
             }).
-            when('/reservations/:reservationId', {
+            when('/reservations/:id', {
                 templateUrl: 'html-partials/reservation-detail.html',
                 controller: 'ReservationDetailCtrl'
             }).

@@ -3,27 +3,18 @@
 <table class="uui-table stripe border">
     <thead>
         <tr>
-            <th>Category ID</th>
-            <th>Id</th>
-            <th>IsOccupied</th>
             <th>Name</th>
+            <th>Category ID</th>
+            <th>IsOccupied</th>      
             <th>Time Slots</th>
         </tr>
     </thead>
     <tbody ng-controller="ReservationListCtrl">
-        <tr ng-repeat="detail in details">
-            <td>{{detail.CategoryId}}</td>
-            <td>{{detail.Id}}</td>
-            <td>{{detail.IsOccupied}}</td>
-            <td>{{detail.Name}}</td>
-            <td>{{detail.TimeSlots}}</td>
-        </tr>
-        <tr>
-            <td>va1</td>
-            <td>va2</td>
-            <td>va3</td>
-            <td>va4</td>
-            <td>va5</td>
+        <tr ng-repeat="s in subjects">
+            <td><a href="#/reservations/{{s.Id}}/">{{s.Name}}</a></td>
+            <td>{{s.CategoryId}}</td>
+            <td>{{s.IsOccupied}}</td>
+            <td>{{s.TimeSlots}}</td>
         </tr>
     </tbody>
 </table>

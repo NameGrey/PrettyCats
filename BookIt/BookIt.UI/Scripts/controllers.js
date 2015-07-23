@@ -2,33 +2,29 @@
 
 
 bookItControllers.controller('ReservationListCtrl',
-  function ($scope, $http) {
+  function ($scope, bookingService) {
 
-      $http.get('http://localhost:55060/api/Booking/subjects').success(function(data, status, headers, config) {
-          $scope.details = data;
-      }).
-      error(function (data, status, headers, config) {
-         alert('Panic!!! Panic!!!');
+      bookingService.getSubjects()
+      .success(function (data, status, headers, config) {
+          $scope.subjects = data;
+      })
+      .error(function (data, status, headers, config) {
+          alert('Panic!!! Panic!!!');
       });
-
-
-     // $scope.getReservations = function (){
-     //         // Send an AJAX request
-     //         $.getJSON($scope.uri)
-     //             .done(function(data) {
-     //                 // On success, 'data' contains a list of products.
-     //                 $scope.details = data;
-     //             alert('vavavava');
-     //         });
-     //};
-     //$scope.getReservations();
 
   });
 
-bookItControllers.controller('ReservationDetailCtrl', ['$scope', '$routeParams',
-  function ($scope) {
-      
-  }]);
+bookItControllers.controller('ReservationDetailCtrl', 
+  function ($scope, $routeParams, bookingService) {
+      $scope.Id = $routeParams.id;
+      bookingService.getSubjectDetails($scope.Id)
+        .success(function (data, status, headers, config) {
+            $scope.subject = data;
+        })
+        .error(function (data, status, headers, config) {
+            alert('Panic!!! Panic!!!');
+        });
+  });
 
 
 bookItControllers.controller('ReservationSearchCtrl', ['$scope', '$routeParams',
