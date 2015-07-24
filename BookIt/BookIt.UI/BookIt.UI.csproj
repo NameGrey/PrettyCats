@@ -58,15 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Css\main-page.css" />
-    <Content Include="Css\reservation-details.css" />
-    <Content Include="Css\reservations-search.css" />
-    <Content Include="Css\reservations.css" />
+    <Content Include="Css\subjects.css" />
+    <Content Include="Css\subject-details.css" />
+    <Content Include="Css\offer-details.css" />
+    <Content Include="Css\offers.css" />
     <Content Include="Images\CP-Logo_full1.png" />
     <Content Include="Images\CP-Logo_full2.png" />
     <Content Include="Pages\default.html" />
-    <Content Include="Pages\html-partials\reservation-detail.html" />
-    <Content Include="Pages\html-partials\reservations-search.html" />
-    <Content Include="Pages\html-partials\reservations.html" />
+    <Content Include="Pages\html-partials\offer-details.html" />
+    <Content Include="Pages\html-partials\subject-details.html" />
+    <Content Include="Pages\html-partials\offers.html" />
+    <Content Include="Pages\html-partials\subjects.html" />
+    <Content Include="Scripts\bookingService.js" />
     <Content Include="Scripts\controllers.js" />
     <Content Include="Scripts\master-page.js" />
     <Content Include="Scripts\vendor\angular-route.js" />

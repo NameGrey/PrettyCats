@@ -3,20 +3,24 @@
 bookItApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
-            when('/reservations', {
-                templateUrl: 'html-partials/reservations.html',
-                controller: 'ReservationListCtrl'
+            when('/subjects', {
+                templateUrl: 'html-partials/subjects.html',
+                controller: 'SubjectsCtrl'
             }).
-            when('/reservations/:reservationId', {
-                templateUrl: 'html-partials/reservation-detail.html',
-                controller: 'ReservationDetailCtrl'
+            when('/subjects/:id', {
+                templateUrl: 'html-partials/subject-details.html',
+                controller: 'SubjectDetailsCtrl'
             }).
-             when('/reservations-search', {
-                 templateUrl: 'html-partials/reservations-search.html',
-                 controller: 'ReservationSearchCtrl'
+             when('/offers', {
+                 templateUrl: 'html-partials/offers.html',
+                 controller: 'OffersCtrl'
+             }).
+             when('/offers/:id', {
+                 templateUrl: 'html-partials/offer-details.html',
+                 controller: 'OfferDetailsCtrl'
              }).
             otherwise({
-                redirectTo: '/reservations'
+                redirectTo: '/subjects'
             });
     }]);
 

@@ -10,15 +10,17 @@
 }
 
 #text-search {
-     width: 300px;
+    width: 300px;
+
 }
 
 #text-label {
     margin-left: 230px;
+    margin-top: 0px;
 }
 
 #category-lagel {
-    
+    margin-top: 0px;
 }
 .inline-elem {
     display: inline-block;
