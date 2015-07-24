@@ -6,6 +6,7 @@ using System.Web.Routing;
 
 namespace BookIt
 {
+	//http://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)

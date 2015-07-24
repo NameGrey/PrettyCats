@@ -36,17 +36,18 @@ namespace BookIt.Controllers
 
 		[HttpGet]
 		[ActionName("subjects")]
+		public BookingSubject GetBookingSubject(int id)
+		{
+			return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id); ;
+		}
+
+		[HttpGet]
+		[ActionName("subjects")]
 		public IEnumerable<BookingSubject> GetAllBookingSubjects()
 		{
 			return repository.GetAllBookingSubjects();
 		}
 
-		[HttpGet]
-		[ActionName("subjects")]
-		public IEnumerable<BookingSubject> GetBookingSubject(int id)
-		{
-			return repository.GetAllBookingSubjects().Where(s => s.Id == id); ;
-		}
 
 		[HttpGet]
 		[ActionName("offers")]
