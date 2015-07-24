@@ -16,6 +16,10 @@ namespace BookIt.Controllers
 	{
 		IBookItRepository repository = null;
 
+		public BookingController()
+		{
+			repository = new TempStaticRepository();
+		}
 
 		public BookingController(IBookItRepository repository)
 		{
