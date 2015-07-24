@@ -12,6 +12,15 @@ bookItControllers.controller('SubjectsCtrl',
           alert('Panic!!! Panic!!!');
       });
 
+      $scope.filter = function() {
+          bookingService.getFilteredSubjects($scope.searchCategory, $scope.searchText)
+            .success(function (data, status, headers, config) {
+                 $scope.subjects = data;
+             })
+            .error(function (data, status, headers, config) {
+                alert('Panic!!! Panic!!!');
+            });
+      };
   });
 
 
@@ -51,7 +60,3 @@ bookItControllers.controller('OfferDetailsCtrl',
             alert('Panic!!! Panic!!!');
         });
   });
-
-
-
-

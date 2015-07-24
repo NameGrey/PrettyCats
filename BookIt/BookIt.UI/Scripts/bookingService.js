@@ -9,13 +9,18 @@
             getSubjects: getSubjects,
             getOffers: getOffers,
             getSubjectDetails: getSubjectDetails,
-            getOfferDetails: getOfferDetails
+            getOfferDetails: getOfferDetails,
+            getFilteredSubjects : getFilteredSubjects
         };
 
         var serverBaseUrl = "http://localhost:55060/api/Booking";
 
         function getSubjects() {
             return $http.get(serverBaseUrl + '/subjects');
+        }
+
+        function getFilteredSubjects(categoryId, subjectName) {
+            return $http.get(serverBaseUrl + '/subjects/categoryId:' + categoryId + '/subjectName:' + subjectName );
         }
 
         function getOffers() {

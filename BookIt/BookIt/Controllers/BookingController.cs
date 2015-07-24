@@ -49,6 +49,13 @@ namespace BookIt.Controllers
         }
 
         [HttpGet]
+        [ActionName("subjects")]
+        public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
+        {
+            return repository.GetAllBookingSubjects().Where(s => s.CategoryId == categoryId && s.Name.ToUpper().Contains(text.ToUpper()));
+        }
+
+        [HttpGet]
         [ActionName("offers")]
         public IEnumerable<BookingOffer> GetAllBookingOffers()
         {
