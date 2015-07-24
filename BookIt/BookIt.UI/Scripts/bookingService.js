@@ -20,7 +20,7 @@
         }
 
         function getFilteredSubjects(categoryId, subjectName) {
-            return $http.get(serverBaseUrl + '/subjects/categoryId:' + categoryId + '/subjectName:' + subjectName );
+            return $http.get(serverBaseUrl + '/subjects/' +categoryId + '/' + subjectName );
         }
 
         function getOffers() {
