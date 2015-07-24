@@ -1,51 +1,52 @@
-﻿<h1>Filter subjects:</h1>
-<section class="uui-info-panel-horizontal blue">
-    <div class="info-panel-body">
-        <div class="info-panel-section">
+﻿<div id="subjects" ng-controller="SubjectsCtrl">
+    <h1>Filter subjects:</h1>
+    <section class="uui-info-panel-horizontal blue">
+        <div class="info-panel-body">
+            <div class="info-panel-section">
 
 
-            <button id="button-search" class="uui-button dark-blue round">Filter</button>
-            <p class="checkbox inline-elem">
-                <input type="checkbox" id="onlyfree" class="uui-form-element dark-blue" />
-                <label for="onlyfree">Only free</label>
-            </p>
-            <br>
-            <h3 id="category-lagel" class="inline-elem">Category:</h3>
-            <h3 id="text-label" class="inline-elem">Text:</h3>
-            
-            <br>
-            <select id="category-picker" class="selectpicker uui-form-element lime-green" data-live-search="true">
-                <option>Custom Drop-down 1</option>
-                <option>Custom Drop-down 2</option>
-                <option>Custom Drop-down 3</option>
-            </select>
+                <button ng-click="filter()" id="button-search" class="uui-button dark-blue round">Filter</button>
+                <p class="checkbox inline-elem">
+                    <input type="checkbox" id="onlyfree" class="uui-form-element dark-blue" />
+                    <label for="onlyfree">Only free</label>
+                </p>
+                <br>
+                <h3 id="category-lagel" class="inline-elem">Category:</h3>
+                <h3 id="text-label" class="inline-elem">Text:</h3>
 
-            <input id="text-search" type="text" class="uui-form-element inline-elem" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' />
+                <br>
+                <select ng-model="searchCategory" id="category-picker" class="selectpicker uui-form-element lime-green" data-live-search="true">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+
+                <input ng-model="searchText" id="text-search" type="text" class="uui-form-element inline-elem" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' />
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<h1>Subjects:</h1>
-<table class="uui-table stripe border">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Category ID</th>
-            <th>IsOccupied</th>
-            <th>Time Slots</th>
-        </tr>
-    </thead>
-    <tbody ng-controller="SubjectsCtrl">
-        <tr ng-repeat="s in subjects">
-            <td><a href="#/subjects/{{s.Id}}/">{{s.Name}}</a></td>
-            <td>{{s.CategoryId}}</td>
-            <td>{{s.IsOccupied}}</td>
-            <td>{{s.TimeSlots}}</td>
-        </tr>
-    </tbody>
-</table>
-
+    <h1>Subjects:</h1>
+    <table class="uui-table stripe border">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category ID</th>
+                <th>IsOccupied</th>
+                <th>Time Slots</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="s in subjects">
+                <td><a href="#/subjects/{{s.Id}}/">{{s.Name}}</a></td>
+                <td>{{s.CategoryId}}</td>
+                <td>{{s.IsOccupied}}</td>
+                <td>{{s.TimeSlots}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
 
