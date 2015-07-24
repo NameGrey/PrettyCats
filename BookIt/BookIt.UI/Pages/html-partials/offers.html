@@ -1,7 +1,7 @@
 ﻿<h1>You can book:</h1>
 <section class="uui-info-panel-horizontal blue">
     <div class="info-panel-body">
-        <div class="info-panel-section" ng-controller="OfferSearchCtrl">
+        <div class="info-panel-section">
 
 
             <button id="button-search" class="uui-button dark-blue round">Filter</button>
@@ -37,7 +37,7 @@
     </thead>
     <tbody ng-controller="OffersCtrl">
         <tr ng-repeat="offer in offers">
-            <td><a href="#/offer-details/{{offer.Id}}/">{{offer.Name}}</a></td>
+            <td><a href="#/offers/{{offer.Id}}/">{{offer.Name}}</a></td>
             <td>{{offer.CategoryId}}</td>
             <td>{{offer.IsOccupied}}</td>
             <td>{{offer.TimeSlots}}</td>

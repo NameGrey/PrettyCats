@@ -1,7 +1,7 @@
 ﻿<h1>You can book:</h1>
 <section class="uui-info-panel-horizontal blue">
     <div class="info-panel-body">
-        <div class="info-panel-section" ng-controller="SubjectSearchCtrl">
+        <div class="info-panel-section">
 
 
             <button id="button-search" class="uui-button dark-blue round">Filter</button>
@@ -38,7 +38,7 @@
     </thead>
     <tbody ng-controller="SubjectsCtrl">
         <tr ng-repeat="s in subjects">
-            <td><a href="#/subject-details/{{s.Id}}/">{{s.Name}}</a></td>
+            <td><a href="#/subjects/{{s.Id}}/">{{s.Name}}</a></td>
             <td>{{s.CategoryId}}</td>
             <td>{{s.IsOccupied}}</td>
             <td>{{s.TimeSlots}}</td>
