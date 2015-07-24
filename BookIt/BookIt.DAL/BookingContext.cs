@@ -9,16 +9,9 @@ namespace BookIt.DAL
 {
     public class BookingContext:DbContext
     {
-		public DbSet<User> Users { get; set; }
-		public DbSet<Category> Categories { get; set; }
-		public DbSet<Good> Goods { get; set; }
-		public DbSet<Booking> Bookings { get; set; }
-		public DbSet<GoodBooking> GoodBookings { get; set; }
-		public DbSet<GoodBookingItem> GoodBookingItems { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Good>().Property(g => g.OwnerID).IsOptional();
 
 			base.OnModelCreating(modelBuilder);
 		}
