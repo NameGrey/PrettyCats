@@ -40,3 +40,4 @@ publish/
 *.nupkg
 packages/
 /BookIt/Web1
+*.orig

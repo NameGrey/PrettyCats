@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace BookIt.BLL
 {
-    public class BookingOffer
-    {
-        public int Id { get; set; }
-        public int? BookingSubjectId { get; set; }
+	public class BookingOffer
+	{
+		public int Id { get; set; }
+		public int? BookingSubjectId { get; set; }
 		public SortedSet<BookingTimeSlot> TimeSlots { get; set; }
-        public bool IsOccupied { get; set; }
-        public Person Owner { get; set; }
-        public string SubjectName { get; set; }
-        public bool IsInfinite { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+		public bool IsOccupied { get; set; }
+		public Person Owner { get; set; }
+		public string SubjectName { get; set; }
+		public bool IsInfinite { get; set; }
+		public DateTime? StartDate { get; set; }
+		public DateTime? EndDate { get; set; }
 
 		public BookingOffer()
 		{
@@ -25,91 +25,154 @@ namespace BookIt.BLL
 
 		}
 
-        /// <summary>
-        /// Сортирует промежутки времени, чтобы они шли по порядку, 
-        /// объединяет соседние свободные промежутки, и соседние занатые промежутки, если они заняты одним и тем же пользователем
-        /// </summary>
-//		private void NormalizeTimeSlots()
-//		{
-//#warning что-то тут работает криво
-//			List<BookingTimeSlot> slotsList = TimeSlots.OrderBy(ts => ts.StartDate).ToList();
-//			int count = slotsList.Count - 1;
-//			for (int i = 0; i < count; i++)
-//			{
-//				if (!slotsList[i].IsOccupied && !slotsList[i + 1].IsOccupied)
-//				{
-//					slotsList[i].EndDate = slotsList[i + 1].EndDate;
-//					slotsList.RemoveAt(i + 1);
-//					count--;
-//				}
-//				else if (slotsList[i].IsOccupied && slotsList[i + 1].IsOccupied && slotsList[i].Person.Id == slotsList[i + 1].Person.Id)
-//				{
-//					slotsList[i].EndDate = slotsList[i + 1].EndDate;
-//					slotsList.RemoveAt(i + 1);
-//					count--;
-//				}
-//			}
-//			TimeSlots = slotsList;
-//		}
+		/// <summary>
+		/// Сортирует промежутки времени, чтобы они шли по порядку, 
+		/// объединяет соседние свободные промежутки, и соседние занатые промежутки, если они заняты одним и тем же пользователем
+		/// </summary>
+		//		private void NormalizeTimeSlots()
+		//		{
+		//#warning что-то тут работает криво
+		//			List<BookingTimeSlot> slotsList = TimeSlots.OrderBy(ts => ts.StartDate).ToList();
+		//			int count = slotsList.Count - 1;
+		//			for (int i = 0; i < count; i++)
+		//			{
+		//				if (!slotsList[i].IsOccupied && !slotsList[i + 1].IsOccupied)
+		//				{
+		//					slotsList[i].EndDate = slotsList[i + 1].EndDate;
+		//					slotsList.RemoveAt(i + 1);
+		//					count--;
+		//				}
+		//				else if (slotsList[i].IsOccupied && slotsList[i + 1].IsOccupied && slotsList[i].Person.Id == slotsList[i + 1].Person.Id)
+		//				{
+		//					slotsList[i].EndDate = slotsList[i + 1].EndDate;
+		//					slotsList.RemoveAt(i + 1);
+		//					count--;
+		//				}
+		//			}
+		//			TimeSlots = slotsList;
+		//		}
 
-        /// <summary>
-        /// Бронировать конкретное предложение на указанный период
-        /// </summary>
-        /// <param name="startDate">Дата начала резервирования</param>
-        /// <param name="endDate">Дата окончания резервирования</param>
-        /// <returns>Признак, успешно забронировано или нет</returns>
-        public bool Book(DateTime startDate, DateTime endDate, Person person)
-        {
-            //если тайм слотов еще не было, значит считаем, что полностью свободный на неограниченное время промежуток времени
-			if (this.TimeSlots.Count == 0)
+		public bool Book(int slotId, DateTime startDate, DateTime endDate, Person person)
+		{
+			if (!this.IsInfinite)
 			{
-				BookingTimeSlot ts = new BookingTimeSlot()
+				BookingTimeSlot slot = this.TimeSlots.FirstOrDefault(ts => ts.Id == slotId);
+				if (slot != null)
 				{
-					StartDate = startDate,
-					EndDate = endDate,
-					IsOccupied = true
-				};
-			}
-			else
-			{
-				//if not book, for example
-				if (!this.IsInfinite)
-				{
-     				//находим промежуток времени, который влючает переданные даты
-					BookingTimeSlot slot = this.TimeSlots.FirstOrDefault(ts => ts.StartDate.Date <= startDate.Date && ts.EndDate.Date >= endDate.Date && !ts.IsOccupied);
-					if (slot == null)
+					if (slot.IsOccupied)
 						return false;
-					else
-					{
-						return BookTimeSlot(slot, startDate, endDate, person);
-					}
-
+					return BookTimeSlot(slot, startDate, endDate, person);
 				}
 				else
 				{
-#warning не сделано еще
-					throw new NotImplementedException("You can implement this case here");
+					return Book(startDate, endDate, person);
 				}
 			}
-            return false;
-        }
+			return false;
+		}
 
-        /// <summary>
-        /// Обновляет полученное предложение для бронирования данными о предмете бронивания и времени
-        /// </summary>
-        /// <param name="subject"></param>
-        public void FillFromSubject(BookingSubject subject)
-        {
-            CreateTimeSlot();
-            BookingSubjectId = subject.Id;
-            SubjectName = subject.Name;
-        }
 
-        public void FillCustomBookingOffer()
-        {
-            IsInfinite = false;
-            CreateTimeSlot();
-        }
+		/// <summary>
+		/// Бронировать конкретное предложение на указанный период
+		/// </summary>
+		/// <param name="startDate">Дата начала резервирования</param>
+		/// <param name="endDate">Дата окончания резервирования</param>
+		/// <returns>Признак, успешно забронировано или нет</returns>
+		public bool Book(DateTime startDate, DateTime endDate, Person person)
+		{
+			//if not book, for example
+			if (!this.IsInfinite)
+			{
+				//находим промежуток времени, который влючает переданные даты
+				BookingTimeSlot slot = this.TimeSlots.FirstOrDefault(ts => ts.StartDate.Date <= startDate.Date && ts.EndDate.Date >= endDate.Date && !ts.IsOccupied);
+				if (slot == null)
+					return false;
+				else
+				{
+					return BookTimeSlot(slot, startDate, endDate, person);
+				}
+
+			}
+			else
+			{
+#warning не сделано еще
+				throw new NotImplementedException("You can implement this case here");
+			}
+
+		}
+
+		public bool UnBook(int slotId, Person person)
+		{
+			if (TimeSlots.Count == 0)
+				throw new ArgumentException("This offer doesn't contain slots");
+			else
+			{
+				BookingTimeSlot slot = this.TimeSlots.FirstOrDefault(ts => ts.Id.Equals(slotId));
+				if (slot != null && CanPersonUnbookIt(slot, person))
+				{
+					return UnBookTimeSlot(slot, person);
+				}
+				else
+				{
+#warning need to return typified exception
+					return false;
+				}
+
+			}
+		}
+
+		private bool CanPersonUnbookIt(BookingTimeSlot slot, Person person)
+		{
+			return slot.Person == person;
+		}
+
+		private bool UnBookTimeSlot(BookingTimeSlot slot, Person person)
+		{
+			var leftSlot = TimeSlots.FirstOrDefault(ts => !slot.IsOccupied && ts.EndDate.Equals(slot.StartDate.AddDays(-1)));
+			var rightSlot = TimeSlots.FirstOrDefault(ts => !slot.IsOccupied && ts.StartDate.Equals(slot.EndDate.AddDays(1)));
+			if (leftSlot == null && rightSlot == null)
+			{
+				slot.IsOccupied = false;
+				slot.Person = null;
+				return true;
+			}
+
+			if (leftSlot == null)//слева занято, а справа свободно, увеличиваем правый слот
+			{
+				rightSlot.StartDate = slot.StartDate;
+				TimeSlots.Remove(slot);
+				return true;
+			}
+			if (rightSlot == null)
+			{
+				leftSlot.EndDate = slot.EndDate;
+				TimeSlots.Remove(slot);
+				return true;
+			}
+			leftSlot.EndDate = rightSlot.EndDate;
+			TimeSlots.Remove(slot);
+			TimeSlots.Remove(rightSlot);
+			return true;
+
+
+		}
+
+		/// <summary>
+		/// Обновляет полученное предложение для бронирования данными о предмете бронивания и времени
+		/// </summary>
+		/// <param name="subject"></param>
+		public void FillFromSubject(BookingSubject subject)
+		{
+			CreateTimeSlot();
+			BookingSubjectId = subject.Id;
+			SubjectName = subject.Name;
+		}
+
+		public void FillCustomBookingOffer()
+		{
+			IsInfinite = false;
+			CreateTimeSlot();
+		}
 
 		/// <summary>
 		/// Books the time slots.
@@ -125,7 +188,7 @@ namespace BookIt.BLL
 				throw new ArgumentException("You try to book not accessible time interval");
 			}
 
-			if (slot.StartDate==startDate&&slot.EndDate==endDate)
+			if (slot.StartDate == startDate && slot.EndDate == endDate)
 			{
 				slot.IsOccupied = true;
 				slot.Person = person;
@@ -146,12 +209,14 @@ namespace BookIt.BLL
 			{
 				slot.StartDate = endDate.AddDays(1);//next day
 				return true;
-				
-			}else if (slot.EndDate == endDate)
+
+			}
+			else if (slot.EndDate == endDate)
 			{
 				slot.EndDate = startDate.AddDays(-1);
 				return true;
-			}else if (slot.StartDate != startDate && slot.EndDate != endDate)
+			}
+			else if (slot.StartDate != startDate && slot.EndDate != endDate)
 			{
 				var newFreeSlot = new BookingTimeSlot()
 				{
@@ -168,29 +233,26 @@ namespace BookIt.BLL
 			return false; ;
 		}
 
-		private bool UnBookTimeSlot()
-		{
-			throw new NotImplementedException();
-		}
 
-        private void CreateTimeSlot()
-        {
-            if (!IsInfinite && (!StartDate.HasValue || !EndDate.HasValue))
-            {
-                throw new ArgumentException("This offer is not infinite, but has not start and end dates.");
-            }
-            if (!IsInfinite)
-            {
-                //создаем свободный слот 
-                BookingTimeSlot slot = new BookingTimeSlot()
-                {
-                    IsOccupied = false,
-                    StartDate = StartDate.Value,
-                    EndDate = EndDate.Value,
-                    Person = null //пока ничей
-                };
-                TimeSlots.Add(slot);
-            }
-        }
-    }
+
+		private void CreateTimeSlot()
+		{
+			if (!IsInfinite && (!StartDate.HasValue || !EndDate.HasValue))
+			{
+				throw new ArgumentException("This offer is not infinite, but has not start and end dates.");
+			}
+			if (!IsInfinite)
+			{
+				//создаем свободный слот 
+				BookingTimeSlot slot = new BookingTimeSlot()
+				{
+					IsOccupied = false,
+					StartDate = StartDate.Value,
+					EndDate = EndDate.Value,
+					Person = null //пока ничей
+				};
+				TimeSlots.Add(slot);
+			}
+		}
+	}
 }

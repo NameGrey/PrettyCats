@@ -7,8 +7,6 @@ namespace BookIt.BLL
 {
 	public class BookingTimeSlotComparer : IComparer<BookingTimeSlot>
 	{
-
-
 		#region IComparer<BookingTimeSlot> Members
 
 		public int Compare(BookingTimeSlot x, BookingTimeSlot y)
