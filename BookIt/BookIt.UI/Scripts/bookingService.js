@@ -26,8 +26,8 @@
             return $http.get(serverBaseUrl + '/subjects/' + subjectId);
         }
 
-        function getOfferDetails(subjectId) {
-            return $http.get(serverBaseUrl + '/offers/' + subjectId);
+        function getOfferDetails(offerId) {
+            return $http.get(serverBaseUrl + '/offers/' + offerId);
         }
 
         return service;

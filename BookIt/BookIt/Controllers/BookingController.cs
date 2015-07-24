@@ -43,9 +43,9 @@ namespace BookIt.Controllers
 
         [HttpGet]
         [ActionName("subjects")]
-        public IEnumerable<BookingSubject> GetBookingSubject(int id)
+        public BookingSubject GetBookingSubject(int id)
         {
-            return repository.GetAllBookingSubjects().Where(s => s.Id == id); 
+            return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id); 
         }
 
         [HttpGet]
@@ -57,9 +57,9 @@ namespace BookIt.Controllers
 
         [HttpGet]
         [ActionName("offers")]
-        public IEnumerable<BookingOffer> GetBookingOffers(int id)
+        public BookingOffer GetBookingOffer(int id)
         {
-            return repository.GetAllBookingOffers().Where(s => s.Id == id);
+            return repository.GetAllBookingOffers().FirstOrDefault(s => s.Id == id);
         }
 
 

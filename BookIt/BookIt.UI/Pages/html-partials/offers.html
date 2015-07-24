@@ -1,4 +1,4 @@
-﻿<h1>You can book:</h1>
+﻿<h1>Filter offers:</h1>
 <section class="uui-info-panel-horizontal blue">
     <div class="info-panel-body">
         <div class="info-panel-section">
@@ -37,7 +37,7 @@
     </thead>
     <tbody ng-controller="OffersCtrl">
         <tr ng-repeat="offer in offers">
-            <td><a href="#/offers/{{offer.Id}}/">{{offer.Name}}</a></td>
+            <td><a href="#/offers/{{offer.Id}}/">{{offer.SubjectName}}</a></td>
             <td>{{offer.CategoryId}}</td>
             <td>{{offer.IsOccupied}}</td>
             <td>{{offer.TimeSlots}}</td>
