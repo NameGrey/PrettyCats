@@ -1,7 +1,7 @@
 ﻿var bookItControllers = angular.module("bookItControllers", []);
 
 
-bookItControllers.controller('ReservationListCtrl',
+bookItControllers.controller('SubjectsCtrl',
   function ($scope, bookingService) {
 
       bookingService.getSubjects()
@@ -14,7 +14,21 @@ bookItControllers.controller('ReservationListCtrl',
 
   });
 
-bookItControllers.controller('ReservationDetailCtrl', 
+
+bookItControllers.controller('OffersCtrl',
+  function ($scope, bookingService) {
+
+      bookingService.getOffers()
+      .success(function (data, status, headers, config) {
+          $scope.offers = data;
+      })
+      .error(function (data, status, headers, config) {
+          alert('Panic!!! Panic!!!');
+      });
+
+  });
+
+bookItControllers.controller('SubjectDetailsCtrl', 
   function ($scope, $routeParams, bookingService) {
       $scope.Id = $routeParams.id;
       bookingService.getSubjectDetails($scope.Id)
@@ -26,13 +40,17 @@ bookItControllers.controller('ReservationDetailCtrl',
         });
   });
 
-
-bookItControllers.controller('ReservationSearchCtrl', ['$scope', '$routeParams',
-  function ($scope) {
-
-  }]);
-
-
+bookItControllers.controller('OfferDetailsCtrl',
+  function ($scope, $routeParams, bookingService) {
+      $scope.Id = $routeParams.id;
+      bookingService.getOfferDetails($scope.Id)
+        .success(function (data, status, headers, config) {
+            $scope.offer = data;
+        })
+        .error(function (data, status, headers, config) {
+            alert('Panic!!! Panic!!!');
+        });
+  });
 
 
 

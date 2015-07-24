@@ -8,7 +8,8 @@
         var service = {
             getSubjects: getSubjects,
             getOffers: getOffers,
-            getSubjectDetails: getSubjectDetails
+            getSubjectDetails: getSubjectDetails,
+            getOfferDetails: getOfferDetails
         };
 
         var serverBaseUrl = "http://localhost:55060/api/Booking";
@@ -22,6 +23,10 @@
         }
 
         function getSubjectDetails(subjectId) {
+            return $http.get(serverBaseUrl + '/subjects/' + subjectId);
+        }
+
+        function getOfferDetails(subjectId) {
             return $http.get(serverBaseUrl + '/offers/' + subjectId);
         }
 
