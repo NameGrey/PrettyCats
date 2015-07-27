@@ -24,3 +24,15 @@ bookItApp.config(['$routeProvider',
             });
     }]);
 
+bookItApp.config(['$httpProvider',
+    function ($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        //Reset headers to avoid OPTIONS request (aka preflight)
+        /*$httpProvider.defaults.headers.common = {};
+        $httpProvider.defaults.headers.post = {};
+        $httpProvider.defaults.headers.put = {};
+        $httpProvider.defaults.headers.patch = {};
+        $httpProvider.defaults.headers.post['Content-Type'] = 'json';*/
+    }]);
+

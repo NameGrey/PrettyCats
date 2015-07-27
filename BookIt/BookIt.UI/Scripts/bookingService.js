@@ -1,5 +1,4 @@
-﻿(function () {
-    'use strict';
+﻿    'use strict';
     var serviceId = 'bookingService';
     angular.module('bookItApp').factory(serviceId, ['$http', '$q', bookingService]);
 
@@ -10,7 +9,8 @@
             getOffers: getOffers,
             getSubjectDetails: getSubjectDetails,
             getOfferDetails: getOfferDetails,
-            getFilteredSubjects : getFilteredSubjects
+            getFilteredSubjects: getFilteredSubjects,
+            createOffer: createOffer
         };
 
         var serverBaseUrl = "http://localhost:55060/api/Booking";
@@ -20,7 +20,7 @@
         }
 
         function getFilteredSubjects(categoryId, subjectName) {
-            return $http.get(serverBaseUrl + '/subjects/' +categoryId + '/' + subjectName );
+            return $http.get(serverBaseUrl + '/subjects/' + categoryId + '/' + subjectName);
         }
 
         function getOffers() {
@@ -35,6 +35,17 @@
             return $http.get(serverBaseUrl + '/offers/' + offerId);
         }
 
+        function createOffer(subjectsId) {
+            var dataObj = {
+                SubjectName: "djkfhsdkjf",
+                StartDate: '07/07/2015',
+                EndDate: '08/08/2015',
+                IsInfinite: false
+            };
+            var serviceUrl = serverBaseUrl + '/subjects/' + subjectsId + "/offers";
+            return $http.post(serviceUrl, dataObj);
+
+        }
+
         return service;
     }
-})();
