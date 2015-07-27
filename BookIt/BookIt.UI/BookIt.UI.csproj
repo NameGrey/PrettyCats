@@ -81,6 +81,7 @@
     <Content Include="Images\CP-Logo_full2.png" />
     <Content Include="Pages\default.html" />
     <Content Include="Pages\html-partials\offer-details.html" />
+    <Content Include="Pages\html-partials\filter.html" />
     <Content Include="Pages\html-partials\subject-details.html" />
     <Content Include="Pages\html-partials\offers.html" />
     <Content Include="Pages\html-partials\subjects.html" />

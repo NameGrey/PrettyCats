@@ -3,28 +3,16 @@
 
 bookItControllers.controller('SubjectsCtrl',
   function ($scope, bookingService) {
-
       bookingService.getSubjects()
       .success(function (data, status, headers, config) {
           $scope.subjects = data;
       })
       .error(catchServiceError);
-
-      $scope.filter = function() {
-          bookingService.getFilteredSubjects($scope.searchCategory, $scope.searchText)
-            .success(function (data, status, headers, config) {
-                 $scope.subjects = data;
-             })
-            .error(function (data, status, headers, config) {
-                alert('Panic!!! Panic!!!');
-            });
-      };
   });
 
 
 bookItControllers.controller('OffersCtrl',
   function ($scope, bookingService) {
-
       bookingService.getOffers()
       .success(function (data, status, headers, config) {
           $scope.offers = data;

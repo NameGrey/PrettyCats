@@ -28,11 +28,15 @@ bookItApp.config(['$httpProvider',
     function ($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
-        //Reset headers to avoid OPTIONS request (aka preflight)
-        /*$httpProvider.defaults.headers.common = {};
-        $httpProvider.defaults.headers.post = {};
-        $httpProvider.defaults.headers.put = {};
-        $httpProvider.defaults.headers.patch = {};
-        $httpProvider.defaults.headers.post['Content-Type'] = 'json';*/
     }]);
+
+bookItApp.directive('filter', function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'html-partials/filter.html', // markup for filter
+        scope: {
+            search: '=' // allows data to be passed into directive from controller scope
+        }
+    };
+});
 
