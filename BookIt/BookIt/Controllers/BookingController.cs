@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BookIt.BLL;
-using BookIt.DAL;
+
 using BookIt.Repository;
 
 
