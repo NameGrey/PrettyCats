@@ -30,7 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,7 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBRepository.cs" />
     <Compile Include="IBookItRepository.cs" />
+    <Compile Include="Mappers\BookingOfferMapper.cs" />
+    <Compile Include="Mappers\BookingSubjectsMapper.cs" />
+    <Compile Include="Mappers\MapperBase.cs" />
+    <Compile Include="Mappers\PersonMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TempStaticRepository.cs" />
   </ItemGroup>
@@ -48,10 +60,18 @@
       <Project>{bd8f78e9-f4d0-47ab-9cc7-a4c9e3c15330}</Project>
       <Name>BookIt.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BookIt.DAL\BookIt.DAL.csproj">
+      <Project>{579defbc-4220-4b81-8ab8-4983eeb708b4}</Project>
+      <Name>BookIt.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TempDb\TempDb.csproj">
       <Project>{79c2672d-a64b-4841-a2cb-8892409ca674}</Project>
       <Name>TempDb</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
