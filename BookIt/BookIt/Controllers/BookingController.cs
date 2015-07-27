@@ -48,7 +48,7 @@ namespace BookIt.Controllers
             return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id); 
         }
 
-        [HttpGet()]
+        [HttpGet]
         [ActionName("subjects")]
         [Route("subjects/{categoryId}/{text}")]
         public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
@@ -152,6 +152,15 @@ namespace BookIt.Controllers
 			return offer.UnBook(timeSlotID, GetCurrentUser());
 		}
 
-
+		/// <summary>
+		/// Handle pre-flight OPTION request, that is making by cllents during CORS requests
+		/// </summary>
+		/// <returns></returns>
+		public HttpResponseMessage Options()
+		{
+			var response = new HttpResponseMessage();
+			response.StatusCode = HttpStatusCode.OK;
+			return response;
+		}
 	}
 }

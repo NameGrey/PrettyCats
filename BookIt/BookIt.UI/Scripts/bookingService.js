@@ -1,5 +1,4 @@
-﻿(function () {
-    'use strict';
+﻿    'use strict';
     var serviceId = 'bookingService';
     angular.module('bookItApp').factory(serviceId, ['$http', '$q', bookingService]);
 
@@ -44,17 +43,9 @@
                 IsInfinite: false
             };
             var serviceUrl = serverBaseUrl + '/subjects/' + subjectsId + "/offers";
-            //return $http.post(serviceUrl, dataObj);
-            return $http({
-                method: 'POST',
-                url: serviceUrl,
-                data: dataObj,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            return $http.post(serviceUrl, dataObj);
+
         }
 
         return service;
     }
-})();

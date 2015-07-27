@@ -7,7 +7,6 @@ using System.Web.Routing;
 
 namespace BookIt
 {
-	//http://www.toptal.com/angular-js/a-step-by-step-guide-to-your-first-angularjs-app
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
@@ -21,9 +20,7 @@ namespace BookIt
             config.Routes.MapHttpRoute(
                 name: "ActionApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional });
-
-	
+                defaults: new { id = RouteParameter.Optional });	
 
         }
 
