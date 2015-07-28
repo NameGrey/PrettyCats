@@ -60,7 +60,14 @@ namespace BookIt.Repository
 				{
 					bookingOffersMapper.UnMap(bookingOffer, dbOffer);
 					UpdateTimeSlots(bookingOffer, dbOffer);
-					dbContext.SaveChanges();
+					try
+					{
+						dbContext.SaveChanges();
+					}
+					catch (Exception e)
+					{
+
+					}
 				}
 				else
 					throw new ArgumentOutOfRangeException();
@@ -94,7 +101,7 @@ namespace BookIt.Repository
 						}
 						else
 						{
-							dbContext.TimeSlots.Remove(dbSLot);//удаляем из копии слотов обработанные слоты
+							dbOfferSlots.Remove(dbSLot);//удаляем из копии слотов обработанные слоты
 						}
 						timeSlotsMapper.UnMap(slot, dbSLot);
 					}

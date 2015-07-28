@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
@@ -39,7 +40,7 @@ namespace BookIt.Repository.Mappers
 				bllBookingOffer.StartDate = dbBookingOffer.StartDate;
 				bllBookingOffer.EndDate = dbBookingOffer.EndDate;
 
-				bllBookingOffer.TimeSlots = new SortedSet<BLL.BookingTimeSlot>(new  TimeSlotsMapper().MapAll(dbBookingOffer.TimeSlots));
+				bllBookingOffer.AddTimeSlots(new  TimeSlotsMapper().MapAll(dbBookingOffer.TimeSlots));
 				
 			}
 			return bllBookingOffer;

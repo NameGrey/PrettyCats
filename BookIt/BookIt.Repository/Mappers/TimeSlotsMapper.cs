@@ -16,8 +16,10 @@ namespace BookIt.Repository.Mappers
 			dbTimeSlot.BookingOfferID = bookingTimeSlot.BookingOfferId;
 			dbTimeSlot.EndDate = bookingTimeSlot.EndDate;
 			dbTimeSlot.IsBusy = bookingTimeSlot.IsOccupied;
-			if (bookingTimeSlot.Person!=null)
+			if (bookingTimeSlot.Person != null)
 				dbTimeSlot.OwnerID = bookingTimeSlot.Person.Id;
+			else
+				dbTimeSlot.OwnerID = null;
 			dbTimeSlot.StartDate = bookingTimeSlot.StartDate;
 		}
 

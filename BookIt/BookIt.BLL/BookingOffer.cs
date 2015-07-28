@@ -24,6 +24,14 @@ namespace BookIt.BLL
 			this.TimeSlots = new SortedSet<BookingTimeSlot>(new BookingTimeSlotComparer());
 
 		}
+		public void AddTimeSlots(IEnumerable<BookingTimeSlot> slots)
+		{
+			if (slots!=null)
+			{
+				foreach (BookingTimeSlot slot in slots)
+					this.TimeSlots.Add(slot);
+			}
+		}
 
 		/// <summary>
 		/// Сортирует промежутки времени, чтобы они шли по порядку, 
@@ -223,7 +231,7 @@ namespace BookIt.BLL
 					StartDate = endDate.AddDays(1),
 					EndDate = slot.EndDate,
 					IsOccupied = false,
-					BookingOfferId = slot.BookingOfferId
+					BookingOfferId = slot.BookingOfferId,
 				};
 				slot.EndDate = startDate.AddDays(-1);
 				this.TimeSlots.Add(newFreeSlot);

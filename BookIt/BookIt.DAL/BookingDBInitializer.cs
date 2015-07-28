@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookIt.DAL
 {
-	public class BookingDBInitializer : DropCreateDatabaseAlways<BookingContext>
+	public class BookingDBInitializer : CreateDatabaseIfNotExists<BookingContext>
 	{
 		protected override void Seed(BookingContext context)
 		{

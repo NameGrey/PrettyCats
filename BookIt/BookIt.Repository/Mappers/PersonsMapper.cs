@@ -25,18 +25,20 @@ namespace BookIt.Repository.Mappers
 
 		public override BLL.Person Map(Person dbPerson)
 		{
-			var bllPerson = new BLL.Person();
-			if (dbPerson != null)
+			if (dbPerson == null)
+				return null;
+			BLL.Person bllPerson = new BLL.Person()
 			{
-				bllPerson.Id = dbPerson.ID;
-				bllPerson.FirstName = dbPerson.FirstName;
-				bllPerson.LastName = dbPerson.LastName;
-				if (dbPerson.Role == Role.Administrator)
-					bllPerson.PersonRole = BLL.Role.Administrator;
-				else
-					bllPerson.PersonRole = BLL.Role.User;
 
-			}
+				Id = dbPerson.ID,
+				FirstName = dbPerson.FirstName,
+				LastName = dbPerson.LastName,
+			};
+			if (dbPerson.Role == Role.Administrator)
+				bllPerson.PersonRole = BLL.Role.Administrator;
+			else
+				bllPerson.PersonRole = BLL.Role.User;
+
 			return bllPerson;
 		}
 	}
