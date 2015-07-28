@@ -11,7 +11,7 @@ namespace BookIt.Repository
         IEnumerable<Person> GetPersons();
         IEnumerable<BookingSubject> GetAllBookingSubjects();
         IEnumerable<BookingOffer> GetAllBookingOffers();
-        void SaveBookingOffer(BookingOffer offer);
+        void CreateBookingOffer(BookingOffer offer);
         void UpdateBookingOffer(BookingOffer bookingOffer);
 
     }

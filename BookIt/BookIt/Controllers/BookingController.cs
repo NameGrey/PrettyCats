@@ -18,7 +18,8 @@ namespace BookIt.Controllers
 
 		public BookingController()
 		{
-			repository = new TempStaticRepository();
+			//repository = new TempStaticRepository();
+			repository = new DBRepository();
 		}
 
 		public BookingController(IBookItRepository repository)
@@ -31,7 +32,7 @@ namespace BookIt.Controllers
 		{
 			//TODO должна быть логика по получению текущего пользователя
 			//пока берем заранее подготовленного пользователя из временной базы            
-			return repository.GetPersons().FirstOrDefault(p => p.Id == 3);
+			return repository.GetPersons().FirstOrDefault(p => p.Id == 1);
 		}
 
 		[HttpGet]
@@ -92,7 +93,7 @@ namespace BookIt.Controllers
 
 			offer.Owner = GetCurrentUser();
 			offer.FillCustomBookingOffer();
-			repository.SaveBookingOffer(offer);
+			repository.CreateBookingOffer(offer);
 			return new HttpResponseMessage(HttpStatusCode.OK);
 		}
 
@@ -113,7 +114,7 @@ namespace BookIt.Controllers
 			//TODO объект по идентификатору в справочнике не найден, надо бы вернуть ошибку
 			if (subject == null) return new HttpResponseMessage(HttpStatusCode.BadRequest);
 			offer.FillFromSubject(subject);
-			repository.SaveBookingOffer(offer);
+			repository.CreateBookingOffer(offer);
 			return new HttpResponseMessage(HttpStatusCode.OK);
 		}
 

@@ -26,7 +26,7 @@ namespace BookIt.Repository
             return TempDb.GetAllBookingOffers();
         }
 
-        public void SaveBookingOffer(BookingOffer offer)
+        public void CreateBookingOffer(BookingOffer offer)
         {
             TempDb.SaveBookingOffer(offer);
         }

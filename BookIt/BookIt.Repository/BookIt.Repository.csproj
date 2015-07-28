@@ -48,10 +48,11 @@
   <ItemGroup>
     <Compile Include="DBRepository.cs" />
     <Compile Include="IBookItRepository.cs" />
-    <Compile Include="Mappers\BookingOfferMapper.cs" />
+    <Compile Include="Mappers\BookingOffersMapper.cs" />
     <Compile Include="Mappers\BookingSubjectsMapper.cs" />
     <Compile Include="Mappers\MapperBase.cs" />
-    <Compile Include="Mappers\PersonMapper.cs" />
+    <Compile Include="Mappers\PersonsMapper.cs" />
+    <Compile Include="Mappers\TimeSlotsMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TempStaticRepository.cs" />
   </ItemGroup>

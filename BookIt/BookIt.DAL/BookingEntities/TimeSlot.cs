@@ -16,7 +16,9 @@ namespace BookIt.DAL
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 
-		public int OwnerID { get; set; }
+		
+		public int? OwnerID { get; set; }
+		
 		[ForeignKey("OwnerID")]
 		public virtual Person Owner { get; set; }
 		

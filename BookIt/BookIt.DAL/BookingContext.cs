@@ -13,6 +13,19 @@ namespace BookIt.DAL
 		public DbSet<BookingSubject> BookingSubjects { get; set; }
 		public DbSet<BookingOffer> BookingOffers { get; set; }
 		public DbSet<TimeSlot> TimeSlots { get; set; }
+
+		public BookingContext()
+			: base("BookItDB")
+		{
+			Database.SetInitializer<BookingContext>(new BookingDBInitializer());
+
+		}
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			//modelBuilder.Entity<TimeSlot>().HasOptional(t => t.Owner).WithMany().WillCascadeOnDelete(false);
+			base.OnModelCreating(modelBuilder);
+		}
 	}
 }
 
