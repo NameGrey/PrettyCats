@@ -30,7 +30,7 @@
             <p>По этой кнопке создается пользовтельское предложение для бронирования, которое не попадет в справочник и будет удалено после истечения срока. Такой тип предложений обязательно должен иметь даты. (Функционал для пользователя, который хочет отдать что-то на время)</p>
         </div>
 
-        <div style="background-color: grey; height: 12px; width: 800px" ></div>
+        <div style="background-color: grey; height: 12px; width: 800px"></div>
         <div>
             Subject Id <input id="offerFoSubjectId" type="text" />Бесконечный срок<input type="checkbox" id="isInfinite" /> На даты: с <input id="freeFrom2" type="date" /> по <input id="freeTill2" type="date" />
             <p>Если предмет доступен для бронирования всегда - обязательно установить галочку - "бесконечно" и даты вводить не обязательно. Иначе - даты являются обязательными</p>
@@ -38,11 +38,17 @@
             <p>По этой кнопке создается предложение для бронирования существующего в справочнике предмета. Такое предложение может не иметь дат и связяться "бесконечным" (например книги). (Функционал для пользователя, который хочет отдать что-то на время)</p>
 
         </div>
-        <div style="background-color: grey; height: 12px; width: 800px" ></div>
+        <div style="background-color: grey; height: 12px; width: 800px"></div>
         <div>
             Offer Id <input id="bookItOfferId" type="text" />На даты: с <input id="bookItFrom" type="date" /> по <input id="bookItTill" type="date" />
             <input id="bookIt" type="button" onclick="BookIt();" value="Забукать" />
             <p>Забукать мы может только предложение на бронирование (а не сам предмет). Здесь даты обязательны. (Функционал для пользователя, который хочет взять)</p>
+        </div>
+        <div style="background-color: grey; height: 12px; width: 800px"></div>
+        <div>
+            BookingOfferID <input id="unbookItOfferId" type="text" /> TimeSlotId<input id="timeSLotId" type="text" />
+            <input id="unbookIt" type="button" onclick="UnBookIt();" value="Отменить бронь" />
+            <p>Отменить бронь</p>
         </div>
     </div>
 
@@ -51,7 +57,7 @@
         var uriOffers = 'http://localhost:55060/api/Booking/offers';
         var uriOffersForSubject = 'http://localhost:55060/api/Booking/subjects/{0}/offers';
         var uriBookIt = 'http://localhost:55060/api/Booking/offers/{0}';
-
+        var uriUnBookIt = 'http://localhost:55060/api/Booking/offers';
 
 
         String.prototype.format = function () {
@@ -87,18 +93,18 @@
                         var liText = item.Id + " " + item.SubjectName;
                         var liId = "li" + item.Id;
                         $('<li>', { text: liText, id: liId }).appendTo($('#bookingOffers'));
-                       
+
                         if (item.TimeSlots != null) {
                             var ulId = "ul" + item.Id;
                             $('<ul>', { id: ulId }).appendTo($("#" + liId));
                             $.each(item.TimeSlots, function (i, innerItem) {
                                 // Add a list item for the product.
                                 var txt = "";
-                                if (innerItem.IsOccupied) txt = "занят";
-                                else txt = "свободен";
-                                $('<li>', { text: txt + " c " + innerItem.StartDate + " по " + innerItem.EndDate }).appendTo($("#" + ulId));
+                                if (innerItem.IsOccupied) txt = "занят ";
+                                else txt = "свободен ";
+                                $('<li>', { text: txt + "ID: " + innerItem.Id + " c " + innerItem.StartDate + " по " + innerItem.EndDate }).appendTo($("#" + ulId));
                             });
-                        }                    
+                        }
                     });
                 });
         }
@@ -160,7 +166,22 @@
                 }
             });
         }
-
+        function UnBookIt() {
+            var bookingOfferId = $('#unbookItOfferId').val();
+            var timeslotId = $('#timeSLotId').val();
+            $.ajax({
+                url: uriUnBookIt,
+                type: "DELETE",
+                data: {_method: 'delete', Id: timeslotId, BookingOfferId: bookingOfferId, isOccupied:true},
+                dataType: "application/json",
+                success: function (data, textStatus, jqXHR) {
+                    //alert("ок");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //alert("Ошибка: " + textStatus + " " + errorThrown);
+                }
+            });
+        }
 
         function filter() {
             //todo filter here

@@ -42,40 +42,40 @@ namespace BookIt.Controllers
 			return repository.GetAllBookingSubjects();
 		}
 
-        [HttpGet]
-        [ActionName("subjects")]
-        public BookingSubject GetBookingSubject(int id)
-        {
-            return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id); 
-        }
+		[HttpGet]
+		[ActionName("subjects")]
+		public BookingSubject GetBookingSubject(int id)
+		{
+			return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id);
+		}
 
-        [HttpGet]
-        [ActionName("subjects")]
-        [Route("subjects/{categoryId}/{text}")]
-        public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
-        {
-            return repository.GetAllBookingSubjects().Where(s => s.CategoryId == categoryId && s.Name.ToUpper().Contains(text.ToUpper()));
-        }
+		[HttpGet]
+		[ActionName("subjects")]
+		[Route("subjects/{categoryId}/{text}")]
+		public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
+		{
+			return repository.GetAllBookingSubjects().Where(s => s.CategoryId == categoryId && s.Name.ToUpper().Contains(text.ToUpper()));
+		}
 
-        [HttpGet]
-        [ActionName("offers")]
-        public IEnumerable<BookingOffer> GetAllBookingOffers()
-        {
-            return repository.GetAllBookingOffers();
-        }
+		[HttpGet]
+		[ActionName("offers")]
+		public IEnumerable<BookingOffer> GetAllBookingOffers()
+		{
+			return repository.GetAllBookingOffers();
+		}
 
-        [HttpGet]
-        [ActionName("offers")]
-        public BookingOffer GetBookingOffer(int id)
-        {
-            return repository.GetAllBookingOffers().FirstOrDefault(s => s.Id == id);
-        }
+		[HttpGet]
+		[ActionName("offers")]
+		public BookingOffer GetBookingOffer(int id)
+		{
+			return repository.GetAllBookingOffers().FirstOrDefault(s => s.Id == id);
+		}
 
 
-        public IEnumerable<BookingOffer> GetFreeBookingOffers()
-        {
-            return repository.GetAllBookingOffers().Where(o => o.IsOccupied == false);
-        }
+		public IEnumerable<BookingOffer> GetFreeBookingOffers()
+		{
+			return repository.GetAllBookingOffers().Where(o => o.IsOccupied == false);
+		}
 
 
 		/// <summary>
@@ -145,12 +145,17 @@ namespace BookIt.Controllers
 
 		[HttpDelete]
 		[ActionName("offers")]
-		public bool CancelBook(int bookingOfferId, int timeSlotID)
+		public bool CancelBook(BookingTimeSlot slot)
 		{
-			BookingOffer offer = repository.GetAllBookingOffers().FirstOrDefault(o => o.Id == bookingOfferId);
-			if (offer == null) return false;
 
-			return offer.UnBook(timeSlotID, GetCurrentUser());
+			BookingOffer offer = repository.GetAllBookingOffers().FirstOrDefault(o => o.Id == slot.BookingOfferId);
+			if (offer == null) return false;
+			if (offer.UnBook(slot.Id, GetCurrentUser()))
+			{
+				repository.UpdateBookingOffer(offer);
+				return true;
+			}
+			return false;
 		}
 
 		/// <summary>

@@ -79,7 +79,6 @@ namespace BookIt.BLL
 			return false;
 		}
 
-
 		/// <summary>
 		/// Бронировать конкретное предложение на указанный период
 		/// </summary>
@@ -131,13 +130,13 @@ namespace BookIt.BLL
 
 		private bool CanPersonUnbookIt(BookingTimeSlot slot, Person person)
 		{
-			return slot.Person == person;
+			return slot.Person.Id == person.Id;
 		}
-
+#warning нужно проверить
 		private bool UnBookTimeSlot(BookingTimeSlot slot, Person person)
 		{
-			var leftSlot = TimeSlots.FirstOrDefault(ts => !slot.IsOccupied && ts.EndDate.Equals(slot.StartDate.AddDays(-1)));
-			var rightSlot = TimeSlots.FirstOrDefault(ts => !slot.IsOccupied && ts.StartDate.Equals(slot.EndDate.AddDays(1)));
+			var leftSlot = TimeSlots.FirstOrDefault(ts => !ts.IsOccupied && ts.EndDate.Equals(slot.StartDate.AddDays(-1)));
+			var rightSlot = TimeSlots.FirstOrDefault(ts => !ts.IsOccupied && ts.StartDate.Equals(slot.EndDate.AddDays(1)));
 			if (leftSlot == null && rightSlot == null)
 			{
 				slot.IsOccupied = false;
@@ -212,17 +211,16 @@ namespace BookIt.BLL
 				Person = person
 			};
 
-			this.TimeSlots.Add(busySlot);
 			if (slot.StartDate == startDate)
 			{
 				slot.StartDate = endDate.AddDays(1);//next day
-				return true;
+				
 
 			}
 			else if (slot.EndDate == endDate)
 			{
 				slot.EndDate = startDate.AddDays(-1);
-				return true;
+				
 			}
 			else if (slot.StartDate != startDate && slot.EndDate != endDate)
 			{
@@ -235,10 +233,10 @@ namespace BookIt.BLL
 				};
 				slot.EndDate = startDate.AddDays(-1);
 				this.TimeSlots.Add(newFreeSlot);
-				return true;
+				
 			}
-
-			return false; ;
+			this.TimeSlots.Add(busySlot);//SortedSet имеет особенность - в него нельзя добавлять поля с одинаковыми ключевыми элементами
+			return true; ;
 		}
 
 
