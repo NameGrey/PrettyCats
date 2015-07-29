@@ -1,22 +1,19 @@
 ﻿<div ng-controller="OfferDetailsCtrl">
     <a href="#/offers">Back to offers list</a>
-    <h1>{{offer.SubjectName}}</h1>
-    
-    <div ng-repeat="timeslot in offer.TimeSlots">
-        <div id="datepickerStart" class="date uui-datepicker date-button">
-            <input type="text" class="uui-form-element" />
-            <span class="input-group-addon uui-button blue">
-                <i class="fa fa-calendar white"></i>
-            </span>
-        </div>
-        <div id="datepickerEnd" class="date uui-datepicker date-button">
-            <input type="text" class="uui-form-element" />
-            <span class="input-group-addon uui-button blue">
-                <i class="fa fa-calendar white"></i>
-            </span>
-        </div>
-    </div>
-  
-
-
+    <h3>Offer: {{offer.SubjectName}}</h3>
+    <h5>By: {{offer.Owner.LastName}} {{offer.Owner.FirstName}}</h5>
+    <h6>Periods:</h6>
+    <table class="uui-table stripe border">
+        <tbody>
+            <tr ng-repeat="slot in offer.TimeSlots">
+                <td><timeslot slot="slot"></timeslot>
+<div class="responsive-wrapper">
+    <button type="button" class="uui-button blue" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
 </div>
+            </tr>
+        </tbody>
+    </table>
+                    <p>Add free period</p>
+                    <timeslot slot="newSlot"></timeslot><div class="responsive-wrapper"><button type="button" class="uui-button blue" ng-click="createOffer()">Publish</button></div>
+
+            </div>

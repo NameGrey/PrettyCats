@@ -30,13 +30,4 @@ bookItApp.config(['$httpProvider',
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }]);
 
-bookItApp.directive('filter', function () {
-    return {
-        restrict: 'E',
-        templateUrl: 'html-partials/filter.html', // markup for filter
-        scope: {
-            search: '=' // allows data to be passed into directive from controller scope
-        }
-    };
-});
 
