@@ -13,9 +13,11 @@ namespace BookIt.Repository.Mappers
 	/// <typeparam name="T">BLL object</typeparam>
 	/// <typeparam name="E">database object</typeparam>
 	public abstract class MapperBase<T, E>
+		where T : class
+		where E : class
 	{
 		public abstract T Map(E dbEntity);
-		public abstract void UnMap(T  bllEntity, E dbEntity);
+		public abstract void UnMap(T bllEntity, E dbEntity);
 
 		public ICollection<T> MapAll(IEnumerable<E> dbEntities)
 		{
@@ -31,8 +33,8 @@ namespace BookIt.Repository.Mappers
 			return collection;
 		}
 
-	
-		
+
+
 	}
 }
 

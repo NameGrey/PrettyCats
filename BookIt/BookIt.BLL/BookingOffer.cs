@@ -18,6 +18,7 @@ namespace BookIt.BLL
 		public bool IsInfinite { get; set; }
 		public DateTime? StartDate { get; set; }
 		public DateTime? EndDate { get; set; }
+		public Category Category { get; set; }
 
 		public BookingOffer()
 		{
@@ -173,6 +174,7 @@ namespace BookIt.BLL
 			CreateTimeSlot();
 			BookingSubjectId = subject.Id;
 			SubjectName = subject.Name;
+			Category = subject.Category;
 		}
 
 		public void FillCustomBookingOffer()

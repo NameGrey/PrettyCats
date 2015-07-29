@@ -14,8 +14,9 @@ namespace BookIt.Repository.Mappers
 		{
 			dbBookingOffer.ID = bookingOffer.Id;
 			dbBookingOffer.BookingSubjectID = bookingOffer.BookingSubjectId;
-
-#warning	dbEntity.Category dbEntity.Description
+			dbBookingOffer.Category = new CategoryMapper().UnMap(bookingOffer.Category);
+		
+#warning	dbEntity.Description
 
 			dbBookingOffer.StartDate = bookingOffer.StartDate;
 			dbBookingOffer.EndDate = bookingOffer.EndDate;
@@ -36,6 +37,7 @@ namespace BookIt.Repository.Mappers
 				bllBookingOffer.SubjectName = dbBookingOffer.Name;
 #warning need to discuss 
 				//bllBookingOffer.IsOccupied
+				bllBookingOffer.Category = new CategoryMapper().Map(dbBookingOffer.Category);
 				bllBookingOffer.Owner = new PersonsMapper().Map(dbBookingOffer.Owner);
 				bllBookingOffer.StartDate = dbBookingOffer.StartDate;
 				bllBookingOffer.EndDate = dbBookingOffer.EndDate;

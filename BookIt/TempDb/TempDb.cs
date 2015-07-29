@@ -13,9 +13,9 @@ namespace TempDatabase
     {
         static List<BookingSubject> bookingSubject = new List<BookingSubject>() 
         { 
-            new BookingSubject { Id = 1, CategoryId = 1, Name = "Объект 1"}, 
-            new BookingSubject { Id = 2, CategoryId = 1, Name = "Объект 2",}, 
-            new BookingSubject { Id = 3, CategoryId = 2, Name = "Объект 3" } 
+            new BookingSubject { Id = 1, Category = Category.Other, Name = "Объект 1"}, 
+            new BookingSubject { Id = 2, Category = Category.Sport, Name = "Объект 2",}, 
+            new BookingSubject { Id = 3, Category = Category.Users, Name = "Объект 3" } 
         };
 
         static List<Person> persons = new List<Person>()

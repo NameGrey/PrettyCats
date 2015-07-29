@@ -12,9 +12,9 @@ namespace BookIt.Repository.Mappers
 		public override void UnMap(BLL.BookingSubject bookingSubject, BookingSubject dbBookingSubject)
 		{
 			dbBookingSubject.ID = bookingSubject.Id;
-			dbBookingSubject.Category = (Category)Enum.ToObject(typeof(Category), bookingSubject.CategoryId);
+			dbBookingSubject.Category = new CategoryMapper().UnMap(bookingSubject.Category);
 			dbBookingSubject.Count = bookingSubject.Capacity;
-#warning dbEntity.Description
+			dbBookingSubject.Description = bookingSubject.Description;
 			dbBookingSubject.Name = bookingSubject.Name;
 			dbBookingSubject.OwnerID = bookingSubject.Owner.Id;
 		}
@@ -27,10 +27,12 @@ namespace BookIt.Repository.Mappers
 				bllBookingSubject.Id = dbBookingSubject.ID;
 				bllBookingSubject.Name = dbBookingSubject.Name;
 				bllBookingSubject.Capacity = dbBookingSubject.Count;
-				bllBookingSubject.CategoryId = (int)dbBookingSubject.Category;
+				bllBookingSubject.Category = new CategoryMapper().Map(dbBookingSubject.Category);
 				bllBookingSubject.Owner = new PersonsMapper().Map(dbBookingSubject.Owner);
 			}
 			return bllBookingSubject;
 		}
+
+		
 	}
 }

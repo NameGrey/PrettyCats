@@ -52,9 +52,9 @@ namespace BookIt.Controllers
         [HttpGet]
         [ActionName("subjects")]
         [Route("subjects/{categoryId}/{text}")]
-        public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
+        public IEnumerable<BookingSubject> GetFilteredBookingSubject(Category category, string text)
         {
-            return repository.GetAllBookingSubjects().Where(s => s.CategoryId == categoryId && s.Name.ToUpper().Contains(text.ToUpper()));
+            return repository.GetAllBookingSubjects().Where(s => s.Category == category && s.Name.ToUpper().Contains(text.ToUpper()));
         }
 
         [HttpGet]
