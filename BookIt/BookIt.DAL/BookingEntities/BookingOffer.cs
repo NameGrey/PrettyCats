@@ -24,7 +24,7 @@ namespace BookIt.DAL
 		[ForeignKey("OwnerID")]
 		public virtual Person Owner { get; set; }
 
-		public int BookingSubjectID { get; set; }
+		public int? BookingSubjectID { get; set; }
 
 		[ForeignKey("BookingSubjectID")]
 		public virtual BookingSubject BookingSubject { get; set; }

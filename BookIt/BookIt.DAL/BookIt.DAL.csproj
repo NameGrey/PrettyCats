@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingContext.cs" />
+    <Compile Include="BookingDBInitializer.cs" />
     <Compile Include="BookingEntities\BookingOffer.cs" />
     <Compile Include="BookingEntities\Person.cs" />
     <Compile Include="BookingEntities\Role.cs" />
