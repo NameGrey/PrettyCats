@@ -81,13 +81,16 @@
     <Content Include="Images\CP-Logo_full2.png" />
     <Content Include="Pages\default.html" />
     <Content Include="Pages\html-partials\offer-details.html" />
-    <Content Include="Pages\html-partials\filter.html" />
+    <Content Include="Pages\templates\left-menu.html" />
+    <Content Include="Pages\templates\timeslot.html" />
+    <Content Include="Pages\templates\filter.html" />
     <Content Include="Pages\html-partials\subject-details.html" />
     <Content Include="Pages\html-partials\offers.html" />
     <Content Include="Pages\html-partials\subjects.html" />
     <Content Include="Pages\TestPage.html" />
     <Content Include="Scripts\bookingService.js" />
     <Content Include="Scripts\controllers.js" />
+    <Content Include="Scripts\directives.js" />
     <Content Include="Scripts\master-page.js" />
     <Content Include="Scripts\vendor\angular-route.js" />
     <Content Include="Scripts\vendor\angular.min.js.map" />

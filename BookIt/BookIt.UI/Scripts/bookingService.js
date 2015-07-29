@@ -10,7 +10,8 @@
             getSubjectDetails: getSubjectDetails,
             getOfferDetails: getOfferDetails,
             getFilteredSubjects: getFilteredSubjects,
-            createOffer: createOffer
+            createOffer: createOffer,
+            bookOffer: bookOffer
         };
 
         var serverBaseUrl = "http://localhost:55060/api/Booking";
@@ -23,8 +24,11 @@
             return $http.get(serverBaseUrl + '/subjects/' + categoryId + '/' + subjectName);
         }
 
-        function getOffers() {
-            return $http.get(serverBaseUrl + '/offers');
+        function getOffers(subjectId) {
+            if (subjectId)
+                return $http.get(serverBaseUrl + '/subjects/' + subjectId + '/offers');
+            else
+                return $http.get(serverBaseUrl + '/offers');
         }
 
         function getSubjectDetails(subjectId) {
@@ -35,15 +39,30 @@
             return $http.get(serverBaseUrl + '/offers/' + offerId);
         }
 
-        function createOffer(subjectsId) {
+        function createOffer(subjectId, startDate, endDate) {
             var dataObj = {
-                SubjectName: "djkfhsdkjf",
-                StartDate: '07/07/2015',
-                EndDate: '08/08/2015',
+                StartDate: startDate,
+                EndDate: endDate,
                 IsInfinite: false
             };
-            var serviceUrl = serverBaseUrl + '/subjects/' + subjectsId + "/offers";
+            var serviceUrl = serverBaseUrl + '/subjects/' + subjectId + "/offers";
             return $http.post(serviceUrl, dataObj);
+
+        }
+
+        function bookOffer(offerId, startDate, endDate) {
+            var slotData = {
+                StartDate: startDate,
+                EndDate: endDate
+            };
+            var serviceUrl = serverBaseUrl + '/offers/' + offerId;
+            return $http.post(serviceUrl, slotData);
+
+        }
+
+        function bookSlot(slotId) {
+            var serviceUrl = serverBaseUrl + '/offers/' + offerId;
+            return $http.post(serviceUrl);
 
         }
 

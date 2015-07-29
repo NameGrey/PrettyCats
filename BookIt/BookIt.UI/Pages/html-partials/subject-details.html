@@ -1,9 +1,31 @@
 ﻿<div ng-controller="SubjectDetailsCtrl">
-    <a href="#/subjects">Back to sujects list</a>
+    <a href="#/subjects">Back to subjects list</a>
     <h1>{{subject.Name}}</h1>
-    <div>
+    <p>{{subject.Description}}</p>
+    <h1>Offers:</h1>
+    <table class="uui-table stripe border">
+        <tbody>
+            <tr ng-repeat="offer in offers| filter:search">
+                <td><a href="#/offers/{{offer.Id}}/">{{offer.Id}}</a></td>
+                <td>
+                    <span class="uui-icon round red icon-round" ng-show="offer.IsOccupied">
+                        <i class="fa fa-lightbulb-o white"></i>
+                    </span>
+                    <span class="uui-icon round lime-green icon-round" ng-show="!offer.IsOccupied">
+                        <i class="fa fa-lightbulb-o white"></i>
+                    </span>
+                </td>
+                <td>
+                    <table border="0">
 
-    </div>
+                        <tr ng-repeat="slot in offer.TimeSlots"><td><timeslot slot="slot"></timeslot>
+                        <div class="responsive-wrapper"><button type="button" ng-show="!slot.IsOccupied" class="uui-button blue" ng-click="bookOffer(offer.Id, slot)">Book</button></div>
+                </td></tr>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <p>If you want to give somebody this subject in temporary use, click  </p>
-    <button type="button" class="uui-button blue" ng-click="createOffer()">Create offer</button>
-</div>
+    <timeslot slot="newSlot"></timeslot><div class="responsive-wrapper"><button type="button" class="uui-button blue"  ng-click="createOffer()">Create offer</button></div>
+

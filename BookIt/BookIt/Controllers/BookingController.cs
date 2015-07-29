@@ -42,40 +42,41 @@ namespace BookIt.Controllers
 			return repository.GetAllBookingSubjects();
 		}
 
-		[HttpGet]
-		[ActionName("subjects")]
-		public BookingSubject GetBookingSubject(int id)
-		{
-			return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id);
-		}
+        [HttpGet]
+        [ActionName("subjects")]
+        public BookingSubject GetBookingSubject(int id)
+        {
+            return repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id); 
+        }
 
-		[HttpGet]
-		[ActionName("subjects")]
-		[Route("subjects/{categoryId}/{text}")]
-		public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
-		{
-			return repository.GetAllBookingSubjects().Where(s => s.CategoryId == categoryId && s.Name.ToUpper().Contains(text.ToUpper()));
-		}
+        [HttpGet]
+        [ActionName("subjects")]
+        [Route("subjects/{categoryId}/{text}")]
+        public IEnumerable<BookingSubject> GetFilteredBookingSubject(int categoryId, string text)
+        {
+            return repository.GetAllBookingSubjects().Where(s => s.CategoryId == categoryId && s.Name.ToUpper().Contains(text.ToUpper()));
+        }
 
-		[HttpGet]
-		[ActionName("offers")]
-		public IEnumerable<BookingOffer> GetAllBookingOffers()
-		{
-			return repository.GetAllBookingOffers();
-		}
+        [HttpGet]
+        [ActionName("offers")]
+        public IEnumerable<BookingOffer> GetAllBookingOffers()
+        {
+            return repository.GetAllBookingOffers();
+        }
 
-		[HttpGet]
-		[ActionName("offers")]
-		public BookingOffer GetBookingOffer(int id)
-		{
-			return repository.GetAllBookingOffers().FirstOrDefault(s => s.Id == id);
-		}
+        [HttpGet]
+        [ActionName("offers")]
+		[Route("offers/{id}")]
+        public BookingOffer GetBookingOffer(int id)
+        {
+            return repository.GetAllBookingOffers().FirstOrDefault(s => s.Id == id);
+        }
 
 
-		public IEnumerable<BookingOffer> GetFreeBookingOffers()
-		{
-			return repository.GetAllBookingOffers().Where(o => o.IsOccupied == false);
-		}
+        public IEnumerable<BookingOffer> GetFreeBookingOffers()
+        {
+            return repository.GetAllBookingOffers().Where(o => o.IsOccupied == false);
+        }
 
 
 		/// <summary>
@@ -87,14 +88,14 @@ namespace BookIt.Controllers
 		/// <returns>Возвращает созданное в системе предложение для резервирования </returns>
 		[HttpPost]
 		[ActionName("offers")]
-		public HttpResponseMessage CreateBookingOffer(BookingOffer offer)
+		public IHttpActionResult CreateBookingOffer(BookingOffer offer)
 		{
-			if (offer == null) return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			if (offer == null) return BadRequest("There are no data passed to create offer");
 
 			offer.Owner = GetCurrentUser();
 			offer.FillCustomBookingOffer();
 			repository.CreateBookingOffer(offer);
-			return new HttpResponseMessage(HttpStatusCode.OK);
+			return Ok(offer);
 		}
 
 
@@ -107,15 +108,29 @@ namespace BookIt.Controllers
 		/// <returns>Возвращает созданное в системе предложение для резервирования </returns>
 		[HttpPost]
 		[Route("subjects/{bookingSubjectId:int}/offers")]
-		[ActionName("offers")]
-		public HttpResponseMessage CreateBookingOfferForSubject(BookingOffer offer, [FromUri]int bookingSubjectId)
+		public IHttpActionResult CreateBookingOfferForSubject(BookingOffer offer, [FromUri]int bookingSubjectId)
 		{
 			BookingSubject subject = repository.GetAllBookingSubjects().FirstOrDefault(e => e.Id == bookingSubjectId);
 			//TODO объект по идентификатору в справочнике не найден, надо бы вернуть ошибку
-			if (subject == null) return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			if (subject == null) return NotFound(); 
 			offer.FillFromSubject(subject);
 			repository.CreateBookingOffer(offer);
-			return new HttpResponseMessage(HttpStatusCode.OK);
+			return Ok(offer); 
+		}
+
+		/// <summary>
+		/// Список предложений по выбранному объекту
+		/// </summary>
+		/// <param name="bookingSubjectId">Идентификатор объекта</param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("subjects/{bookingSubjectId:int}/offers")]
+		public IEnumerable<BookingOffer> GetBookingOfferForSubject([FromUri]int bookingSubjectId)
+		{
+			BookingSubject subject = repository.GetAllBookingSubjects().FirstOrDefault(e => e.Id == bookingSubjectId);
+			//объект по идентификатору в справочнике не найден 
+			if (subject == null) return null;		
+			return repository.GetAllBookingOffers().Where(of => of.BookingSubjectId != null && of.BookingSubjectId.Value == bookingSubjectId);
 		}
 
 		/// <summary>
@@ -128,34 +143,35 @@ namespace BookIt.Controllers
 		[HttpPost]
 		[Route("offers/{bookingOfferId:int}")]
 		[ActionName("offers")]
-		public HttpResponseMessage BookIt(BookingTimeSlot bookingTimeSlot, [FromUri]int bookingOfferId)
+        public IHttpActionResult BookIt(BookingTimeSlot bookingTimeSlot, [FromUri]int bookingOfferId)
 		{
-			if (bookingTimeSlot == null) return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            if (bookingTimeSlot == null) return BadRequest("There are no data passed to book offer");
 
 			BookingOffer offer = repository.GetAllBookingOffers().FirstOrDefault(o => o.Id == bookingOfferId);
 
+            if (offer == null) return BadRequest("There are no data passed to book offer");
 
 			if (offer.Book(bookingTimeSlot.StartDate, bookingTimeSlot.EndDate, GetCurrentUser()))
 			{
 				repository.UpdateBookingOffer(offer);
-				return new HttpResponseMessage(HttpStatusCode.OK);
+                return Ok(offer);
 			}
-			return new HttpResponseMessage(HttpStatusCode.InternalServerError); ;
+            return InternalServerError();
 		}
 
 		[HttpDelete]
 		[ActionName("offers")]
-		public bool CancelBook(BookingTimeSlot slot)
+		public IHttpActionResult CancelBook(BookingTimeSlot slot)
 		{
 
 			BookingOffer offer = repository.GetAllBookingOffers().FirstOrDefault(o => o.Id == slot.BookingOfferId);
-			if (offer == null) return false;
+			if (offer == null) return BadRequest("There are no data passed to unbook offer");
 			if (offer.UnBook(slot.Id, GetCurrentUser()))
 			{
 				repository.UpdateBookingOffer(offer);
-				return true;
+				return Ok(offer);
 			}
-			return false;
+			return InternalServerError();
 		}
 
 		/// <summary>
