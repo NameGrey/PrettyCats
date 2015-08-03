@@ -35,5 +35,14 @@ namespace BookIt.Repository
         {
             TempDb.UpdateBookingOffer(bookingOffer);
         }
-    }
+
+		#region IBookItRepository Members
+
+		public IEnumerable<Category> GetCategories()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+	}
 }

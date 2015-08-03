@@ -15,6 +15,7 @@ namespace BookIt.Repository
 		private BookingSubjectsMapper bookingSubjectsMapper;
 		private BookingOffersMapper bookingOffersMapper;
 		private TimeSlotsMapper timeSlotsMapper;
+		private CategoriesMapper categoriesMapper;
 
 		public DBRepository()
 		{
@@ -23,6 +24,7 @@ namespace BookIt.Repository
 			bookingSubjectsMapper = new BookingSubjectsMapper();
 			bookingOffersMapper = new BookingOffersMapper();
 			timeSlotsMapper = new TimeSlotsMapper();
+			categoriesMapper = new CategoriesMapper();
 		}
 
 		#region IBookItRepository Members
@@ -122,5 +124,14 @@ namespace BookIt.Repository
 				}
 			}
 		}
+
+		#region IBookItRepository Members
+
+		public IEnumerable<BLL.Category> GetCategories()
+		{
+			return categoriesMapper.MapAll();
+		}
+
+		#endregion
 	}
 }

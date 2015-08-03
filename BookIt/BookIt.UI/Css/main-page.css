@@ -14,8 +14,15 @@
 }
 
 .responsive-wrapper {
-    display: inline-block;
     margin-right: 10px;
     margin-left: 10px;
+	float:left;
+}
+.responsive-wrapper button{
+	width:80px;
+}
+
+div.offerSlots{
+	margin-bottom:2px;
 }
 

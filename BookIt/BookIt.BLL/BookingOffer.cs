@@ -14,7 +14,8 @@ namespace BookIt.BLL
 		public SortedSet<BookingTimeSlot> TimeSlots { get; set; }
 		public bool IsOccupied { get; set; }
 		public Person Owner { get; set; }
-		public string SubjectName { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
 		public bool IsInfinite { get; set; }
 		public DateTime? StartDate { get; set; }
 		public DateTime? EndDate { get; set; }
@@ -173,7 +174,7 @@ namespace BookIt.BLL
 		{
 			CreateTimeSlot();
 			BookingSubjectId = subject.Id;
-			SubjectName = subject.Name;
+			Name = subject.Name;
 			Category = subject.Category;
 		}
 

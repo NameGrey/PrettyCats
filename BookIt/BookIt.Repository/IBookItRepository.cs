@@ -8,6 +8,7 @@ namespace BookIt.Repository
 {
     public interface IBookItRepository
     {
+		IEnumerable<Category> GetCategories();
         IEnumerable<Person> GetPersons();
         IEnumerable<BookingSubject> GetAllBookingSubjects();
         IEnumerable<BookingOffer> GetAllBookingOffers();

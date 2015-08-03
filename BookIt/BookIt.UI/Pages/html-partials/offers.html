@@ -1,26 +1,31 @@
-﻿<filter search="search"></filter>
+﻿<customfilter search="search"></customfilter>
 <h1>Offers:</h1>
 <table class="uui-table stripe border">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Occupied</th>
-            <th>Time Slots</th>
-        </tr>
-    </thead>
-    <tbody ng-controller="OffersCtrl">
-        <tr ng-repeat="offer in offers | filter:search">
-            <td><a href="#/offers/{{offer.Id}}/">{{offer.SubjectName}}</a></td>
-            <td>
-                <span class="uui-icon round red icon-round" ng-show="offer.IsOccupied">
-                    <i class="fa fa-lightbulb-o white"></i>
-                </span>
-                <span class="uui-icon round lime-green icon-round" ng-show="!offer.IsOccupied">
-                    <i class="fa fa-lightbulb-o white"></i>
-                </span>
-            </td>
-            <td><div ng-repeat="slot in offer.TimeSlots"><timeslot slot="slot"></timeslot><div class="responsive-wrapper"><button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer({{offer.Id}})">Book</button> </div></td>
-        </tr>
-    </tbody>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Time Slots</th>
+		
+		</tr>
+	</thead>
+	<tbody ng-controller="OffersCtrl">
+		<tr ng-repeat="offer in offers | categoryFilter:search">
+			<td><a href="#/offers/{{offer.Id}}/">{{offer.Name}}</a></td>
+			<td>{{offer.Description}}</td>
+			<td>
+				<div class="offerSlots" ng-repeat="slot in offer.TimeSlots">
+					<timeslot slot="slot"></timeslot>
+					<!--<div class="responsive-wrapper">
+						<button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer({{offer.Id}},{{slot}})">Book</button>
+					</div>
+					<div class="responsive-wrapper">
+						<button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer({{offer.Id}},{{slot.Id}})">UnBook</button>
+					</div>
+					<div style="clear: both;"></div>-->
+				</div>
+			</td>
+		</tr>
+	</tbody>
 </table>
 

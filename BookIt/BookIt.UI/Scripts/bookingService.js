@@ -10,6 +10,7 @@
             getSubjectDetails: getSubjectDetails,
             getOfferDetails: getOfferDetails,
             getFilteredSubjects: getFilteredSubjects,
+			getCategories:getCategories,
             createOffer: createOffer,
             bookOffer: bookOffer
         };
@@ -18,6 +19,10 @@
 
         function getSubjects() {
             return $http.get(serverBaseUrl + '/subjects');
+        }
+
+        function getCategories() {
+        	return $http.get(serverBaseUrl + '/categories');
         }
 
         function getFilteredSubjects(categoryId, subjectName) {

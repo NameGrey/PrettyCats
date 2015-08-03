@@ -1,13 +1,18 @@
 ﻿
 angular.module('bookItApp')
 
-    .directive('filter', function () {
+    .directive('customfilter', function () {
         return {
             restrict: 'E',
             templateUrl: 'templates/filter.html', // markup for filter
-            scope: {
-                search: '=' // allows data to be passed into directive from controller scope
+            controller: function ($scope, bookingService) {
+            	bookingService.getCategories()
+				.success(function (data, status, headers, config) {
+					$scope.categories = data;
+				})
+				.error(catchServiceError);
             }
+
         };
     })
 

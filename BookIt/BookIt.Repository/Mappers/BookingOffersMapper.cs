@@ -14,14 +14,13 @@ namespace BookIt.Repository.Mappers
 		{
 			dbBookingOffer.ID = bookingOffer.Id;
 			dbBookingOffer.BookingSubjectID = bookingOffer.BookingSubjectId;
-			dbBookingOffer.Category = new CategoryMapper().UnMap(bookingOffer.Category);
+			dbBookingOffer.Category = new CategoriesMapper().UnMap(bookingOffer.Category);
 		
-#warning	dbEntity.Description
-
+			dbBookingOffer.Description = bookingOffer.Description;
 			dbBookingOffer.StartDate = bookingOffer.StartDate;
 			dbBookingOffer.EndDate = bookingOffer.EndDate;
 			dbBookingOffer.IsInfinite = bookingOffer.IsInfinite;
-			dbBookingOffer.Name = bookingOffer.SubjectName;
+			dbBookingOffer.Name = bookingOffer.Name;
 			dbBookingOffer.OwnerID = bookingOffer.Owner.Id;
 		}
 
@@ -34,10 +33,11 @@ namespace BookIt.Repository.Mappers
 				bllBookingOffer.Id = dbBookingOffer.ID;
 				bllBookingOffer.IsInfinite = dbBookingOffer.IsInfinite;
 				bllBookingOffer.BookingSubjectId = dbBookingOffer.BookingSubjectID;
-				bllBookingOffer.SubjectName = dbBookingOffer.Name;
+				bllBookingOffer.Name = dbBookingOffer.Name;
 #warning need to discuss 
 				//bllBookingOffer.IsOccupied
-				bllBookingOffer.Category = new CategoryMapper().Map(dbBookingOffer.Category);
+				bllBookingOffer.Description = dbBookingOffer.Description;
+				bllBookingOffer.Category = new CategoriesMapper().Map(dbBookingOffer.Category);
 				bllBookingOffer.Owner = new PersonsMapper().Map(dbBookingOffer.Owner);
 				bllBookingOffer.StartDate = dbBookingOffer.StartDate;
 				bllBookingOffer.EndDate = dbBookingOffer.EndDate;

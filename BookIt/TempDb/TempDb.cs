@@ -28,7 +28,7 @@ namespace TempDatabase
 
         static List<BookingOffer> offers = new List<BookingOffer>()
         { 
-            new BookingOffer() { Id = 1, BookingSubjectId = 2, EndDate = new DateTime(2012, 12, 12), IsInfinite = false, IsOccupied = false, Owner = persons[0], StartDate = new DateTime(2012, 11, 12), SubjectName = "Зачем он вообще?", TimeSlots = null},
+            new BookingOffer() { Id = 1, BookingSubjectId = 2, EndDate = new DateTime(2012, 12, 12), IsInfinite = false, IsOccupied = false, Owner = persons[0], StartDate = new DateTime(2012, 11, 12), Name = "Зачем он вообще?", TimeSlots = null},
         };
 
         static List<BookingTimeSlot> slots = new List<BookingTimeSlot>()

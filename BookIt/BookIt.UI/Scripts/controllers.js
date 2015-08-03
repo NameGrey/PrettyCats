@@ -10,6 +10,14 @@ bookItControllers.controller('SubjectsCtrl',
       .error(catchServiceError);
   });
 
+bookItControllers.controller('CategoriesCtrl',
+  function ($scope, bookingService) {
+  	bookingService.getCategories()
+	.success(function (data, status, headers, config) {
+		$scope.categories = data;
+	})
+	.error(catchServiceError);
+  });
 
 bookItControllers.controller('OffersCtrl',
   function ($scope, $route, $routeParams, bookingService) {
@@ -27,7 +35,7 @@ bookItControllers.controller('OffersCtrl',
       .error(catchServiceError);
 
       $scope.bookOffer = function () {
-          bookingService.bookOffer($scope.Id)
+          bookingService.bookOffer($scope.offerId, $scope.slotId)
             .success(function (data, status, headers, config) {
                 $scope.offers.push(data);
             })

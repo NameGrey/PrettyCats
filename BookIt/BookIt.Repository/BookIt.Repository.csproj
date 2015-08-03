@@ -50,7 +50,7 @@
     <Compile Include="IBookItRepository.cs" />
     <Compile Include="Mappers\BookingOffersMapper.cs" />
     <Compile Include="Mappers\BookingSubjectsMapper.cs" />
-    <Compile Include="Mappers\CategoryMapper.cs" />
+    <Compile Include="Mappers\CategoriesMapper.cs" />
     <Compile Include="Mappers\EnumMapperBase.cs" />
     <Compile Include="Mappers\MapperBase.cs" />
     <Compile Include="Mappers\PersonsMapper.cs" />

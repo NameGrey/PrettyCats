@@ -27,8 +27,10 @@ namespace BookIt.DAL
 			context.BookingSubjects.AddRange(defaultSubjects);
 			
 			var startDate = DateTime.Now;
-			var endDate = startDate.AddMonths(3);
+			var endDate = startDate.AddDays(14);
 
+			var startDate2 = endDate.AddDays(1);
+			var endDate2 = startDate2.AddMonths(3);
 			IList<BookingOffer> defaultOffers = new List<BookingOffer>();
 
 			defaultOffers.Add(new BookingOffer() {ID=1, BookingSubjectID = 1, Name = "Bicycle", Category=Category.Sport, IsInfinite=false,Description="RED", StartDate=startDate,EndDate=endDate, OwnerID=1 });
@@ -36,7 +38,10 @@ namespace BookIt.DAL
 			defaultOffers.Add(new BookingOffer() { ID = 3, BookingSubjectID = 1, Name = "Bicycle", Category = Category.Sport, IsInfinite = false, Description = "White", StartDate = startDate, EndDate = endDate, OwnerID = 1 });
 
 			defaultOffers.Add(new BookingOffer() { ID = 4, BookingSubjectID = 2, Name = "Parking Place 1", Category = Category.Parking, IsInfinite = false, Description = "illness", StartDate = startDate, EndDate = endDate, OwnerID = 2 });
-			defaultOffers.Add(new BookingOffer() { ID = 5, BookingSubjectID = 2, Name = "Parking Place 2", Category = Category.Parking, IsInfinite = false, Description = "vacation", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
+			defaultOffers.Add(new BookingOffer() { ID = 5, BookingSubjectID = 2, Name = "Parking Place 1", Category = Category.Parking, IsInfinite = false, Description = "vacation", StartDate = startDate, EndDate = endDate, OwnerID = 2 });
+
+			defaultOffers.Add(new BookingOffer() { ID = 7, BookingSubjectID = 3, Name = "Parking Place 2", Category = Category.Parking, IsInfinite = false, Description = "illness", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
+			defaultOffers.Add(new BookingOffer() { ID = 8, BookingSubjectID = 3, Name = "Parking Place 2", Category = Category.Parking, IsInfinite = false, Description = "vacation", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
 
 			defaultOffers.Add(new BookingOffer() { ID = 6,  Name = "Majhong game", Category = Category.Users, IsInfinite = false, Description = "chinese table game", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
 
@@ -48,8 +53,12 @@ namespace BookIt.DAL
 			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 2, StartDate = startDate, EndDate = endDate, IsBusy = false });
 			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 3, StartDate = startDate, EndDate = endDate, IsBusy = false });
 			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 4, StartDate = startDate, EndDate = endDate, IsBusy = false });
-			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 5, StartDate = startDate, EndDate = endDate, IsBusy = false });
+			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 5, StartDate = startDate2, EndDate = endDate2, IsBusy = false });
+
+			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 7, StartDate = startDate, EndDate = endDate, IsBusy = false });
+			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 8, StartDate = startDate2, EndDate = endDate2, IsBusy = false });
 			defaultTimeSlots.Add(new TimeSlot() { BookingOfferID = 6, StartDate = startDate, EndDate = endDate, IsBusy = false });
+
 			
 			context.TimeSlots.AddRange(defaultTimeSlots);
 

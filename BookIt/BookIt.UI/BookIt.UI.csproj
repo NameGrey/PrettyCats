@@ -92,6 +92,7 @@
     <Content Include="Scripts\controllers.js" />
     <Content Include="Scripts\directives.js" />
     <Content Include="Scripts\master-page.js" />
+    <Content Include="Scripts\filters.js" />
     <Content Include="Scripts\vendor\angular-route.js" />
     <Content Include="Scripts\vendor\angular.min.js.map" />
     <Content Include="packages.config" />

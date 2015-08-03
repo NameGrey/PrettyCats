@@ -1,22 +1,20 @@
 ﻿<div class="row" id="subjects" ng-controller="SubjectsCtrl">
-    <filter search="search"></filter>
+	<customfilter search="search"></customfilter>
     <h1>Subjects:</h1>
     <table class="uui-table stripe border">
         <thead>
             <tr>
                 <th>Name</th>
+				<th>Description</th>
                 <th>Category ID</th>
-                <th>IsOccupied</th>
-                <th>Time Slots</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="s in subjects | filter:search">
-                <td><a href="#/subjects/{{s.Id}}/">{{s.Name}}</a></td>
-                <td>{{s.CategoryId}}</td>
-                <td>{{s.IsOccupied}}</td>
-                <td>{{s.TimeSlots}}</td>
-            </tr>
+			<tr ng-repeat="s in subjects | categoryFilter:search">
+				<td><a href="#/subjects/{{s.Id}}/">{{s.Name}}</a></td>
+				<td>{{s.Description}}</td>
+				<td>{{s.Category}}</td>
+			</tr>
         </tbody>
     </table>
 </div>

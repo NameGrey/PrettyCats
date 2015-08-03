@@ -90,7 +90,7 @@
                     $('#bookingOffers li').remove();
                     $.each(data, function (key, item) {
                         // Add a list item for the product.
-                        var liText = item.Id + " " + item.SubjectName;
+                        var liText = item.Id + " " + item.Name;
                         var liId = "li" + item.Id;
                         $('<li>', { text: liText, id: liId }).appendTo($('#bookingOffers'));
 

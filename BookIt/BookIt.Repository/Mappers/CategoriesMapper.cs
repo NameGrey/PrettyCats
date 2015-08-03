@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
 {
-	public class CategoryMapper:EnumMapperBase<BLL.Category,Category>
+	public class CategoriesMapper:EnumMapperBase<BLL.Category,Category>
 	{
 		public override BLL.Category Map(Category dbCategory)
 		{
@@ -18,5 +19,6 @@ namespace BookIt.Repository.Mappers
 		{
 			return (Category)Enum.Parse(typeof(Category), Enum.GetName(typeof(BLL.Category), bllCategory));
 		}
+
 	}
 }
