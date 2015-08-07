@@ -11,7 +11,7 @@ namespace TempDatabase
 {
     public class TempDb
     {
-        static List<BookingSubject> bookingSubject = new List<BookingSubject>() 
+        static List<BookingSubject> bookingSubjects = new List<BookingSubject>() 
         { 
             new BookingSubject { Id = 1, Category = Category.Other, Name = "Объект 1"}, 
             new BookingSubject { Id = 2, Category = Category.Sport, Name = "Объект 2",}, 
@@ -39,7 +39,7 @@ namespace TempDatabase
 
         static public List<BookingSubject> GetAllBookingSubjects() 
         { 
-            return bookingSubject;
+            return bookingSubjects;
         }
 
         static public List<BookingOffer> GetAllBookingOffers()
@@ -75,6 +75,17 @@ namespace TempDatabase
             }
             return bookingOffer;
         }
+
+		static public BookingSubject SaveBookingSubject(BookingSubject bookingSubject)
+		{
+			if (bookingSubject.Id == default(int))
+			{
+				int maxSubjectId = bookingSubjects.Any() ? bookingSubjects.Max(s => s.Id) + 1 : 1;
+				bookingSubject.Id = maxSubjectId;
+				bookingSubjects.Add(bookingSubject);
+			}
+			return bookingSubject;
+		}
 
         static public void UpdateBookingOffer(BookingOffer bookingOffer)
         {

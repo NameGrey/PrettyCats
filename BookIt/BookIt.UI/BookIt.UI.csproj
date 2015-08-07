@@ -236,6 +236,7 @@
     <Content Include="Content\EpamElements\less\uui-timeline.less" />
     <Content Include="Content\EpamElements\less\uui-timepicker.less" />
     <Content Include="Content\EpamElements\less\uui-tooltips.less" />
+    <None Include="Properties\PublishProfiles\BookIt.UI_DefaultProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

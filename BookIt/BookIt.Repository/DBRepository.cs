@@ -53,6 +53,14 @@ namespace BookIt.Repository
 			dbContext.SaveChanges();
 		}
 
+		public void CreateBookingSubject(BLL.BookingSubject subject)
+		{
+			var dbSubject = new BookingSubject();
+			bookingSubjectsMapper.UnMap(subject, dbSubject);
+			dbContext.BookingSubjects.Add(dbSubject);
+			dbContext.SaveChanges();
+		}
+
 		public void UpdateBookingOffer(BLL.BookingOffer bookingOffer)
 		{
 			if (bookingOffer != null)

@@ -13,6 +13,7 @@ namespace BookIt.Repository
         IEnumerable<BookingSubject> GetAllBookingSubjects();
         IEnumerable<BookingOffer> GetAllBookingOffers();
         void CreateBookingOffer(BookingOffer offer);
+		void CreateBookingSubject(BookingSubject subject);
         void UpdateBookingOffer(BookingOffer bookingOffer);
 
     }

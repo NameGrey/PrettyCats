@@ -31,6 +31,7 @@ namespace BookIt.Controllers
 
 		private Person GetCurrentUser()
 		{
+#warning добавить авторизацию и получение пользователя
 			//TODO должна быть логика по получению текущего пользователя
 			//пока берем заранее подготовленного пользователя из временной базы            
 			return repository.GetPersons().FirstOrDefault(p => p.Id == 1);
@@ -113,6 +114,23 @@ namespace BookIt.Controllers
 			offer.FillCustomBookingOffer();
 			repository.CreateBookingOffer(offer);
 			return Ok(offer);
+		}
+
+		/// <summary>
+		/// Добавляет новый предмет для резервирования. Функция доступна только пользователю с ролью Администратор.
+		/// </summary>
+		/// <param name="subject">Предмет для добавляения в словарю</param>
+		/// <returns>Возвращает созданный в системе предмет для бронирования</returns>
+		[HttpPost]
+		[ActionName("subjects")]
+		public IHttpActionResult CreateBookingSubject(BookingSubject subject)
+		{
+			if (subject == null) return BadRequest("There are no data passed to create subject");
+
+#warning эта функция должна быть доступна только администратору, администратор должен иметь возможность указать owner-а
+			subject.Owner = GetCurrentUser();
+			repository.CreateBookingSubject(subject);
+			return Ok(subject);
 		}
 
 

@@ -44,5 +44,11 @@ namespace BookIt.Repository
 		}
 
 		#endregion
+
+
+		public void CreateBookingSubject(BookingSubject subject)
+		{
+			TempDb.SaveBookingSubject(subject);
+		}
 	}
 }
