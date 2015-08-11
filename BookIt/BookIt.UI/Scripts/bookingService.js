@@ -1,8 +1,9 @@
-﻿    'use strict';
-    var serviceId = 'bookingService';
-    angular.module('bookItApp').factory(serviceId, ['$http', '$q', bookingService]);
+﻿'use strict';
 
-    function bookingService($http, $q) {
+    var serviceId = 'bookingService';
+    angular.module('bookItApp').factory(serviceId, ['$http', '$q', 'Configuration', bookingService]);
+
+    function bookingService($http, $q, Configuration) {
         // Define the functions and properties to reveal.
         var service = {
             getSubjects: getSubjects,
@@ -15,7 +16,7 @@
             bookOffer: bookOffer
         };
 
-        var serverBaseUrl = "http://localhost:55060/api/Booking";
+        var serverBaseUrl = Configuration.API;
 
         function getSubjects() {
             return $http.get(serverBaseUrl + '/subjects');
