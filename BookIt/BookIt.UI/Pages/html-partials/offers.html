@@ -1,4 +1,4 @@
-﻿<customfilter search="search"></customfilter>
+﻿<customfilter search="search"/>
 <h1>Offers:</h1>
 <table class="uui-table stripe border">
 	<thead>
@@ -15,14 +15,14 @@
 			<td>{{offer.Description}}</td>
 			<td>
 				<div class="offerSlots" ng-repeat="slot in offer.TimeSlots">
-					<timeslot slot="slot"></timeslot>
-					<!--<div class="responsive-wrapper">
-						<button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer({{offer.Id}},{{slot}})">Book</button>
+				    <timeslot slot="slot"/>
+					<div class="responsive-wrapper">
+						<button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
 					</div>
 					<div class="responsive-wrapper">
-						<button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer({{offer.Id}},{{slot.Id}})">UnBook</button>
+						<button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
 					</div>
-					<div style="clear: both;"></div>-->
+					<div style="clear: both;"></div>
 				</div>
 			</td>
 		</tr>

@@ -13,7 +13,8 @@
             getFilteredSubjects: getFilteredSubjects,
 			getCategories:getCategories,
             createOffer: createOffer,
-            bookOffer: bookOffer
+            bookOffer: bookOffer,
+            unBookOffer: unBookOffer
         };
 
         var serverBaseUrl = Configuration.API;
@@ -63,6 +64,12 @@
             };
             var serviceUrl = serverBaseUrl + '/offers/' + offerId;
             return $http.post(serviceUrl, slotData);
+
+        }
+
+        function unBookOffer(slot) {
+            var serviceUrl = serverBaseUrl + '/offers';
+            return $http.delete(serviceUrl, { params: { slotId: slot.Id, offerId: slot.BookingOfferId } });
 
         }
 

@@ -28,19 +28,33 @@ bookItControllers.controller('OffersCtrl',
           $scope.fromSubjects = false;
       }
 
-      bookingService.getOffers($routeParams.id)
-      .success(function (data, status, headers, config) {
-          $scope.offers = data;
-      })
-      .error(catchServiceError);
-
-      $scope.bookOffer = function () {
-          bookingService.bookOffer($scope.offerId, $scope.slotId)
+      var populateData = function () {
+          bookingService.getOffers($routeParams.id)
             .success(function (data, status, headers, config) {
-                $scope.offers.push(data);
+                $scope.offers = data;
+            })
+      .error(catchServiceError);
+      }
+
+      populateData();
+
+      $scope.bookOffer = function (offerId, slot) {
+          bookingService.bookOffer(offerId, slot.StartDate, slot.EndDate)
+            .success(function (data, status, headers, config) {
+                populateData();
             })
             .error(catchServiceError);
       }
+
+      $scope.unBookOffer = function (slot) {
+          bookingService.unBookOffer(slot)
+            .success(function (data, status, headers, config) {
+                populateData();
+            })
+            .error(catchServiceError);
+      }
+
+
   });
 
 bookItControllers.controller('SubjectDetailsCtrl',
@@ -95,7 +109,7 @@ bookItControllers.controller('OfferDetailsCtrl',
   });
 
 catchServiceError = function (data, status, headers, config) {
-    alert(data);
+    alert("Service error: " + data.Message + "\nStackTrace:" + data.StackTrace);
 }
 
 

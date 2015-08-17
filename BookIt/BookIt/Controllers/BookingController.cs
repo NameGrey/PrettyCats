@@ -196,12 +196,11 @@ namespace BookIt.Controllers
 
 		[HttpDelete]
 		[ActionName("offers")]
-		public IHttpActionResult CancelBook(BookingTimeSlot slot)
+		public IHttpActionResult CancelBook(int slotId, int offerId)
 		{
-
-			BookingOffer offer = repository.GetAllBookingOffers().FirstOrDefault(o => o.Id == slot.BookingOfferId);
+			BookingOffer offer = repository.GetAllBookingOffers().FirstOrDefault(o => o.Id == offerId);
 			if (offer == null) return BadRequest("There are no data passed to unbook offer");
-			if (offer.UnBook(slot.Id, GetCurrentUser()))
+			if (offer.UnBook(slotId, GetCurrentUser()))
 			{
 				repository.UpdateBookingOffer(offer);
 				return Ok(offer);
