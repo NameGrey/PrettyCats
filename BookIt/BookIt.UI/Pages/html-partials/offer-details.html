@@ -9,10 +9,10 @@
 				<td>
 				<timeslot slot="slot"/>
 				<div class="responsive-wrapper">
-				    <button type="button" class="uui-button blue" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
+                    <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
 				</div>
                 <div class="responsive-wrapper">
-                    <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(offer.Id, slot.Id)">UnBook</button>
+                    <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
                 </div>
                 <div style="clear: both;"></div>
 			</tr>

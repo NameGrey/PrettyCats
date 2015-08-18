@@ -14,10 +14,14 @@
 
 						<tr ng-repeat="slot in offer.TimeSlots">
 							<td>
-								<timeslot slot="slot"></timeslot>
-								<!--<div class="responsive-wrapper">
-									<button type="button" ng-show="!slot.IsOccupied" class="uui-button blue" ng-click="bookOffer(offer.Id, slot)">Book</button>
-								</div>-->
+							    <timeslot slot="slot"/>
+                                <div class="responsive-wrapper">
+                                    <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
+                                </div>
+                                <div class="responsive-wrapper">
+                                    <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
+                                </div>
+                                <div style="clear: both;"></div>
 							</td>
 						</tr>
 					</table>
