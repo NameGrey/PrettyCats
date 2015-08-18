@@ -17,7 +17,10 @@
     <script src="../Content/EpamElements/js/uui-core.min.js" type="text/javascript"></script>
 
     <!-- EPAM UUI Styles Core -->
-    <link rel="stylesheet" href="../Content/EpamElements/css/uui-all.css" />
+    <link rel="stylesheet" href="../Content/EpamElements/css/uui-all.css"/>
+
+    <!-- EPAM DatePicker Styles -->
+    <link rel="stylesheet" href="../Content/EpamElements/css/lib/components/datepicker3.css" />
 
     <!-- Scroll for UUI Sidebar -->
     <link rel="stylesheet" href="../Content/EpamElements/css/lib/components/jquery.mCustomScrollbar.css" />
@@ -59,64 +62,66 @@
 
 </head>
 <body>
-    <div class="wrapper">
-        <header>
-            <div class="uui-header dark-gray">
-                <nav role="navigation">
-                    <div class="sidebar-toggle-box blue">
-                        <div data-original-title="" title="">
-                            <span id="toggleNavigation" class="fa fa-reorder">
+<div class="wrapper">
+    <header>
+        <div class="uui-header dark-gray">
+            <nav role="navigation">
+                <div class="sidebar-toggle-box blue">
+                    <div data-original-title="" title="">
+                        <span id="toggleNavigation" class="fa fa-reorder">
 
                             </span>
-                        </div>
                     </div>
+                </div>
 
-                    <div class="epam-logo">
-                        <img src="../Content/EpamElements/images/Logo_Epam_Color.svg" alt="" width="86" />
-                    </div>
-                    <!--a href="#" class="brand-logo">
-                        <img id="brand-image" src="../images/CP-Logo_full2.png" alt="" />
-                    </a-->
-                    <ul class="uui-navigation nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#/subjects" class="dropdown-toggle" data-toggle="dropdown">
-                                Subjects
-                                <!--<span class="caret"></span>-->
-                            </a>
-                            <!--<ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Sub Item 1</a></li>
-                                <li><a href="#">Sub Item 2</a></li>
-                            </ul>-->
-                        </li>
-                        <li class="dropdown">
-                            <a href="#/offers" class="dropdown-toggle" data-toggle="dropdown">
-                                Offers
-                                <!--span class="caret"></span-->
-                            </a>
-                            <!--
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Sub Item 1</a></li>
-                                <li><a href="#">Sub Item 2</a></li>
-                                <li class="active"><span>Sub Item 3</span></li>
-                                <li class="disable"><span>Sub Item 4</span></li>
-                                <li><a href="#">Sub Item 5</a></li>
-                            </ul>
-                                -->
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-      
-        <div class="uui-main-container">
-            <div class="main-content">
-                <main ng-view=""></main>
-            </div>
+                <div class="epam-logo">
+                    <img src="../Content/EpamElements/images/Logo_Epam_Color.svg" alt="" width="86"/>
+                </div>
+                <!--a href="#" class="brand-logo">
+                <img id="brand-image" src="../images/CP-Logo_full2.png" alt=""/>
+                </a-->
+                <ul class="uui-navigation nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#/subjects" class="dropdown-toggle" data-toggle="dropdown">
+                            Subjects
+                            <!--<span class="caret"></span>-->
+                        </a>
+                        <!--<ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Sub Item 1</a></li>
+                            <li><a href="#">Sub Item 2</a></li>
+                        </ul>-->
+                    </li>
+                    <li class="dropdown">
+                        <a href="#/offers" class="dropdown-toggle" data-toggle="dropdown">
+                            Offers
+                            <!--span class="caret"></span-->
+                        </a>
+                        <!--
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Sub Item 1</a></li>
+                            <li><a href="#">Sub Item 2</a></li>
+                            <li class="active"><span>Sub Item 3</span></li>
+                            <li class="disable"><span>Sub Item 4</span></li>
+                            <li><a href="#">Sub Item 5</a></li>
+                        </ul>
+                        -->
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <script type="text/javascript">UUI.Vertical_Menu.init({ open: true });
-            UUI.Panels.init();
-           
-        </script>
+    </header>
+
+    <div class="uui-main-container">
+        <div class="main-content">
+            <main ng-view=""></main>
+        </div>
     </div>
+    <script type="text/javascript">
+        UUI.Vertical_Menu.init({ open: true });
+        UUI.Panels.init();
+
+    </script>
+</div>
+    <script src="../Content/EpamElements/js/lib/components/bootstrap-datepicker.js"></script>
 </body>
 </html>

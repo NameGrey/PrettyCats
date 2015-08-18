@@ -1,13 +1,8 @@
-﻿<div id="datepickerStart{{slot.Id}}" class="date uui-datepicker date-button">
-	<input type="text" class="uui-form-element" ng-model="slot.StartDate" />
-	<span class="input-group-addon uui-button" ng-class="{'blue' : slot == undefined, 'lime-green' : slot.IsOccupied == false, 'raspberry' : slot.IsOccupied == true}">
-		<i class="fa fa-calendar white"></i>
-	</span>
+﻿<div class="uui-datepicker input-daterange">
+    <input type="text" class="uui-form-element" ng-model="slot.StartDate" name="start" style="margin-right: 10px"/>
+    <!--<span class="input-group-addon">to</span>-->
+    <input type="text" class="uui-form-element" ng-model="slot.EndDate" name="end" />
 </div>
-<div id="datepickerEnd{{slot.Id}}" class="date uui-datepicker date-button">
-	<input type="text" class="uui-form-element" ng-model="slot.EndDate" />
-	<span class="input-group-addon uui-button" ng-class="{'blue' : slot == undefined, 'lime-green' : slot.IsOccupied == false, 'raspberry' : slot.IsOccupied == true}">
-		<i class="fa fa-calendar white"></i>
-	</span>
-</div>
-
+<script>
+    $('div.uui-datepicker').datepicker();
+</script>

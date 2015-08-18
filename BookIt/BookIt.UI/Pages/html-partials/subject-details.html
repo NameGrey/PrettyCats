@@ -9,12 +9,11 @@
 				<td><a href="#/offers/{{offer.Id}}/">{{offer.Id}}</a></td>
 				<td>{{offer.Name}}</td>
 				<td>{{offer.Description}}</td>
-				<td>
-					<table border="0">
-
-						<tr ng-repeat="slot in offer.TimeSlots">
-							<td>
-							    <timeslot slot="slot"/>
+                <td>
+                    <table>
+                        <tr ng-repeat="slot in offer.TimeSlots">
+                            <td class="row-border" style="border-width: 0 ">
+                                <timeslot slot="slot" />
                                 <div class="responsive-wrapper">
                                     <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
                                 </div>
@@ -22,10 +21,10 @@
                                     <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
                                 </div>
                                 <div style="clear: both;"></div>
-							</td>
-						</tr>
-					</table>
-				</td>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
 			</tr>
 		</tbody>
 	</table>
