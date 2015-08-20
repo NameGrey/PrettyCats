@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using BookIt.BLL.Entities;
 
-namespace BookIt.BLL
+namespace BookIt.BLL.Services
 {
-	public class BookingTimeSlotComparer : IComparer<BookingTimeSlot>
+	public class BookingTimeSlotComparer : IComparer<BookingTimeSlotDto>
 	{
 		#region IComparer<BookingTimeSlot> Members
 
-		public int Compare(BookingTimeSlot x, BookingTimeSlot y)
+		public int Compare(BookingTimeSlotDto x, BookingTimeSlotDto y)
 		{
 			return Comparer<DateTime>.Default.Compare(x.StartDate, y.StartDate);
 		}

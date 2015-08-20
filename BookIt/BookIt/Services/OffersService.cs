@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 using BookIt.Repository;
 
 namespace BookIt.Services
@@ -14,22 +15,22 @@ namespace BookIt.Services
 			_repository = repository;
 		}
 
-		public IEnumerable<BookingOffer> GetAllOffers()
+		public IEnumerable<BookingOfferDto> GetAllOffers()
 		{
 			return _repository.GetAllBookingOffers();
 		}
 
-		public IEnumerable<BookingOffer> GetAllOffersForSubject(int subjectId)
+		public IEnumerable<BookingOfferDto> GetAllOffersForSubject(int subjectId)
 		{
 			return _repository.GetAllBookingOffers().Where(x => x.BookingSubjectId.HasValue && x.BookingSubjectId.Value == subjectId).ToList();
 		}
 
-		public BookingOffer GetOfferById(int offerId)
+		public BookingOfferDto GetOfferById(int offerId)
 		{
 			return _repository.GetAllBookingOffers().FirstOrDefault(x=>x.Id == offerId);
 		}
 
-		public void UpdateOffer(BookingOffer offer)
+		public void UpdateOffer(BookingOfferDto offer)
 		{
 			_repository.UpdateBookingOffer(offer);
 		}

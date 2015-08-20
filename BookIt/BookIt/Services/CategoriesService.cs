@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 using BookIt.Repository;
 
 namespace BookIt.Services
@@ -13,7 +14,7 @@ namespace BookIt.Services
 			_repository = repository;
 		}
 
-		public IEnumerable<Category> GetAllCategories()
+		public IEnumerable<CategoryTypes> GetAllCategories()
 		{
 			return _repository.GetCategories();
 		}

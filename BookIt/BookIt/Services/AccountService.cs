@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 using BookIt.Repository;
 
 namespace BookIt.Services
@@ -13,7 +14,7 @@ namespace BookIt.Services
 			_repository = repository;
 		}
 
-		public Person GetCurrentUser()
+		public UserDto GetCurrentUser()
 		{
 			return _repository.GetPersons().FirstOrDefault(p => p.Id == 1);
 		}

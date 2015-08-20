@@ -10,24 +10,24 @@ namespace BookIt.Repository.Mappers
 	/// <summary>
 	/// Mapping Person to BLL.Person
 	/// </summary>
-	public class PersonsMapper:MapperBase<BLL.Person,Person>
+	public class PersonsMapper:MapperBase<BLL.Entities.UserDto,Person>
 	{
-		public override void UnMap(BLL.Person bookingPerson, Person dbPerson)
+		public override void UnMap(BLL.Entities.UserDto bookingPerson, Person dbPerson)
 		{
 			dbPerson.ID = bookingPerson.Id;
 			dbPerson.FirstName = bookingPerson.FirstName;
 			dbPerson.LastName = bookingPerson.LastName;
-			if (bookingPerson.PersonRole == BLL.Role.Administrator)
+			if (bookingPerson.Role == BLL.Entities.RoleTypes.Administrator)
 				dbPerson.Role = Role.Administrator;
 			else
 				dbPerson.Role = Role.Employee;
 		}
 
-		public override BLL.Person Map(Person dbPerson)
+		public override BLL.Entities.UserDto Map(Person dbPerson)
 		{
 			if (dbPerson == null)
 				return null;
-			BLL.Person bllPerson = new BLL.Person()
+			BLL.Entities.UserDto bllPerson = new BLL.Entities.UserDto()
 			{
 
 				Id = dbPerson.ID,
@@ -35,9 +35,9 @@ namespace BookIt.Repository.Mappers
 				LastName = dbPerson.LastName,
 			};
 			if (dbPerson.Role == Role.Administrator)
-				bllPerson.PersonRole = BLL.Role.Administrator;
+				bllPerson.Role = BLL.Entities.RoleTypes.Administrator;
 			else
-				bllPerson.PersonRole = BLL.Role.User;
+				bllPerson.Role = BLL.Entities.RoleTypes.User;
 
 			return bllPerson;
 		}

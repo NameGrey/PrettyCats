@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 using BookIt.Repository;
 
 namespace BookIt.Services
@@ -14,12 +15,12 @@ namespace BookIt.Services
 			_repository = repository;
 		}
 
-		public IEnumerable<BookingSubject> GetAllSubjects()
+		public IEnumerable<BookingSubjectDto> GetAllSubjects()
 		{
 			return _repository.GetAllBookingSubjects();
 		}
 
-		public BookingSubject GetSubjectById(int subjectId)
+		public BookingSubjectDto GetSubjectById(int subjectId)
 		{
 			return _repository.GetAllBookingSubjects().FirstOrDefault(x=>x.Id == subjectId);
 		}

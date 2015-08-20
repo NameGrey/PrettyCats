@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 
 namespace BookIt.Services
 {
-	internal interface IOffersService
+    public interface IOffersService
 	{
-		IEnumerable<BookingOffer> GetAllOffers();
-		IEnumerable<BookingOffer> GetAllOffersForSubject(int subjectId);
+		IEnumerable<BookingOfferDto> GetAllOffers();
+		IEnumerable<BookingOfferDto> GetAllOffersForSubject(int subjectId);
 
-		BookingOffer GetOfferById(int offerId);
-		void UpdateOffer(BookingOffer offer);
+		BookingOfferDto GetOfferById(int offerId);
+		void UpdateOffer(BookingOfferDto offer);
 	}
 }

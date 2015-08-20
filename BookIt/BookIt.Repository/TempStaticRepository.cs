@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 using TempDatabase;
 
 namespace BookIt.Repository
@@ -11,34 +12,34 @@ namespace BookIt.Repository
     public class TempStaticRepository : IBookItRepository
     {
 
-        public IEnumerable<Person> GetPersons()
+        public IEnumerable<UserDto> GetPersons()
         {
             return TempDb.GetPersons();
         }
 
-        public IEnumerable<BookingSubject> GetAllBookingSubjects()
+        public IEnumerable<BookingSubjectDto> GetAllBookingSubjects()
         {
             return TempDb.GetAllBookingSubjects();
         }
 
-        public IEnumerable<BookingOffer> GetAllBookingOffers()
+        public IEnumerable<BookingOfferDto> GetAllBookingOffers()
         {
             return TempDb.GetAllBookingOffers();
         }
 
-        public void CreateBookingOffer(BookingOffer offer)
+        public void CreateBookingOffer(BookingOfferDto offer)
         {
             TempDb.SaveBookingOffer(offer);
         }
 
-        public void UpdateBookingOffer(BookingOffer bookingOffer)
+        public void UpdateBookingOffer(BookingOfferDto bookingOffer)
         {
             TempDb.UpdateBookingOffer(bookingOffer);
         }
 
 		#region IBookItRepository Members
 
-		public IEnumerable<Category> GetCategories()
+		public IEnumerable<CategoryTypes> GetCategories()
 		{
 			throw new NotImplementedException();
 		}
@@ -46,7 +47,7 @@ namespace BookIt.Repository
 		#endregion
 
 
-		public void CreateBookingSubject(BookingSubject subject)
+		public void CreateBookingSubject(BookingSubjectDto subject)
 		{
 			TempDb.SaveBookingSubject(subject);
 		}

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookIt.BLL.Entities;
 using BookIt.DAL;
 using BookIt.Repository.Mappers;
+using BookingOffer = BookIt.DAL.BookingOffer;
+using BookingSubject = BookIt.DAL.BookingSubject;
+using Category = BookIt.BLL.Entities.CategoryTypes;
+using Person = BookIt.BLL.Entities.UserDto;
 
 namespace BookIt.Repository
 {
@@ -29,22 +34,22 @@ namespace BookIt.Repository
 
 		#region IBookItRepository Members
 
-		public IEnumerable<BLL.Person> GetPersons()
+		public IEnumerable<Person> GetPersons()
 		{
 			return personMapper.MapAll(dbContext.Persons);
 		}
 
-		public IEnumerable<BLL.BookingSubject> GetAllBookingSubjects()
+		public IEnumerable<BLL.Entities.BookingSubjectDto> GetAllBookingSubjects()
 		{
 			return bookingSubjectsMapper.MapAll(dbContext.BookingSubjects);
 		}
 
-		public IEnumerable<BLL.BookingOffer> GetAllBookingOffers()
+		public IEnumerable<BLL.Entities.BookingOfferDto> GetAllBookingOffers()
 		{
 			return bookingOffersMapper.MapAll(dbContext.BookingOffers);
 		}
 
-		public void CreateBookingOffer(BLL.BookingOffer offer)
+		public void CreateBookingOffer(BLL.Entities.BookingOfferDto offer)
 		{
 			var dbOffer = new BookingOffer();
 			bookingOffersMapper.UnMap(offer, dbOffer);
@@ -53,7 +58,7 @@ namespace BookIt.Repository
 			dbContext.SaveChanges();
 		}
 
-		public void CreateBookingSubject(BLL.BookingSubject subject)
+		public void CreateBookingSubject(BLL.Entities.BookingSubjectDto subject)
 		{
 			var dbSubject = new BookingSubject();
 			bookingSubjectsMapper.UnMap(subject, dbSubject);
@@ -61,7 +66,7 @@ namespace BookIt.Repository
 			dbContext.SaveChanges();
 		}
 
-		public void UpdateBookingOffer(BLL.BookingOffer bookingOffer)
+		public void UpdateBookingOffer(BLL.Entities.BookingOfferDto bookingOffer)
 		{
 			if (bookingOffer != null)
 			{
@@ -87,7 +92,7 @@ namespace BookIt.Repository
 
 		#endregion
 
-		private void UpdateTimeSlots(BLL.BookingOffer offer, BookingOffer dbOffer)
+		private void UpdateTimeSlots(BLL.Entities.BookingOfferDto offer, BookingOffer dbOffer)
 		{
 
 			if (offer.TimeSlots != null)
@@ -100,7 +105,7 @@ namespace BookIt.Repository
 					{
 						dbOfferSlots.AddRange(dbOffer.TimeSlots);
 					}//делаем копию слотов для оффера
-					foreach (BLL.BookingTimeSlot slot in offer.TimeSlots)
+					foreach (BookingTimeSlotDto slot in offer.TimeSlots)
 					{
 						var dbSLot = dbOfferSlots.FirstOrDefault(s => s.ID == slot.Id);
 						if (dbSLot == null)//если слот новый - добавляем его
@@ -135,7 +140,7 @@ namespace BookIt.Repository
 
 		#region IBookItRepository Members
 
-		public IEnumerable<BLL.Category> GetCategories()
+		public IEnumerable<Category> GetCategories()
 		{
 			return categoriesMapper.MapAll();
 		}

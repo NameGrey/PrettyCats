@@ -5,59 +5,60 @@ using System.Text;
 using System.Threading.Tasks;
 using BookIt.BLL;
 using System.Collections;
+using BookIt.BLL.Entities;
 
 
 namespace TempDatabase
 {
     public class TempDb
     {
-        static List<BookingSubject> bookingSubjects = new List<BookingSubject>() 
+        static List<BookingSubjectDto> bookingSubjects = new List<BookingSubjectDto>() 
         { 
-            new BookingSubject { Id = 1, Category = Category.Other, Name = "Объект 1"}, 
-            new BookingSubject { Id = 2, Category = Category.Sport, Name = "Объект 2",}, 
-            new BookingSubject { Id = 3, Category = Category.Users, Name = "Объект 3" } 
+            new BookingSubjectDto { Id = 1, Category = CategoryTypes.Other, Name = "Объект 1"}, 
+            new BookingSubjectDto { Id = 2, Category = CategoryTypes.Sport, Name = "Объект 2",}, 
+            new BookingSubjectDto { Id = 3, Category = CategoryTypes.Users, Name = "Объект 3" } 
         };
 
-        static List<Person> persons = new List<Person>()
+        static List<UserDto> persons = new List<UserDto>()
         { 
-            new Person { Id = 1, FirstName = "Иван", LastName="Иванов", PersonRole = Role.Administrator }, 
-            new Person { Id = 2, FirstName = "Иван", LastName="Петров", PersonRole = Role.User }, 
-            new Person { Id = 3, FirstName = "Светлана", LastName="Пахомова", PersonRole = Role.User }, 
+            new UserDto { Id = 1, FirstName = "Иван", LastName="Иванов", Role = RoleTypes.Administrator }, 
+            new UserDto { Id = 2, FirstName = "Иван", LastName="Петров", Role = RoleTypes.User }, 
+            new UserDto { Id = 3, FirstName = "Светлана", LastName="Пахомова", Role = RoleTypes.User }, 
           
         };
 
-        static List<BookingOffer> offers = new List<BookingOffer>()
+        static List<BookingOfferDto> offers = new List<BookingOfferDto>()
         { 
-            new BookingOffer() { Id = 1, BookingSubjectId = 2, EndDate = new DateTime(2012, 12, 12), IsInfinite = false, IsOccupied = false, Owner = persons[0], StartDate = new DateTime(2012, 11, 12), Name = "Зачем он вообще?", TimeSlots = null},
+            new BookingOfferDto() { Id = 1, BookingSubjectId = 2, EndDate = new DateTime(2012, 12, 12), IsInfinite = false, IsOccupied = false, Owner = persons[0], StartDate = new DateTime(2012, 11, 12), Name = "Зачем он вообще?", TimeSlots = null},
         };
 
-        static List<BookingTimeSlot> slots = new List<BookingTimeSlot>()
+        static List<BookingTimeSlotDto> slots = new List<BookingTimeSlotDto>()
         { 
           
         };
 
 
-        static public List<BookingSubject> GetAllBookingSubjects() 
+        static public List<BookingSubjectDto> GetAllBookingSubjects() 
         { 
             return bookingSubjects;
         }
 
-        static public List<BookingOffer> GetAllBookingOffers()
+        static public List<BookingOfferDto> GetAllBookingOffers()
         {
             return offers;
         }
 
-        static public List<BookingOffer> GetFreeBookingOffers()
+        static public List<BookingOfferDto> GetFreeBookingOffers()
         {
             return offers.Where(s => s.IsOccupied == false).ToList();
         }
 
-        static public List<Person> GetPersons()
+        static public List<UserDto> GetPersons()
         {
             return persons;
         }
 
-        static public BookingTimeSlot SaveBookingTimeSlot(BookingTimeSlot slot)
+        static public BookingTimeSlotDto SaveBookingTimeSlot(BookingTimeSlotDto slot)
         {
             int maxId = slots.Any() ? slots.Max(s => s.Id) + 1 : 1;
             slot.Id = maxId;
@@ -65,7 +66,7 @@ namespace TempDatabase
             return slot;
         }
 
-        static public BookingOffer SaveBookingOffer(BookingOffer bookingOffer)
+        static public BookingOfferDto SaveBookingOffer(BookingOfferDto bookingOffer)
         {
             if (bookingOffer.Id == default(int))
             {
@@ -76,7 +77,7 @@ namespace TempDatabase
             return bookingOffer;
         }
 
-		static public BookingSubject SaveBookingSubject(BookingSubject bookingSubject)
+		static public BookingSubjectDto SaveBookingSubject(BookingSubjectDto bookingSubject)
 		{
 			if (bookingSubject.Id == default(int))
 			{
@@ -87,12 +88,12 @@ namespace TempDatabase
 			return bookingSubject;
 		}
 
-        static public void UpdateBookingOffer(BookingOffer bookingOffer)
+        static public void UpdateBookingOffer(BookingOfferDto bookingOffer)
         {
-            BookingOffer existedOffer = offers.FirstOrDefault(o => o.Id == bookingOffer.Id);
+            BookingOfferDto existedOffer = offers.FirstOrDefault(o => o.Id == bookingOffer.Id);
             slots.RemoveAll(s => s.BookingOfferId == bookingOffer.Id);
             if (bookingOffer.TimeSlots != null)
-                foreach (BookingTimeSlot s in bookingOffer.TimeSlots)
+                foreach (BookingTimeSlotDto s in bookingOffer.TimeSlots)
                 {
                     SaveBookingTimeSlot(s);
                 }

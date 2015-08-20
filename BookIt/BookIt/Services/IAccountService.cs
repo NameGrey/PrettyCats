@@ -1,9 +1,10 @@
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 
 namespace BookIt.Services
 {
-	internal interface IAccountService
+    public interface IAccountService
 	{
-		Person GetCurrentUser();
+		UserDto GetCurrentUser();
 	}
 }

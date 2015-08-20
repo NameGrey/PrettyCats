@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 
 namespace BookIt.Services
 {
-	internal interface ICategoriesService
+    public interface ICategoriesService
 	{
-		IEnumerable<Category> GetAllCategories();
+		IEnumerable<CategoryTypes> GetAllCategories();
 	}
 }

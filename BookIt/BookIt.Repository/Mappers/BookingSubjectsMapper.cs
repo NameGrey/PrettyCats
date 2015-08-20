@@ -7,9 +7,9 @@ using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
 {
-	public class BookingSubjectsMapper:MapperBase<BLL.BookingSubject, BookingSubject>
+	public class BookingSubjectsMapper:MapperBase<BLL.Entities.BookingSubjectDto, BookingSubject>
 	{
-		public override void UnMap(BLL.BookingSubject bookingSubject, BookingSubject dbBookingSubject)
+		public override void UnMap(BLL.Entities.BookingSubjectDto bookingSubject, BookingSubject dbBookingSubject)
 		{
 			dbBookingSubject.ID = bookingSubject.Id;
 			dbBookingSubject.Category = new CategoriesMapper().UnMap(bookingSubject.Category);
@@ -19,9 +19,9 @@ namespace BookIt.Repository.Mappers
 			dbBookingSubject.OwnerID = bookingSubject.Owner.Id;
 		}
 
-		public override BLL.BookingSubject Map(BookingSubject dbBookingSubject)
+		public override BLL.Entities.BookingSubjectDto Map(BookingSubject dbBookingSubject)
 		{
-			var bllBookingSubject = new BLL.BookingSubject();
+			var bllBookingSubject = new BLL.Entities.BookingSubjectDto();
 			if (dbBookingSubject != null)
 			{
 				bllBookingSubject.Id = dbBookingSubject.ID;

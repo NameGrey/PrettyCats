@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
 {
-	public class TimeSlotsMapper: MapperBase<BookingTimeSlot,TimeSlot>
+	public class TimeSlotsMapper: MapperBase<BookingTimeSlotDto,TimeSlot>
 	{
-		public override void UnMap(BookingTimeSlot bookingTimeSlot, TimeSlot dbTimeSlot)
+		public override void UnMap(BookingTimeSlotDto bookingTimeSlot, TimeSlot dbTimeSlot)
 		{
 			dbTimeSlot.ID = bookingTimeSlot.Id;
 			dbTimeSlot.BookingOfferID = bookingTimeSlot.BookingOfferId;
@@ -23,9 +24,9 @@ namespace BookIt.Repository.Mappers
 			dbTimeSlot.StartDate = bookingTimeSlot.StartDate;
 		}
 
-		public override BookingTimeSlot Map(TimeSlot dbTimeSlot)
+		public override BookingTimeSlotDto Map(TimeSlot dbTimeSlot)
 		{
-			var bllTimeSLot = new BookingTimeSlot();
+			var bllTimeSLot = new BookingTimeSlotDto();
 			if (dbTimeSlot != null)
 			{
 				bllTimeSLot.BookingOfferId = dbTimeSlot.BookingOfferID;

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using BookIt.BLL;
+using BookIt.BLL.Entities;
 
 namespace BookIt.Services
 {
-	internal interface ISubjectsService
+    public interface ISubjectsService
 	{
-		IEnumerable<BookingSubject> GetAllSubjects();
-		BookingSubject GetSubjectById(int subjectId);
+		IEnumerable<BookingSubjectDto> GetAllSubjects();
+		BookingSubjectDto GetSubjectById(int subjectId);
 	}
 }
