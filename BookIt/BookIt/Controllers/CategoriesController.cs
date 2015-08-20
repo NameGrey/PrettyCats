@@ -6,25 +6,26 @@ using System.Net.Http;
 using System.Web.Http;
 using BookIt.BLL;
 using BookIt.Repository;
+using BookIt.Services;
 using Newtonsoft.Json.Linq;
 
 namespace BookIt.Controllers
 {
 	[RoutePrefix("api/Categories")]
-    public class CategoriesController : ApiController
+    internal class CategoriesController : ApiController
     {
-        private readonly IBookItRepository _repository;
+		private readonly ICategoriesService _categoriesService;
 
-        public CategoriesController(IBookItRepository repository)
+		public CategoriesController(ICategoriesService categoriesService)
 		{
-            _repository = repository;
+			_categoriesService = categoriesService;
 		}
 
 		[HttpGet]
 		[Route("")]
 		public IEnumerable<JObject> GetAllCategories()
 		{
-			IEnumerable<Category> categories = _repository.GetCategories();
+			IEnumerable<Category> categories = _categoriesService.GetAllCategories();
 
 #warning добавить локализацию
 			var categoriesNames = new List<JObject>();

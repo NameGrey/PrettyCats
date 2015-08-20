@@ -1,42 +1,41 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using BookIt.BLL;
-using BookIt.Repository;
+using BookIt.Services;
 
 namespace BookIt.Controllers
 {
 	[RoutePrefix("api/Subjects")]
-    public class SubjectsController : ApiController
+    internal class SubjectsController : ApiController
     {
-        private readonly IBookItRepository _repository;
+		private readonly ISubjectsService _subjectsService;
+		private readonly IOffersService _offersService;
 
-        public SubjectsController(IBookItRepository repository)
+		public SubjectsController(ISubjectsService subjectsService, IOffersService offersService)
 		{
-            _repository = repository;
+			_subjectsService = subjectsService;
+			_offersService = offersService;
 		}
 
 		[HttpGet]
 		[Route("")]
 		public IEnumerable<BookingSubject> GetAllSubjects()
 		{
-			return _repository.GetAllBookingSubjects();
+			return _subjectsService.GetAllSubjects();
 		}
 
         [HttpGet]
         [Route("{id}")]
         public BookingSubject GetSubjectById(int id)
         {
-            return _repository.GetAllBookingSubjects().FirstOrDefault(s => s.Id == id);
+			return _subjectsService.GetSubjectById(id);
         }
 
         [HttpGet]
-        [Route("{bookingSubjectId:int}/offers")]
-        public IEnumerable<BookingOffer> GetOffersForSubject([FromUri]int bookingSubjectId)
+		[Route("{subjectId:int}/offers")]
+        public IEnumerable<BookingOffer> GetOffersForSubject([FromUri]int subjectId)
         {
-            BookingSubject subject = _repository.GetAllBookingSubjects().FirstOrDefault(e => e.Id == bookingSubjectId);
-            if (subject == null) return null;
-            return _repository.GetAllBookingOffers().Where(of => of.BookingSubjectId != null && of.BookingSubjectId.Value == bookingSubjectId);
+			return _offersService.GetAllOffersForSubject(subjectId);
         }
     }
 }

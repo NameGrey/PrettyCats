@@ -16,6 +16,9 @@ namespace BookIt
 			// Web API routes
 			config.MapHttpAttributeRoutes();
 			config.EnableCors();
+			//config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+
+			UnityConfig.RegisterComponents();
 
 			config.Routes.MapHttpRoute(
 				  name: "Api_Get",
@@ -37,8 +40,6 @@ namespace BookIt
 				  defaults: new { id = RouteParameter.Optional, action = "Delete" },
 				  constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
 			   );
-
-			UnityConfig.RegisterComponents();
 		}
 
 	}

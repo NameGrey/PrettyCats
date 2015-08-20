@@ -1,6 +1,7 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using BookIt.Repository;
+using BookIt.Services;
 using Unity.WebApi;
 
 namespace BookIt
@@ -16,6 +17,12 @@ namespace BookIt
             
             // e.g. container.RegisterType<ITestService, TestService>();
 			container.RegisterType<IBookItRepository, DBRepository>();
+
+			container.RegisterType<IAccountService, AccountService>();
+			container.RegisterType<ICategoriesService, CategoriesService>();
+			container.RegisterType<ISubjectsService, SubjectsService>();
+			container.RegisterType<IOffersService, OffersService>();
+
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
