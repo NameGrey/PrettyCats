@@ -19,25 +19,26 @@ namespace BookIt
 
 			config.Routes.MapHttpRoute(
 				  name: "Api_Get",
-				  routeTemplate: "api/{controller}/{action}/{id}",
+				  routeTemplate: "api/{controller}/{id}",
 				  defaults: new { id = RouteParameter.Optional, action = "Get" },
 				  constraints: new { httpMethod = new HttpMethodConstraint("GET") }
 			   );
 
 			config.Routes.MapHttpRoute(
 				   name: "Api_Post",
-				   routeTemplate: "api/{controller}/{action}/{id}",
+				   routeTemplate: "api/{controller}/{id}",
 				   defaults: new { id = RouteParameter.Optional, action = "Post" },
 				   constraints: new { httpMethod = new HttpMethodConstraint("POST") }
 				);
 
 			config.Routes.MapHttpRoute(
 				  name: "Api_Delete",
-				  routeTemplate: "api/{controller}/{action}/{id}",
+				  routeTemplate: "api/{controller}/{id}",
 				  defaults: new { id = RouteParameter.Optional, action = "Delete" },
 				  constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
 			   );
 
+			UnityConfig.RegisterComponents();
 		}
 
 	}

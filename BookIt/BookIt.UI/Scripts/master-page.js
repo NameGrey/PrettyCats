@@ -26,7 +26,7 @@ bookItApp.config(['$routeProvider',
 
 bookItApp.service("Configuration", function () {
     if (window.location.host.match('localhost:65265')) {
-        return this.API = 'http://localhost:55060/api/Booking';
+        return this.API = 'http://localhost:55060/api';
     } else {
         return this.API = 'http://10.6.196.27/BookITAPI/api/Booking';
     }

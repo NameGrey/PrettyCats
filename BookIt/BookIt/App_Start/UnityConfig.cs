@@ -1,5 +1,6 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
+using BookIt.Repository;
 using Unity.WebApi;
 
 namespace BookIt
@@ -14,7 +15,7 @@ namespace BookIt
             // it is NOT necessary to register your controllers
             
             // e.g. container.RegisterType<ITestService, TestService>();
-            
+			container.RegisterType<IBookItRepository, DBRepository>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
