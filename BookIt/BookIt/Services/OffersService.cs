@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL;
 using BookIt.BLL.Entities;
+using BookIt.BLL.Services;
 using BookIt.Repository;
 
 namespace BookIt.Services
@@ -9,10 +11,14 @@ namespace BookIt.Services
 	internal class OffersService : IOffersService
 	{
 		private readonly IBookItRepository _repository;
+		private readonly IBookingService _bookingService;
+		private readonly IAccountService _accountService;
 
-		public OffersService(IBookItRepository repository)
+		public OffersService(IBookItRepository repository, IBookingService bookingService, IAccountService accountService)
 		{
 			_repository = repository;
+			_bookingService = bookingService;
+			_accountService = accountService;
 		}
 
 		public IEnumerable<BookingOfferDto> GetAllOffers()
@@ -33,6 +39,26 @@ namespace BookIt.Services
 		public void UpdateOffer(BookingOfferDto offer)
 		{
 			_repository.UpdateBookingOffer(offer);
+		}
+
+		public bool BookOffer(BookingOfferDto offer, DateTime startDate, DateTime endDate)
+		{
+			if (_bookingService.Book(offer, startDate, endDate, _accountService.GetCurrentUser()))
+			{
+				UpdateOffer(offer);
+				return true;
+			}
+			return false;
+		}
+
+		public bool UnBookOffer(BookingOfferDto offer, int timeSlotId)
+		{
+			if (_bookingService.UnBook(offer, timeSlotId, _accountService.GetCurrentUser()))
+			{
+				UpdateOffer(offer);
+				return true;
+			}
+			return false;
 		}
 	}
 }

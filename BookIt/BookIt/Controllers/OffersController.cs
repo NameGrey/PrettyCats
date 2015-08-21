@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using BookIt.BLL.Entities;
-using BookIt.BLL.Services;
 using BookIt.Services;
 
 namespace BookIt.Controllers
@@ -10,14 +9,11 @@ namespace BookIt.Controllers
     public class OffersController : ApiController
     {
 		private readonly IOffersService _offersService;
-		private readonly IAccountService _accountService;
-	    private readonly IBookingService _bookingService;
 
-	    public OffersController(IOffersService offersService, IAccountService accountService, IBookingService bookingService)
+
+	    public OffersController(IOffersService offersService)
 		{
 			_offersService = offersService;
-			_accountService = accountService;
-	        _bookingService = bookingService;
 		}
 
 		[HttpGet]
@@ -45,11 +41,8 @@ namespace BookIt.Controllers
 
             if (offer == null) return BadRequest("There are no data passed to book offer");
 
-			if (_bookingService.Book(offer, bookingTimeSlot.StartDate, bookingTimeSlot.EndDate, CurrentUser))
-            {
-                _offersService.UpdateOffer(offer);
-                return Ok(offer);
-            }
+			if (_offersService.BookOffer(offer, bookingTimeSlot.StartDate, bookingTimeSlot.EndDate))
+				return Ok(offer);
             return InternalServerError();
         }
 
@@ -60,18 +53,10 @@ namespace BookIt.Controllers
 			BookingOfferDto offer = _offersService.GetOfferById(offerId);
             if (offer == null) 
 				return BadRequest("There are no data passed to unbook offer");
-            if (_bookingService.UnBook(offer,slotId, CurrentUser))
-            {
-				_offersService.UpdateOffer(offer);
-                return Ok(offer);
-            }
-            return InternalServerError();
+
+			if (_offersService.UnBookOffer(offer, slotId))
+				return Ok(offer);
+			return InternalServerError();
         }
-
-
-		private UserDto CurrentUser
-		{
-			get { return _accountService.GetCurrentUser(); }
-		}
     }
 }
