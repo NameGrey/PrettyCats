@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt", "BookIt\BookIt.csproj", "{D4EE2BA0-E9BC-4708-974F-08FC4AF62CA2}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Repository", "BookIt.Repository\BookIt.Repository.csproj", "{BF418429-9852-4EB8-9C41-6C920D1B57C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.UI", "BookIt.UI\BookIt.UI.csproj", "{79970608-1CE4-411E-9100-246E59B3B1E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{0E6F3C92-F90C-4A85-AAF4-3D5E4497707D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookIt.Tests", "BookIt.Tests\BookIt.Tests.csproj", "{F78282BB-6BC8-4D40-8732-1127819ABCD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +49,15 @@ Global
 		{79970608-1CE4-411E-9100-246E59B3B1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79970608-1CE4-411E-9100-246E59B3B1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79970608-1CE4-411E-9100-246E59B3B1E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F78282BB-6BC8-4D40-8732-1127819ABCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78282BB-6BC8-4D40-8732-1127819ABCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78282BB-6BC8-4D40-8732-1127819ABCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78282BB-6BC8-4D40-8732-1127819ABCD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F78282BB-6BC8-4D40-8732-1127819ABCD1} = {0E6F3C92-F90C-4A85-AAF4-3D5E4497707D}
 	EndGlobalSection
 EndGlobal
