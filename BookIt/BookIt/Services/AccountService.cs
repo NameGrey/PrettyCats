@@ -16,7 +16,7 @@ namespace BookIt.Services
 
 		public UserDto GetCurrentUser()
 		{
-			return _repository.GetPersons().FirstOrDefault(p => p.Id == 1);
+			return _repository.GetUsers().FirstOrDefault(p => p.Id == 1);
 		}
 
 	}

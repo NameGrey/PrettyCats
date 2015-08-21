@@ -52,15 +52,20 @@
   <ItemGroup>
     <Compile Include="BookingContext.cs" />
     <Compile Include="BookingDBInitializer.cs" />
-    <Compile Include="BookingEntities\BookingOffer.cs" />
-    <Compile Include="BookingEntities\Person.cs" />
-    <Compile Include="BookingEntities\Role.cs" />
-    <Compile Include="BookingEntities\TimeSlot.cs" />
-    <Compile Include="BookingEntities\BookingSubject.cs" />
-    <Compile Include="BookingEntities\Category.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\BookingOffer.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\TimeSlot.cs" />
+    <Compile Include="Entities\BookingSubject.cs" />
+    <Compile Include="Entities\Category.cs" />
     <Compile Include="Migrations\201508071337455_InitialCreate.cs" />
     <Compile Include="Migrations\201508071337455_InitialCreate.Designer.cs">
       <DependentUpon>201508071337455_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508211015046_NewMigration.cs" />
+    <Compile Include="Migrations\201508211015046_NewMigration.Designer.cs">
+      <DependentUpon>201508211015046_NewMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +80,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508071337455_InitialCreate.resx">
       <DependentUpon>201508071337455_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508211015046_NewMigration.resx">
+      <DependentUpon>201508211015046_NewMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

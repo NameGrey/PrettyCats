@@ -6,9 +6,9 @@ namespace BookIt.BLL.Entities
     {
         public int Id { get; set; }
         public int BookingOfferId { get; set; }
-        public DateTime StartDate { get; set; }
+		public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public UserDto Person { get; set; }
+        public UserDto Owner { get; set; }
         public bool IsOccupied { get; set; }
     }
 }

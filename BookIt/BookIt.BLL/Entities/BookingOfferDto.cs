@@ -17,14 +17,11 @@ namespace BookIt.BLL.Entities
         public bool IsInfinite { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public CategoryTypes Category { get; set; }
+        public CategoryDto Category { get; set; }
 
         public BookingOfferDto()
         {
             TimeSlots = new SortedSet<BookingTimeSlotDto>(new BookingTimeSlotComparer());
         }
-
-
-
     }
 }

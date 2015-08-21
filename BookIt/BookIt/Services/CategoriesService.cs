@@ -14,7 +14,7 @@ namespace BookIt.Services
 			_repository = repository;
 		}
 
-		public IEnumerable<CategoryTypes> GetAllCategories()
+		public IEnumerable<CategoryDto> GetAllCategories()
 		{
 			return _repository.GetCategories();
 		}

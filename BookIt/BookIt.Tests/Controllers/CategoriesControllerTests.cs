@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL.Entities;
@@ -28,7 +29,12 @@ namespace BookIt.Tests.Controllers
 		[TestMethod]
 		public void GetAllCategoriesTest()
 		{
-			List<CategoryTypes> expectedResult = new List<CategoryTypes>(){CategoryTypes.Parking, CategoryTypes.Sport, CategoryTypes.Users};
+			List<CategoryDto> expectedResult = new List<CategoryDto>();
+			expectedResult.Add(new CategoryDto() {Id = 1, Name = "Sport"});
+			expectedResult.Add(new CategoryDto() { Id = 2, Name = "Parking" });
+			expectedResult.Add(new CategoryDto() { Id = 3, Name = "User" });
+
+
 			_categoriesService.Expect(x => x.GetAllCategories()).Return(expectedResult);
 			_mockRepository.ReplayAll();
 			var target = CreateTarget();
@@ -39,7 +45,7 @@ namespace BookIt.Tests.Controllers
 			Assert.AreEqual(expectedResult.Count, actualList.Count);
 			for (int i = 0; i < expectedResult.Count; i++)
 			{
-				Assert.AreEqual(expectedResult[i].ToString(), actualList[i]["Name"].ToString());
+				Assert.AreEqual(expectedResult[i].Name, actualList[i]["Name"].ToString());
 			}
 		}
 

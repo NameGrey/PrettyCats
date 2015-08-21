@@ -17,12 +17,12 @@ namespace BookIt.Services
 
 		public IEnumerable<BookingSubjectDto> GetAllSubjects()
 		{
-			return _repository.GetAllBookingSubjects();
+			return _repository.GetSubjects();
 		}
 
 		public BookingSubjectDto GetSubjectById(int subjectId)
 		{
-			return _repository.GetAllBookingSubjects().FirstOrDefault(x=>x.Id == subjectId);
+			return _repository.GetSubjects().FirstOrDefault(x=>x.Id == subjectId);
 		}
 
 	}

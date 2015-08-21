@@ -1,45 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookIt.BLL;
-using BookIt.BLL.Entities;
+﻿using BookIt.BLL.Entities;
 using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
 {
-	public class TimeSlotsMapper: MapperBase<BookingTimeSlotDto,TimeSlot>
+	public static class TimeSlotsMapper
 	{
-		public override void UnMap(BookingTimeSlotDto bookingTimeSlot, TimeSlot dbTimeSlot)
+		public static TimeSlot UnMap(BookingTimeSlotDto source)
 		{
-			dbTimeSlot.ID = bookingTimeSlot.Id;
-			dbTimeSlot.BookingOfferID = bookingTimeSlot.BookingOfferId;
-			dbTimeSlot.EndDate = bookingTimeSlot.EndDate;
-			dbTimeSlot.IsBusy = bookingTimeSlot.IsOccupied;
-			if (bookingTimeSlot.Person != null)
-				dbTimeSlot.OwnerID = bookingTimeSlot.Person.Id;
-			else
-				dbTimeSlot.OwnerID = null;
-			dbTimeSlot.StartDate = bookingTimeSlot.StartDate;
-		}
+			if (source == null)
+				return null;
 
-		public override BookingTimeSlotDto Map(TimeSlot dbTimeSlot)
-		{
-			var bllTimeSLot = new BookingTimeSlotDto();
-			if (dbTimeSlot != null)
+			TimeSlot result = new TimeSlot
 			{
-				bllTimeSLot.BookingOfferId = dbTimeSlot.BookingOfferID;
-				bllTimeSLot.EndDate = dbTimeSlot.EndDate;
-				bllTimeSLot.Id = dbTimeSlot.ID;
-				bllTimeSLot.IsOccupied = dbTimeSlot.IsBusy;
-				bllTimeSLot.Person = new PersonsMapper().Map(dbTimeSlot.Owner);
-				bllTimeSLot.StartDate = dbTimeSlot.StartDate;
-			}
-			return bllTimeSLot;
+				ID = source.Id,
+				BookingOfferID = source.BookingOfferId,
+				StartDate = source.StartDate,
+				EndDate = source.EndDate,
+				IsOccupied = source.IsOccupied,
+				OwnerID = source.Owner != null ? source.Owner.Id: (int?)null
+			};
+
+			return result;
 		}
 
+		public static BookingTimeSlotDto Map(TimeSlot source)
+		{
+			if (source == null)
+				return null;
 
-		
+			BookingTimeSlotDto result = new BookingTimeSlotDto
+			{
+				Id = source.ID,
+				BookingOfferId = source.BookingOfferID,
+				StartDate = source.StartDate,
+				EndDate = source.EndDate,
+				IsOccupied = source.IsOccupied,
+				Owner = UserMapper.Map(source.Owner)
+			};
+
+			return result;
+		}
+
 	}
 }

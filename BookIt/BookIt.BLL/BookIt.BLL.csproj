@@ -42,12 +42,12 @@
     <Compile Include="Entities\BookingSubjectDto.cs" />
     <Compile Include="Entities\BookingOfferDto.cs" />
     <Compile Include="Entities\BookingTimeSlotDto.cs" />
+    <Compile Include="Entities\CategoryDto.cs" />
+    <Compile Include="Entities\RoleDto.cs" />
     <Compile Include="Entities\UserDto.cs" />
     <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\BookingTimeSlotComparer.cs" />
-    <Compile Include="Entities\CategoryTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\RoleTypes.cs" />
     <Compile Include="Services\IBookingService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

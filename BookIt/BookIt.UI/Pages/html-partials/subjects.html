@@ -6,14 +6,14 @@
             <tr>
                 <th>Name</th>
 				<th>Description</th>
-                <th>Category ID</th>
+                <th>Category</th>
             </tr>
         </thead>
         <tbody>
 			<tr ng-repeat="s in subjects | categoryFilter:search">
 				<td><a href="#/subjects/{{s.Id}}/">{{s.Name}}</a></td>
 				<td>{{s.Description}}</td>
-				<td>{{s.Category}}</td>
+				<td>{{s.Category.Name}}</td>
 			</tr>
         </tbody>
     </table>

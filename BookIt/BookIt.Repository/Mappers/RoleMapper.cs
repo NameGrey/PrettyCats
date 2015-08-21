@@ -3,14 +3,17 @@ using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
 {
-	public static class CategoriesMapper
+	/// <summary>
+	/// Mapping Role to BLL.Role
+	/// </summary>
+	public static class RoleMapper
 	{
-		public static Category UnMap(CategoryDto source)
+		public static Role UnMap(RoleDto source)
 		{
 			if (source == null)
 				return null;
 
-			Category result = new Category
+			Role result = new Role
 			{
 				ID = source.Id,
 				Name = source.Name,
@@ -20,12 +23,12 @@ namespace BookIt.Repository.Mappers
 			return result;
 		}
 
-		public static CategoryDto Map(Category source)
+		public static RoleDto Map(Role source)
 		{
 			if (source == null)
 				return null;
 
-			CategoryDto result = new CategoryDto
+			RoleDto result = new RoleDto()
 			{
 				Id = source.ID,
 				Name = source.Name,
@@ -34,6 +37,5 @@ namespace BookIt.Repository.Mappers
 
 			return result;
 		}
-
 	}
 }

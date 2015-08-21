@@ -1,37 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookIt.BLL.Entities;
 using BookIt.DAL;
 
 namespace BookIt.Repository.Mappers
 {
-	public class BookingSubjectsMapper:MapperBase<BLL.Entities.BookingSubjectDto, BookingSubject>
+	public static class BookingSubjectsMapper
 	{
-		public override void UnMap(BLL.Entities.BookingSubjectDto bookingSubject, BookingSubject dbBookingSubject)
+		public static BookingSubject UnMap(BookingSubjectDto source)
 		{
-			dbBookingSubject.ID = bookingSubject.Id;
-			dbBookingSubject.Category = new CategoriesMapper().UnMap(bookingSubject.Category);
-			dbBookingSubject.Count = bookingSubject.Capacity;
-			dbBookingSubject.Description = bookingSubject.Description;
-			dbBookingSubject.Name = bookingSubject.Name;
-			dbBookingSubject.OwnerID = bookingSubject.Owner.Id;
+			if (source == null)
+				return null;
+
+			BookingSubject result = new BookingSubject
+			{
+				ID = source.Id,
+				Name = source.Name,
+				Description = source.Description,
+				Capacity = source.Capacity,
+				CategoryID = source.Category.Id,
+				OwnerID = source.Owner.Id,
+			};
+			return result;
 		}
 
-		public override BLL.Entities.BookingSubjectDto Map(BookingSubject dbBookingSubject)
+		public static BookingSubjectDto Map(BookingSubject source)
 		{
-			var bllBookingSubject = new BLL.Entities.BookingSubjectDto();
-			if (dbBookingSubject != null)
+			if (source == null)
+				return null;
+
+			BookingSubjectDto result = new BookingSubjectDto
 			{
-				bllBookingSubject.Id = dbBookingSubject.ID;
-				bllBookingSubject.Name = dbBookingSubject.Name;
-				bllBookingSubject.Capacity = dbBookingSubject.Count;
-				bllBookingSubject.Description = dbBookingSubject.Description;
-				bllBookingSubject.Category = new CategoriesMapper().Map(dbBookingSubject.Category);
-				bllBookingSubject.Owner = new PersonsMapper().Map(dbBookingSubject.Owner);
-			}
-			return bllBookingSubject;
+				Id = source.ID,
+				Name = source.Name,
+				Description = source.Description,
+				Capacity = source.Capacity,
+				Category = CategoriesMapper.Map(source.Category),
+				Owner = UserMapper.Map(source.Owner),
+			};
+			return result;
 		}
 
 		

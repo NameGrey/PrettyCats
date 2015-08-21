@@ -5,7 +5,7 @@ namespace BookIt.BLL.Services
 {
     public interface IBookingService
     {
-        bool Book(BookingOfferDto bookingOfferDto, int slotId, DateTime startDate, DateTime endDate, UserDto person);
+        bool Book(BookingOfferDto bookingOfferDto, int slotId, DateTime startDate, DateTime endDate, UserDto user);
 
         /// <summary>
         /// Ѕронировать конкретное предложение на указанный период
@@ -13,7 +13,7 @@ namespace BookIt.BLL.Services
         /// <param name="startDate">ƒата начала резервировани€</param>
         /// <param name="endDate">ƒата окончани€ резервировани€</param>
         /// <returns>ѕризнак, успешно забронировано или нет</returns>
-        bool Book(BookingOfferDto bookingOfferDto, DateTime startDate, DateTime endDate, UserDto person);
+        bool Book(BookingOfferDto bookingOfferDto, DateTime startDate, DateTime endDate, UserDto user);
 
         bool UnBook(BookingOfferDto bookingOfferDto, int slotId, UserDto person);
 

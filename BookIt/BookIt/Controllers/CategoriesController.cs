@@ -21,13 +21,12 @@ namespace BookIt.Controllers
 		[Route("")]
 		public IEnumerable<JObject> GetAllCategories()
 		{
-			IEnumerable<CategoryTypes> categories = _categoriesService.GetAllCategories();
+			IEnumerable<CategoryDto> categories = _categoriesService.GetAllCategories();
 
-#warning добавить локализацию
 			var categoriesNames = new List<JObject>();
-			foreach (CategoryTypes category in categories)
+			foreach (CategoryDto category in categories)
 			{
-				categoriesNames.Add(JObject.FromObject(new { CategoryId = (int)category, Name = Enum.GetName(typeof(CategoryTypes), category) }));
+				categoriesNames.Add(JObject.FromObject(new { CategoryId = category.Id, category.Name }));
 			}
 
 			return categoriesNames;

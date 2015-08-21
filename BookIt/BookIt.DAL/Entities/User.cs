@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookIt.DAL
 {
-	public class Person
+	public class User
 	{
 		public int ID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 
-		public Role Role { get; set; }
+		public int RoleID { get; set; }
+		[ForeignKey("RoleID")]
+		public virtual Role Role { get; set; }
 
 		public virtual ICollection<TimeSlot> TimeSlots { get; set; }
 

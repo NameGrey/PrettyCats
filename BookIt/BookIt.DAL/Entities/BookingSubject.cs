@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace BookIt.DAL
 {
-	public class BookingSubject
+	public class BookingSubject : EntityBase
 	{
-		public int ID { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-		public int Count { get; set; }
-		public Category Category { get; set; }
+		public int Capacity { get; set; }
+
+		public int CategoryID { get; set; }
+		[ForeignKey("CategoryID")]
+		public virtual Category Category { get; set; }
 
 		public int OwnerID { get; set; }
-
 		[ForeignKey("OwnerID")]
-		public virtual Person Owner { get; set; }
+		public virtual User Owner { get; set; }
+
 		public virtual ICollection<BookingOffer> BookingOffers { get; set; }
 	}
 }

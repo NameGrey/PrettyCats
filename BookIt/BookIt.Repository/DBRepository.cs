@@ -1,148 +1,132 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BookIt.BLL.Entities;
 using BookIt.DAL;
 using BookIt.Repository.Mappers;
-using BookingOffer = BookIt.DAL.BookingOffer;
-using BookingSubject = BookIt.DAL.BookingSubject;
-using Category = BookIt.BLL.Entities.CategoryTypes;
-using Person = BookIt.BLL.Entities.UserDto;
 
 namespace BookIt.Repository
 {
 	public class DBRepository : IBookItRepository
 	{
-		private BookingContext dbContext;
-		private PersonsMapper personMapper;
-		private BookingSubjectsMapper bookingSubjectsMapper;
-		private BookingOffersMapper bookingOffersMapper;
-		private TimeSlotsMapper timeSlotsMapper;
-		private CategoriesMapper categoriesMapper;
+		private readonly BookingContext _dbContext;
 
 		public DBRepository()
 		{
-			dbContext = new BookingContext();
-			personMapper = new PersonsMapper();
-			bookingSubjectsMapper = new BookingSubjectsMapper();
-			bookingOffersMapper = new BookingOffersMapper();
-			timeSlotsMapper = new TimeSlotsMapper();
-			categoriesMapper = new CategoriesMapper();
+			_dbContext = new BookingContext();;
 		}
 
 		#region IBookItRepository Members
 
-		public IEnumerable<Person> GetPersons()
+		public IEnumerable<UserDto> GetUsers()
 		{
-			return personMapper.MapAll(dbContext.Persons);
+			return _dbContext.Users.Select(UserMapper.Map).ToList();
 		}
 
-		public IEnumerable<BLL.Entities.BookingSubjectDto> GetAllBookingSubjects()
+		public IEnumerable<BookingSubjectDto> GetSubjects()
 		{
-			return bookingSubjectsMapper.MapAll(dbContext.BookingSubjects);
+			return _dbContext.BookingSubjects.Select(BookingSubjectsMapper.Map).ToList();
 		}
 
-		public IEnumerable<BLL.Entities.BookingOfferDto> GetAllBookingOffers()
+		public IEnumerable<BookingOfferDto> GetOffers()
 		{
-			return bookingOffersMapper.MapAll(dbContext.BookingOffers);
+			return _dbContext.BookingOffers.Select(BookingOffersMapper.Map).ToList();
 		}
 
-		public void CreateBookingOffer(BLL.Entities.BookingOfferDto offer)
+		public void CreateOffer(BookingOfferDto offer)
 		{
-			var dbOffer = new BookingOffer();
-			bookingOffersMapper.UnMap(offer, dbOffer);
-			dbContext.BookingOffers.Add(dbOffer);
+			var dbOffer = BookingOffersMapper.UnMap(offer);
+			if (dbOffer == null)
+				return;
+
+			_dbContext.BookingOffers.Add(dbOffer);
 			UpdateTimeSlots(offer, dbOffer);
-			dbContext.SaveChanges();
+			_dbContext.SaveChanges();
 		}
 
-		public void CreateBookingSubject(BLL.Entities.BookingSubjectDto subject)
+		public void CreateSubject(BookingSubjectDto subject)
 		{
-			var dbSubject = new BookingSubject();
-			bookingSubjectsMapper.UnMap(subject, dbSubject);
-			dbContext.BookingSubjects.Add(dbSubject);
-			dbContext.SaveChanges();
+			var dbSubject = BookingSubjectsMapper.UnMap(subject);
+			if (dbSubject == null)
+				return;
+
+			_dbContext.BookingSubjects.Add(dbSubject);
+			_dbContext.SaveChanges();
 		}
 
-		public void UpdateBookingOffer(BLL.Entities.BookingOfferDto bookingOffer)
+		public void UpdateOffer(BookingOfferDto bookingOffer)
 		{
-			if (bookingOffer != null)
+			if (bookingOffer == null) 
+				return;
+
+			var dbOffer = _dbContext.BookingOffers.FirstOrDefault(x => x.ID == bookingOffer.Id);
+			if (dbOffer != null)
 			{
-				var dbOffer = dbContext.BookingOffers.FirstOrDefault(o => o.ID == bookingOffer.Id);
-				if (dbOffer != null)
-				{
-					bookingOffersMapper.UnMap(bookingOffer, dbOffer);
-					UpdateTimeSlots(bookingOffer, dbOffer);
-					try
-					{
-						dbContext.SaveChanges();
-					}
-					catch (Exception e)
-					{
-
-					}
-				}
-				else
-					throw new ArgumentOutOfRangeException();
+				UpdateTimeSlots(bookingOffer, dbOffer);
+				_dbContext.SaveChanges();
 			}
-
+			else
+				throw new ArgumentOutOfRangeException();
 		}
 
 		#endregion
 
-		private void UpdateTimeSlots(BLL.Entities.BookingOfferDto offer, BookingOffer dbOffer)
+		private void UpdateTimeSlots(BookingOfferDto offer, BookingOffer dbOffer)
 		{
+			if (offer == null || dbOffer == null)
+				return;
 
-			if (offer.TimeSlots != null)
+			if (offer.TimeSlots.Count == 0)
 			{
-				if (offer.TimeSlots.Count > 0)
+				RemoveTimeSlots(dbOffer.TimeSlots);
+				return;
+			}
+
+			var dbOfferSlots = new List<TimeSlot>();
+			if (dbOffer.TimeSlots != null && dbOffer.TimeSlots.Count > 0)
+			{
+				dbOfferSlots = dbOffer.TimeSlots.ToList();
+			} 
+			
+			//делаем копию слотов для оффера
+			foreach (BookingTimeSlotDto slot in offer.TimeSlots)
+			{
+				var dbSlot = dbOfferSlots.FirstOrDefault(s => s.ID == slot.Id);
+
+				if (dbSlot == null) //если слот новый - добавляем его
 				{
-
-					var dbOfferSlots = new List<TimeSlot>();
-					if (dbOffer.TimeSlots != null)
-					{
-						dbOfferSlots.AddRange(dbOffer.TimeSlots);
-					}//делаем копию слотов для оффера
-					foreach (BookingTimeSlotDto slot in offer.TimeSlots)
-					{
-						var dbSLot = dbOfferSlots.FirstOrDefault(s => s.ID == slot.Id);
-						if (dbSLot == null)//если слот новый - добавляем его
-						{
-							dbSLot = new TimeSlot();
-							dbContext.TimeSlots.Add(dbSLot);
-
-						}
-						else
-						{
-							dbOfferSlots.Remove(dbSLot);//удаляем из копии слотов обработанные слоты
-						}
-						timeSlotsMapper.UnMap(slot, dbSLot);
-					}
-					if (dbOfferSlots.Count > 0)//слоты, которых уже нет а bookingOffer
-					{
-						foreach (TimeSlot slot in dbOfferSlots)
-						{
-							dbContext.TimeSlots.Remove(slot);
-						}
-					}
-
-
+					_dbContext.TimeSlots.Add(TimeSlotsMapper.UnMap(slot));
 				}
 				else
 				{
-					if (dbOffer.TimeSlots != null)
-						dbContext.TimeSlots.RemoveRange(dbOffer.TimeSlots);
+					dbOfferSlots.Remove(dbSlot); //удаляем из копии слотов обработанные слоты
+					_dbContext.TimeSlots.Remove(dbSlot);
+					_dbContext.TimeSlots.Add(TimeSlotsMapper.UnMap(slot));
 				}
+			}
+
+			RemoveTimeSlots(dbOfferSlots);
+		}
+
+		private void RemoveTimeSlots(IEnumerable<TimeSlot> timeSlots)
+		{
+			if (timeSlots != null && timeSlots.Any())
+			{
+				_dbContext.TimeSlots.RemoveRange(timeSlots);
+				_dbContext.SaveChanges();
 			}
 		}
 
 		#region IBookItRepository Members
 
-		public IEnumerable<Category> GetCategories()
+		public IEnumerable<CategoryDto> GetCategories()
 		{
-			return categoriesMapper.MapAll();
+			return _dbContext.Categories.Select(CategoriesMapper.Map).ToList();
+		}
+
+		public IEnumerable<RoleDto> GetRoles()
+		{
+			return _dbContext.Roles.Select(RoleMapper.Map).ToList();
 		}
 
 		#endregion

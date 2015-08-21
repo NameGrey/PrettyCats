@@ -9,7 +9,7 @@
 				var item = items[i];
 				if ((subject == undefined) || (subject.CategoryId == undefined && (subject.NameFilter == undefined || subject.NameFilter.length == 0)) ||//all objects
 					(subject.CategoryId == undefined && item.Name.toLowerCase().indexOf(subject.NameFilter.toLowerCase()) == 0) ||//filter by name only
-					(item.Category == subject.CategoryId && (subject.NameFilter == undefined || subject.NameFilter.length == 0 || item.Name.toLowerCase().indexOf(subject.NameFilter.toLowerCase()) == 0))) {
+					(item.Category.Id == subject.CategoryId && (subject.NameFilter == undefined || subject.NameFilter.length == 0 || item.Name.toLowerCase().indexOf(subject.NameFilter.toLowerCase()) == 0))) {
 					filtered.push(item);
 				}
 			}

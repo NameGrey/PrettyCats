@@ -12,18 +12,25 @@ namespace TempDatabase
 {
     public class TempDb
     {
+		static List<CategoryDto> categoryDtos = new List<CategoryDto>() 
+        { 
+            new CategoryDto { Id = 1, Name = "Sport"}, 
+			new CategoryDto { Id = 2, Name = "Users"}, 
+			new CategoryDto { Id = 3, Name = "Other"}, 
+        };
+
         static List<BookingSubjectDto> bookingSubjects = new List<BookingSubjectDto>() 
         { 
-            new BookingSubjectDto { Id = 1, Category = CategoryTypes.Other, Name = "Объект 1"}, 
-            new BookingSubjectDto { Id = 2, Category = CategoryTypes.Sport, Name = "Объект 2",}, 
-            new BookingSubjectDto { Id = 3, Category = CategoryTypes.Users, Name = "Объект 3" } 
+            new BookingSubjectDto { Id = 1, Category = new CategoryDto(){Id = 3, Name = "Other"}, Name = "Объект 1"}, 
+            new BookingSubjectDto { Id = 2, Category = new CategoryDto(){Id = 2, Name = "Sport"}, Name = "Объект 2",}, 
+            new BookingSubjectDto { Id = 3, Category = new CategoryDto(){Id = 1, Name = "User"}, Name = "Объект 3" } 
         };
 
         static List<UserDto> persons = new List<UserDto>()
         { 
-            new UserDto { Id = 1, FirstName = "Иван", LastName="Иванов", Role = RoleTypes.Administrator }, 
-            new UserDto { Id = 2, FirstName = "Иван", LastName="Петров", Role = RoleTypes.User }, 
-            new UserDto { Id = 3, FirstName = "Светлана", LastName="Пахомова", Role = RoleTypes.User }, 
+            new UserDto { Id = 1, FirstName = "Иван", LastName="Иванов", Role = new RoleDto(){Id = 1, Name = "Administrator"} }, 
+            new UserDto { Id = 2, FirstName = "Иван", LastName="Петров", Role = new RoleDto(){Id = 2, Name = "User"} }, 
+            new UserDto { Id = 3, FirstName = "Светлана", LastName="Пахомова", Role = new RoleDto(){Id = 2, Name = "User"} }, 
           
         };
 

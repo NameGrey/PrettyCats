@@ -51,9 +51,8 @@
     <Compile Include="Mappers\BookingOffersMapper.cs" />
     <Compile Include="Mappers\BookingSubjectsMapper.cs" />
     <Compile Include="Mappers\CategoriesMapper.cs" />
-    <Compile Include="Mappers\EnumMapperBase.cs" />
-    <Compile Include="Mappers\MapperBase.cs" />
-    <Compile Include="Mappers\PersonsMapper.cs" />
+    <Compile Include="Mappers\RoleMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Mappers\TimeSlotsMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TempStaticRepository.cs" />

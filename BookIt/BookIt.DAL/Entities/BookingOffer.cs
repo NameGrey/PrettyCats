@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace BookIt.DAL
 {
-	public class BookingOffer
+	public class BookingOffer : EntityBase
 	{
-		public int ID { get; set; }
-
-		public string Name { get; set; }
-		public string Description { get; set; }
-
-		public Category Category { get; set; }
+		public int CategoryID { get; set; }
+		[ForeignKey("CategoryID")]
+		public virtual Category Category { get; set; }
+		
 		public bool IsInfinite { get; set; }
 
 		public DateTime? StartDate { get; set; }
@@ -22,10 +20,9 @@ namespace BookIt.DAL
 		
 		public int OwnerID { get; set; }
 		[ForeignKey("OwnerID")]
-		public virtual Person Owner { get; set; }
+		public virtual User Owner { get; set; }
 
 		public int? BookingSubjectID { get; set; }
-
 		[ForeignKey("BookingSubjectID")]
 		public virtual BookingSubject BookingSubject { get; set; }
 

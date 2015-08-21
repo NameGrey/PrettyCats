@@ -6,6 +6,6 @@ namespace BookIt.Services
 {
     public interface ICategoriesService
 	{
-		IEnumerable<CategoryTypes> GetAllCategories();
+		IEnumerable<CategoryDto> GetAllCategories();
 	}
 }

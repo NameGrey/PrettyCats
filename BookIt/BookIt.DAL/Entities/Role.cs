@@ -2,10 +2,8 @@
 
 namespace BookIt.DAL
 {
-	public enum Role
+	public class Role : EntityBase
 	{
-		Administrator,
-		Employee
 	}
 }
 
