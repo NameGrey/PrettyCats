@@ -5,6 +5,6 @@ namespace BookIt.Services
 {
     public interface IAccountService
 	{
-		UserDto GetCurrentUser();
+		User GetCurrentUser();
 	}
 }

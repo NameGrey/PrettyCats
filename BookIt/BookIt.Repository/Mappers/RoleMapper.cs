@@ -1,14 +1,13 @@
-﻿using BookIt.BLL.Entities;
-using BookIt.DAL;
+﻿using BookIt.DAL.Entities;
 
 namespace BookIt.Repository.Mappers
 {
 	/// <summary>
 	/// Mapping Role to BLL.Role
 	/// </summary>
-	public static class RoleMapper
+	public class RoleMapper : IMapper<BLL.Entities.Role, Role>
 	{
-		public static Role UnMap(RoleDto source)
+		public Role UnMap(BLL.Entities.Role source)
 		{
 			if (source == null)
 				return null;
@@ -23,12 +22,12 @@ namespace BookIt.Repository.Mappers
 			return result;
 		}
 
-		public static RoleDto Map(Role source)
+		public BLL.Entities.Role Map(Role source)
 		{
 			if (source == null)
 				return null;
 
-			RoleDto result = new RoleDto()
+			BLL.Entities.Role result = new BLL.Entities.Role()
 			{
 				Id = source.ID,
 				Name = source.Name,

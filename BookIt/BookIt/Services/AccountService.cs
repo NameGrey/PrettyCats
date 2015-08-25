@@ -7,16 +7,16 @@ namespace BookIt.Services
 {
 	internal class AccountService : IAccountService
 	{
-		private readonly IBookItRepository _repository;
+		private readonly IGenericRepository<User> _repository;
 
-		public AccountService(IBookItRepository repository)
+		public AccountService(IGenericRepository<User> repository)
 		{
 			_repository = repository;
 		}
 
-		public UserDto GetCurrentUser()
+		public User GetCurrentUser()
 		{
-			return _repository.GetUsers().FirstOrDefault(p => p.Id == 1);
+			return _repository.GetByID(1);
 		}
 
 	}

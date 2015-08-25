@@ -1,6 +1,6 @@
 ﻿namespace BookIt.BLL.Entities
 {
-	public class CategoryDto
+	public class Category
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

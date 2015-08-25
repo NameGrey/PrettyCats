@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookIt.DAL
+namespace BookIt.DAL.Entities
 {
 	public class TimeSlot
 	{

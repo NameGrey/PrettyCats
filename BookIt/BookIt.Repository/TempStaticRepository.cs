@@ -1,46 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookIt.BLL;
 using BookIt.BLL.Entities;
-using BookIt.DAL;
 using TempDatabase;
 
 namespace BookIt.Repository
 {
-    public class TempStaticRepository : IBookItRepository
+    public class TempStaticRepository 
     {
 
-        public IEnumerable<UserDto> GetUsers()
+		public IEnumerable<BLL.Entities.User> GetUsers()
         {
             return TempDb.GetPersons();
         }
 
-        public IEnumerable<BookingSubjectDto> GetSubjects()
+		public IEnumerable<BLL.Entities.Subject> GetSubjects()
         {
             return TempDb.GetAllBookingSubjects();
         }
 
-        public IEnumerable<BookingOfferDto> GetOffers()
+		public IEnumerable<BLL.Entities.Offer> GetOffers()
         {
             return TempDb.GetAllBookingOffers();
         }
 
-        public void CreateOffer(BookingOfferDto offer)
+		public void CreateOffer(BLL.Entities.Offer offer)
         {
             TempDb.SaveBookingOffer(offer);
         }
 
-        public void UpdateOffer(BookingOfferDto bookingOffer)
+		public void UpdateOffer(BLL.Entities.Offer bookingOffer)
         {
             TempDb.UpdateBookingOffer(bookingOffer);
         }
 
 		#region IBookItRepository Members
 
-		public IEnumerable<CategoryDto> GetCategories()
+		public IEnumerable<BLL.Entities.Category> GetCategories()
 		{
 			throw new NotImplementedException();
 		}
@@ -48,7 +43,7 @@ namespace BookIt.Repository
 		#endregion
 
 
-		public void CreateSubject(BookingSubjectDto subject)
+		public void CreateSubject(Subject subject)
 		{
 			TempDb.SaveBookingSubject(subject);
 		}

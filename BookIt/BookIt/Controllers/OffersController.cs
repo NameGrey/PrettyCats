@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using BookIt.BLL.Entities;
+using BookIt.Repository;
 using BookIt.Services;
 
 namespace BookIt.Controllers
@@ -8,53 +9,58 @@ namespace BookIt.Controllers
 	[RoutePrefix("api/Offers")]
     public class OffersController : ApiController
     {
-		private readonly IOffersService _offersService;
+		private readonly IGenericRepository<Offer> _repository;
+		private readonly IAccountService _accountService;
 
 
-	    public OffersController(IOffersService offersService)
+		public OffersController(IGenericRepository<Offer> repository, IAccountService accountService)
 		{
-			_offersService = offersService;
+			_repository = repository;
+			_accountService = accountService;
 		}
 
 		[HttpGet]
 		[Route("")]
-		public IEnumerable<BookingOfferDto> GetAllBookingOffers()
+		public IEnumerable<Offer> GetAllBookingOffers()
 		{
-			return _offersService.GetAllOffers();
+			return _repository.Get();
 		}
 
         [HttpGet]
         [ActionName("offers")]
         [Route("{id}")]
-        public BookingOfferDto GetOfferById(int id)
+        public Offer GetOfferById(int id)
         {
-			return _offersService.GetOfferById(id);
+			return _repository.GetByID(id);
         }
 
         [HttpPost]
         [Route("{bookingOfferId:int}")]
-        public IHttpActionResult BookOffer(BookingTimeSlotDto bookingTimeSlot, [FromUri]int bookingOfferId)
+        public IHttpActionResult BookOffer(TimeSlot bookingTimeSlot, [FromUri]int bookingOfferId)
         {
             if (bookingTimeSlot == null) return BadRequest("There are no data passed to book offer");
 
-			BookingOfferDto offer = _offersService.GetOfferById(bookingOfferId);
+			Offer offer = _repository.GetByID(bookingOfferId);
 
             if (offer == null) return BadRequest("There are no data passed to book offer");
 
-			if (_offersService.BookOffer(offer, bookingTimeSlot.StartDate, bookingTimeSlot.EndDate))
-				return Ok(offer);
-            return InternalServerError();
+			if (offer.Book(bookingTimeSlot.StartDate, bookingTimeSlot.EndDate, _accountService.GetCurrentUser()))
+	        {
+				_repository.Update(offer);
+		        return Ok(offer);
+	        }
+	        return InternalServerError();
         }
 
         [HttpDelete]
         [Route("")]
         public IHttpActionResult UnBookOffer(int slotId, int offerId)
         {
-			BookingOfferDto offer = _offersService.GetOfferById(offerId);
+			Offer offer = _repository.GetByID(offerId);
             if (offer == null) 
 				return BadRequest("There are no data passed to unbook offer");
 
-			if (_offersService.UnBookOffer(offer, slotId))
+			if (offer.UnBook(slotId, _accountService.GetCurrentUser()))
 				return Ok(offer);
 			return InternalServerError();
         }

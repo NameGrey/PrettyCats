@@ -52,22 +52,12 @@
   <ItemGroup>
     <Compile Include="BookingContext.cs" />
     <Compile Include="BookingDBInitializer.cs" />
-    <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\BookingOffer.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\TimeSlot.cs" />
     <Compile Include="Entities\BookingSubject.cs" />
     <Compile Include="Entities\Category.cs" />
-    <Compile Include="Migrations\201508071337455_InitialCreate.cs" />
-    <Compile Include="Migrations\201508071337455_InitialCreate.Designer.cs">
-      <DependentUpon>201508071337455_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508211015046_NewMigration.cs" />
-    <Compile Include="Migrations\201508211015046_NewMigration.Designer.cs">
-      <DependentUpon>201508211015046_NewMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,14 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508071337455_InitialCreate.resx">
-      <DependentUpon>201508071337455_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508211015046_NewMigration.resx">
-      <DependentUpon>201508211015046_NewMigration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

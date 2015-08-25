@@ -1,11 +1,10 @@
-﻿using BookIt.BLL.Entities;
-using BookIt.DAL;
+﻿using BookIt.DAL.Entities;
 
 namespace BookIt.Repository.Mappers
 {
-	public static class CategoriesMapper
+	public class CategoriesMapper : IMapper<BLL.Entities.Category, Category>
 	{
-		public static Category UnMap(CategoryDto source)
+		public Category UnMap(BLL.Entities.Category source)
 		{
 			if (source == null)
 				return null;
@@ -20,12 +19,12 @@ namespace BookIt.Repository.Mappers
 			return result;
 		}
 
-		public static CategoryDto Map(Category source)
+		public BLL.Entities.Category Map(Category source)
 		{
 			if (source == null)
 				return null;
 
-			CategoryDto result = new CategoryDto
+			BLL.Entities.Category result = new BLL.Entities.Category
 			{
 				Id = source.ID,
 				Name = source.Name,

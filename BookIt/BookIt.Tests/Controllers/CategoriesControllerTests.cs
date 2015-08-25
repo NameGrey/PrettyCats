@@ -1,14 +1,10 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL.Entities;
 using BookIt.Controllers;
-using BookIt.Services;
+using BookIt.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Linq;
 using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
 
 namespace BookIt.Tests.Controllers
 {
@@ -16,26 +12,26 @@ namespace BookIt.Tests.Controllers
 	public class CategoriesControllerTests
 	{
 		private MockRepository _mockRepository;
-		private ICategoriesService _categoriesService;
+		private IGenericRepository<Category> _repository;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			_mockRepository = new MockRepository();
-			_categoriesService = _mockRepository.DynamicMock<ICategoriesService>();
+			_repository = _mockRepository.DynamicMock<IGenericRepository<Category>>();
 			_mockRepository.ReplayAll();
 		}
 
 		[TestMethod]
 		public void GetAllCategoriesTest()
 		{
-			List<CategoryDto> expectedResult = new List<CategoryDto>();
-			expectedResult.Add(new CategoryDto() {Id = 1, Name = "Sport"});
-			expectedResult.Add(new CategoryDto() { Id = 2, Name = "Parking" });
-			expectedResult.Add(new CategoryDto() { Id = 3, Name = "User" });
+			List<Category> expectedResult = new List<Category>();
+			expectedResult.Add(new Category() {Id = 1, Name = "Sport"});
+			expectedResult.Add(new Category() { Id = 2, Name = "Parking" });
+			expectedResult.Add(new Category() { Id = 3, Name = "User" });
 
 
-			_categoriesService.Expect(x => x.GetAllCategories()).Return(expectedResult);
+			_repository.Expect(x => x.Get()).Return(expectedResult);
 			_mockRepository.ReplayAll();
 			var target = CreateTarget();
 			var actual = target.GetAllCategories();
@@ -51,7 +47,7 @@ namespace BookIt.Tests.Controllers
 
 		private CategoriesController CreateTarget()
 		{
-			return new CategoriesController(_categoriesService);
+			return new CategoriesController(_repository);
 		}
 	}
 }

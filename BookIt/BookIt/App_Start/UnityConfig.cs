@@ -1,5 +1,6 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
+using BookIt.BLL.Entities;
 using BookIt.BLL.Services;
 using BookIt.Repository;
 using BookIt.Services;
@@ -13,18 +14,13 @@ namespace BookIt
         {
 			var container = new UnityContainer();
             
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-            
-            // e.g. container.RegisterType<ITestService, TestService>();
-			container.RegisterType<IBookItRepository, DBRepository>();
+			container.RegisterType<IUnitOfWork, UnitOfWork>();
+			container.RegisterType<IGenericRepository<Subject>, SubjectsRepository>();
+			container.RegisterType<IGenericRepository<Offer>, OffersRepository>();
+			container.RegisterType<IGenericRepository<Category>, CategoriesRepository>();
+			container.RegisterType<IGenericRepository<User>, UsersRepository>();
 
 			container.RegisterType<IAccountService, AccountService>();
-			container.RegisterType<ICategoriesService, CategoriesService>();
-			container.RegisterType<ISubjectsService, SubjectsService>();
-			container.RegisterType<IOffersService, OffersService>();
-
-            container.RegisterType<IBookingService, BookingService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

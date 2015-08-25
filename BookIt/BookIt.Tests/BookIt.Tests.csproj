@@ -81,6 +81,10 @@
       <Project>{bd8f78e9-f4d0-47ab-9cc7-a4c9e3c15330}</Project>
       <Name>BookIt.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BookIt.Repository\BookIt.Repository.csproj">
+      <Project>{BF418429-9852-4EB8-9C41-6C920D1B57C5}</Project>
+      <Name>BookIt.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BookIt\BookIt.csproj">
       <Project>{d4ee2ba0-e9bc-4708-974f-08fc4af62ca2}</Project>
       <Name>BookIt</Name>
