@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Http.Results;
 using BookIt.BLL.Entities;
 using BookIt.Repository;
 using BookIt.Services;
@@ -47,7 +49,8 @@ namespace BookIt.Controllers
 			if (offer.Book(bookingTimeSlot.StartDate, bookingTimeSlot.EndDate, _accountService.GetCurrentUser()))
 	        {
 				_repository.Update(offer);
-		        return Ok(offer);
+	            offer = _repository.GetByID(bookingOfferId);
+                return Ok(offer);
 	        }
 	        return InternalServerError();
         }
@@ -60,9 +63,12 @@ namespace BookIt.Controllers
             if (offer == null) 
 				return BadRequest("There are no data passed to unbook offer");
 
-			if (offer.UnBook(slotId, _accountService.GetCurrentUser()))
-				return Ok(offer);
-			return InternalServerError();
+            if (offer.UnBook(slotId, _accountService.GetCurrentUser()))
+            {
+                _repository.Update(offer);
+                return Ok(offer);
+            }
+            return InternalServerError();
         }
     }
 }

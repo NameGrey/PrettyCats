@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookIt.DAL.Entities
 {
-	public class User
+    public class User : IEntity
 	{
 		public int ID { get; set; }
 		public string FirstName { get; set; }

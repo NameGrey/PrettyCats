@@ -43,7 +43,7 @@ namespace BookIt.Repository.Mappers
 			{
 				ID = source.Id,
 				BookingSubjectID = source.BookingSubjectId,
-				Category = _categoriesMapper.UnMap(source.Category),
+                CategoryID = source.Category.Id,
 				Description = source.Description,
 				StartDate = source.StartDate,
 				EndDate = source.EndDate,

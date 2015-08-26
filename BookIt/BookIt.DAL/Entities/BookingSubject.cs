@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookIt.DAL.Entities
 {
-	public class BookingSubject
+    public class BookingSubject : IEntity
 	{
 		public int ID { get; set; }
 		public string Name { get; set; }

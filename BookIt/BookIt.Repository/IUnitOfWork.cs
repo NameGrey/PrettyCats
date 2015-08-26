@@ -5,6 +5,7 @@ namespace BookIt.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
+        GenericRepository<TimeSlot> TimeSlotsRepository { get; }
         GenericRepository<BookingOffer> OffersRepository { get; }
         GenericRepository<BookingSubject> SubjectsRepository { get; }
         GenericRepository<User> UsersRepository { get; }

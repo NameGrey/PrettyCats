@@ -16,8 +16,18 @@ namespace BookIt.Repository
         private GenericRepository<User> _usersRepository;
         private GenericRepository<Role> _rolesRepository;
         private GenericRepository<Category> _categoriesRepository;
+        private GenericRepository<TimeSlot> _timeSlotsRepository;
+
 
         private bool _disposed = false;
+
+        public GenericRepository<TimeSlot> TimeSlotsRepository
+        {
+            get
+            {
+                return _timeSlotsRepository ?? (_timeSlotsRepository = new GenericRepository<TimeSlot>(_context));
+            }
+        }
 
         public GenericRepository<BookingOffer> OffersRepository
         {

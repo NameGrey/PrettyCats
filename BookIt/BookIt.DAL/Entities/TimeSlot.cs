@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookIt.DAL.Entities
 {
-	public class TimeSlot
+    public class TimeSlot : IEntity
 	{
 		public int ID { get; set; }
 

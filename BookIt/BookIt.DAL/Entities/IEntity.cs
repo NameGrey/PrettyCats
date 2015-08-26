@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookIt.Repository
+namespace BookIt.DAL.Entities
 {
-	public interface IRepository
-	{
-
-	}
+    public interface IEntity
+    {
+        int ID { get; }
+    }
 }

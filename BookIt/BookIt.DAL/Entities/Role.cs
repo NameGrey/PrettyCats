@@ -1,6 +1,6 @@
 ﻿namespace BookIt.DAL.Entities
 {
-	public class Role
+    public class Role : IEntity
 	{
 		public int ID { get; set; }
 		public string Name { get; set; }

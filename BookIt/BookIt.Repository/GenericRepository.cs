@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookIt.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace BookIt.Repository
 {
-    public class GenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> where TEntity : class,  IEntity
     {
         private readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -63,6 +64,10 @@ namespace BookIt.Repository
 
         public virtual void Delete(TEntity entityToDelete)
         {
+            var local = _context.Set<TEntity>().Local.FirstOrDefault(x => x.ID == entityToDelete.ID);
+            if (local != null)
+                _context.Entry(local).State = EntityState.Detached;
+
             if (_context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 _dbSet.Attach(entityToDelete);
@@ -72,6 +77,10 @@ namespace BookIt.Repository
 
         public virtual void Update(TEntity entityToUpdate)
         {
+            var local = _context.Set<TEntity>().Local.FirstOrDefault(x => x.ID == entityToUpdate.ID);
+            if (local != null)
+                _context.Entry(local).State = EntityState.Detached;
+
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
