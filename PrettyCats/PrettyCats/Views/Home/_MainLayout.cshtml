@@ -17,7 +17,7 @@
 
 </head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar navbar-inverse navbar-fixed-top pink">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,17 +25,19 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+					<a class="navbar-brand" href="../Home/"> <img class="image-logo" src="../../Resources/Logo.png"></a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li>@Html.ActionLink("Home", "Index", "Home")</li>
+						<li><div class="menu-item">@Html.ActionLink("Главная", "Index", "Home")</div></li>
+						<li><div class="menu-item">@Html.ActionLink("Как выбрать котенка", "Index", "Home")</div></li>
+						<li><div class="menu-item">@Html.ActionLink("Как воспитать кошку", "Index", "Home")</div></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<div> Hello World!!!
+		<div class="container">
+			 @RenderBody()
 		</div>
-		<div @RenderBody()></div>
-	</body>
+</body>
 </html>
