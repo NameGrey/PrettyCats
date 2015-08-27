@@ -10,32 +10,32 @@ namespace BookIt.Controllers
 	[RoutePrefix("api/Subjects")]
     public class SubjectsController : ApiController
     {
-		private readonly IGenericRepository<Subject> _repository;
+        private readonly ISubjectsRepository _subjectsRepository;
 
-		public SubjectsController(IGenericRepository<Subject> repository)
+		public SubjectsController(ISubjectsRepository repository)
 		{
-			_repository = repository;
+			_subjectsRepository = repository;
 		}
 
 		[HttpGet]
 		[Route("")]
 		public IEnumerable<Subject> GetAllSubjects()
 		{
-			return _repository.Get();
+			return _subjectsRepository.Get();
 		}
 
         [HttpGet]
         [Route("{id}")]
         public Subject GetSubjectById(int id)
         {
-			return _repository.GetByID(id);
+			return _subjectsRepository.GetByID(id);
         }
 
         [HttpGet]
 		[Route("{subjectId:int}/offers")]
         public IEnumerable<Offer> GetOffersForSubject([FromUri]int subjectId)
         {
-			var subject = _repository.GetByID(subjectId);
+			var subject = _subjectsRepository.GetByID(subjectId);
 			if (subject == null)
 				return Enumerable.Empty<Offer>();
 

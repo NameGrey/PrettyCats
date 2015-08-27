@@ -13,12 +13,11 @@ namespace BookIt
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
-            
-			container.RegisterType<IUnitOfWork, UnitOfWork>();
-			container.RegisterType<IGenericRepository<Subject>, SubjectsRepository>();
-			container.RegisterType<IGenericRepository<Offer>, OffersRepository>();
-			container.RegisterType<IGenericRepository<Category>, CategoriesRepository>();
-			container.RegisterType<IGenericRepository<User>, UsersRepository>();
+
+            container.RegisterType<ISubjectsRepository, SubjectsRepository>();
+            container.RegisterType<IOffersRepository, OffersRepository>();
+            container.RegisterType<ICategoriesRepository, CategoriesRepository>();
+            container.RegisterType<IUsersRepository, UsersRepository>();
 
 			container.RegisterType<IAccountService, AccountService>();
 

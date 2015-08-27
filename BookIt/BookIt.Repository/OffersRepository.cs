@@ -1,77 +1,56 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL.Entities;
+using BookIt.DAL;
 using BookIt.DAL.Entities;
 using BookIt.Repository.Mappers;
 
+
 namespace BookIt.Repository
 {
-	public class OffersRepository : IGenericRepository<Offer>
-	{
-		private readonly IUnitOfWork _unitOfWork;
-		private readonly BookingOffersMapper _bookingOffersMapper = new BookingOffersMapper();
-        private readonly TimeSlotsMapper _timeSlotsMapper = new TimeSlotsMapper();
+    public class OffersRepository : GenericRepository<BLL.Entities.Offer, DAL.Entities.BookingOffer>, IOffersRepository
+    {
+       private readonly GenericRepository<BLL.Entities.TimeSlot, DAL.Entities.TimeSlot> _timeSlotsRepository;
 
 
-		private GenericRepository<BookingOffer> Offers
+        public OffersRepository(): base(new BookingContext(), new BookingOffersMapper())
 		{
-			get { return _unitOfWork.OffersRepository; }
+            _timeSlotsRepository = new GenericRepository<BLL.Entities.TimeSlot, DAL.Entities.TimeSlot>(Context, new TimeSlotsMapper());
 		}
 
-        private GenericRepository<DAL.Entities.TimeSlot> TimeSlots
+		
+
+		public override void Update(Offer entityToUpdate)
+		{
+            var existingOffer = GetByID(entityToUpdate.Id);
+		    UpdateTimeSlots(entityToUpdate.TimeSlots, existingOffer.TimeSlots);
+			base.Update(entityToUpdate);
+
+		    Context.SaveChanges();
+		}
+
+        private void UpdateTimeSlots(IEnumerable<BLL.Entities.TimeSlot> newTimeSlots, IEnumerable<BLL.Entities.TimeSlot> oldTimeSlots)
         {
-            get { return _unitOfWork.TimeSlotsRepository; }
-        }
+            List<BLL.Entities.TimeSlot> timeSlotsToUpdate = new List<BLL.Entities.TimeSlot>();
+            foreach (var timeSlot in oldTimeSlots)
+            {
+                bool notExistInNewOffer = newTimeSlots.FirstOrDefault(x => x.Id == timeSlot.Id) == null;
 
-		public OffersRepository(IUnitOfWork unitOfWork)
-		{
-			_unitOfWork = unitOfWork;
-		}
-
-		public IEnumerable<Offer> Get()
-		{
-			return Offers.Get().Select(_bookingOffersMapper.Map).ToList();
-		}
-
-		public Offer GetByID(object id)
-		{
-			return _bookingOffersMapper.Map(Offers.GetByID(id));
-		}
-
-		public void Insert(Offer entity)
-		{
-			Offers.Insert(_bookingOffersMapper.UnMap(entity));
-		}
-
-		public void Delete(object id)
-		{
-			Offers.Delete(id);
-		}
-
-		public void Delete(Offer entityToDelete)
-		{
-			Offers.Delete(_bookingOffersMapper.UnMap(entityToDelete));
-		}
-
-		public void Update(Offer entityToUpdate)
-		{
-		    var existingOffer = GetByID(entityToUpdate.Id);
-		    foreach (var timeSlot in existingOffer.TimeSlots)
-		    {
-		        if (entityToUpdate.TimeSlots.All(x => x.Id != timeSlot.Id))
-                    TimeSlots.Delete(_timeSlotsMapper.UnMap(timeSlot));
-		    }
-            
-		    foreach (var timeSlot in entityToUpdate.TimeSlots)
-		    {
-                if (timeSlot.Id == default(int))
-                    TimeSlots.Insert(_timeSlotsMapper.UnMap(timeSlot));
+                if (notExistInNewOffer)
+                    _timeSlotsRepository.Delete(timeSlot);
                 else
-                    TimeSlots.Update(_timeSlotsMapper.UnMap(timeSlot));
-		    }
-			Offers.Update(_bookingOffersMapper.UnMap(entityToUpdate));
+                    timeSlotsToUpdate.Add(timeSlot);
+            }
 
-            _unitOfWork.Save();
-		}
-	}
+            foreach (BLL.Entities.TimeSlot timeSlot in newTimeSlots)
+            {
+                var existingTimeSlot = timeSlotsToUpdate.FirstOrDefault(x=> x.Id == timeSlot.Id);
+
+                if (existingTimeSlot != null)
+                    _timeSlotsRepository.Update(timeSlot);
+                else
+                    _timeSlotsRepository.Insert(timeSlot);
+            }
+        }
+    }
 }

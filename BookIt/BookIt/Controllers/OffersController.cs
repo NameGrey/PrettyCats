@@ -11,21 +11,21 @@ namespace BookIt.Controllers
 	[RoutePrefix("api/Offers")]
     public class OffersController : ApiController
     {
-		private readonly IGenericRepository<Offer> _repository;
-		private readonly IAccountService _accountService;
+	    private readonly IOffersRepository _offersRepository;
+	    private readonly IAccountService _accountService;
 
 
-		public OffersController(IGenericRepository<Offer> repository, IAccountService accountService)
+		public OffersController(IOffersRepository offersRepository, IAccountService accountService)
 		{
-			_repository = repository;
-			_accountService = accountService;
+		    _offersRepository = offersRepository;
+		    _accountService = accountService;
 		}
 
 		[HttpGet]
 		[Route("")]
 		public IEnumerable<Offer> GetAllBookingOffers()
 		{
-			return _repository.Get();
+            return _offersRepository.Get();
 		}
 
         [HttpGet]
@@ -33,7 +33,7 @@ namespace BookIt.Controllers
         [Route("{id}")]
         public Offer GetOfferById(int id)
         {
-			return _repository.GetByID(id);
+            return _offersRepository.GetByID(id);
         }
 
         [HttpPost]
@@ -42,14 +42,14 @@ namespace BookIt.Controllers
         {
             if (bookingTimeSlot == null) return BadRequest("There are no data passed to book offer");
 
-			Offer offer = _repository.GetByID(bookingOfferId);
+            Offer offer = _offersRepository.GetByID(bookingOfferId);
 
             if (offer == null) return BadRequest("There are no data passed to book offer");
 
 			if (offer.Book(bookingTimeSlot.StartDate, bookingTimeSlot.EndDate, _accountService.GetCurrentUser()))
 	        {
-				_repository.Update(offer);
-	            offer = _repository.GetByID(bookingOfferId);
+                _offersRepository.Update(offer);
+                offer = _offersRepository.GetByID(bookingOfferId);
                 return Ok(offer);
 	        }
 	        return InternalServerError();
@@ -59,13 +59,13 @@ namespace BookIt.Controllers
         [Route("")]
         public IHttpActionResult UnBookOffer(int slotId, int offerId)
         {
-			Offer offer = _repository.GetByID(offerId);
+            Offer offer = _offersRepository.GetByID(offerId);
             if (offer == null) 
 				return BadRequest("There are no data passed to unbook offer");
 
             if (offer.UnBook(slotId, _accountService.GetCurrentUser()))
             {
-                _repository.Update(offer);
+                _offersRepository.Update(offer);
                 return Ok(offer);
             }
             return InternalServerError();

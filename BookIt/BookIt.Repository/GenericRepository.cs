@@ -1,88 +1,72 @@
-﻿using BookIt.DAL.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
+using BookIt.DAL.Entities;
+using BookIt.Repository.Mappers;
 
 namespace BookIt.Repository
 {
-    public class GenericRepository<TEntity> where TEntity : class,  IEntity
+    public class GenericRepository<TBusinessEntity, TDataEntity> where TBusinessEntity : class
+                                                                 where TDataEntity:  class, IEntity
     {
-        private readonly DbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly DbContext Context;
+        private readonly IMapper<TBusinessEntity, TDataEntity> _mapper;
+        private readonly DbSet<TDataEntity> _dbSet;
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(DbContext context, IMapper<TBusinessEntity, TDataEntity> mapper)
         {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
+            Context = context;
+            _mapper = mapper;
+            _dbSet = context.Set<TDataEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+        public virtual IEnumerable<TBusinessEntity> Get()
         {
-            IQueryable<TEntity> query = _dbSet;
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+            return _dbSet.Select(_mapper.Map).ToList();
         }
 
-        public virtual TEntity GetByID(object id)
+        public virtual TBusinessEntity GetByID(object id)
         {
-            return _dbSet.Find(id);
+            return _mapper.Map(_dbSet.Find(id));
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual void Insert(TBusinessEntity entity)
         {
-            _dbSet.Add(entity);
+            _dbSet.Add(_mapper.UnMap(entity));
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = _dbSet.Find(id);
+            TDataEntity entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        public virtual void Delete(TBusinessEntity entityToDelete)
         {
-            var local = _context.Set<TEntity>().Local.FirstOrDefault(x => x.ID == entityToDelete.ID);
-            if (local != null)
-                _context.Entry(local).State = EntityState.Detached;
+            var dataEntity = _mapper.UnMap(entityToDelete);
 
-            if (_context.Entry(entityToDelete).State == EntityState.Detached)
+            var local = Context.Set<TDataEntity>().Local.FirstOrDefault(x => x.ID == dataEntity.ID);
+            if (local != null)
+                Context.Entry(local).State = EntityState.Detached;
+            
+
+            if (Context.Entry(dataEntity).State == EntityState.Detached)
             {
-                _dbSet.Attach(entityToDelete);
+                _dbSet.Attach(dataEntity);
             }
-            _dbSet.Remove(entityToDelete);
+            _dbSet.Remove(dataEntity);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
+        public virtual void Update(TBusinessEntity entityToUpdate)
         {
-            var local = _context.Set<TEntity>().Local.FirstOrDefault(x => x.ID == entityToUpdate.ID);
-            if (local != null)
-                _context.Entry(local).State = EntityState.Detached;
+            var dataEntity = _mapper.UnMap(entityToUpdate);
 
-            _dbSet.Attach(entityToUpdate);
-            _context.Entry(entityToUpdate).State = EntityState.Modified;
+            var local = Context.Set<TDataEntity>().Local.FirstOrDefault(x => x.ID == dataEntity.ID);
+            if (local != null)
+                Context.Entry(local).State = EntityState.Detached;
+
+            _dbSet.Attach(dataEntity);
+            Context.Entry(dataEntity).State = EntityState.Modified;
         }
     }
 }

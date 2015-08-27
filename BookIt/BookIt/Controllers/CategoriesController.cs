@@ -9,19 +9,18 @@ namespace BookIt.Controllers
 	[RoutePrefix("api/Categories")]
     public class CategoriesController : ApiController
     {
-		private readonly IGenericRepository<Category> _repository;
+	    private readonly ICategoriesRepository _categoriesRepository;
 
-		public CategoriesController(IGenericRepository<Category> repository)
+		public CategoriesController(ICategoriesRepository categoriesRepository)
 		{
-			_repository = repository;
-
+		    _categoriesRepository = categoriesRepository;
 		}
 
-		[HttpGet]
+	    [HttpGet]
 		[Route("")]
 		public IEnumerable<JObject> GetAllCategories()
 		{
-			IEnumerable<Category> categories = _repository.Get();
+            IEnumerable<Category> categories = _categoriesRepository.Get();
 
 			var categoriesNames = new List<JObject>();
 			foreach (Category category in categories)

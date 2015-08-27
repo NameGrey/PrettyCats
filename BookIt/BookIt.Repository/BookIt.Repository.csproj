@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="IGenericRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="ICategoriesRepository.cs" />
+    <Compile Include="IOffersRepository.cs" />
+    <Compile Include="ISubjectsRepository.cs" />
+    <Compile Include="IUsersRepository.cs" />
     <Compile Include="Mappers\BookingOffersMapper.cs" />
     <Compile Include="Mappers\BookingSubjectsMapper.cs" />
     <Compile Include="Mappers\CategoriesMapper.cs" />
@@ -62,7 +64,6 @@
     <Compile Include="OffersRepository.cs" />
     <Compile Include="SubjectsRepository.cs" />
     <Compile Include="TempStaticRepository.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BookIt.BLL\BookIt.BLL.csproj">

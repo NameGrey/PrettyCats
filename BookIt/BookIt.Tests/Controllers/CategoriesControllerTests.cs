@@ -12,13 +12,13 @@ namespace BookIt.Tests.Controllers
 	public class CategoriesControllerTests
 	{
 		private MockRepository _mockRepository;
-		private IGenericRepository<Category> _repository;
+        private ICategoriesRepository _repository;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			_mockRepository = new MockRepository();
-			_repository = _mockRepository.DynamicMock<IGenericRepository<Category>>();
+			_repository = _mockRepository.DynamicMock<ICategoriesRepository>();
 			_mockRepository.ReplayAll();
 		}
 
