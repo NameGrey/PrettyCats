@@ -43,3 +43,4 @@ packages/
 *.orig
 BookIt/BookIt/App_Data/BookIt.mdf
 BookIt/BookIt/App_Data/BookIt_log.ldf
+*.tmp
