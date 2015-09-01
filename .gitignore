@@ -44,3 +44,5 @@ packages/
 BookIt/BookIt/App_Data/BookIt.mdf
 BookIt/BookIt/App_Data/BookIt_log.ldf
 *.tmp
+*.~vsdx
+Documents/~$okIt Development process.docx
