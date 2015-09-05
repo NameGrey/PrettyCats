@@ -24,5 +24,27 @@ angular.module('bookItApp')
             slot: '=' // allows data to be passed into directive from controller scope
         }
     };
+})
+    .directive('dateformat', function () {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, element, attr, ngModel) {
+
+                function fromUser(text) {
+                    return new Date(text).toLocaleDateString("en-US");
+                }
+
+                function toUser(text) {
+                    if (text) {
+                        var date = new Date(text);
+                        return date.toLocaleDateString("en-US");
+                    }
+                    return "";
+                };
+                ngModel.$parsers.push(fromUser);
+                ngModel.$formatters.push(toUser);
+            }
+        };
 });
 

@@ -8,9 +8,10 @@ namespace BookIt.DAL.Entities
 		public int ID { get; set; }
 
 		public bool IsOccupied { get; set; }
-
+        [Column(TypeName = "Date")]
 		public DateTime StartDate { get; set; }
-		public DateTime EndDate { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime EndDate { get; set; }
 
 		
 		public int? OwnerID { get; set; }
