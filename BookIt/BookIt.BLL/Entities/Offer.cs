@@ -15,7 +15,7 @@ namespace BookIt.BLL.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsInfinite { get; set; }
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public Category Category { get; set; }
 
@@ -209,9 +209,9 @@ namespace BookIt.BLL.Entities
 
 		private void CreateTimeSlot()
 		{
-			if (!IsInfinite && (!StartDate.HasValue || !EndDate.HasValue))
+			if (!IsInfinite && !EndDate.HasValue)
 			{
-				throw new ArgumentException("This offer is not infinite, but has not start and end dates.");
+				throw new ArgumentException("This offer is not infinite, but has not end date.");
 			}
 			if (!IsInfinite)
 			{
@@ -219,7 +219,7 @@ namespace BookIt.BLL.Entities
 				TimeSlot slot = new TimeSlot()
 				{
 					IsOccupied = false,
-					StartDate = StartDate.GetValueOrDefault(),
+					StartDate = StartDate,
 					EndDate = EndDate.GetValueOrDefault(),
 					Owner = null //пока ничей
 				};

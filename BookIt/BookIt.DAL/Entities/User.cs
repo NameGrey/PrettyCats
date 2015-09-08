@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookIt.DAL.Entities
@@ -6,8 +7,13 @@ namespace BookIt.DAL.Entities
     public class User : IEntity
 	{
 		public int ID { get; set; }
+		[Required]
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+
+		[EmailAddress]
+		[Required]
+		public string Email { get; set; }
 
 		public int RoleID { get; set; }
 		[ForeignKey("RoleID")]

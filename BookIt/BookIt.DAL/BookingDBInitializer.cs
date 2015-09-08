@@ -34,9 +34,9 @@ namespace BookIt.DAL
 
 			IList<User> defaultPersons = new List<User>();
 
-			defaultPersons.Add(new User() { ID = 1, FirstName = "TestUser1", RoleID = 1 });
-			defaultPersons.Add(new User() { ID = 2, FirstName = "TestUser2", RoleID = 2 });
-			defaultPersons.Add(new User() { ID = 3, FirstName = "TestUser3", RoleID = 2 });
+			defaultPersons.Add(new User() { ID = 1, FirstName = "TestUser1", RoleID = 1, Email = "elena_ilyina@epam.com" });
+			defaultPersons.Add(new User() { ID = 2, FirstName = "TestUser2", RoleID = 2, Email = "elena_ilyina@epam.com" });
+			defaultPersons.Add(new User() { ID = 3, FirstName = "TestUser3", RoleID = 2, Email = "elena_ilyina@epam.com" });
 
 			context.Users.AddRange(defaultPersons);
 

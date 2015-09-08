@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookIt.DAL.Entities
@@ -7,6 +8,8 @@ namespace BookIt.DAL.Entities
     public class BookingOffer : IEntity
 	{
 		public int ID { get; set; }
+
+		[Required]
 		public string Name { get; set; }
 		public string Description { get; set; }
 
@@ -16,7 +19,10 @@ namespace BookIt.DAL.Entities
 		
 		public bool IsInfinite { get; set; }
 
-		public DateTime? StartDate { get; set; }
+		[Column(TypeName = "Date")]
+		public DateTime StartDate { get; set; }
+
+		[Column(TypeName = "Date")]
 		public DateTime? EndDate { get; set; }
 		
 		public int OwnerID { get; set; }
