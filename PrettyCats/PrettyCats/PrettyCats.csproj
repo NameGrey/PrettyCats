@@ -98,6 +98,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\SlideShow.css" />
+    <Content Include="Content\SlideShow.js" />
+    <Content Include="Content\SlideShow2.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -108,6 +111,14 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Resources\Logo.png" />
+    <Content Include="Resources\Slides\next.png" />
+    <Content Include="Resources\Slides\prev.png" />
+    <Content Include="Resources\Slides\slide1.jpg" />
+    <Content Include="Resources\Slides\slide2.jpg" />
+    <Content Include="Resources\Slides\slide3.jpg" />
+    <Content Include="Resources\Slides\slide4.jpg" />
+    <Content Include="Resources\Slides\slide5.jpg" />
+    <Content Include="Resources\Slides\slide6.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

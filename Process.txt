@@ -1,0 +1,2 @@
+26.08.2015 -- Project was created. Video from mentoring was watched a little bit. Was Considered bootstrap issues (4H)
+27.08.2015 -- Navigation panel was created and logo too. (2.5h)

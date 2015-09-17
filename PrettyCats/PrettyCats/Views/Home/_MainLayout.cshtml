@@ -13,7 +13,16 @@
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/Content/js")
 	@RenderSection("scripts", required: false)
+	
+	<script language="JavaScript">
+window.onresize = function () {
+
+	//alert('Размер окна был изменен!');
+}
+
+	</script>
 
 </head>
 	<body>
@@ -32,10 +41,26 @@
 						<li><div class="menu-item">@Html.ActionLink("Главная", "Index", "Home")</div></li>
 						<li><div class="menu-item">@Html.ActionLink("Как выбрать котенка", "Index", "Home")</div></li>
 						<li><div class="menu-item">@Html.ActionLink("Как воспитать кошку", "Index", "Home")</div></li>
+						<li><div class="menu-item">@Html.ActionLink("Фотогалерея", "Index", "Home")</div></li>
+						<li><div class="menu-item">@Html.ActionLink("Контакты", "Index", "Home")</div></li>
 					</ul>
 				</div>
 			</div>
 		</div>
+		
+		<div class="slide-show">
+			<div class="left-row"><img src="../../Resources/Slides/prev.png"/></div>
+			<div class="slides">
+				<div class="slide-box" id="slide1"></div>
+				<div class="slide-box" id="slide2"></div>
+				<div class="slide-box" id="slide3"></div>
+				<div class="slide-box" id="slide4"></div>
+				<div class="slide-box" id="slide5"></div>
+				<div class="slide-box" id="slide6"></div>
+			</div>
+			<div class="right-row" ><img src="../../Resources/Slides/next.png" /></div>
+		</div>
+
 		<div class="container">
 			 @RenderBody()
 		</div>
