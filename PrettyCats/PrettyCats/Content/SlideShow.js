@@ -1,34 +1,109 @@
 ﻿$(document).ready(function () {
-	var slidesCount = 7;
-	alert(window.width);
+	var slidesCount = 10;
+
+	//-- Top slideshow characteristics
+	var slideStep = 230;
+	var slidesMovingDelay = 200;
+	var durationMovingOfSlides = 1000;
+	var autoSlidingTopSlideShow = 5000;
+	// --------------------------------
+
+	// set timeout
+	var tid = setTimeout(timerCode, autoSlidingTopSlideShow);
 
 	$(".right-row").bind("click", function () {
-
-		MoveAllSlidesToRight();
+		moveSlides('right');
 	});
 
-	function MoveAllSlidesToRight() {
-		var slidesCount = GetSlidesCount();
-		var slds = $('.slides').find('.slide-box');
-		alert(slds.length);
+	$(".left-row").bind("click", function () {
+		
+		moveSlides('left');
+	});
+	
+	function timerCode() {
+		// do some stuff...
+		moveSlides("right");
+		tid = setTimeout(timerCode, autoSlidingTopSlideShow); // repeat myself
+	}
+	function abortTimer() { // to be called when you want to stop the timer
+		clearTimeout(tid);
+	}
 
-		for (var i = 1; i <= slidesCount; i++) {
+	function moveSlides(state) {
+		var slides = $('.slides').find('.slide-box');
 
-			var slidePath = $("#slide" + i).css("background-image");
-			var slideNumber = getSlideNumberFromPath(slidePath);
+		//-- Remove old hidden slide from previous iteration (if it is exist)
+		removeOldHiddenSlides(slides, 0); // remove from the beginning
+		removeOldHiddenSlides(slides, slides.length - 1); // remove from the end
 
-			if (1 == slideNumber) {
-				setNumberForSlide("#slide" + i, slidesCount, slidePath);
+		if (slides.length > 0) {
+
+			if (state == 'right') {
+				moveAllSlidesToRight(slides);
 			} else {
-				setNumberForSlide("#slide" + i, slideNumber - 1, slidePath);
+				moveAllSlidesToLeft(slides);
 			}
 		}
 	}
 
+	function moveAllSlidesToRight(slides) {
+		var slidesLength = slides.length - 1;
+		var slidePath = $(slides[slidesLength]).css("background-image");
+		var slideZeroNumber = getSlideNumberFromPath(slidePath);
 
-	// This function defines how many slides are in the slideshow.
-	function GetSlidesCount() {
-		return slidesCount;
+		$(slides[slidesLength]).animate({ 'opacity': 0, queue: false }, durationMovingOfSlides);
+
+		$.each(slides, function (i, slide) {
+			if (i != slidesLength)
+				$(slide).delay((slidesCount - i)*slidesMovingDelay).animate({ 'left': '+=' + (+slideStep) }, durationMovingOfSlides);
+		});
+
+		var newNumber;
+		if (slideZeroNumber == slidesCount) {
+
+			if (slidesLength == slidesCount)
+				newNumber = slideZeroNumber;
+			else
+				newNumber = 0;
+		} else
+			newNumber = +slideZeroNumber + 1;
+
+		$(slides[0]).before('<div class="slide-box" id="slide' + newNumber + '" style="left:60px"></div>');
+	}
+
+	function moveAllSlidesToLeft(slides) {
+		var slidesLength = slides.length - 1 ;
+		var slidePath = $(slides[slidesLength]).css("background-image");
+		var slideZeroNumber = getSlideNumberFromPath(slidePath);
+		var prevLastSlidePosition = parseInt($(slides[slidesLength]).css('left'),10);
+		
+		$.each(slides, function (i, slide) {
+			if (i != 0)
+				$(slide).delay( i * slidesMovingDelay).animate({ 'left': '-=' + (+slideStep) }, durationMovingOfSlides);
+		});
+
+		$(slides[0]).animate({ 'opacity': 0 }, durationMovingOfSlides);
+		
+		var newNumber;
+		if (slideZeroNumber == slidesCount)
+				newNumber = 0;
+		else
+			newNumber = +slideZeroNumber + 1;
+
+		setTimeout(function() {
+			$(slides[slidesLength])
+				.after('<div class="slide-box" id="slide' + newNumber + '" style="opacity:0; left:' + prevLastSlidePosition + 'px"></div>');
+			
+			$('#slide' + newNumber).animate({ 'opacity': 1 }, 1000);
+		}, durationMovingOfSlides + 1300);
+	}
+
+	// -- Remove hidden slides from previous iteration
+	function removeOldHiddenSlides(slides, index) {
+		if ($(slides[index]).css('opacity') == 0) {
+			$(slides[index]).remove();
+			slides.splice(index, 1);
+		}
 	}
 
 	///Max number of slides should be less than 10.
