@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 	var slidesCount = 10;
+	var topSliderLocker = undefined;
 
 	//-- Top slideshow characteristics
 	var slideStep = 230;
@@ -9,15 +10,24 @@
 	// --------------------------------
 
 	// set timeout
-	var tid = setTimeout(timerCode, autoSlidingTopSlideShow);
+	var tid;
+	startTimer();
 
 	$(".right-row").bind("click", function () {
-		moveSlides('right');
+		if (topSliderLocker != 'locked') {
+			abortTimer();
+			moveSlides('right');
+			startTimer();
+		}
+
 	});
 
 	$(".left-row").bind("click", function () {
-		
-		moveSlides('left');
+		if (topSliderLocker != 'locked') {
+			abortTimer();
+			moveSlides('left');
+			startTimer();
+		}
 	});
 	
 	function timerCode() {
@@ -29,7 +39,12 @@
 		clearTimeout(tid);
 	}
 
+	function startTimer() {
+		tid = setTimeout(timerCode, autoSlidingTopSlideShow);
+	}
+
 	function moveSlides(state) {
+		topSliderLocker = 'locked';
 		var slides = $('.slides').find('.slide-box');
 
 		//-- Remove old hidden slide from previous iteration (if it is exist)
@@ -55,11 +70,16 @@
 
 		$.each(slides, function (i, slide) {
 			if (i != slidesLength)
-				$(slide).delay((slidesCount - i)*slidesMovingDelay).animate({ 'left': '+=' + (+slideStep) }, durationMovingOfSlides);
+				$(slide).delay((slidesCount - i) * slidesMovingDelay).animate({ 'left': '+=' + (+slideStep) }, durationMovingOfSlides,
+					function() {
+						if (i == 0)
+							topSliderLocker = undefined;
+					});
 		});
 
 		var newNumber;
-		if (slideZeroNumber == slidesCount) {
+
+		if (+slideZeroNumber + 1 == +slidesCount) {
 
 			if (slidesLength == slidesCount)
 				newNumber = slideZeroNumber;
@@ -85,17 +105,21 @@
 		$(slides[0]).animate({ 'opacity': 0 }, durationMovingOfSlides);
 		
 		var newNumber;
-		if (slideZeroNumber == slidesCount)
+
+		if (+slideZeroNumber + 1 == +slidesCount)
 				newNumber = 0;
 		else
 			newNumber = +slideZeroNumber + 1;
 
 		setTimeout(function() {
-			$(slides[slidesLength])
-				.after('<div class="slide-box" id="slide' + newNumber + '" style="opacity:0; left:' + prevLastSlidePosition + 'px"></div>');
-			
-			$('#slide' + newNumber).animate({ 'opacity': 1 }, 1000);
-		}, durationMovingOfSlides + 1300);
+				$(slides[slidesLength])
+					.after('<div class="slide-box" id="slide' + newNumber + '" style="opacity:0; left:' + prevLastSlidePosition + 'px"></div>');
+
+				$('#slide' + newNumber).animate({ 'opacity': 1 }, 1000,
+			function () {
+				topSliderLocker = undefined;
+			});
+			}, durationMovingOfSlides + 1300);
 	}
 
 	// -- Remove hidden slides from previous iteration
