@@ -110,6 +110,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Resources\Categories\Maincun.png" />
     <Content Include="Resources\Logo.png" />
     <Content Include="Resources\Slides\next.png" />
     <Content Include="Resources\Slides\prev.png" />
@@ -140,6 +141,7 @@
     <Content Include="Views\Home\_MainLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Home\_MainPlusCategoriesLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

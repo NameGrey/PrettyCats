@@ -54,6 +54,12 @@
     cursor: pointer;
 }
 
+.category {
+    width: 100px;
+    height: 150px;  
+    background: url(../Views/../Resources/Categories/Maincun.png) no-repeat center;background-size: 100% 200px;
+}
+
 /*.slide-show {
     min-width: 500px;
     min-height: 100px;

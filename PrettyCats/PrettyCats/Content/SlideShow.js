@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function() {
 	var slidesCount = 10;
 	var topSliderLocker = undefined;
 
@@ -8,6 +8,23 @@
 	var durationMovingOfSlides = 1000;
 	var autoSlidingTopSlideShow = 5000;
 	// --------------------------------
+
+	$(window).resize(function() {
+		var width = $(window).width();
+
+		if (width < 1462)
+			setFourSlides();
+		else if (width < 1682)
+			setFiveSlides();
+		else if (width < 1902)
+			setSixSlides();
+		else if (width < 2122)
+			setSevenSlides();
+		else if (width < 2342)
+			setEightSlides();
+		else if (width < 2400)
+			setNineSlides();
+	});
 
 	// set timeout
 	var tid;
@@ -78,7 +95,7 @@
 		});
 
 		var newNumber;
-
+		
 		if (+slideZeroNumber + 1 == +slidesCount) {
 
 			if (slidesLength == slidesCount)
@@ -87,8 +104,8 @@
 				newNumber = 0;
 		} else
 			newNumber = +slideZeroNumber + 1;
-
-		$(slides[0]).before('<div class="slide-box" id="slide' + newNumber + '" style="left:60px"></div>');
+		
+		$(slides[0]).before('<div class="slide-box" id="slide' + newNumber + '" style=" left: 60px;"></div>');
 	}
 
 	function moveAllSlidesToLeft(slides) {
@@ -132,7 +149,7 @@
 
 	///Max number of slides should be less than 10.
 	function getSlideNumberFromPath(path) {
-		var result = path.substring(path.length - 7, path.length - 6);
+		var result = path.substring(path.length - 6, path.length - 5);
 		return result;
 	}
 
@@ -142,6 +159,33 @@
 
 	function replaceAt(sentence, index, newString) {
 		return sentence.substring(0, index) + newString + sentence.substring(index + 1);
+	}
+
+	function setFourSlides() {
+		//alert(4);
+		// 1. Получаем количество слайдов.
+		// 2. Если их кол-во меньше чем 4, то добавляем разницу слайдов (берем из констант) (какие номера слайдов брать нужно смотреть по правилу выше)
+		// 3. Если больше, то удаляем разницу.
+	}
+
+	function setFiveSlides() {
+		
+	}
+
+	function setSixSlides() {
+		alert(6);
+	}
+
+	function setSevenSlides() {
+		
+	}
+
+	function setEightSlides() {
+		
+	}
+
+	function setNineSlides() {
+		
 	}
 });
 
