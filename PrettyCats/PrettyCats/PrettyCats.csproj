@@ -93,12 +93,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\slideShow.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -109,6 +109,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Resources\Categories\Maincun.png" />
     <Content Include="Resources\Logo.png" />
+    <Content Include="Resources\Slides\01.jpg" />
+    <Content Include="Resources\Slides\02.jpg" />
+    <Content Include="Resources\Slides\03.jpg" />
+    <Content Include="Resources\Slides\04.jpg" />
+    <Content Include="Resources\Slides\05.jpg" />
+    <Content Include="Resources\Slides\06.jpg" />
+    <Content Include="Resources\Slides\07.jpg" />
+    <Content Include="Resources\Slides\08.jpg" />
+    <Content Include="Resources\Slides\09.jpg" />
+    <Content Include="Resources\Slides\10.jpg" />
+    <Content Include="Resources\Slides\11.jpg" />
+    <Content Include="Resources\Slides\12.jpg" />
+    <Content Include="Resources\Slides\a17.png" />
+    <Content Include="Resources\Slides\dummy-640x310-1.jpg" />
+    <Content Include="Resources\Slides\dummy-640x310-2.jpg" />
+    <Content Include="Resources\Slides\dummy-640x310-3.jpg" />
+    <Content Include="Resources\Slides\dummy-640x310-4.jpg" />
+    <Content Include="Resources\Slides\loading.gif" />
     <Content Include="Resources\Slides\next.png" />
     <Content Include="Resources\Slides\prev.png" />
     <Content Include="Resources\Slides\slide1.jpg" />
@@ -117,13 +135,29 @@
     <Content Include="Resources\Slides\slide4.jpg" />
     <Content Include="Resources\Slides\slide5.jpg" />
     <Content Include="Resources\Slides\slide6.jpg" />
+    <Content Include="Resources\Slides\t01.png" />
+    <Content Include="Resources\Slides\tested-on.png" />
+    <Content Include="Resources\Slides\thumb-01.jpg" />
+    <Content Include="Resources\Slides\thumb-02.jpg" />
+    <Content Include="Resources\Slides\thumb-03.jpg" />
+    <Content Include="Resources\Slides\thumb-04.jpg" />
+    <Content Include="Resources\Slides\thumb-05.jpg" />
+    <Content Include="Resources\Slides\thumb-06.jpg" />
+    <Content Include="Resources\Slides\thumb-07.jpg" />
+    <Content Include="Resources\Slides\thumb-08.jpg" />
+    <Content Include="Resources\Slides\thumb-09.jpg" />
+    <Content Include="Resources\Slides\thumb-10.jpg" />
+    <Content Include="Resources\Slides\thumb-11.jpg" />
+    <Content Include="Resources\Slides\thumb-12.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jssor.slider.min.js" />
+    <Content Include="Scripts\jssor.slider.mini.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\viewportChecker.js" />
+    <Content Include="Scripts\slideshow.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +176,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_MainPlusCategoriesLayout.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Home\Item.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
