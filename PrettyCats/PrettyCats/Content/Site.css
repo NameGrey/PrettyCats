@@ -101,3 +101,10 @@ opacity:1;
 .image-hid {
     display: none;
 }
+
+.Description{
+    width:800px;
+    position:relative;
+    margin:10px auto;
+    font-size:18px;
+}
