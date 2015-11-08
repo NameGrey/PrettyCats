@@ -60,11 +60,11 @@
             position: absolute;
             top: 0px;
             left: 0px;
-            width: 68px;
-            height: 68px;
+            width: 69px;
+            height: 69px;
             border: #000 2px solid;
             box-sizing: content-box;
-            background: url('img/t01.png') -800px -800px no-repeat;
+            background: url('~/Resources/Slides/') -800px -800px no-repeat;
             _background: none;
         }
         
@@ -83,9 +83,9 @@
         .jssort01 .p:hover .c {
             top: 0px;
             left: 0px;
-            width: 70px;
-            height: 70px;
-            border: #fff 1px solid;
+            width: 69px;
+            height: 69px;
+            border: #fff 2px solid;
             background-position: 50% 50%;
         }
         
