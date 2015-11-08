@@ -10,7 +10,12 @@ namespace PrettyCats.Controllers
 			return View();
 		}
 
-		public ActionResult Item()
+		public ActionResult KittenMainPage()
+		{
+			return View();
+		}
+
+		public ActionResult ParentCatMainPage()
 		{
 			return View();
 		}

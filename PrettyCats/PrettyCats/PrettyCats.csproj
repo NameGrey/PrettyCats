@@ -176,7 +176,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_MainPlusCategoriesLayout.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Views\Home\Item.cshtml" />
+    <Content Include="Views\Home\_Item.cshtml" />
+    <Content Include="Views\Home\KittenMainPage.cshtml" />
+    <Content Include="Views\Home\ParentCatMainPage.cshtml" />
+    <Content Include="Views\Home\_CatSlider.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -187,6 +190,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Sliders\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
