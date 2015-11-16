@@ -70,5 +70,17 @@ namespace BookIt.Controllers
             }
             return InternalServerError();
         }
+
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult CreateBookingOffer(Offer offer)
+        {
+            if (offer == null) return BadRequest("There are no data passed about booking offer");
+
+            offer.Owner = _accountService.GetCurrentUser();
+
+            _offersRepository.Insert(offer);
+            return Ok(offer);
+        }
     }
 }

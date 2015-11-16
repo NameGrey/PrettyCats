@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BookIt.BLL.Entities;
 using BookIt.DAL;
@@ -28,6 +29,29 @@ namespace BookIt.Repository
 
 		    Context.SaveChanges();
 		}
+
+        public override void Insert(Offer entityToInsert)
+        {
+            if (!entityToInsert.IsInfinite)
+            {
+                if (entityToInsert.EndDate == null || entityToInsert.StartDate == null)
+                {
+                    throw new ArgumentNullException("Offer with IsInfinite = false without EndDate or StartDate");
+                }
+                _timeSlotsRepository.Insert(
+                    new BLL.Entities.TimeSlot
+                        {
+                            BookingOfferId = entityToInsert.Id,
+                            EndDate = entityToInsert.EndDate.Value,
+                            StartDate = entityToInsert.StartDate.Value,
+                            IsOccupied = false,
+                            Owner = entityToInsert.Owner
+                        });
+            }
+
+            base.Insert(entityToInsert);
+            Context.SaveChanges();
+        }
 
         private void UpdateTimeSlots(IEnumerable<BLL.Entities.TimeSlot> newTimeSlots, IEnumerable<BLL.Entities.TimeSlot> oldTimeSlots)
         {
