@@ -109,6 +109,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Resources\Categories\Maincun.png" />
+    <Content Include="Resources\Contacts.png" />
     <Content Include="Resources\Logo.png" />
     <Content Include="Resources\Slides\01.jpg" />
     <Content Include="Resources\Slides\02.jpg" />
@@ -182,6 +183,7 @@
     <Content Include="Views\Home\KittenMainPage.cshtml" />
     <Content Include="Views\Home\ParentCatMainPage.cshtml" />
     <Content Include="Views\Home\_CatSlider.cshtml" />
+    <Content Include="Views\Home\ContactsPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
