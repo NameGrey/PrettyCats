@@ -108,3 +108,16 @@ opacity:1;
     margin:10px auto;
     font-size:18px;
 }
+
+#BuyButton{
+    margin-top: 366px;
+    margin-left: 532px;
+    position:relative;
+}
+
+.dialog-message img {
+    display: block;
+    height: 200px;
+    width: 300px;
+    margin: auto;
+}

@@ -1,8 +1,44 @@
 ﻿
 @{
 	ViewBag.Title = "KittenMainPage";
-	Layout = "~/Views/Home/_MainLayout.cshtml";
+	Layout = "~/Views/Home/_MainLayout.cshtml";	
 }
+
+	<script src="~/Scripts/DielogForm.js"></script>
+	<link rel="stylesheet" type="text/css" href="~/Content/DialogForm.css">	
+<script>
+	
+	function ChooseKitten()
+	{
+		var elements = $("div[data-u='slides']")[1].children;
+		
+		for (var i = 1; i < elements.length-1; i++) {
+
+			if ($(elements[i]).css('left') == '0px') {
+				var imgSrc = $(elements[i]).find("img").prop('src');
+				var text = "Вы выбрали этого котенка. Позвоните нам и сообщите его имя, а также стоимость.";
+				var $message = "<div class='dialog-message'><img src='" + imgSrc + "'/><p class='message-text'>" + text + "</p>";
+
+				$message += "</div>";
+
+				BootstrapDialog.show({
+					title: "Ваш выбор",
+					message: $message,
+					buttons: [
+						{
+							label: 'Вернуться',
+							cssClass: 'btn-primary',
+							action: function(dialogItself) {
+								dialogItself.close();
+							}
+						}
+					]
+				});
+			}
+		}
+	}
+</script>
+
 <h2 style="text-align: center;">Подробная информация о котенке</h2>
 
 @Html.Partial("~/Views/Home/_CatSlider.cshtml")
@@ -23,5 +59,6 @@
 			</table>
 		</div>
 	</div>
+	
 	<div class="col-xs-6 col-md-6"></div>
 </div>
