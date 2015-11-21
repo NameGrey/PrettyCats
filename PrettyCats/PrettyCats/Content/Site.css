@@ -163,3 +163,15 @@ opacity:1;
     font-size: 18px;
     margin-top: 20px;
 }
+
+.blue-nav {
+    font-size: 18px;
+}
+
+.logo {
+    background-image: url('../Resources/Logo.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    height: 50px;
+    width: 160px;
+}
