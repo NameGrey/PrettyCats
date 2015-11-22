@@ -24,5 +24,15 @@ namespace PrettyCats.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult ThemePage()
+		{
+			return View();
+		}
+
+		public ActionResult AllAvailableKittens()
+		{
+			return View();
+		}
 	}
 }

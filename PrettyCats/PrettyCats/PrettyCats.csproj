@@ -186,6 +186,8 @@
     <Content Include="Views\Home\ParentCatMainPage.cshtml" />
     <Content Include="Views\Home\_CatSlider.cshtml" />
     <Content Include="Views\Home\ContactsPage.cshtml" />
+    <Content Include="Views\Home\ThemePage.cshtml" />
+    <Content Include="Views\Home\AllAvailableKittens.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
