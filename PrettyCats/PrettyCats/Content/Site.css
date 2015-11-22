@@ -1,11 +1,13 @@
 ﻿body {
-    background-color: #a9a9a9;
+    background-image: url('../Resources/mbackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     padding-top: 50px;
 }
 
 .business-header {
-    height: 400px;
-    background: url('http://placehold.it/1920x400') center center no-repeat scroll;
+    padding-bottom: 14%;
+    background: url('../Resources/top-picture.png') center center no-repeat scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;

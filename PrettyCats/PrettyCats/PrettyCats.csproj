@@ -111,6 +111,7 @@
     <Content Include="Resources\Categories\Maincun.png" />
     <Content Include="Resources\Contacts.png" />
     <Content Include="Resources\Logo.png" />
+    <Content Include="Resources\mbackground.png" />
     <Content Include="Resources\Slides\01.jpg" />
     <Content Include="Resources\Slides\02.jpg" />
     <Content Include="Resources\Slides\03.jpg" />
@@ -151,6 +152,7 @@
     <Content Include="Resources\Slides\thumb-10.jpg" />
     <Content Include="Resources\Slides\thumb-11.jpg" />
     <Content Include="Resources\Slides\thumb-12.jpg" />
+    <Content Include="Resources\top-picture.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
