@@ -34,7 +34,7 @@ namespace BookIt.Repository
         {
             if (!entityToInsert.IsInfinite)
             {
-                if (entityToInsert.EndDate == null || entityToInsert.StartDate == null)
+                if (entityToInsert.EndDate == null)
                 {
                     throw new ArgumentNullException("Offer with IsInfinite = false without EndDate or StartDate");
                 }
@@ -43,7 +43,7 @@ namespace BookIt.Repository
                         {
                             BookingOfferId = entityToInsert.Id,
                             EndDate = entityToInsert.EndDate.Value,
-                            StartDate = entityToInsert.StartDate.Value,
+                            StartDate = entityToInsert.StartDate,
                             IsOccupied = false,
                             Owner = entityToInsert.Owner
                         });

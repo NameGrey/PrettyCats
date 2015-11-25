@@ -1,8 +1,11 @@
-﻿<div class="uui-datepicker input-daterange">
+﻿<!--<div class="uui-datepicker input-daterange">
     <input type="text" class="uui-form-element" dateformat ng-model="slot.StartDate" name="start" style="margin-right: 10px"/>
-    <!--<span class="input-group-addon">to</span>-->
+    <span class="input-group-addon">to</span>
     <input type="text" class="uui-form-element" dateformat ng-model="slot.EndDate" name="end"/>
-</div>
-<script>
+</div>-->
 
-</script>
+<div class="uui-datepicker input-daterange">
+    <input type="text" class="uui-form-element" date-picker-range end="{{slot.EndDate}}" start="{{slot.StartDate}}" max="{{maxDate}}" min="{{minDate}}" ng-model="slot.StartDate" date-change="changeDate" name="start"/>
+    <span class="input-group-addon-ang">to</span>
+    <input type="text" class="uui-form-element" date-picker-range end="{{slot.EndDate}}" start="{{slot.StartDate}}" max="{{maxDate}}" min="{{minDate}}" ng-model="slot.EndDate" date-change="changeDate" name="end"/>
+</div>

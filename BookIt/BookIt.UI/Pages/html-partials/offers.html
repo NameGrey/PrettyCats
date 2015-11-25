@@ -14,16 +14,16 @@
 			<td><a href="#/offers/{{offer.Id}}/">{{offer.Name}}</a></td>
 			<td>{{offer.Description}}</td>
 			<td>
-				<div class="offerSlots" ng-repeat="slot in offer.TimeSlots">
-				    <timeslot slot="slot"/>
-					<div class="responsive-wrapper">
-						<button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
-					</div>
-					<div class="responsive-wrapper">
-						<button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
-					</div>
-					<div style="clear: both;"></div>
-				</div>
+			    <div class="offerSlots" ng-repeat="slot in offer.TimeSlots">
+			        <timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate"/>
+			        <div class="responsive-wrapper">
+			            <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
+			        </div>
+			        <div class="responsive-wrapper">
+			            <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
+			        </div>
+			        <div style="clear: both;"></div>
+			    </div>
 			</td>
 		</tr>
 	</tbody>

@@ -21,7 +21,9 @@ angular.module('bookItApp')
         restrict: 'E',
         templateUrl: 'templates/timeslot.html', // markup
         scope: {
-            slot: '=' // allows data to be passed into directive from controller scope
+            slot: '=', // allows data to be passed into directive from controller scope
+            minDate: '=', //for constantly dates
+            maxDate: '='
         }
     };
 })
