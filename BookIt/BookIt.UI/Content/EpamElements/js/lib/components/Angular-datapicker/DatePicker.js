@@ -26,7 +26,7 @@
             if (!(moment.isMoment(m))) {
                 return moment(m).format(format);
             }
-            return tz ? moment.tz(m, tz).format(format) : m.format(format);
+            return m.format(format);
         };
     });
 
@@ -46,8 +46,6 @@
             function getDate(name) {
                 return datePickerUtils.getDate(scope, attrs, name);
             }
-
-            datePickerUtils.setParams(attrs.timezone);
 
             var arrowClick = false,
                 tz = scope.tz = attrs.timezone,
@@ -85,9 +83,11 @@
                 if (attrs.disabled) {
                     return false;
                 }
+                
                 if (isSame(scope.date, date)) {
                     date = scope.date;
                 }
+                
                 date = clipDate(date);
                 if (!date) {
                     return false;
@@ -117,7 +117,7 @@
                     }
                 }
                 scope.$emit('setDate', scope.model, scope.view);
-
+                
                 //This is duplicated in the new functionality.
                 if (scope.callbackOnSetDate) {
                     scope.callbackOnSetDate(attrs.datePicker, scope.date);
@@ -126,7 +126,6 @@
 
             function update() {
                 var view = scope.view;
-                datePickerUtils.setParams(tz);
 
                 if (scope.model && !arrowClick) {
                     scope.date = createMoment(scope.model);
@@ -134,7 +133,6 @@
                 }
 
                 var date = scope.date;
-
                 switch (view) {
                     case 'year':
                         scope.years = datePickerUtils.getVisibleYears(date);
@@ -178,8 +176,6 @@
                   date = scope.date,
                   classes = [], classList = '',
                   i, j;
-                
-               // datePickerUtils.setParams(tz);
 
                 if (view === 'date') {
                     var weeks = scope.weeks, week;
@@ -228,6 +224,7 @@
 
             scope.next = function (delta) {
                 var date = moment(scope.date);
+                
                 delta = delta || 1;
                 switch (scope.view) {
                     case 'year':
@@ -276,6 +273,7 @@
                 if (maxDate === false || minDate === false) {
                     return false;
                 }
+                
                 if (fDate >= minDate.format('YYYY-MM-DD') && fDate <= maxDate.format('YYYY-MM-DD')) {
                     return true;
                 }
@@ -287,10 +285,20 @@
             }
 
             function clipDate(date) {
-                if (startDate && startDate.isAfter(date)) {
-                    return startDate;
-                } else if (endDate && endDate.isBefore(date)) {
-                    return endDate;
+                if (attrs["name"] == 'start') {
+                    if (endDate && endDate.isBefore(date)) {
+                        return endDate;
+                    }
+                } else if (attrs["name"] == 'end') {
+                    if (startDate && startDate.isAfter(date)) {
+                        return startDate;
+                    }
+                }
+
+                if (minDate && minDate.isAfter(date)) {
+                    return minDate;
+                } else if (maxDate && maxDate.isBefore(date)) {
+                    return maxDate;
                 } else {
                     return date;
                 }
@@ -327,7 +335,6 @@
             require: '?ngModel',
             template: '<div ng-include="template"></div>',
             scope: {
-                //в качестве моделе использует параметры: dates.start/dates.end
                 model: '=datePicker',
                 after: '=?',
                 before: '=?'

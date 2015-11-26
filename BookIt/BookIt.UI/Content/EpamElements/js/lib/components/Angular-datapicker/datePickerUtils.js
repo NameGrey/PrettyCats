@@ -3,10 +3,9 @@
 (function() {
     angular.module('datePickerApp').factory('datePickerUtils', function() {
         'use strict';
-        var tz;
         var createNewDate = function(year, month, day, hour, minute) {
             var utc = Date.UTC(year | 0, month | 0, day | 0);
-            return tz ? moment.tz(utc, tz) : moment(utc);
+            return moment(utc);
         };
 
         return {
@@ -81,7 +80,7 @@
                 return years;
             },
             getDaysOfWeek: function(m) {
-                m = m ? m : (tz ? moment.tz(tz).day(0) : moment().day(0));
+                m = m ? m : moment().day(0);
 
                 var year = m.year(),
                     month = m.month(),
@@ -161,9 +160,9 @@
             isSameMinutes: function(model, date) {
                 return this.isSameHour(model, date) && model.minutes() === date.minutes();
             },
-            setParams: function(zone) {
-                tz = zone;
-            },
+            //setParams: function(zone) {
+            //    tz = zone;
+            //},
             findFunction: function(scope, name) {
                 //Search scope ancestors for a matching function.
                 //Can probably combine this and the below function
@@ -192,16 +191,7 @@
                 return false;
             },
             createMoment: function(m) {
-                if (tz) {
-                    return moment.tz(m, tz);
-                } else {
-                    //If input is a moment, and we have no TZ info, we need to remove TZ 
-                    //info from the moment, otherwise the newly created moment will take 
-                    //the timezone of the input moment. The easiest way to do that is to
-                    //take the unix timestamp, and use that to create a new moment.
-                    //The new moment will use the local timezone of the user machine.
-                    return moment.isMoment(m) ? moment.unix(m.unix()) : moment(m);
-                }
+               return moment.isMoment(m) ? moment.unix(m.unix()) : moment(m);
             },
             getDate: function(scope, attrs, name) {
                 var result = false;
@@ -214,7 +204,7 @@
                         }
                     }
                 }
-
+                //console.log("name: " + attrs[name] + " getDate: " + result);
                 return result;
             },
             eventIsForPicker: function(targetIDs, pickerID) {

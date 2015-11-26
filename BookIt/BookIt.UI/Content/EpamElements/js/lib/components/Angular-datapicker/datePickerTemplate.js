@@ -11,8 +11,8 @@
                 (id ? 'id="' + id + '" ' : '') +
                 'date-picker="' + attrs.ngModel + '" ' +
                 (attrs.view ? 'view="' + attrs.view + '" ' : '') +
-                (attrs.end ? 'end-date="' + attrs.end + '" ' : '') +
-                (attrs.start ? 'start-date="' + attrs.start + '" ' : '') +
+                (attrs.endDate ? 'end-date="' + attrs.endDate + '" ' : '') +
+                (attrs.startDate ? 'start-date="' + attrs.startDate + '" ' : '') +
                 (attrs.max ? 'max-date="' + attrs.max + '" ' : '') +
                 (attrs.min ? 'min-date="' + attrs.min + '" ' : '') +
                 (attrs.autoClose ? 'auto-close="' + attrs.autoClose + '" ' : '') +
@@ -21,6 +21,7 @@
                 (attrs.step ? 'step="' + attrs.step + '" ' : '') +
                 (attrs.onSetDate ? 'date-change="' + attrs.onSetDate + '" ' : '') +
                 (attrs.ngModel ? 'ng-model="' + attrs.ngModel + '" ' : '') +
+                (attrs.name ? 'name="' + attrs.name + '" ' : '') +
                 'class="date-picker-date-time"></div>';
         },
         format: 'YYYY-MM-DD',
@@ -70,10 +71,13 @@
             ngModel.$formatters.push(formatter);
             ngModel.$parsers.unshift(parser);
 
-            function getTemplate(attrs, id, model) {
+            function getTemplate(attrs, id, model, start, end, name) {
                 return templateConfig.template(angular.extend(attrs, {
-                    ngModel: model
-                }), id);
+                    ngModel: model,
+                    startDate: start ? start : false,
+                    endDate: end ? end : false,
+                    name: name
+            }), id);
             }
 
             function clear() {
@@ -86,12 +90,12 @@
             element.on('focus', function () {
                 scope.start = element.attr("start");
                 scope.end = element.attr("end");
-
+                
                 //todo: create auto detection of vertical orientation and change class "datepicker-orient-top" / "datepicker-orient-bottom" in template
                 if (pickerName === "start") {
-                    template = getTemplate(attrs, pickerIDs[0], element.attr("ng-model").toString());
+                    template = getTemplate(attrs, pickerIDs[0], element.attr("ng-model").toString(), scope.start, scope.end, pickerName);
                 } else {
-                    template = getTemplate(attrs, pickerIDs[1], element.attr("ng-model").toString());
+                    template = getTemplate(attrs, pickerIDs[1], element.attr("ng-model").toString(), scope.start, scope.end, pickerName);
                 }
 
                 //If the picker has already been shown before then we shouldn't be binding to events, as these events are already bound to in this scope.

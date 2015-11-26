@@ -6,8 +6,6 @@
         $scope.min = moment().format('YYYY-MM-DD');
         $scope.max = moment().add(14, 'days').format('YYYY-MM-DD');
 
-        console.log($scope.start);
-
         $scope.changeDate = function (modelName, newDate) {
             console.log(modelName + ' has had a date change. New value is ' + newDate.format());
             $scope.callbackState = 'Callback: Fired';
