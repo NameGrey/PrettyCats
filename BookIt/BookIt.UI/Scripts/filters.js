@@ -15,4 +15,12 @@
 			}
 		return filtered;
 	};
+})
+.filter('datePickerFormat', function () {
+    return function (m, format) {
+        if (!(moment.isMoment(m))) {
+            return moment(m).format(format);
+        }
+        return m.format(format);
+    };
 });

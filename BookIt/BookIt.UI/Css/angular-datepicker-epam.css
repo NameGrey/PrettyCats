@@ -1,0 +1,180 @@
+.datepicker-ang {
+    padding: 4px;
+}
+.datepicker-ang thead tr:first-child th {
+    background: #999;
+    color: #fff;
+    font-size: 15px;
+    border: solid 1px #fff;
+}
+.datepicker-ang table tr td, 
+.datepicker-ang table tr th {
+    height: 30px;
+    width: 30px; 
+    cursor: pointer;
+}
+.datepicker-ang thead tr:first-child th:hover {
+    background: #858585;
+}
+.datepicker-ang table tr td,
+.datepicker-ang table tr th {
+  text-align: center;
+  width: 30px;
+  /*height: 30px;*/
+  border-radius: 0;
+  border: none;
+    font-weight: 400;
+}
+.datepicker-ang table tr td.disabled,
+.datepicker-ang table tr td.disabled:hover {
+  background: none;
+  color: #999999;
+  cursor: default;
+}
+
+.datepicker-ang table tr td.range,
+.datepicker-ang table tr td.range:hover,
+.datepicker-ang table tr td.range.disabled,
+.datepicker-ang table tr td.range.disabled:hover {
+  background: #eeeeee;
+  border-radius: 0;
+}
+
+.datepicker-ang table tr td.range:hover,
+.datepicker-ang table tr td.range.disabled:hover {
+    background: #dedddd;
+}
+
+.datepicker-ang table tr td.now,
+.datepicker-ang table tr td.now:hover{
+  background-color: #39c2d7;
+  color: #fff;
+}
+.datepicker-ang table tr td.now:not(.disabled):hover {
+    background-color: #21afc5;
+}
+
+.datepicker-ang table tr td.limit,
+.datepicker-ang table tr td.limit:hover,
+.datepicker-ang table tr td.limit.range,
+.datepicker-ang table tr td.limit.range:hover
+{
+  color: #464547;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+
+.datepicker-ang table tr td.limit:hover,
+.datepicker-ang table tr td.limit.range:hover {
+    background-color: #bcbcbc;
+}
+
+.datepicker-ang table tr td span{
+    border-radius: 0;
+    padding: 8px;
+}
+
+.datepicker-ang table tr td span:hover{
+    border-radius: 0;
+    /*background: none;*/
+}
+
+
+.datepicker-ang.dropdown-menu-ang {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  /*display: none;*/
+  min-width: 160px;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  box-shadow: none;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.428571429;
+}
+.datepicker-dropdown-ang:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-top: 0;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
+.datepicker-dropdown-ang:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fff;
+  border-top: 0;
+  position: absolute;
+}
+.datepicker-dropdown-ang.datepicker-orient-left::before {
+    left: 6px;
+}
+.datepicker-dropdown-ang.datepicker-orient-left::after {
+    left: 7px;
+}
+.datepicker-dropdown-ang.datepicker-orient-right::before {
+    right: 6px;
+}
+.datepicker-dropdown-ang.datepicker-orient-right::after {
+    right: 7px;
+}
+.datepicker-dropdown-ang.datepicker-orient-top::before {
+    top: -7px;
+}
+.datepicker-dropdown-ang.datepicker-orient-top::after {
+    top: -6px;
+}
+.datepicker-dropdown-ang.datepicker-orient-bottom::before {
+    border-bottom: 0 none;
+    border-top: 7px solid #999;
+    bottom: -7px;
+}
+.datepicker-dropdown-ang.datepicker-orient-bottom::after {
+    border-bottom: 0 none;
+    border-top: 6px solid #fff;
+    bottom: -6px;
+}
+.table-condensed > thead > tr > th, 
+.table-condensed > tbody > tr > th, 
+.table-condensed > tfoot > tr > th, 
+.table-condensed > thead > tr > td, 
+.table-condensed > tbody > tr > td, 
+.table-condensed > tfoot > tr > td {
+    padding: 0;
+}
+
+.input-group.date .input-group-addon-ang i {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.input-daterange .input-group-addon-ang {
+  width: auto;
+  min-width: 16px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  vertical-align: middle;
+  background-color: #eeeeee;
+  border: solid #cccccc;
+  border-width: 1px 0;
+  float: left;
+  padding: 6px;
+}

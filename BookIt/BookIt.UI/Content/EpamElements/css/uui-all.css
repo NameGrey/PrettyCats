@@ -7181,7 +7181,7 @@ input[type=radio].uui-form-element.disable+label, input[type=checkbox].uui-form-
     border-spacing: 0;
 }
 .uui-table tr {
-    border-top: 1px solid #ddd;
+   /* border-top: 1px solid #ddd;*/
 }
 .uui-table td {
     padding: 10px;

@@ -1,4 +1,4 @@
-﻿var bookItApp = angular.module('bookItApp', ['ngRoute', 'bookItControllers', 'datePickerApp']);
+﻿var bookItApp = angular.module('bookItApp', ['ngRoute', 'bookItControllers']);
 
 bookItApp.config(['$routeProvider',
     function ($routeProvider) {

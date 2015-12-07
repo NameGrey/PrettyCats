@@ -10,25 +10,21 @@
 				<td>{{offer.Name}}</td>
 				<td>{{offer.Description}}</td>
                 <td>
-                    <table>
-                        <tr ng-repeat="slot in offer.TimeSlots">
-                            <td class="row-border" style="border-width: 0 ">
-                                <timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate" />
-                                <div class="responsive-wrapper">
-                                    <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
-                                </div>
-                                <div class="responsive-wrapper">
-                                    <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
-                                </div>
-                                <div style="clear: both;"></div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div ng-repeat="slot in offer.TimeSlots">
+                        <timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate" />
+                        <div class="responsive-wrapper">
+                            <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
+                        </div>
+                        <div class="responsive-wrapper">
+                            <button type="button" class="uui-button red" ng-show="slot.IsOccupied" ng-click="unBookOffer(slot)">UnBook</button>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
                 </td>
 			</tr>
 		</tbody>
 	</table>
 	<p>If you want to give somebody this subject in temporary use, click  </p>
 	<timeslot slot="newSlot"></timeslot>
-	<button type="button" class="uui-button blue" ng-click="createOffer()">Create offer</button>
-
+    <button type="button" class="uui-button blue" ng-click="createOffer()">Create offer</button>
+</div>

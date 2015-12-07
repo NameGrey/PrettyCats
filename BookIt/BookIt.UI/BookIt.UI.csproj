@@ -75,17 +75,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\css\angular-datepicker-epam.css" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\datePicker.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\datePickerUtils.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\jq\jquery-1.11.1.min.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\shared\angular-mocks.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\shared\angular-route.min.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\shared\angular.min.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\templates\datepicker.html" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\test-page-main.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\datePickerTemplate.js" />
-    <Content Include="Content\EpamElements\js\lib\components\Angular-datapicker\TestDatePicker.html" />
+    <Content Include="Css\angular-datepicker-epam.css" />
     <Content Include="Css\main-page.css" />
     <Content Include="Css\subjects.css" />
     <Content Include="Css\subject-details.css" />
@@ -103,6 +93,7 @@
     <Content Include="Pages\html-partials\offers.html" />
     <Content Include="Pages\html-partials\subjects.html" />
     <Content Include="Pages\TestPage.html" />
+    <Content Include="Scripts\datePickerService.js" />
     <Content Include="Scripts\bookingService.js" />
     <Content Include="Scripts\controllers.js" />
     <Content Include="Scripts\directives.js" />
