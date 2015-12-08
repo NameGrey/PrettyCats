@@ -58,11 +58,11 @@ namespace BookIt.DAL
 			defaultOffers.Add(new BookingOffer() { ID = 2, BookingSubjectID = 1, Name = "Bicycle", CategoryID = 1, IsInfinite = false, Description = "Blue", StartDate = startDate, EndDate = endDate, OwnerID = 1 });
 			defaultOffers.Add(new BookingOffer() { ID = 3, BookingSubjectID = 1, Name = "Bicycle", CategoryID = 1, IsInfinite = false, Description = "White", StartDate = startDate, EndDate = endDate, OwnerID = 1 });
 
-			defaultOffers.Add(new BookingOffer() { ID = 4, BookingSubjectID = 2, Name = "Parking Place 1", CategoryID = 2, IsInfinite = false, Description = "illness", StartDate = startDate, EndDate = endDate, OwnerID = 2 });
-			defaultOffers.Add(new BookingOffer() { ID = 5, BookingSubjectID = 2, Name = "Parking Place 1", CategoryID = 2, IsInfinite = false, Description = "vacation", StartDate = startDate, EndDate = endDate, OwnerID = 2 });
+			defaultOffers.Add(new BookingOffer() { ID = 4, BookingSubjectID = 2, Name = "Parking Place 1", CategoryID = 2, IsInfinite = false, Description = "illness", StartDate = startDate.AddDays(-3), EndDate = endDate, OwnerID = 2 });
+			defaultOffers.Add(new BookingOffer() { ID = 5, BookingSubjectID = 2, Name = "Parking Place 1", CategoryID = 2, IsInfinite = false, Description = "vacation", StartDate = startDate2, EndDate = endDate2, OwnerID = 2 });
 
 			defaultOffers.Add(new BookingOffer() { ID = 7, BookingSubjectID = 3, Name = "Parking Place 2",  CategoryID = 2, IsInfinite = false, Description = "illness", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
-			defaultOffers.Add(new BookingOffer() { ID = 8, BookingSubjectID = 3, Name = "Parking Place 2",  CategoryID = 2, IsInfinite = false, Description = "vacation", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
+			defaultOffers.Add(new BookingOffer() { ID = 8, BookingSubjectID = 3, Name = "Parking Place 2",  CategoryID = 2, IsInfinite = false, Description = "vacation", StartDate = startDate2, EndDate = endDate2, OwnerID = 3 });
 
 			defaultOffers.Add(new BookingOffer() { ID = 6, Name = "Majhong game", CategoryID = 5, IsInfinite = false, Description = "chinese table game", StartDate = startDate, EndDate = endDate, OwnerID = 3 });
 

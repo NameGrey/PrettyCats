@@ -13,8 +13,8 @@ function datePickerService() {
         isAfter: function (model, date) {
             return model && model.unix() >= date.unix();
         },
-        isAfterToday: function (model, date) {
-            return model && !(this.isToday(model) || (model.format('YYYY-MM-DD') > date.format('YYYY-MM-DD')));
+        isAfterToday: function (model) {
+            return model && !(this.isToday(model) || (model.format('YYYY-MM-DD') > moment().format('YYYY-MM-DD')));
         },
         isBefore: function(model, date) {
             return model.unix() <= date.unix();
@@ -24,6 +24,43 @@ function datePickerService() {
         },
         isSameDay: function (model, date) {
             return model && date && model.unix() == date.unix();
+        },
+        isInOccupied: function (occupied, date) {
+            if (occupied) {
+                var occ = JSON.parse(occupied);
+                var d = date.format('YYYY-MM-DD');
+                for (var i = 0; i < occ.length; i++) {
+                    if (occ[i].start && occ[i].end) {
+                        var start = moment(occ[i].start).format('YYYY-MM-DD');
+                        var end = moment(occ[i].end).format('YYYY-MM-DD');
+                        if (!(d >= start && d <= end)) {
+                            continue;
+                        } else {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        },
+        isContainBooked: function (occupied, start, end) {
+            if (occupied) {
+                var occ = JSON.parse(occupied);
+                var st = start.format('YYYY-MM-DD');
+                var ed = end.format('YYYY-MM-DD');
+                for (var i = 0; i < occ.length; i++) {
+                    if (occ[i].start && occ[i].end) {
+                        var bookStart = moment(occ[i].start).format('YYYY-MM-DD');
+                        var bookEnd = moment(occ[i].end).format('YYYY-MM-DD');
+                        if (!(((st <= bookStart && ed >= bookStart) || (ed >= bookEnd && st <= bookEnd)))) {
+                            continue;
+                        } else {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 

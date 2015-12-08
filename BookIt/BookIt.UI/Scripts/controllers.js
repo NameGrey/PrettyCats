@@ -31,7 +31,7 @@ bookItControllers.controller('OffersCtrl',
       var populateData = function () {
           bookingService.getOffers($routeParams.id)
             .success(function (data, status, headers, config) {
-                $scope.offers = data;
+                $scope.offers = fillInData(data);
             })
       .error(catchServiceError);
       }
@@ -70,7 +70,7 @@ bookItControllers.controller('SubjectDetailsCtrl',
       var populateData = function () {
           bookingService.getOffers($scope.Id)
             .success(function (data, status, headers, config) {
-                $scope.offers = data;
+                $scope.offers = fillInData(data);
             })
       .error(catchServiceError);
       }
@@ -108,6 +108,19 @@ bookItControllers.controller('OfferDetailsCtrl',
       $scope.Id = $routeParams.id;
       bookingService.getOfferDetails($scope.Id)
         .success(function (data, status, headers, config) {
+            var occupiedSlots = [];
+            data.TimeSlots.forEach(function (item) {
+                if (item.IsOccupied) {
+                    var period = {
+                        start: item.StartDate,
+                        end: item.EndDate
+                    }
+                    occupiedSlots.push(period);
+                }
+            });
+            if (occupiedSlots.length > 0) {
+                data.occupiedSlots = occupiedSlots;
+            }
             $scope.offer = data;
         })
         .error(catchServiceError);
@@ -133,6 +146,24 @@ catchServiceError = function (data, status, headers, config) {
     alert("Service error: " + data.Message + "\nStackTrace:" + data.StackTrace);
 }
 
+function fillInData(data) {
+    data.forEach(function (item) {
+        var occupiedSlots = [];
+        item.TimeSlots.forEach(function (item) {
+            if (item.IsOccupied) {
+                var period = {
+                    start: item.StartDate,
+                    end: item.EndDate
+                }
+                occupiedSlots.push(period);
+            }
+        });
+        if (occupiedSlots.length > 0) {
+            item.occupiedSlots = occupiedSlots;
+        }
+    });
+    return data;
+}
 
 
 

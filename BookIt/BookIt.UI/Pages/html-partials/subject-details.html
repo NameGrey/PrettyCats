@@ -10,8 +10,8 @@
 				<td>{{offer.Name}}</td>
 				<td>{{offer.Description}}</td>
                 <td>
-                    <div ng-repeat="slot in offer.TimeSlots">
-                        <timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate" />
+                    <div class="offerSlots" ng-repeat="slot in offer.TimeSlots">
+                        <timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate"  occupied-slots="offer.occupiedSlots" />
                         <div class="responsive-wrapper">
                             <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
                         </div>

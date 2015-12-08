@@ -21,7 +21,8 @@ angular.module('bookItApp')
             scope: {
                 slot: '=', // allows data to be passed into directive from controller scope
                 minDate: '=', //for constantly dates
-                maxDate: '='
+                maxDate: '=',
+                occupiedSlots: '='
             }
         };
     })
@@ -53,9 +54,20 @@ angular.module('bookItApp')
             function link(scope, element, attrs) {
 
                 populatelimits();
-                scope.date = scope.model;                
+
+                if (attrs.booked == 'true') {
+                    element.attr('disabled', 'disabled');
+                }
+               
+                if (datePickerService.isAfterToday(moment(scope.model))) {
+                    scope.date = moment();
+                    setModel(scope.date);
+                } else {
+                    scope.date = scope.model;
+                }
                 scope.weeks = datePickerService.getVisibleWeeks(scope.date);
                 scope.weekdays = datePickerService.getDaysOfWeek();
+
                 prepareViewData();
 
                 scope.next = function (delta) {
@@ -73,14 +85,18 @@ angular.module('bookItApp')
                 scope.prev = function () {
                     return scope.next(-1);
                 };
-                scope.selectDate = function (date) {
-                    var validDate = validateDate(date);
-                   
-                    if (scope.model) {
-                        scope.model = validDate.format();
+                scope.selectDate = function (date, classes) {
+                    if (validateDate(date, classes)) {
+                        setModel(date);
+                        prepareViewData();
                     }
-                    
-                    prepareViewData();
+                    return false;
+                }
+
+                function setModel(date) {
+                    if (scope.model) {
+                        scope.model = date.format('YYYY-MM-DD');
+                    }
                 }
 
                 function populatelimits(date) {
@@ -100,33 +116,27 @@ angular.module('bookItApp')
                     scope.min = moment(attrs.min);
                 }
 
-                function validateDate(date) {
+                function validateDate(date, classes) {
                     populatelimits(date);
+                    if (classes.indexOf("booked") != -1 || classes.indexOf("disabled") != -1) {
+                        return false;
+                    }
                     if (attrs.name == 'start') {
-                        if (datePickerService.isAfterToday(date, moment())) {
-                            return moment();
-                        }
-                        //не разрешаем выбирать задним числом
                         if (scope.end && datePickerService.isBefore(scope.end, date)) {
-                            return scope.end;
+                            return false;
+                        }
+                        if (datePickerService.isContainBooked(attrs.occSlots, date, scope.end)) {
+                            return false;
                         }
                     } else if (attrs.name == 'end') {
-                        if (datePickerService.isAfterToday(date, moment())) {
-                            return moment();
-                        }
-                        //не разрешаем выбирать задним числом
                         if (scope.start && datePickerService.isAfter(scope.start, date)) {
-                            return scope.start;
+                            return false;
+                        }
+                        if (datePickerService.isContainBooked(attrs.occSlots, scope.start, date)) {
+                            return false;
                         }
                     }
-
-                    if (scope.min && datePickerService.isAfter(scope.min, date)) {
-                        return scope.min;
-                    } else if (scope.max && datePickerService.isBefore(scope.max, date)) {
-                        return scope.max;
-                    }
-
-                    return date;
+                    return true;
                 }
 
                 function prepareViewData() {
@@ -141,12 +151,15 @@ angular.module('bookItApp')
                                 classList += 'limit';
                             }
                             //не разрешаем выбирать задним числом
-                            if (!datePickerService.inRange(scope.max, scope.min, week[j]) || datePickerService.isAfterToday(week[j], moment())) {
+                            if (!datePickerService.inRange(scope.max, scope.min, week[j]) || datePickerService.isAfterToday(week[j])) {
                             //if (!datePickerService.inRange(scope.max, scope.min, week[j])) {
                                 classList += ' disabled';
                             }
                             if (datePickerService.inRange(scope.end, scope.start, week[j])) {
                                 classList += ' range';
+                            }
+                            if (datePickerService.isInOccupied(attrs.occSlots, week[j])) {
+                                classList += ' booked';
                             }
                             if (datePickerService.isToday(week[j])) {
                                 classList += ' now';

@@ -7,7 +7,7 @@
 		<tbody>
 			<tr ng-repeat="slot in offer.TimeSlots">
 				<td>
-				<timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate"/>
+				<timeslot slot="slot" min-date="offer.StartDate" max-date="offer.EndDate"  occupied-slots="offer.occupiedSlots"/>
 				<div class="responsive-wrapper">
                     <button type="button" class="uui-button lime-green" ng-show="!slot.IsOccupied" ng-click="bookOffer(offer.Id, slot)">Book</button>
 				</div>
