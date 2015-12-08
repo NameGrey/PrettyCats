@@ -3,3 +3,7 @@
 
 	$('.row').fadeIn("slow");
 }
+
+function PostToController(cName, cAction, obj) {
+	$.post("/" + cName + "/" + cAction + "/" + obj);
+}

@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Web.UI;
+using PrettyCats.Database;
 
 namespace PrettyCats.Controllers
 {
@@ -7,30 +11,41 @@ namespace PrettyCats.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			return View();
+		   List<Pets> pets = new List<Pets>();
+
+			pets.Add(new Pets()
+			{
+				BirthDate = new DateTime(2000, 12, 5),
+				BreedID = 1,
+				FatherID = null,
+				ID = 1,
+				MainPictureID = 1,
+				MotherID = null,
+				Name = "First",
+				OwnerID = 1
+			});
+
+			pets.Add(new Pets()
+			{
+				BirthDate = new DateTime(2000, 12, 5),
+				BreedID = 2,
+				FatherID = null,
+				ID = 2,
+				MainPictureID = 2,
+				MotherID = null,
+				Name = "Second",
+				OwnerID = 1
+			});
+
+			return View(pets);
 		}
 
-		public ActionResult KittenMainPage()
-		{
-			return View();
-		}
-
-		public ActionResult ParentCatMainPage()
+		public ActionResult KittenOnTheMainPageHtml()
 		{
 			return View();
 		}
 
 		public ActionResult ContactsPage()
-		{
-			return View();
-		}
-
-		public ActionResult ThemePage()
-		{
-			return View();
-		}
-
-		public ActionResult AllAvailableKittens()
 		{
 			return View();
 		}

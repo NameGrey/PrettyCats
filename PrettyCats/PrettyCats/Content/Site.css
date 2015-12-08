@@ -65,6 +65,7 @@ opacity:1;
     -moz-transform: scale(1,1);
     -moz-transition-timing-function: ease-out;
     -moz-transition-duration: 550ms;
+    cursor: pointer;
 }
 
 .item-image{

@@ -1,10 +1,10 @@
-﻿
+﻿@model PrettyCats.Database.Pets
 @{
 	ViewBag.Title = "KittenMainPage";
-	Layout = "~/Views/Home/_MainLayout.cshtml";	
+	Layout = "~/Views/Layouts/_MainLayout.cshtml";	
 }
 
-	<script src="~/Scripts/DielogForm.js"></script>
+<script src="~/Scripts/DielogForm.js"></script>
 	<link rel="stylesheet" type="text/css" href="~/Content/DialogForm.css">	
 <script>
 	
@@ -39,9 +39,9 @@
 	}
 </script>
 
-<h2 style="text-align: center;">Подробная информация о котенке</h2>
+<h2 style="text-align: center;">Подробная информация о котенке @Model.Name</h2>
 
-@Html.Partial("~/Views/Home/_CatSlider.cshtml")
+@Html.Partial("~/Views/Layouts/_CatSlider.cshtml")
 
 <div class="row">
 	<div class="col-xs-3 col-md-3"></div>

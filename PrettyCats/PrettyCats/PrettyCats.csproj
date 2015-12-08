@@ -178,6 +178,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformPagesController.cs" />
+    <Compile Include="Controllers\KittenPagesController.cs" />
     <Compile Include="Database\DbStorage.cs" />
     <Compile Include="Database\Owners.cs" />
     <Compile Include="Database\Pages.cs" />
@@ -193,17 +195,19 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\_MainLayout.cshtml" />
+    <Content Include="Views\Layouts\_MainLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\_MainPlusCategoriesLayout.cshtml" />
+    <Content Include="Views\Layouts\_MainPlusCategoriesLayout.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Views\Home\_Item.cshtml" />
-    <Content Include="Views\Home\KittenMainPage.cshtml" />
-    <Content Include="Views\Home\ParentCatMainPage.cshtml" />
-    <Content Include="Views\Home\_CatSlider.cshtml" />
+    <Content Include="Views\Layouts\_Item.cshtml" />
+    <Content Include="Views\KittenPages\KittenMainPage.cshtml" />
+    <Content Include="Views\KittenPages\ParentCatMainPage.cshtml" />
+    <Content Include="Views\Layouts\_CatSlider.cshtml" />
     <Content Include="Views\Home\ContactsPage.cshtml" />
-    <Content Include="Views\Home\ThemePage.cshtml" />
-    <Content Include="Views\Home\AllAvailableKittens.cshtml" />
+    <Content Include="Views\InformPages\InformPage.cshtml" />
+    <Content Include="Views\KittenPages\AllAvailableKittens.cshtml" />
+    <Content Include="Views\Home\KittenOnTheMainPageHtml.cshtml" />
+    <Content Include="Views\KittenPages\GetKittenHtml.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
