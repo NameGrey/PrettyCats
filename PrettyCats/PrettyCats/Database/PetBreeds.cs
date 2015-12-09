@@ -6,7 +6,6 @@ namespace PrettyCats.Database
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("u0135287_serg.PetBreeds")]
     public partial class PetBreeds
     {
         public PetBreeds()

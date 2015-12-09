@@ -6,9 +6,9 @@ namespace PrettyCats.Database
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Owners
+    public partial class DisplayPlaces
     {
-        public Owners()
+        public DisplayPlaces()
         {
             Pets = new HashSet<Pets>();
         }
@@ -16,10 +16,7 @@ namespace PrettyCats.Database
         public int ID { get; set; }
 
         [StringLength(50)]
-        public string Name { get; set; }
-
-        [StringLength(50)]
-        public string Phone { get; set; }
+        public string PlaceOfDisplaying { get; set; }
 
         public virtual ICollection<Pets> Pets { get; set; }
     }

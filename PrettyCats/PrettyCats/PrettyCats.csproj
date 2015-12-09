@@ -183,6 +183,7 @@
     <Compile Include="Controllers\InformPagesController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
     <Compile Include="Database\DbStorage.cs" />
+    <Compile Include="Database\DisplayPlaces.cs" />
     <Compile Include="Database\Owners.cs" />
     <Compile Include="Database\Pages.cs" />
     <Compile Include="Database\PetBreeds.cs" />

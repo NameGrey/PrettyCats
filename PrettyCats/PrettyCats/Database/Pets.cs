@@ -6,13 +6,12 @@ namespace PrettyCats.Database
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("u0135287_serg.Pets")]
     public partial class Pets
     {
         public Pets()
         {
-            Pets1 = new HashSet<Pets>();
             Pets11 = new HashSet<Pets>();
+            Pets12 = new HashSet<Pets>();
         }
 
         public int ID { get; set; }
@@ -37,18 +36,30 @@ namespace PrettyCats.Database
 
         public int? FatherID { get; set; }
 
-        public int? MainPictureID { get; set; }
+        [Column(TypeName = "image")]
+        public byte[] ImageData { get; set; }
+
+        [StringLength(50)]
+        public string ContentType { get; set; }
+
+        public int? WhereDisplay { get; set; }
+
+        public virtual DisplayPlaces DisplayPlaces { get; set; }
 
         public virtual Owners Owners { get; set; }
 
         public virtual PetBreeds PetBreeds { get; set; }
 
-        public virtual ICollection<Pets> Pets1 { get; set; }
+        public virtual Pets Pets1 { get; set; }
 
         public virtual Pets Pets2 { get; set; }
 
         public virtual ICollection<Pets> Pets11 { get; set; }
 
         public virtual Pets Pets3 { get; set; }
+
+        public virtual ICollection<Pets> Pets12 { get; set; }
+
+        public virtual Pets Pets4 { get; set; }
     }
 }

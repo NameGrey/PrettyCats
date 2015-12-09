@@ -19,7 +19,6 @@ namespace PrettyCats.Controllers
 				BreedID = 1,
 				FatherID = null,
 				ID = 1,
-				MainPictureID = 1,
 				MotherID = null,
 				Name = "First",
 				OwnerID = 1
@@ -31,7 +30,6 @@ namespace PrettyCats.Controllers
 				BreedID = 2,
 				FatherID = null,
 				ID = 2,
-				MainPictureID = 2,
 				MotherID = null,
 				Name = "Second",
 				OwnerID = 1
