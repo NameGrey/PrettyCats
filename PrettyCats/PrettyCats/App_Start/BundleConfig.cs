@@ -22,7 +22,8 @@ namespace PrettyCats
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css",
 					  "~/Content/business-frontpage.css",
-					  "~/Content/SlideShow.css"));
+					  "~/Content/SlideShow.css",
+					  "~/Content/AdminPanel.css"));
 
 			BundleTable.EnableOptimizations = true;
 		}

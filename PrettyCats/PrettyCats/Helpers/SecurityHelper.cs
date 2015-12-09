@@ -10,11 +10,11 @@ namespace PrettyCats.Helpers
 		private const string ADMIN_NAME = "Serg";
 		private const string ADMIN_PASS = "pass43";
 
-		public static bool LogInAdmin(string password)
+		public static bool LogInAdmin(string name, string password)
 		{
 			bool result = false;
 
-			if (password == ADMIN_PASS)
+			if (password == ADMIN_PASS && name == ADMIN_NAME)
 			{
 				SessionHelper.CreateOrUpdateSessionObject(ADMIN_NAME, ADMIN_PASS);
 				result = true;

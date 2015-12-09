@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminPanel.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformPagesController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
@@ -210,6 +212,9 @@
     <Content Include="Views\KittenPages\AllAvailableKittens.cshtml" />
     <Content Include="Views\Home\KittenOnTheMainPageHtml.cshtml" />
     <Content Include="Views\KittenPages\GetKittenHtml.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Admin\AdminPanel.cshtml" />
+    <Content Include="Views\Layouts\_AdminPanelLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
