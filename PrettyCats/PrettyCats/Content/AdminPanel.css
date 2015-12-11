@@ -24,7 +24,7 @@ a { text-decoration: none; margin: 0 10px; }
 	text-align: center;
 }
 
-a.btn {
+a.btn-admin {
 	display: inline-block;
 	color: #666;
 	background-color: #eee;
@@ -38,52 +38,53 @@ a.btn {
 	border: 1px solid rgba(0,0,0,0.3);
 	border-bottom-width: 3px;
 	margin-top: 20px;
+	text-decoration: none;
 }
 
-	a.btn:hover {
+	a.btn-admin:hover {
 		background-color: #e3e3e3;
 		border-color: rgba(0,0,0,0.5);
 	}
 	
-	a.btn:active {
+	a.btn-admin:active {
 		background-color: #CCC;
 		border-color: rgba(0,0,0,0.9);
 	}
 
 /* blue button */
 
-a.btn.btn-blue {
+a.btn-admin.btn-blue {
 	background-color: #699DB6;
 	border-color: rgba(0,0,0,0.3);
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 	color: #FFF;
 }
 
-	a.btn.btn-blue:hover {
+	a.btn-admin.btn-blue:hover {
 		background-color: #4F87A2;
 		border-color: rgba(0,0,0,0.5);
 	}
 	
-	a.btn.btn-blue:active {
+	a.btn-admin.btn-blue:active {
 		background-color: #3C677B;
 		border-color: rgba(0,0,0,0.9);
 	}
 
 /* red button */
 
-a.btn.btn-red {
+a.btn-admin.btn-red {
 	background-color: #E48681;
 	border-color: rgba(0,0,0,0.3);
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 	color: #FFF;
 }
 
-	a.btn.btn-red:hover {
+	a.btn-admin.btn-red:hover {
 		background-color: #DA4F49;
 		border-color: rgba(0,0,0,0.5);
 	}
 	
-	a.btn.btn-red:active {
+	a.btn-admin.btn-red:active {
 		background-color: #B32C24;
 		border-color: rgba(0,0,0,0.9);
 	}
