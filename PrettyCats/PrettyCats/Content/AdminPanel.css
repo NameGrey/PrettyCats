@@ -9,11 +9,34 @@
 	margin: 100px auto;
 	width: 700px;
 	padding: 48px;
+	padding-top: 0px;
 	background-color: #778899;
 	border-color: red;
 	border-style: outset;
 }
 
+.kitten-block-admin {
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+
+	width: 100%;
+	display: inline-block;
+	padding: 5px;
+	height: 190px;
+	background-color: #666666;
+	border-radius: 3px;
+	margin-bottom: 20px;
+}
+
+.main-kitten-image {
+	width: 120px;
+	height: 120px;
+	margin: 15px;
+	border-color: #000080;
+	border-radius: 2px;
+	
+}
 
 .hot-container p { margin-top: 10px; }
 a { text-decoration: none; margin: 0 10px; }
@@ -22,6 +45,37 @@ a { text-decoration: none; margin: 0 10px; }
 	min-height: 100px;
 	width: 100%;
 	text-align: center;
+}
+
+.admin-panel > .btn-red {
+	margin-bottom: 10px
+}
+
+.button-container> .btn-red {
+	font-size: 8px;   
+	padding-top: 10px;
+	margin-top: 5px;
+}
+
+.image-container {
+	float: left;
+    width: 140px
+}
+
+.button-container {
+	float: left;
+	width: 140px;
+	padding-top: 10px;
+}
+.setting-container {
+	float: left;
+	margin-top: 15px;
+	margin-left: 15px;
+	color: #cccccc;
+}
+
+.hid {
+	visibility: hidden;
 }
 
 a.btn-admin {
@@ -77,6 +131,7 @@ a.btn-admin.btn-red {
 	border-color: rgba(0,0,0,0.3);
 	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
 	color: #FFF;
+    font-size: 8px;
 }
 
 	a.btn-admin.btn-red:hover {

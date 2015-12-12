@@ -16,6 +16,17 @@ namespace PrettyCats.Controllers
 			return View();
 		}
 
+		public ActionResult AdminChangeKittens()
+		{
+			return View();
+		}
+
+
+		public ActionResult KittenOnTheAdminPageHtml()
+		{
+			return View();
+		}
+
 		public ActionResult LogIn(string username, string password)
 		{
 			if (SecurityHelper.LogInAdmin(username, password))
