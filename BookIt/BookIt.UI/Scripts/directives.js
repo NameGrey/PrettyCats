@@ -170,8 +170,13 @@ angular.module('bookItApp')
                     scope.classes = classes;
                 }
 
+                // Получается, что сначала фокус возвращается элементу (при этом начинает создаваться календарь),
+                // потом уходит из элемента (календарь удаляется), а потом заканчивается формирование календаря в методе focus
+                // TODO попробовать заставить element.blur ждать, пока не закончит выполняться element.focus,
+                // если уж он начал выполняться
                 var picker = null;
-                element.on('focus', function () {
+                var $elementFocusProcessing = $.Deferred();
+                element.on('focus', function (event) {
                     populatelimits();
                     prepareViewData();
                     var pos = angular.extend(element.offset(), { height: element[0].offsetHeight });                    
@@ -182,16 +187,21 @@ angular.module('bookItApp')
                         picker = $compile(template)(scope);
                         picker.css({ top: pos.top + pos.height + 5, left: pos.left, display: 'block', position: 'absolute' });
 
-                        picker.bind('mousedown', function (evt) {
+                        picker.on('mousedown', function (evt) {
                             evt.preventDefault();
                         });
+                        $elementFocusProcessing.resolve();
                     });
                 });
-                element.bind('blur', function () {                  
-                    if (picker) {
-                        picker.remove();
-                        picker = null;
-                    }
+
+                element.on('blur', function () {
+                    $elementFocusProcessing.then(function () {
+                        if (picker) {
+                            picker.remove();
+                            picker = null;
+                        };
+                        $elementFocusProcessing = $.Deferred();
+                    });
                 });
             }
 
