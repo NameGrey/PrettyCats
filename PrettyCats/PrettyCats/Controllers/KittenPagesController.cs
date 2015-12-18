@@ -24,31 +24,7 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AllAvailableKittens()
 		{
-			List<Pets> pets = new List<Pets>();
-
-			pets.Add(new Pets()
-			{
-				BirthDate = new DateTime(2000, 12, 5),
-				BreedID = 1,
-				FatherID = null,
-				ID = 1,
-				MotherID = null,
-				Name = "First",
-				OwnerID = 1
-			});
-
-			pets.Add(new Pets()
-			{
-				BirthDate = new DateTime(2000, 12, 5),
-				BreedID = 2,
-				FatherID = null,
-				ID = 2,
-				MotherID = null,
-				Name = "Second",
-				OwnerID = 1
-			});
-			
-			return View(pets);
+			return View();
 		}
 	}
 }

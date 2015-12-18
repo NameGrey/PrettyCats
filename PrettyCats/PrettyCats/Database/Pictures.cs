@@ -1,15 +1,15 @@
 namespace PrettyCats.Database
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity.Spatial;
 
-    public partial class Pictures
-    {
-        public int ID { get; set; }
+	public partial class Pictures
+	{
+		public int ID { get; set; }
 
-        public string Image { get; set; }
-    }
+		public string Image { get; set; }
+	}
 }

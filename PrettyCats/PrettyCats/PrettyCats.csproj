@@ -169,6 +169,7 @@
     <Content Include="Scripts\DielogForm.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jssor.slider.min.js" />
     <Content Include="Scripts\jssor.slider.mini.js" />
     <Content Include="Scripts\site.js" />
@@ -195,6 +196,10 @@
     </Compile>
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Models\OwnerModelView.cs" />
+    <Compile Include="Models\BreedModelView.cs" />
+    <Compile Include="Models\DisplayPlaceModelView.cs" />
+    <Compile Include="Models\KittenModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -217,7 +222,9 @@
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Layouts\_AdminPanelLayout.cshtml" />
     <Content Include="Views\Admin\KittenOnTheAdminPageHtml.cshtml" />
+    <Content Include="Views\Admin\AdminChangeKittens2.cshtml" />
     <Content Include="Views\Admin\AdminChangeKittens.cshtml" />
+    <Content Include="Views\Admin\AddKitten.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -227,7 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Resources\Kittens\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

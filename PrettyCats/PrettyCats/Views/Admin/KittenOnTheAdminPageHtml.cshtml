@@ -6,12 +6,12 @@
 		<input style="margin-left:15px;" type="file" name="f">
 	</div>
 	<div class="button-container">
-		<a href="#" class="btn-admin btn-red">Изменить</a>
-		<a href="#" class="btn-admin btn-red">Удалить</a>
+		<a href="ChangeKitten/@Model.ID" class="btn-admin btn-red">Изменить</a>
+		<a href="ChangeKitten/@Model.ID" class="btn-admin btn-red">Удалить</a>
 		<a href="#" class="btn-admin btn-red hid">Сохранить</a>
 		
 	</div>
-	<div class="setting-container">
+	<div id="@Model.Name" class="setting-container">
 		<table>
 			<tr style="height: 40px;">
 				<td>Показывать на главной</td>
@@ -19,7 +19,15 @@
 			</tr>
 			<tr style="height: 40px;">
 				<td>Показывать на сайте</td>
-				<td style="padding-left: 10px"><input type="checkbox" /></td>
+				<td style="padding-left: 10px"><input type="checkbox" value="@Model.WhereDisplay"/></td>
+			</tr>
+			<tr style="height: 40px">
+				<td>Имя на английском</td>
+				<td style="padding-left: 10px"><input style="width:100px" type="text" value="@Model.Name" /></td>
+			</tr>
+			<tr style="height: 40px;">
+				<td>Имя на русском</td>
+				<td style="padding-left: 10px"><input style="width:100px" type="text" value="@Model.RussianName" /></td>
 			</tr>
 		</table>
 	</div>
