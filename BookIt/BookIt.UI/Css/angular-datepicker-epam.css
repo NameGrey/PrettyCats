@@ -13,6 +13,38 @@
     width: 30px;
     cursor: pointer;
 }
+.datepicker-ang table tr td div{
+    position: relative;
+}
+
+.datepicker-ang table tr td div:after,
+.datepicker-ang table tr td div:before {
+    content: '';
+    display: block;  		
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border: 7px solid transparent;
+}
+
+.datepicker-ang table tr td.left-angle-arrow div:before {
+    border-top: 7px solid darkcyan;
+    border-right: 7px solid transparent;
+    border-bottom: 0 solid transparent;
+    border-left: 0 solid transparent;
+    top: -6px;
+}
+.datepicker-ang table tr td.right-angle-arrow div:after {
+    border-top: 0 solid transparent;
+    border-right: 0 solid transparent;
+    border-bottom: 7px solid darkcyan;
+    border-left: 7px solid transparent;
+    left: 23px;
+    top: 17px;
+}
+
 .datepicker-ang thead tr:first-child th:hover {
     background: #858585;
 }
@@ -25,9 +57,16 @@
   border: none;
     font-weight: 400;
 }
-.datepicker-ang table tr td span {
-    font-weight: bol;
+
+.datepicker-ang table tr td span{
+    border-radius: 0;
+    padding: 8px;
 }
+
+.datepicker-ang table tr td span:hover{
+    border-radius: 0;
+}
+
 .datepicker-ang table tr td.disabled,
 .datepicker-ang table tr td.disabled:hover {
   background: none;
@@ -58,6 +97,7 @@
     background-color: #21afc5;
 }*/
 
+
 .datepicker-ang table tr td.limit,
 .datepicker-ang table tr td.limit:hover,
 .datepicker-ang table tr td.limit.range,
@@ -74,15 +114,6 @@
 .datepicker-ang table tr td.booked.range:hover{
     color: #eb6a5a ;
     cursor: default;
-}
-
-.datepicker-ang table tr td span{
-    border-radius: 0;
-    padding: 8px;
-}
-
-.datepicker-ang table tr td span:hover{
-    border-radius: 0;
 }
 
 .datepicker-ang.dropdown-menu-ang {

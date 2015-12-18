@@ -13,7 +13,9 @@
         <tbody>
             <tr ng-repeat="week in weeks" ng-init="$index2 = $index">
                 <td ng-repeat="day in week" ng-class="classes[$index2][$index]">
-                    <span class="day" style="float: none; width: auto; height: auto; line-height: normal; margin: 0;" ng-click="selectDate(day, classes[$index2][$index])" ng-bind="day|datePickerFormat:'DD'"></span>
+                    <div>
+                        <span class="day" style="float: none; width: auto; height: auto; line-height: normal; margin: 0;" ng-click="selectDate(day, classes[$index2][$index])" ng-bind="day|datePickerFormat:'DD'"></span>
+                    </div>
                 </td>
             </tr>
         </tbody>
