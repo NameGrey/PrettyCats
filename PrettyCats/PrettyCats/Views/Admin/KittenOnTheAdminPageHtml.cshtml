@@ -1,33 +1,42 @@
-﻿@model PrettyCats.Database.Pets
+﻿@using PrettyCats.Database
+@model PrettyCats.Database.Pets
 
+@{
+	string mPicture = String.Empty;
+	
+	if (Model.PictureID != null)
+	{
+		mPicture = Url.Content(DbStorage.Instance.Pictures.Find(Model.PictureID).Image);
+	}
+}
 <div class="kitten-block-admin">
 	<div class="image-container">
-		<img class="main-kitten-image" />
-		<input style="margin-left:15px;" type="file" name="f">
+		<img class="main-kitten-image" src="@mPicture" />
+		@using (Html.BeginForm("AddMainFoto", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+		{
+			<input style="margin-left: 15px;" type="file" name="f">
+			<input style="margin-left: 15px;" type="hidden" value="@Model.Name" name="kittenName">
+			<input class="send-main-foto-btn" style="margin-left: 15px;" type="submit" name="post-button" value="Сменить фото...">
+		}
 	</div>
 	<div class="button-container">
-		<a href="ChangeKitten/@Model.ID" class="btn-admin btn-red">Изменить</a>
-		<a href="ChangeKitten/@Model.ID" class="btn-admin btn-red">Удалить</a>
+		<a href="EditKitten/@Model.ID" class="btn-admin btn-red">Изменить</a>
+		<a href="RemoveKitten/@Model.ID" class="btn-admin btn-red">Удалить</a>
 		<a href="#" class="btn-admin btn-red hid">Сохранить</a>
 		
 	</div>
 	<div id="@Model.Name" class="setting-container">
 		<table>
 			<tr style="height: 40px;">
-				<td>Показывать на главной</td>
-				<td style ="padding-left: 10px"><input type="checkbox" /></td>
-			</tr>
-			<tr style="height: 40px;">
-				<td>Показывать на сайте</td>
-				<td style="padding-left: 10px"><input type="checkbox" value="@Model.WhereDisplay"/></td>
+				<td>@DbStorage.Instance.DisplayPlaces.First(el=>el.ID == Model.WhereDisplay).PlaceOfDisplaying</td>
 			</tr>
 			<tr style="height: 40px">
 				<td>Имя на английском</td>
-				<td style="padding-left: 10px"><input style="width:100px" type="text" value="@Model.Name" /></td>
+				<td style="padding-left: 10px">@Model.Name</td>
 			</tr>
 			<tr style="height: 40px;">
 				<td>Имя на русском</td>
-				<td style="padding-left: 10px"><input style="width:100px" type="text" value="@Model.RussianName" /></td>
+				<td style="padding-left: 10px">@Model.RussianName</td>
 			</tr>
 		</table>
 	</div>

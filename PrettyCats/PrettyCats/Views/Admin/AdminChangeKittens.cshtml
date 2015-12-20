@@ -1,5 +1,5 @@
 ﻿@using PrettyCats.Database
-@model IEnumerable<PrettyCats.Models.KittenModelView>
+@model IEnumerable<Pets>
 
 @{
 	ViewBag.Title = "AdminDisplayAllKittens";
@@ -9,9 +9,7 @@
 
 <a href="AdminPanel" class="btn-admin btn-red">Назад</a>
 
-<a href="AdminPanel" class="btn-admin btn-red">Добавить</a>
-
-@Html.ActionLink("Добавить", "AddKitten", "Admin", new { id = "update-container" });
+@Html.ActionLink("Добавить", "AddKitten", "Admin", new { id = "update-container", @class = "btn-admin btn-red" })
 
 
 @foreach (var i in Model)

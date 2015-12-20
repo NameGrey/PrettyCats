@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
@@ -26,7 +30,7 @@ namespace PrettyCats.Controllers
 		public ActionResult AdminChangeKittens()
 		{
 			var v = DbStorage.Instance.Pets.ToList();
-			return View();
+			return View("AdminChangeKittens", v);
 		}
 
 
@@ -43,15 +47,45 @@ namespace PrettyCats.Controllers
 				return View("Admin", (object) "Неверный пароль!");
 		}
 
-		[HttpPost]
-		public ActionResult AddKitten(KittenModelView newKitten)
+		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
 		{
-			string result = SaveImage(newKitten);
+			string path = SaveImage(kittenName, f);
 
-			DbStorage.Instance.AddNewPet(newKitten, result);
+			if (!String.IsNullOrEmpty(path))
+			{
+				var pict = DbStorage.Instance.Pictures.Add(new Pictures() {Image = path});
+				DbStorage.Instance.SaveChanges();
+
+				Pets kitten = DbStorage.GetKittenByName(kittenName);
+				kitten.PictureID = pict.ID;
+				DbStorage.Instance.SaveChanges();
+			}
+
+			return RedirectToAction("AdminChangeKittens");
+		}
+
+
+		[HttpPost]
+		public ActionResult AddKitten(Pets newKitten)
+		{
+			if (DbStorage.IsKittenExistsWithAnotherId(newKitten))
+			{
+				return Error("Котенок с таким именем уже есть!!!");
+			}
+
+			// Initialize addition fields
+			newKitten.Owners = DbStorage.Instance.Owners.First(i => i.ID == newKitten.OwnerID);
+			newKitten.PetBreeds = DbStorage.Instance.PetBreeds.First(i => i.ID == newKitten.BreedID);
+
+			DbStorage.Instance.Pets.Add(newKitten);
 			DbStorage.Instance.SaveChanges();
 
-			return RedirectToAction("AdminPanel");
+			return RedirectToAction("AdminChangeKittens");
+		}
+
+		public ActionResult Error(string errorText)
+		{
+			return View("Error", (object)errorText);
 		}
 
 		[HttpGet]
@@ -74,21 +108,62 @@ namespace PrettyCats.Controllers
 			};
 
 
-			return View(newKitten);
+			return View(new Pets());
 		}
 
-		private string SaveImage(KittenModelView kitten)
+		[HttpGet]
+		public ActionResult EditKitten(int id)
+		{
+			Pets kitten = DbStorage.GetKittenByID(id);
+
+			if (kitten == null)
+				return RedirectToAction("AdminChangeKittens");
+			
+			return View(kitten);
+		}
+
+		public ActionResult RemoveKitten(int id)
+		{
+			Pets kitten = DbStorage.GetKittenByID(id);
+			if (!DbStorage.IsKittenExists(kitten))
+			{
+				return Error("Котенка с таким именем не существует!!!");
+			}
+
+			DbStorage.Instance.Pets.Remove(kitten);
+			DbStorage.Instance.SaveChanges();
+
+			return RedirectToAction("AdminChangeKittens");
+		}
+
+		[HttpPost]
+		public ActionResult EditKitten(Pets kitten)
+		{
+			if (DbStorage.IsKittenExistsWithAnotherId(kitten))
+			{
+				return Error("Котенок с таким именем уже есть!!!");
+			}
+
+			// Initialize addition fields
+			kitten.Owners = DbStorage.Instance.Owners.First(i => i.ID == kitten.OwnerID);
+			kitten.PetBreeds = DbStorage.Instance.PetBreeds.First(i => i.ID == kitten.BreedID);
+			DbStorage.Instance.Pets.AddOrUpdate(kitten); 
+
+			DbStorage.Instance.SaveChanges();
+
+			return RedirectToAction("AdminChangeKittens");
+		}
+
+		private string SaveImage(string kittenName, HttpPostedFileBase file)
 		{
 			string path = String.Empty;
-			string kittenName = kitten.Name;
-			HttpPostedFileBase file = kitten.ImageUpload;
-
+			
 			// Verify that the user selected a file
-			if (file != null && file.ContentLength > 0)
+			if (file != null && file.ContentLength > 0 && !String.IsNullOrEmpty(kittenName))
 			{
-				path = DbStorage.Instance.GetKittenImagePath(kittenName, Server);
+				path = DbStorage.GetKittenImagePath(kittenName, Server);
 				RemoveFile(path);
-				file.SaveAs(path);
+				file.SaveAs(Server.MapPath(path));
 			}
 
 			return path;

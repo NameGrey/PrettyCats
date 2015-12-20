@@ -200,3 +200,12 @@ opacity:1;
     margin: auto;
     padding-left: 10%;
 }
+
+div > a {
+    color: white;
+    font-size: 16px;
+}
+
+div > a hover{
+    color: #2f4f4f;
+}

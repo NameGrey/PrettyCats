@@ -1,57 +1,50 @@
 namespace PrettyCats.Database
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel.DataAnnotations;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using System.Data.Entity.Spatial;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
-	public partial class Pets
-	{
-		[Key]
-		[Column(Order = 0)]
-		[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-		public int ID { get; set; }
+    public partial class Pets
+    {
+        public Pets()
+        {
+            Pictures = new HashSet<Pictures>();
+        }
 
-		[Key]
-		[Column(Order = 1)]
-		[StringLength(50)]
-		public string Name { get; set; }
+        public int ID { get; set; }
 
-		[StringLength(50)]
-		public string RussianName { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
 
-		[Key]
-		[Column(Order = 2)]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public int BreedID { get; set; }
+        [StringLength(50)]
+        public string RussianName { get; set; }
 
-		[Column(TypeName = "date")]
-		public DateTime? BirthDate { get; set; }
+        public int BreedID { get; set; }
 
-		public string UnderThePictureText { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? BirthDate { get; set; }
 
-		[Key]
-		[Column(Order = 3)]
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public int OwnerID { get; set; }
+        public string UnderThePictureText { get; set; }
 
-		public int? MotherID { get; set; }
+        public int OwnerID { get; set; }
 
-		public int? FatherID { get; set; }
+        public int? MotherID { get; set; }
 
-		[Column(TypeName = "image")]
-		public byte[] ImageData { get; set; }
+        public int? FatherID { get; set; }
 
-		[StringLength(50)]
-		public string ContentType { get; set; }
+        public int? WhereDisplay { get; set; }
 
-		public int? WhereDisplay { get; set; }
+        public int? PictureID { get; set; }
 
-		public virtual DisplayPlaces DisplayPlaces { get; set; }
+        public virtual DisplayPlaces DisplayPlaces { get; set; }
 
-		public virtual Owners Owners { get; set; }
+        public virtual Owners Owners { get; set; }
 
-		public virtual PetBreeds PetBreeds { get; set; }
-	}
+        public virtual PetBreeds PetBreeds { get; set; }
+
+        public virtual ICollection<Pictures> Pictures { get; set; }
+    }
 }
