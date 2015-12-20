@@ -2,12 +2,20 @@
 @model PrettyCats.Database.Pets
 
 @{
-	var pict = DbStorage.Instance.Pictures.Find(Model.PictureID);
+	Pictures pict = null;
+	string path = String.Empty;
+
+	if (Model.PictureID != null)
+	{
+		pict = DbStorage.Instance.Pictures.Find(Model.PictureID);
+		path = Url.Content(pict.Image);
+	}
+
 }
 
 <div class="col-sm-4">
 	<a href="/kittenpages/KittenMainPage/@Model.ID">
-		<img class="img-circle img-responsive img-center" src="@Url.Content(pict.Image)" alt="">
+		<img class="img-circle img-responsive img-center" src="@path" alt="">
 	</a>
 	<h2>@Model.RussianName</h2>
 	<p>@Model.UnderThePictureText</p>
