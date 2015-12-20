@@ -4,6 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
 using System.Web.UI;
@@ -161,9 +162,11 @@ namespace PrettyCats.Controllers
 			// Verify that the user selected a file
 			if (file != null && file.ContentLength > 0 && !String.IsNullOrEmpty(kittenName))
 			{
+				var sizeImage = new WebImage(file.InputStream).Crop(1,1).Resize(300, 300, false, true);
+
 				path = DbStorage.GetKittenImagePath(kittenName, Server);
-				RemoveFile(path);
-				file.SaveAs(Server.MapPath(path));
+				RemoveFile(Server.MapPath(path));
+				sizeImage.Save(Server.MapPath(path));
 			}
 
 			return path;

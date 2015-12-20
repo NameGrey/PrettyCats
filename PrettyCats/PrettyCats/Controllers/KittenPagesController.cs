@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using PrettyCats.Database;
 
@@ -29,7 +30,8 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AllAvailableKittens()
 		{
-			return View();
+			var v = DbStorage.Instance.Pets.ToList();
+			return View(v);
 		}
 	}
 }
