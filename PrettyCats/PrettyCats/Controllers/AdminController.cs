@@ -67,7 +67,7 @@ namespace PrettyCats.Controllers
 
 
 		[HttpPost]
-		public ActionResult AddKitten(Pets newKitten)
+		public ActionResult AddKitten(Pets newKitten, HttpPostedFileBase[] files)
 		{
 			if (DbStorage.IsKittenExistsWithAnotherId(newKitten))
 			{

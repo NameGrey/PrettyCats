@@ -41,16 +41,19 @@
 		{
 			int countAll = Model.Count;
 			int rowCounter = (countAll + 2)/3;
+			int curr = 0;
 
 
 			for (int i = 1; i <= rowCounter; i++)
 			{
 				<div class="row">
-					@for (int j = i; j < i + 3; j++)
+					@for (int j = 1; j <= 3; j++)
 					{
-						if (j <= countAll)
+						++curr;
+						
+						if (curr <= countAll)
 						{
-							@Html.Partial("~/Views/KittenPages/KittenOnTheMainPageHtml.cshtml", Model[j - 1])
+							@Html.Partial("~/Views/KittenPages/KittenOnTheMainPageHtml.cshtml", Model[curr - 1])
 						}
 					}
 				</div>
