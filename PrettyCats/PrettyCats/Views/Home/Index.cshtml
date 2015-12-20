@@ -37,21 +37,25 @@
 	<hr>
 	
 	@{
-		int countAll = Model.Count;
-		int rowCounter = (countAll + 2 )/3;
-	}
-	
-	@for (int i = 1; i <= rowCounter; i++)
-	{
-		<div class="row">
-			@for (int j = i; j < i + 3; j++)
+		if (Model != null)
+		{
+			int countAll = Model.Count;
+			int rowCounter = (countAll + 2)/3;
+
+
+			for (int i = 1; i <= rowCounter; i++)
 			{
-				if (j <= countAll)
-				{
-					@Html.Partial("KittenOnTheMainPageHtml", Model[j - 1])
-				}
+				<div class="row">
+					@for (int j = i; j < i + 3; j++)
+					{
+						if (j <= countAll)
+						{
+							@Html.Partial("~/Views/KittenPages/KittenOnTheMainPageHtml.cshtml", Model[j - 1])
+						}
+					}
+				</div>
 			}
-		</div>
+		}
 	}
 </div>
 <!-- /.container -->

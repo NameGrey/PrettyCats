@@ -10,21 +10,25 @@
 <hr>
 <div class="images-center-container">
 	@{
-		int countAll = Model.Count;
-		int rowCounter = (countAll + 2) / 3;
-	}
+		if (Model != null)
+		{
+			int countAll = Model.Count;
+			int rowCounter = (countAll + 2) / 3;
 
-	@for (int i = 1; i <= rowCounter; i++)
-	{
-		<div class="row">
-			@for (int j = i; j < i + 3; j++)
+
+			for (int i = 1; i <= rowCounter; i++)
 			{
-				if (j <= countAll)
-				{
-					@Html.Partial("GetKittenHtml", Model[j - 1])
-				}
+				<div class="row">
+					@for (int j = i; j < i + 3; j++)
+					{
+						if (j <= countAll)
+						{
+							@Html.Partial("GetKittenHtml", Model[j - 1])
+						}
+					}
+				</div>
 			}
-		</div>
+		}
 	}
 </div>
 

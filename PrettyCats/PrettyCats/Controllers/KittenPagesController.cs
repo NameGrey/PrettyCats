@@ -22,6 +22,11 @@ namespace PrettyCats.Controllers
 			return View(DbStorage.Instance.Pets.Find(id));
 		}
 
+		public ActionResult KittenOnTheMainPageHtml(int id)
+		{
+			return View(DbStorage.Instance.Pets.Find(id));
+		}
+
 		public ActionResult AllAvailableKittens()
 		{
 			return View();

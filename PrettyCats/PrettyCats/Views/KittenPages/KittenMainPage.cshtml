@@ -1,4 +1,5 @@
-﻿@model PrettyCats.Database.Pets
+﻿@using PrettyCats.Database
+@model PrettyCats.Database.Pets
 @{
 	ViewBag.Title = "KittenMainPage";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";	
@@ -39,7 +40,7 @@
 	}
 </script>
 
-<h2 style="text-align: center;">Подробная информация о котенке @Model.Name</h2>
+<h2 style="text-align: center;">Подробная информация о котенке @Model.RussianName</h2>
 
 @Html.Partial("~/Views/Layouts/_CatSlider.cshtml")
 
@@ -49,13 +50,11 @@
 	<div class="col-xs-6 col-md-6">
 		<div class="Description">
 			<table>
-				<tr><td><b>Порода:</b></td><td>Мейн кун</td></tr>
+				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
 				<tr><td><b>Окрас:</b></td><td>Черный мрамор</td></tr>
-				<tr><td><b>Имя:</b></td><td>Барбариска</td></tr>
-				<tr><td><b>Мама(@Html.ActionLink("фото", "ParentCatMainPage", "Home")):</b></td><td>Кошка</td></tr>
-				<tr><td><b>Папа(@Html.ActionLink("фото", "ParentCatMainPage", "Home")):</b></td><td>Кот</td></tr>
+				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
 				<tr><td><b>Описание:</b></td></tr>
-				<tr><td colspan="2">Тут написано какой котенок хороший и почему его нужно купить.</td></tr>
+				<tr><td colspan="2">@Model.UnderThePictureText</td></tr>
 			</table>
 		</div>
 	</div>

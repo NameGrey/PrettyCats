@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Web.UI;
 using PrettyCats.Database;
 
 namespace PrettyCats.Controllers
@@ -11,12 +9,9 @@ namespace PrettyCats.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			return View();
-		}
+			var v = DbStorage.Instance.Pets.ToList();
 
-		public ActionResult KittenOnTheMainPageHtml()
-		{
-			return View();
+			return View(v);
 		}
 
 		public ActionResult ContactsPage()

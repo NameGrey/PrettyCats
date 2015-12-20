@@ -216,7 +216,7 @@
     <Content Include="Views\Home\ContactsPage.cshtml" />
     <Content Include="Views\InformPages\InformPage.cshtml" />
     <Content Include="Views\KittenPages\AllAvailableKittens.cshtml" />
-    <Content Include="Views\Home\KittenOnTheMainPageHtml.cshtml" />
+    <Content Include="Views\KittenPages\KittenOnTheMainPageHtml.cshtml" />
     <Content Include="Views\KittenPages\GetKittenHtml.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
