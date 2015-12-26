@@ -1,0 +1,26 @@
+﻿@model PrettyCats.Database.Pictures
+
+<div class="kitten-block-admin" id = "@Model.ID">
+	<div class="image-container">
+		<img class="main-kitten-image" src="@Url.Content(Model.Image)" />
+	</div>
+	<div class="button-container">
+		
+		@using (Ajax.BeginForm("RemovePicture", "Admin", new AjaxOptions
+				{
+					HttpMethod = "post",
+					//OnBegin = "beginRequest",
+					//OnComplete = "endRequest",
+					OnSuccess = "successRequest(" + Model.ID + ")",
+					//OnFailure = "failRequest"
+
+				}))
+		{
+			<div class="form-group">
+				<input type="hidden" value=@Model.ID id="id" name="id" />
+				<input type="submit" value="Удалить">
+			</div>
+		}
+
+	</div>
+</div>

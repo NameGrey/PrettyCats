@@ -1,0 +1,115 @@
+﻿
+@{
+	ViewBag.Title = "MuliplayFilesUploader";
+	Layout = "~/Views/Layouts/_AdminPanelLayout.cshtml";
+}
+
+<style>
+	#selectedFiles img {
+		max-width: 125px;
+		max-height: 125px;
+		float: left;
+		margin-bottom: 10px;
+	}
+</style>
+
+<script>
+
+	var files = [];
+	$(document).ready(function() {
+		$("#testButton").on("click", function(e) {
+			$("<input>").prop({
+				"type": "file",
+				"multiple": true
+			}).on("change", function(e) {
+				files.push(this.files);
+				iterateFiles(files);
+			}).trigger("click");
+		});
+
+		//$("#testButton").on('click', function (e) {
+				
+		//	});
+		}
+);
+
+	function iterateFiles(filesArray) {
+		var selDiv = $("#selectedFiles");
+
+		for (var i = 0; i < filesArray.length; i++) {
+			for (var j = 0; j < filesArray[i].length; j++) {
+				
+				var formdata = new FormData();
+				formdata.append('image', filesArray[i][j]);
+
+				var request = new XMLHttpRequest();
+				request.open('post', 'AddImage', true);
+				request.onreadystatechange = function () {
+					if (request.readyState == 4) {
+						if (request.status == 200) {
+							alert(request.responseText);
+						}
+					}
+				}
+				request.send(formdata);
+
+				//var reader = new FileReader();
+				//reader.onload = function (e) {
+				//	var html = "<div class = 'mloader-block'><><img src=\"" + e.target.result + "\">" + "f.name" + "<br clear=\"left\"/></div>";
+				//	alert(html);
+				//			$(selDiv).append(html);
+				//		}
+				//		console.log(filesArray[i][j].name);
+				//		reader.readAsDataURL(filesArray[i][j]);
+				//		console.log(reader.result);
+			}
+		}
+	}
+
+	//var selDiv = "";
+
+	//document.addEventListener("DOMContentLoaded", init, false);
+
+	//function init() {
+	//	document.querySelector('#files').addEventListener('change', handleFileSelect, false);
+	//	selDiv = document.querySelector("#selectedFiles");
+	//}
+
+	//function handleFileSelect(e) {
+
+	//	if (!e.target.files || !window.FileReader) return;
+
+	//	selDiv.innerHTML = "";
+
+	//	var files = e.target.files;
+	//	var filesArr = Array.prototype.slice.call(files);
+		
+	//	files.forEach(function (i) {
+	//		var f = files[i];
+
+	//		if (!f.type.match("image.*")) {
+	//			return;
+	//		}
+
+	//		var reader = new FileReader();
+	//		reader.onload = function (e) {
+	//			var html = "<img src=\"" + e.target.result + "\">" + f.name + "<br clear=\"left\"/>";
+	//			selDiv.innerHTML += html;
+	//		}
+	//		reader.readAsDataURL(f);
+	//	});
+
+	//}
+</script>
+
+<input id="testButton" type="button"/>
+
+<form action="Home/AddImage" id="mUploaderForm" method="post" enctype="multipart/form-data">
+	<input type="submit"/>
+</form>
+
+<div id="selectedFiles"></div>
+
+
+<h2>MuliplayFilesUploader</h2>
+
