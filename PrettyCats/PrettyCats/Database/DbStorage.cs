@@ -3,7 +3,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Text.RegularExpressions;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 using PrettyCats.Models;
 
 namespace PrettyCats.Database
@@ -12,6 +14,8 @@ namespace PrettyCats.Database
 	{
 		public static Storage Instance { get; private set; }
 		public const string KittensImageDirectoryPath = "~/Resources/Kittens";
+		private const string SMALL_IMAGE_FILENAME_FORMAT = "{0}_{1}.jpg";
+		private const string IMAGE_FILENAME_FORMAT = "{0}{1}.jpg";
 
 		private DbStorage()
 		{
@@ -22,7 +26,6 @@ namespace PrettyCats.Database
 		{
 			Instance = new Storage();
 		}
-
 
 		public static void AddNewPet(KittenModelView newKitten, string imagePath)
 		{
@@ -69,13 +72,28 @@ namespace PrettyCats.Database
 			return path;
 		}
 
-		public static string GetNumberedImage(string kittenName)
+		public static string GetNumberedImage(string kittenName, bool small = false)
 		{
 			int newNumber = (from el in Instance.Pets where el.Name == kittenName select el.Pictures).First().Count() + 1;
+			string format = small ? SMALL_IMAGE_FILENAME_FORMAT : IMAGE_FILENAME_FORMAT;
 			// extract only the fielname
-			var fileName = String.Format("{0}{1}.jpg", kittenName, newNumber);
+			var fileName = String.Format(format, kittenName, newNumber);
 
 			return fileName;
+		}
+
+		public static string GetSmallKittenImageFileName(string imagePath)
+		{
+			string result = String.Empty;
+			string name = Path.GetFileNameWithoutExtension(imagePath);
+
+			if (name != null)
+			{
+				result = Regex.Match(name, @"\d+").Value;
+				result = Regex.Replace(imagePath, result, "_" + result);
+			}
+			
+			return result;
 		}
 
 		public static bool IsKittenExistsWithAnotherId(Pets kitten)

@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Services.Protocols;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
 using PrettyCats.Models;
@@ -165,7 +159,10 @@ namespace PrettyCats.Controllers
 			DbStorage.Instance.Pictures.Remove(picture);
 			DbStorage.Instance.SaveChanges();
 
+			var v = DbStorage.GetSmallKittenImageFileName(picture.Image);
+
 			RemoveFile(Server.MapPath(picture.Image));
+			RemoveFile(Server.MapPath(v));
 			
 			return id;
 		}
@@ -177,13 +174,8 @@ namespace PrettyCats.Controllers
 			string kittenName = Request.Headers["X-File-Name"];
 			Request.InputStream.Read(bytes, 0, length);
 
-			// We can edit only one kitten at the same time
-			// that's why we can use the following approach:
-			// Before editing the kitten we set property in Session
-			// with kitten name and get this value in the current context
-			// P.S. This approach will be changed in the next versions.
-			//string kittenName = Session["EditedKittenName"].ToString();
 			string kittenNameNumbered = DbStorage.GetNumberedImage(kittenName);
+			string kittenNameNumberedSmall = DbStorage.GetNumberedImage(kittenName, true);
 			string dirPath = Server.MapPath(DbStorage.KittensImageDirectoryPath + "/" + kittenName);
 			string linkPath = DbStorage.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
 
@@ -193,6 +185,7 @@ namespace PrettyCats.Controllers
 			}
 
 			string saveImagePath = SaveImage(dirPath + "\\" + kittenNameNumbered, bytes);
+			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, new WebImage(bytes).Crop(1, 1).Resize(72, 72));
 
 			if (saveImagePath != String.Empty)
 			{
@@ -250,6 +243,22 @@ namespace PrettyCats.Controllers
 				//var fileStream = new FileStream(Server.MapPath(path), FileMode.Create, FileAccess.ReadWrite);
 				//fileStream.Write(file, 0, file.Length);
 				//fileStream.Close();
+			}
+			catch (Exception)
+			{
+				filename = String.Empty;
+			}
+
+			return filename;
+		}
+
+		private string SaveImage(string filename, WebImage image)
+		{
+			try
+			{
+				RemoveFile(filename);
+				// save the file.
+				image.Save(filename);
 			}
 			catch (Exception)
 			{
