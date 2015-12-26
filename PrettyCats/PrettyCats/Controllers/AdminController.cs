@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -34,10 +36,21 @@ namespace PrettyCats.Controllers
 			return View("AdminChangeKittens", v);
 		}
 
-
 		public ActionResult KittenOnTheAdminPageHtml()
 		{
 			return View();
+		}
+
+		public ActionResult _KittenPicture()
+		{
+			return View();
+		}
+
+		public ActionResult KittenPictures(int id)
+		{
+			Pets kitten = DbStorage.GetKittenByID(id);
+
+			return View(kitten.Pictures.ToList());
 		}
 
 		public ActionResult LogIn(string username, string password)
@@ -48,23 +61,12 @@ namespace PrettyCats.Controllers
 				return View("Admin", (object) "Неверный пароль!");
 		}
 
-		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
+		public ActionResult Error(string errorText)
 		{
-			string path = SaveImage(kittenName, f);
-
-			if (!String.IsNullOrEmpty(path))
-			{
-				var pict = DbStorage.Instance.Pictures.Add(new Pictures() {Image = path});
-				DbStorage.Instance.SaveChanges();
-
-				Pets kitten = DbStorage.GetKittenByName(kittenName);
-				kitten.PictureID = pict.ID;
-				DbStorage.Instance.SaveChanges();
-			}
-
-			return RedirectToAction("AdminChangeKittens");
+			return View("Error", (object)errorText);
 		}
 
+		#region Work with kitten
 
 		[HttpPost]
 		public ActionResult AddKitten(Pets newKitten, HttpPostedFileBase[] files)
@@ -82,11 +84,6 @@ namespace PrettyCats.Controllers
 			DbStorage.Instance.SaveChanges();
 
 			return RedirectToAction("AdminChangeKittens");
-		}
-
-		public ActionResult Error(string errorText)
-		{
-			return View("Error", (object)errorText);
 		}
 
 		[HttpGet]
@@ -155,6 +152,74 @@ namespace PrettyCats.Controllers
 			return RedirectToAction("AdminChangeKittens");
 		}
 
+		#endregion
+
+		#region Work with images
+
+		public int RemovePicture(int id)
+		{
+			Pictures picture = DbStorage.Instance.Pictures.Find(id);
+
+			picture.Pets.First().Pictures.Remove(picture);
+			
+			DbStorage.Instance.Pictures.Remove(picture);
+			DbStorage.Instance.SaveChanges();
+
+			RemoveFile(Server.MapPath(picture.Image));
+			
+			return id;
+		}
+
+		public string AddImage(object file)
+		{
+			var length = Request.ContentLength;
+			var bytes = new byte[length];
+			string kittenName = Request.Headers["X-File-Name"];
+			Request.InputStream.Read(bytes, 0, length);
+
+			// We can edit only one kitten at the same time
+			// that's why we can use the following approach:
+			// Before editing the kitten we set property in Session
+			// with kitten name and get this value in the current context
+			// P.S. This approach will be changed in the next versions.
+			//string kittenName = Session["EditedKittenName"].ToString();
+			string kittenNameNumbered = DbStorage.GetNumberedImage(kittenName);
+			string dirPath = Server.MapPath(DbStorage.KittensImageDirectoryPath + "/" + kittenName);
+			string linkPath = DbStorage.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
+
+			if (!Directory.Exists(dirPath))
+			{
+				Directory.CreateDirectory(dirPath);
+			}
+
+			string saveImagePath = SaveImage(dirPath + "\\" + kittenNameNumbered, bytes);
+
+			if (saveImagePath != String.Empty)
+			{
+				DbStorage.Instance.Pets.First(i => i.Name == kittenName).Pictures.Add(new Pictures() { Image = linkPath });
+				DbStorage.Instance.SaveChanges();
+			}
+
+			return kittenName;
+		}
+
+		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
+		{
+			string path = SaveImage(kittenName, f);
+
+			if (!String.IsNullOrEmpty(path))
+			{
+				var pict = DbStorage.Instance.Pictures.Add(new Pictures() { Image = path });
+				DbStorage.Instance.SaveChanges();
+
+				Pets kitten = DbStorage.GetKittenByName(kittenName);
+				kitten.PictureID = pict.ID;
+				DbStorage.Instance.SaveChanges();
+			}
+
+			return RedirectToAction("AdminChangeKittens");
+		}
+
 		private string SaveImage(string kittenName, HttpPostedFileBase file)
 		{
 			string path = String.Empty;
@@ -164,12 +229,34 @@ namespace PrettyCats.Controllers
 			{
 				var sizeImage = new WebImage(file.InputStream).Crop(1,1).Resize(300, 300, false, true);
 
-				path = DbStorage.GetKittenImagePath(kittenName, Server);
+				path = DbStorage.GetKittenImagePath(kittenName);
 				RemoveFile(Server.MapPath(path));
 				sizeImage.Save(Server.MapPath(path));
 			}
 
 			return path;
+		}
+
+		private string SaveImage(string filename, byte[] file)
+		{
+			try
+			{
+				var sizeImage = new WebImage(file);
+
+				RemoveFile(filename);
+				// save the file.
+				sizeImage.Save(filename);
+				
+				//var fileStream = new FileStream(Server.MapPath(path), FileMode.Create, FileAccess.ReadWrite);
+				//fileStream.Write(file, 0, file.Length);
+				//fileStream.Close();
+			}
+			catch (Exception)
+			{
+				filename = String.Empty;
+			}
+
+			return filename;
 		}
 
 		private void RemoveFile(string path)
@@ -179,5 +266,7 @@ namespace PrettyCats.Controllers
 				System.IO.File.Delete(path);
 			}
 		}
+
+		#endregion
 	}
 }

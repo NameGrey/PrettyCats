@@ -6,22 +6,8 @@
 	Layout = "~/Views/Layouts/_AdminPanelLayout.cshtml";
 }
 
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('#BirthDate').datepicker({
-			dateFormat: "dd/mm/yy",
-			showStatus: true,
-			showWeeks: true,
-			currentText: 'Now',
-			autoSize: true,
-			gotoCurrent: true,
-			showAnim: 'blind',
-			highlightWeek: true
-		});
-	});
-</script>
-
 <h2>Редактирования котенка</h2>
+<input id="testButton" type="button" />
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

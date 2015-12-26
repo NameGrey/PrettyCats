@@ -1,6 +1,8 @@
 ﻿
+using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Web;
 using PrettyCats.Models;
 
@@ -9,6 +11,7 @@ namespace PrettyCats.Database
 	public class DbStorage
 	{
 		public static Storage Instance { get; private set; }
+		public const string KittensImageDirectoryPath = "~/Resources/Kittens";
 
 		private DbStorage()
 		{
@@ -55,14 +58,24 @@ namespace PrettyCats.Database
 			return Instance.Pets.Find(id);
 		}
 
-		public static string GetKittenImagePath(string kittenName, HttpServerUtilityBase server)
+		public static string GetKittenImagePath(string kittenName, bool withExtension = true, bool withNamedFolder = false)
 		{
 			// extract only the fielname
-			var fileName = kittenName + ".jpg";
+			var fileName = kittenName + (withNamedFolder ? "\\" + kittenName + "\\" : String.Empty) +
+							(withExtension ? ".jpg" : String.Empty);
 			// store the file inside /Resources/Kittens folder
-			var path = Path.Combine("~/Resources/Kittens", fileName);
+			var path = Path.Combine(KittensImageDirectoryPath + (withNamedFolder ? "\\" + kittenName + "\\" : String.Empty), fileName);
 
 			return path;
+		}
+
+		public static string GetNumberedImage(string kittenName)
+		{
+			int newNumber = (from el in Instance.Pets where el.Name == kittenName select el.Pictures).First().Count() + 1;
+			// extract only the fielname
+			var fileName = String.Format("{0}{1}.jpg", kittenName, newNumber);
+
+			return fileName;
 		}
 
 		public static bool IsKittenExistsWithAnotherId(Pets kitten)

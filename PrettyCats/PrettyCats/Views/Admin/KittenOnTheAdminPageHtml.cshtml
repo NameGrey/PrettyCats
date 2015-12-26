@@ -1,10 +1,31 @@
 ﻿@using PrettyCats.Database
 @model PrettyCats.Database.Pets
 
+<script>
+	@{
+		var linkName = Model != null ? Model.Name : String.Empty;
+	}
+	$(document).ready(function () {
+		$("#@linkName").on("click", function (e) {
+		$("<input>").prop({
+			"type": "file",
+			"multiple": true
+		}).on("change", function (e) {
+			files.push(this.files);
+			var mes =  "@linkName";
+
+			iterateFiles(files, mes);
+		}).trigger("click");
+	});
+	}
+	);
+
+</script>
+
 @{
 	string mPicture = String.Empty;
 	
-	if (Model.PictureID != null)
+	if (Model != null && Model.PictureID != null)
 	{
 		mPicture = Url.Content(DbStorage.Instance.Pictures.Find(Model.PictureID).Image);
 	}
@@ -25,7 +46,7 @@
 		<a href="#" class="btn-admin btn-red hid">Сохранить</a>
 		
 	</div>
-	<div id="@Model.Name" class="setting-container">
+	<div class="setting-container">
 		<table>
 			<tr style="height: 40px;">
 				<td>@DbStorage.Instance.DisplayPlaces.First(el=>el.ID == Model.WhereDisplay).PlaceOfDisplaying</td>
@@ -39,5 +60,9 @@
 				<td style="padding-left: 10px">@Model.RussianName</td>
 			</tr>
 		</table>
+	</div>
+	<div class="bottom-fotos-container">
+		<input onclick="" type="button" id="@Model.Name" name="del-fotos" value="Добавить фотки">
+		<input onclick="location.href='KittenPictures/@Model.ID';" type="button" name="add-fotos" value="Удалить фотки">
 	</div>
 </div>
