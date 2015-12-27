@@ -19,6 +19,9 @@ namespace PrettyCats.Database
 
         public string ImageSmall { get; set; }
 
+        [StringLength(50)]
+        public string CssClass { get; set; }
+
         public virtual ICollection<Pets> Pets { get; set; }
     }
 }

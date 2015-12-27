@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -123,6 +125,8 @@ namespace PrettyCats.Controllers
 				return Error("Котенка с таким именем не существует!!!");
 			}
 
+			var listRemoveImages = (from i in DbStorage.Instance.Pictures where i.Pets.Contains(kitten) select i);
+			DbStorage.Instance.Pictures.RemoveRange(listRemoveImages);
 			DbStorage.Instance.Pets.Remove(kitten);
 			DbStorage.Instance.SaveChanges();
 
@@ -208,15 +212,48 @@ namespace PrettyCats.Controllers
 
 			image.Resize(newWidth, newHeight);
 
-			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(1, 1).Resize(newWidth, newHeight));
+			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(1, 1).Resize(newWidth, newHeight, true, true));
+			//ResizeImage(dirPath + "\\" + kittenNameNumbered, dirPath + "\\" + kittenNameNumberedSmall, ImageFormat.Jpeg, newWidth,
+			//	newHeight);
 
 			if (saveImagePath != String.Empty)
 			{
-				DbStorage.Instance.Pets.First(i => i.Name == kittenName).Pictures.Add(new Pictures() { Image = linkPath });
+				DbStorage.Instance.Pets.First(i => i.Name == kittenName)
+					.Pictures.Add(
+						new Pictures()
+						{
+							Image = linkPath,
+							ImageSmall = DbStorage.GetSmallKittenImageFileName(linkPath),
+							CssClass = newWidth > newHeight ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
+						});
 				DbStorage.Instance.SaveChanges();
 			}
 
 			return kittenName;
+		}
+
+		public static bool ResizeImage(string orgFile, string resizedFile, ImageFormat format, int width, int height)
+		{
+			try
+			{
+				using (Image img = Image.FromFile(orgFile))
+				{
+					Image thumbNail = new Bitmap(width, height, img.PixelFormat);
+					Graphics g = Graphics.FromImage(thumbNail);
+					g.CompositingQuality = CompositingQuality.HighQuality;
+					g.SmoothingMode = SmoothingMode.HighQuality;
+					g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+					Rectangle rect = new Rectangle(0, 0, width, height);
+					g.DrawImage(img, rect);
+					thumbNail.Save(resizedFile, format);
+				}
+
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
 		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)

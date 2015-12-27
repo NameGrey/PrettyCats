@@ -91,7 +91,7 @@
 			{
 				<div data-p="144.50" style="display: none;" class="BuyButtonContainer">
 					<img data-u="image" class="main-slide-image" src="@Url.Content(i.Image)" />
-					<img data-u="thumb" class="small-images-true-size" src="@Url.Content(DbStorage.GetSmallKittenImageFileName(i.Image))" />
+						<img data-u="thumb" id="@i.CssClass" src="@Url.Content(i.ImageSmall)" />
 				</div>
 			}
 			<button type="button" id="BuyButton" class="btn btn-primary" data-dismiss="modal" onclick="ChooseKitten()">Хочу...</button>
@@ -103,8 +103,8 @@
 			<div data-u="slides" style="cursor: default;">
 				<div data-u="prototype" class="p">
 					<div class="w border-overrider">
-						<div data-u="thumbnailtemplate" class="t"></div>
-					</div>
+							<div data-u="thumbnailtemplate" class="t"></div>
+						</div>
 					<div class="c border-overrider"></div>
 				</div>
 			</div>

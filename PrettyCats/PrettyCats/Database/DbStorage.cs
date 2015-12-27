@@ -14,8 +14,10 @@ namespace PrettyCats.Database
 	{
 		public static Storage Instance { get; private set; }
 		public const string KittensImageDirectoryPath = "~/Resources/Kittens";
-		private const string SMALL_IMAGE_FILENAME_FORMAT = "{0}_{1}.jpg";
-		private const string IMAGE_FILENAME_FORMAT = "{0}{1}.jpg";
+		public const string SmallImageHorizontal = "small-images-true-size-hor";
+		public const string SmallImageVertical = "small-images-true-size-ver";
+		private const string SmallImageFilenameFormat = "{0}_{1}.jpg";
+		private const string ImageFilenameFormat = "{0}{1}.jpg";
 
 		private DbStorage()
 		{
@@ -75,7 +77,7 @@ namespace PrettyCats.Database
 		public static string GetNumberedImage(string kittenName, bool small = false)
 		{
 			int newNumber = (from el in Instance.Pets where el.Name == kittenName select el.Pictures).First().Count() + 1;
-			string format = small ? SMALL_IMAGE_FILENAME_FORMAT : IMAGE_FILENAME_FORMAT;
+			string format = small ? SmallImageFilenameFormat : ImageFilenameFormat;
 			// extract only the fielname
 			var fileName = String.Format(format, kittenName, newNumber);
 

@@ -43,6 +43,8 @@
             position: absolute;
             top: 0;
             left: 0;
+            bottom: 0;
+            right: 0;
             width: auto;
             height: auto;
             border: none;
@@ -120,12 +122,12 @@
             cursor: pointer;
         }
 
-        .small-images-true-size-hor {
+        #small-images-true-size-hor {
             width: 100% !important;
             height: auto !important;
         }
 
-        .small-images-true-size-vert {
+        #small-images-true-size-vert {
             width: auto !important;
             height: 100% !important;
         }
