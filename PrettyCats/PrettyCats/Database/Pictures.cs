@@ -17,6 +17,8 @@ namespace PrettyCats.Database
 
         public string Image { get; set; }
 
+        public string ImageSmall { get; set; }
+
         public virtual ICollection<Pets> Pets { get; set; }
     }
 }

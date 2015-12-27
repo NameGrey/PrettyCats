@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -185,7 +186,29 @@ namespace PrettyCats.Controllers
 			}
 
 			string saveImagePath = SaveImage(dirPath + "\\" + kittenNameNumbered, bytes);
-			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, new WebImage(bytes).Crop(1, 1).Resize(72, 72));
+
+			var image = new WebImage(bytes);
+
+			int width = image.Width;
+			int height = image.Height;
+
+			int newWidth = 0;
+			int newHeight = 0;
+
+			if (width > height)
+			{
+				newWidth = 72;
+				newHeight = newWidth * height / width;
+			}
+			else
+			{
+				newHeight = 72;
+				newWidth = newHeight * width / height;
+			}
+
+			image.Resize(newWidth, newHeight);
+
+			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(1, 1).Resize(newWidth, newHeight));
 
 			if (saveImagePath != String.Empty)
 			{
@@ -235,6 +258,24 @@ namespace PrettyCats.Controllers
 			try
 			{
 				var sizeImage = new WebImage(file);
+				int width = sizeImage.Width;
+				int height = sizeImage.Height;
+
+				int newWidth = 0;
+				int newHeight = 0;
+
+				if (width > height)
+				{
+					newWidth = 600;
+					newHeight = newWidth * height / width;
+				}
+				else
+				{
+					newHeight = 400;
+					newWidth = newHeight * width / height;
+				}
+
+				sizeImage.Resize(newWidth, newHeight);
 
 				RemoveFile(filename);
 				// save the file.

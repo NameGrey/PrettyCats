@@ -8,9 +8,7 @@ namespace PrettyCats.Database
 	public partial class Storage : DbContext
 	{
 		public Storage()
-
-			: base("DBConnectionDebug")
-
+			: base("DBConnectionDebugLocal")
 		{
 		}
 
@@ -23,11 +21,6 @@ namespace PrettyCats.Database
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<DisplayPlaces>()
-				.HasMany(e => e.Pets)
-				.WithOptional(e => e.DisplayPlaces)
-				.HasForeignKey(e => e.WhereDisplay);
-
 			modelBuilder.Entity<Owners>()
 				.HasMany(e => e.Pets)
 				.WithRequired(e => e.Owners)
@@ -55,10 +48,14 @@ namespace PrettyCats.Database
 			modelBuilder.Entity<Pets>()
 				.HasMany(e => e.Pictures)
 				.WithMany(e => e.Pets)
-				.Map(m => m.ToTable("PetsPictures").MapLeftKey("PetID").MapRightKey("PictureID"));
+				.Map(m => m.ToTable("PetPictures").MapLeftKey("KittenID").MapRightKey("PictureID"));
 
 			modelBuilder.Entity<Pictures>()
 				.Property(e => e.Image)
+				.IsUnicode(false);
+
+			modelBuilder.Entity<Pictures>()
+				.Property(e => e.ImageSmall)
 				.IsUnicode(false);
 		}
 	}

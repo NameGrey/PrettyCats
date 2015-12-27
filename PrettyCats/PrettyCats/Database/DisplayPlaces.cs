@@ -8,16 +8,9 @@ namespace PrettyCats.Database
 
     public partial class DisplayPlaces
     {
-        public DisplayPlaces()
-        {
-            Pets = new HashSet<Pets>();
-        }
-
         public int ID { get; set; }
 
         [StringLength(50)]
         public string PlaceOfDisplaying { get; set; }
-
-        public virtual ICollection<Pets> Pets { get; set; }
     }
 }

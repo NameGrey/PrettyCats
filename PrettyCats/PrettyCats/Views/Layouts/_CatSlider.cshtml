@@ -1,5 +1,8 @@
-﻿<script type="text/javascript" src="../../Scripts/jssor.slider.mini.js"></script>
-	<script type="text/javascript" src="../../Scripts/jssor.slider.min.js"></script>
+﻿@using PrettyCats.Database
+@model PrettyCats.Database.Pets
+
+<script type="text/javascript" src="../../Scripts/jssor.slider.mini.js"></script>
+<script type="text/javascript" src="../../Scripts/jssor.slider.min.js"></script>
 
 @{
 	Layout = null;
@@ -77,80 +80,40 @@
 
 
 <div class="row">
-		<div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 500px; overflow: hidden; visibility: hidden; background-color: #24262e;">
-			<!-- Loading Screen -->
-			<div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
-				<div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-				<div style="position:absolute;display:block;background:url('../../Resources/Slides/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
-			</div>
-			<div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 400px; overflow: hidden;">
-				<div data-p="144.50" style="display: none;" class="BuyButtonContainer">
-					<img data-u="image" src="~/Resources/Slides/01.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-01.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/02.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-02.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/03.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-03.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/04.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-04.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/05.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-05.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/06.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-06.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/07.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-07.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/08.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-08.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/09.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-09.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/10.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-10.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/11.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-11.jpg" />
-				</div>
-				<div data-p="144.50" style="display: none;">
-					<img data-u="image" src="~/Resources/Slides/12.jpg" />
-					<img data-u="thumb" src="~/Resources/Slides/thumb-12.jpg" />
-				</div>
-				<button type="button" id="BuyButton" class="btn btn-primary" data-dismiss="modal" onclick="ChooseKitten()">Хочу...</button>
-			</div>
-			
-			<!-- Thumbnail Navigator -->
-			<div data-u="thumbnavigator" class="jssort01" style="position:absolute;left:0px;bottom:0px;width:600px;height:100px;" data-autocenter="1">
-				<!-- Thumbnail Item Skin Begin -->
-				<div data-u="slides" style="cursor: default;">
-					<div data-u="prototype" class="p">
-						<div class="w">
-							<div data-u="thumbnailtemplate" class="t"></div>
-						</div>
-						<div class="c"></div>
-					</div>
-				</div>
-				<!-- Thumbnail Item Skin End -->
-			</div>
-			<!-- Arrow Navigator -->
-			<span data-u="arrowleft" class="jssora05l" style="top:158px;left:8px;width:40px;height:40px;"></span>
-			<span data-u="arrowright" class="jssora05r" style="top:158px;right:8px;width:40px;height:40px;"></span>
-			<a href="http://www.jssor.com" style="display:none">Jssor Slider</a>
+	<div class="backgroung-overrider" id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 500px; overflow: hidden; visibility: hidden; background-color: #24262e;">
+		<!-- Loading Screen -->
+		<div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+			<div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+			<div style="position:absolute;display:block;background:url('../../Resources/Slides/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
 		</div>
+		<div data-u="slides" style="cursor: default; position: relative; overflow: hidden;">
+			@foreach (var i in Model.Pictures)
+			{
+				<div data-p="144.50" style="display: none;" class="BuyButtonContainer">
+					<img data-u="image" class="main-slide-image" src="@Url.Content(i.Image)" />
+					<img data-u="thumb" class="small-images-true-size" src="@Url.Content(DbStorage.GetSmallKittenImageFileName(i.Image))" />
+				</div>
+			}
+			<button type="button" id="BuyButton" class="btn btn-primary" data-dismiss="modal" onclick="ChooseKitten()">Хочу...</button>
+		</div>
+
+		<!-- Thumbnail Navigator -->
+		<div data-u="thumbnavigator" class="jssort01" style="position:absolute;left:0px;bottom:0px;width:600px;height:100px;" data-autocenter="1">
+			<!-- Thumbnail Item Skin Begin -->
+			<div data-u="slides" style="cursor: default;">
+				<div data-u="prototype" class="p">
+					<div class="w border-overrider">
+						<div data-u="thumbnailtemplate" class="t"></div>
+					</div>
+					<div class="c border-overrider"></div>
+				</div>
+			</div>
+			<!-- Thumbnail Item Skin End -->
+		</div>
+		<!-- Arrow Navigator -->
+		<span data-u="arrowleft" class="jssora05l" style="top:158px;left:8px;width:40px;height:40px;"></span>
+		<span data-u="arrowright" class="jssora05r" style="top:158px;right:8px;width:40px;height:40px;"></span>
+		<a href="http://www.jssor.com" style="display:none">Jssor Slider</a>
+	</div>
+
 	</div>
