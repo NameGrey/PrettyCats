@@ -1,6 +1,4 @@
-﻿@using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
-@model List<PrettyCats.Database.Pets>
-
+﻿
 @{
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
@@ -36,30 +34,27 @@
 	<!-- /.row -->
 	<hr>
 	
-	@{
-		if (Model != null)
-		{
-			int countAll = Model.Count();
-			int rowCounter = (countAll + 2)/3;
-			int curr = 0;
-
-
-			for (int i = 1; i <= rowCounter; i++)
-			{
-				<div class="row">
-					@for (int j = 1; j <= 3; j++)
-					{
-						++curr;
-						
-						if (curr <= countAll)
-						{
-							@Html.Partial("~/Views/KittenPages/KittenOnTheMainPageHtml.cshtml", Model[curr - 1])
-						}
-					}
-				</div>
-			}
-		}
-	}
+	<div class="col-sm-4">
+		<h2 class="text-center">Шотландцы/Британцы</h2>
+		<a href="/kittenpages/BritishKittens">
+			<img class="img-circle img-responsive img-center" src="/Resources/Breeds/Scotland.jpg" alt="">
+		</a>
+	</div>
+	
+	<div class="col-sm-4">
+		<h2 class="text-center">Мейн-куны</h2>
+		<a href="/kittenpages/MainKunKittens">
+			<img class="img-circle img-responsive img-center" src="/Resources/Breeds/Mainkun.jpg" alt="">
+		</a>
+	</div>
+	
+	<div class="col-sm-4">
+		<h2 class="text-center">Бенгалы</h2>
+		<a href="/kittenpages/BengalKittens">
+			<img class="img-circle img-responsive img-center" src="/Resources/Breeds/bengal.jpg" alt="">
+		</a>
+	</div>
+	
 </div>
 <!-- /.container -->
 

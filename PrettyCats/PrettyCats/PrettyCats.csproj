@@ -117,6 +117,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Resources\Breeds\bengal.jpg" />
+    <Content Include="Resources\Breeds\Mainkun.jpg" />
+    <Content Include="Resources\Breeds\Mainkun.png" />
+    <Content Include="Resources\Breeds\Scotland.jpg" />
     <Content Include="Resources\Categories\Maincun.png" />
     <Content Include="Resources\Contacts.png" />
     <Content Include="Resources\Logo.png" />
@@ -231,6 +235,9 @@
     <Content Include="Views\Admin\MuliplayFilesUploader.cshtml" />
     <Content Include="Views\Admin\KittenPictures.cshtml" />
     <Content Include="Views\Admin\_KittenPicture.cshtml" />
+    <Content Include="Views\KittenPages\BritishKittens.cshtml" />
+    <Content Include="Views\KittenPages\MainKunKittens.cshtml" />
+    <Content Include="Views\KittenPages\BengalKittens.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
