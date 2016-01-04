@@ -39,6 +39,12 @@ namespace PrettyCats.Database
 
         public int? WhereDisplay { get; set; }
 
+        [StringLength(50)]
+        public string Status { get; set; }
+
+        [StringLength(50)]
+        public string Color { get; set; }
+
         public virtual Owners Owners { get; set; }
 
         public virtual PetBreeds PetBreeds { get; set; }

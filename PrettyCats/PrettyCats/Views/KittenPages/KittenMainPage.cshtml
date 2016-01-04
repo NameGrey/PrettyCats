@@ -2,7 +2,9 @@
 @model PrettyCats.Database.Pets
 @{
 	ViewBag.Title = "KittenMainPage";
-	Layout = "~/Views/Layouts/_MainLayout.cshtml";	
+	Layout = "~/Views/Layouts/_MainLayout.cshtml";
+	var owner = DbStorage.Instance.Owners.Find(Model.OwnerID);
+	DateTime date = (DateTime) Model.BirthDate;
 }
 
 <script src="~/Scripts/DielogForm.js"></script>
@@ -50,9 +52,12 @@
 	<div class="col-xs-6 col-md-6">
 		<div class="Description">
 			<table>
+				<tr><td><b>Дата рождения: </b></td><td> @date.ToString("dd.MM.yyyy")</td></tr>
 				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
-				<tr><td><b>Окрас:</b></td><td>Черный мрамор</td></tr>
+				<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
 				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
+				<tr><td><b>Заводчик:</b></td><td>@owner.Name</td><td><b>Телефон: </b></td><td>@owner.Phone</td></tr>
+				<tr><td><b>Статус:</b></td><td>@Model.Status</td></tr>
 				<tr><td><b>Описание:</b></td></tr>
 				<tr><td colspan="2">@Model.UnderThePictureText</td></tr>
 			</table>
