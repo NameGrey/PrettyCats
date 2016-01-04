@@ -123,8 +123,7 @@ opacity:1;
 .Description{
     width:800px;
     position:relative;
-    margin:10px auto;
-    font-size:18px;
+    margin:10px 15px;
 }
 
 #BuyButton{
@@ -208,4 +207,29 @@ div > a {
 
 div > a hover{
     color: #2f4f4f;
+}
+
+.back-link {
+    margin-top: 10px;
+}
+
+.image {
+    width: 150px;
+    height: 40px;
+    background-size: cover;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.back-link :nth-child(1){
+    background-image: url("../Resources/BackFish.png");
+}
+
+.back-link :nth-child(1):hover {
+    background-image: url("../Resources/BackFishBones.png");
+    cursor: pointer;
+}
+
+#table {
+    font-size: 1.2em;
 }
