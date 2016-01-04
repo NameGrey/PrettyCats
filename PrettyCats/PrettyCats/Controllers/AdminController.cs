@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -125,8 +126,12 @@ namespace PrettyCats.Controllers
 				return Error("Котенка с таким именем не существует!!!");
 			}
 
-			var listRemoveImages = (from i in DbStorage.Instance.Pictures where i.Pets.Contains(kitten) select i);
-			DbStorage.Instance.Pictures.RemoveRange(listRemoveImages);
+			//List<Pictures> listRemoveImages = (from i in DbStorage.Instance.Pictures where i.Pets.Contains(kitten) select i).ToList();
+			//DbStorage.Instance.Pictures.RemoveRange(kitten.Pictures);
+			//Pictures mainPicture = DbStorage.Instance.Pictures.Find(kitten.PictureID);
+			//DbStorage.Instance.Pictures.Remove(mainPicture);
+			RemoveAllPictures(kitten.Pictures.ToList());
+
 			DbStorage.Instance.Pets.Remove(kitten);
 			DbStorage.Instance.SaveChanges();
 
@@ -155,21 +160,39 @@ namespace PrettyCats.Controllers
 
 		#region Work with images
 
+		public void RemoveAllPictures(List<Pictures> pictures)
+		{
+			foreach (var pic in pictures)
+			{
+				RemovePicture(pic);
+			}
+		}
+		[HttpPost]
 		public int RemovePicture(int id)
 		{
 			Pictures picture = DbStorage.Instance.Pictures.Find(id);
 
-			picture.Pets.First().Pictures.Remove(picture);
-			
-			DbStorage.Instance.Pictures.Remove(picture);
-			DbStorage.Instance.SaveChanges();
-
-			var v = DbStorage.GetSmallKittenImageFileName(picture.Image);
-
-			RemoveFile(Server.MapPath(picture.Image));
-			RemoveFile(Server.MapPath(v));
+			RemovePicture(picture);
 			
 			return id;
+		}
+
+		public int RemovePicture(Pictures picture)
+		{
+			if (picture.Pets.Count > 0)
+			{
+				picture.Pets.First().Pictures.Remove(picture);
+
+				DbStorage.Instance.Pictures.Remove(picture);
+				DbStorage.Instance.SaveChanges();
+
+				var v = DbStorage.GetSmallKittenImageFileName(picture.Image);
+
+				RemoveFile(Server.MapPath(picture.Image));
+				RemoveFile(Server.MapPath(v));
+			}
+
+			return picture.ID;
 		}
 
 		public string AddImage(object file)
