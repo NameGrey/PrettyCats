@@ -235,7 +235,7 @@ namespace PrettyCats.Controllers
 
 			image.Resize(newWidth, newHeight);
 
-			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(1, 1).Resize(newWidth, newHeight, true, true));
+			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(2, 2).Resize(newWidth, newHeight, false));
 			//ResizeImage(dirPath + "\\" + kittenNameNumbered, dirPath + "\\" + kittenNameNumberedSmall, ImageFormat.Jpeg, newWidth,
 			//	newHeight);
 
@@ -328,6 +328,7 @@ namespace PrettyCats.Controllers
 				{
 					newWidth = 600;
 					newHeight = newWidth * height / width;
+					newHeight = newHeight > 400 ? 400 : newHeight;
 				}
 				else
 				{
