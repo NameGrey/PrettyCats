@@ -222,11 +222,11 @@ div > a hover{
 }
 
 .back-link :nth-child(1){
-    background-image: url("../Resources/BackFish.png");
+    background-image: url("~/Resources/BackFish.png");
 }
 
 .back-link :nth-child(1):hover {
-    background-image: url("../Resources/BackFishBones.png");
+    background-image: url("~/Resources/BackFishBones.png");
     cursor: pointer;
 }
 

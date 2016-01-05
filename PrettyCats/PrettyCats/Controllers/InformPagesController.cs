@@ -6,13 +6,13 @@ using System.Web.Mvc;
 
 namespace PrettyCats.Controllers
 {
-    public class InformPagesController : Controller
-    {
-        // GET: InformPages
+	public class InformPagesController : Controller
+	{
+		// GET: InformPages
 
-        public ActionResult InformPage()
-        {
-            return View();
-        }
-    }
+		public ActionResult HowChooseKitten()
+		{
+			return View();
+		}
+	}
 }

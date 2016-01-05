@@ -4,8 +4,10 @@ using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.EnterpriseServices;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -17,6 +19,17 @@ namespace PrettyCats.Controllers
 {
 	public class AdminController : Controller
 	{
+		protected override void OnException(ExceptionContext filterContext)
+		{
+			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
+
+			if (filterContext.HttpContext.IsCustomErrorEnabled)
+			{
+				filterContext.ExceptionHandled = true;
+				this.View("Error").ExecuteResult(this.ControllerContext);
+			}
+		}
+
 		// GET: Admin
 		public ActionResult Index()
 		{
@@ -69,6 +82,9 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult AddKitten(Pets newKitten, HttpPostedFileBase[] files)
 		{
+
+			int ss = Convert.ToInt16("sds");
+
 			if (DbStorage.IsKittenExistsWithAnotherId(newKitten))
 			{
 				return Error("Котенок с таким именем уже есть!!!");

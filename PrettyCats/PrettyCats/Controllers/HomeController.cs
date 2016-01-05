@@ -15,6 +15,11 @@ namespace PrettyCats.Controllers
 			return View(v);
 		}
 
+		public ActionResult Error()
+		{
+			return View();
+		}
+
 		public ActionResult ContactsPage()
 		{
 			return View();
