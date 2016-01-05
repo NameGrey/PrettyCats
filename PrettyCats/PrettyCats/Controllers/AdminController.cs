@@ -211,12 +211,12 @@ namespace PrettyCats.Controllers
 			return picture.ID;
 		}
 
-		public string AddImage(object file)
+		[HttpPost]
+		public string AddImage(HttpPostedFileBase file, string kittenName)
 		{
-			var length = Request.ContentLength;
+			var length = file.ContentLength;
 			var bytes = new byte[length];
-			string kittenName = Request.Headers["X-File-Name"];
-			Request.InputStream.Read(bytes, 0, length);
+			file.InputStream.Read(bytes, 0, length);
 
 			string kittenNameNumbered = DbStorage.GetNumberedImage(kittenName);
 			string kittenNameNumberedSmall = DbStorage.GetNumberedImage(kittenName, true);
