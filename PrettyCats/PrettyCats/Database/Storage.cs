@@ -8,7 +8,11 @@ namespace PrettyCats.Database
 	public partial class Storage : DbContext
 	{
 		public Storage()
+#if DEBUG
 			: base("DBConnectionDebugLocal")
+#else
+			: base("DBConnectionDebug")
+#endif
 		{
 		}
 
