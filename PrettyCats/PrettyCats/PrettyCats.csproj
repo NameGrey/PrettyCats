@@ -175,6 +175,7 @@
     <None Include="Properties\PublishProfiles\Without deleting files.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\DielogForm.js" />
+    <Content Include="Scripts\flowtype.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
