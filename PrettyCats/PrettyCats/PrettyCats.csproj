@@ -233,12 +233,10 @@
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Layouts\_AdminPanelLayout.cshtml" />
     <Content Include="Views\Admin\KittenOnTheAdminPageHtml.cshtml" />
-    <Content Include="Views\Admin\AdminChangeKittens2.cshtml" />
     <Content Include="Views\Admin\AdminChangeKittens.cshtml" />
     <Content Include="Views\Admin\AddKitten.cshtml" />
     <Content Include="Views\Admin\EditKitten.cshtml" />
     <Content Include="Views\Admin\Error.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\MuliplayFilesUploader.cshtml" />
     <Content Include="Views\Admin\KittenPictures.cshtml" />
     <Content Include="Views\Admin\_KittenPicture.cshtml" />
