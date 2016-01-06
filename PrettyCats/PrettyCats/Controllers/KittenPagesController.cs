@@ -42,19 +42,19 @@ namespace PrettyCats.Controllers
 
 		public ActionResult BengalKittens()
 		{
-			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 2 select pet;
+			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 2 && !pet.IsParent select pet;
 			return View(v.ToList());
 		}
 
 		public ActionResult BritishKittens()
 		{
-			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 3 select pet;
+			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 3 && !pet.IsParent select pet;
 			return View(v.ToList());
 		}
 
 		public ActionResult MainKunKittens()
 		{
-			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 1 select pet;
+			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 1 && !pet.IsParent select pet;
 			return View(v.ToList());
 		}
 	}
