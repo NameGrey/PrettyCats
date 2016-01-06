@@ -128,6 +128,7 @@
     <Content Include="Resources\Contacts.png" />
     <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\Logo.png" />
+    <Content Include="Resources\Logo2.png" />
     <Content Include="Resources\mbackground.png" />
     <Content Include="Resources\Slides\01.jpg" />
     <Content Include="Resources\Slides\02.jpg" />

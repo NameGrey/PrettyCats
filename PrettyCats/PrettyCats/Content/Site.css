@@ -188,11 +188,12 @@ opacity:1;
 }
 
 .logo {
-    background-image: url('../Resources/Logo.png');
+    background-image: url('../Resources/Logo2.png');
     background-repeat: no-repeat;
     background-size: 100% auto;
     height: 50px;
     width: 160px;
+    margin-top: -11px;
 }
 
 .images-center-container {
