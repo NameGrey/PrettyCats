@@ -4,34 +4,31 @@
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 }
 
-<h2 style="text-align: center; color:white;"> Все доступные на данный момент котята</h2>
-
+<h2 style="text-align: center; color:white;"> Выберите категорию</h2>
 
 <hr>
 <div class="images-center-container">
-		@{
-			if (Model != null)
-			{
-				int countAll = Model.Count;
-				int rowCounter = (countAll + 2)/3;
-				int curr = 0;
+	<div class="row">
 
+		<div class="col-sm-4">
+			<h2 class="text-center">Шотландцы/Британцы</h2>
+			<a href="/kittenpages/BritishKittens">
+				<img class="img-circle img-responsive img-center" src="/Resources/Breeds/Scotland.jpg" alt="">
+			</a>
+		</div>
 
-				for (int i = 1; i <= rowCounter; i++)
-				{
-					<div class="row">
-						@for (int j = 1; j <= 3; j++)
-						{
-							++curr;
+		<div class="col-sm-4">
+			<h2 class="text-center">Мейн-куны</h2>
+			<a href="/kittenpages/MainKunKittens">
+				<img class="img-circle img-responsive img-center" src="/Resources/Breeds/Mainkun.jpg" alt="">
+			</a>
+		</div>
 
-							if (curr <= countAll)
-							{
-								@Html.Partial("~/Views/KittenPages/GetKittenHtml.cshtml", Model[curr - 1])
-							}
-						}
-					</div>
-				}
-			}
-		}
+		<div class="col-sm-4">
+			<h2 class="text-center">Бенгалы</h2>
+			<a href="/kittenpages/BengalKittens">
+				<img class="img-circle img-responsive img-center" src="/Resources/Breeds/bengal2.jpg" alt="">
+			</a>
+		</div>
+	</div>
 </div>
-

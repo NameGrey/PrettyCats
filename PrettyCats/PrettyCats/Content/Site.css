@@ -198,6 +198,7 @@ opacity:1;
 .images-center-container {
     margin: auto;
     padding-left: 10%;
+    padding-right: 10%;
 }
 
 div > a {
