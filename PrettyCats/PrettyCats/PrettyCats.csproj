@@ -120,6 +120,7 @@
     <Content Include="Resources\BackFish.png" />
     <Content Include="Resources\BackFishBones.png" />
     <Content Include="Resources\Breeds\bengal.jpg" />
+    <Content Include="Resources\Breeds\bengal2.jpg" />
     <Content Include="Resources\Breeds\Mainkun.jpg" />
     <Content Include="Resources\Breeds\Mainkun.png" />
     <Content Include="Resources\Breeds\Scotland.jpg" />

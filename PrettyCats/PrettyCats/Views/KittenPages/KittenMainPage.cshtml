@@ -5,6 +5,9 @@
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 	var owner = DbStorage.Instance.Owners.Find(Model.OwnerID);
 	DateTime date = (DateTime)Model.BirthDate;
+	string motherName = String.Empty;
+	string fatherName = String.Empty;
+	
 	string backLink = String.Empty;
 
 	if (Model.BreedID == 1)
@@ -17,6 +20,16 @@
 	else
 	{
 		backLink += "BengalKittens";
+	}
+
+	if (Model.MotherID > 0)
+	{
+		motherName = DbStorage.Instance.Pets.Find(Model.MotherID).RussianName;
+	}
+
+	if (Model.FatherID > 0)
+	{
+		fatherName = DbStorage.Instance.Pets.Find(Model.FatherID).RussianName;
 	}
 }
 
@@ -84,6 +97,15 @@
 				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
 				<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
 				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
+				@if (Model.MotherID > 0)
+				{
+					<tr><td><b>Мама:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.MotherID">@motherName</a></td></tr>
+				}
+				
+				@if (Model.FatherID > 0)
+				{
+					<tr><td><b>Папа:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.FatherID">@fatherName</a></td></tr>
+				}
 				<tr><td><b>Заводчик:</b></td><td>@owner.Name</td><td><b>Телефон: </b></td><td>@owner.Phone</td></tr>
 				<tr><td><b>Статус:</b></td><td>@Model.Status</td></tr>
 				<tr><td><b>Описание:</b></td></tr>

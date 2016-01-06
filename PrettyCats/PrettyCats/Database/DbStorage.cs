@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
@@ -106,6 +107,11 @@ namespace PrettyCats.Database
 		public static bool IsKittenExists(Pets kitten)
 		{
 			return Instance.Pets.Any(i => i.Name == kitten.Name);
+		}
+
+		public static List<Pets> GetAllParents()
+		{
+			return (from i in Instance.Pets where i.IsParent select i).ToList();
 		}
 	}
 }

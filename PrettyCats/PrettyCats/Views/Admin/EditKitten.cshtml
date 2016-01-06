@@ -4,6 +4,8 @@
 @{
 	ViewBag.Title = "Редактирование котенка";
 	Layout = "~/Views/Layouts/_AdminPanelLayout.cshtml";
+
+	List<Pets> allParents = DbStorage.GetAllParents();
 }
 
 <h2>Редактирование котенка</h2>
@@ -45,6 +47,20 @@
 			@Html.Label("Владелец", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
 				@Html.DropDownListFor(x => x.OwnerID, new SelectList(DbStorage.Instance.Owners, "ID", "Name"))
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.Label("Мама", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(x => x.MotherID, new SelectList(allParents, "ID", "Name"))
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.Label("Папа", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(x => x.FatherID, new SelectList(allParents, "ID", "Name"))
 			</div>
 		</div>
 
