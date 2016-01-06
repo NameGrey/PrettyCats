@@ -10,11 +10,20 @@
 		pict = DbStorage.Instance.Pictures.Find(Model.PictureID);
 		path = Url.Content(pict.Image);
 	}
+
+	string link = "/kittenpages/KittenMainPage/";
+
+	if (Model.IsParent)
+	{
+		link = "/kittenpages/ParentCatMainPage/";
+	}
+
+	link += Model.ID;
 	
 }
 
 <div class="col-sm-4">
-	<a href="/kittenpages/KittenMainPage/@Model.ID">
+	<a href="@link">
 		<img class="img-circle img-responsive img-center" src="@path" alt="">
 	</a>
 	<h2>@Model.RussianName</h2>

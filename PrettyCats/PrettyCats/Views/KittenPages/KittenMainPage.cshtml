@@ -1,11 +1,11 @@
 ﻿@using PrettyCats.Database
 @model PrettyCats.Database.Pets
 @{
-	ViewBag.Title = "KittenMainPage";
+	ViewBag.Title = "Информация о котенке";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 	var owner = DbStorage.Instance.Owners.Find(Model.OwnerID);
 	DateTime date = (DateTime)Model.BirthDate;
-	string backLink = "~/kittenpages/";
+	string backLink = String.Empty;
 
 	if (Model.BreedID == 1)
 	{
@@ -66,7 +66,7 @@
 
 <div class="row">
 	<div class="col-xs-12 col-md-10 col-md-offset-2 col-lg-offset-3">
-		<a class="back-link" href="@Url.Content(backLink)">
+		<a class="back-link" href="@Url.Action(backLink)">
 			<div class="image" style="width:59px;"></div>
 		</a>
 		<h3 style="text-align: center; margin-top:0px;margin-bottom: 30px;display:inline-block;vertical-align: middle;">Подробная информация о котенке @Model.RussianName</h3>
@@ -90,7 +90,7 @@
 				<tr><td colspan="2">@Model.UnderThePictureText</td></tr>
 			</table>
 		</div>
-		<a class="back-link" href="@Url.Content(backLink)">
+		<a class="back-link" href="@Url.Action(backLink)">
 			<div class="image"></div>
 		</a>
 	</div>

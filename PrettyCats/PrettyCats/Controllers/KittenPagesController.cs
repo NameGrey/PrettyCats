@@ -13,9 +13,9 @@ namespace PrettyCats.Controllers
 			return View(DbStorage.Instance.Pets.Find(id));
 		}
 
-		public ActionResult ParentCatMainPage()
+		public ActionResult ParentCatMainPage(int id)
 		{
-			return View();
+			return View(DbStorage.Instance.Pets.Find(id));
 		}
 
 		public ActionResult GetKittenHtml(int id)
@@ -31,6 +31,12 @@ namespace PrettyCats.Controllers
 		public ActionResult AllAvailableKittens()
 		{
 			var v = DbStorage.Instance.Pets.ToList();
+			return View(v);
+		}
+
+		public ActionResult AllParents()
+		{
+			var v = DbStorage.Instance.Pets.Where(i=>i.IsParent).ToList();
 			return View(v);
 		}
 
