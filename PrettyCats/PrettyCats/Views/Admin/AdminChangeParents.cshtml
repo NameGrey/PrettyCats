@@ -2,7 +2,7 @@
 @model IEnumerable<Pets>
 
 @{
-	ViewBag.Title = "AdminDisplayAllKittens";
+	ViewBag.Title = "Все родители";
 	Layout = "~/Views/Layouts/_AdminPanelLayout.cshtml";
 }
 
@@ -46,7 +46,7 @@
 
 <a href="AdminPanel" class="btn-admin btn-red">Назад</a>
 
-@Html.ActionLink("Добавить", "AddKitten", null, new { id = "update-container", @class = "btn-admin btn-red" })
+@Html.ActionLink("Добавить", "AddParentCat", null, new { id = "update-container", @class = "btn-admin btn-red" })
 
 
 @foreach (var i in Model)

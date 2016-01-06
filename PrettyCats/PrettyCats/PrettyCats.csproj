@@ -244,6 +244,9 @@
     <Content Include="Views\KittenPages\MainKunKittens.cshtml" />
     <Content Include="Views\KittenPages\BengalKittens.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Admin\AddParentCat.cshtml" />
+    <Content Include="Views\Admin\EditParentCat.cshtml" />
+    <Content Include="Views\Admin\AdminChangeParents.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
