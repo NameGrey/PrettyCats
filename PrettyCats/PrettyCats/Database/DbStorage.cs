@@ -113,5 +113,10 @@ namespace PrettyCats.Database
 		{
 			return (from i in Instance.Pets where i.IsParent select i).ToList();
 		}
+
+		public static bool IsKittenExistsWithParent(Pets parent)
+		{
+			return Instance.Pets.Any(i => i.MotherID == parent.ID || i.FatherID == parent.ID);
+		}
 	}
 }

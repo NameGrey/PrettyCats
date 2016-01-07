@@ -160,6 +160,11 @@ namespace PrettyCats.Controllers
 				return Error("Котенка с таким именем не существует!!!");
 			}
 
+			if (isParent && !DbStorage.IsKittenExistsWithParent(kitten))
+			{
+				return Error("Родитель не может быть удален, так как есть котята с таким родителем!!!");
+			}
+
 			//List<Pictures> listRemoveImages = (from i in DbStorage.Instance.Pictures where i.Pets.Contains(kitten) select i).ToList();
 			//DbStorage.Instance.Pictures.RemoveRange(kitten.Pictures);
 			//Pictures mainPicture = DbStorage.Instance.Pictures.Find(kitten.PictureID);
