@@ -96,6 +96,7 @@
 				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
 				<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
 				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
+				<tr><td><b>Стоимость:</b></td><td>@Model.Price</td></tr>
 				@if (Model.MotherID > 0)
 				{
 					<tr><td><b>Мама:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.MotherID">@motherName</a></td></tr>

@@ -47,6 +47,8 @@ namespace PrettyCats.Database
 
         public bool IsParent { get; set; }
 
+        public int? Price { get; set; }
+
         public virtual Owners Owners { get; set; }
 
         public virtual PetBreeds PetBreeds { get; set; }
