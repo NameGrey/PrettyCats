@@ -4,7 +4,6 @@
 	ViewBag.Title = "Информация о котенке";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 	var owner = DbStorage.Instance.Owners.Find(Model.OwnerID);
-	DateTime date = (DateTime)Model.BirthDate;
 	string motherName = String.Empty;
 	string fatherName = String.Empty;
 	
@@ -12,7 +11,7 @@
 
 	if (Model.BreedID == 1)
 	{
-		backLink += "MeinKunKittens";
+		backLink += "MainKunKittens";
 	}else if (Model.BreedID == 3)
 	{
 		backLink += "BritishKittens";
@@ -93,7 +92,7 @@
 	<div class="backgroung-overrider" id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px;height: auto;">
 		<div class="Description">
 			<table>
-				<tr><td><b>Дата рождения: </b></td><td> @date.ToString("dd.MM.yyyy")</td></tr>
+				<tr><td><b>Дата рождения: </b></td><td> @if(Model.BirthDate != null){((DateTime)Model.BirthDate).ToString("dd.MM.yyyy");}</td></tr>
 				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
 				<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
 				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
