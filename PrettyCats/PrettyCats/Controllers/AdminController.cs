@@ -4,21 +4,20 @@ using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.EnterpriseServices;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
-using PrettyCats.Models;
 
 namespace PrettyCats.Controllers
 {
 	public class AdminController : Controller
 	{
+		readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 		protected override void OnException(ExceptionContext filterContext)
 		{
 			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
@@ -88,6 +87,7 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult AddKitten(Pets newKitten, HttpPostedFileBase[] files)
 		{
+			logger.Info("Add kittten method");
 			if (DbStorage.IsKittenExistsWithAnotherId(newKitten))
 			{
 				return Error("Котенок с таким именем уже есть!!!");
@@ -107,6 +107,8 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult AddParentCat(Pets newKitten, HttpPostedFileBase[] files)
 		{
+			logger.Info("Add parent method");
+
 			if (DbStorage.IsKittenExistsWithAnotherId(newKitten))
 			{
 				return Error("Котенок с таким именем уже есть!!!");
@@ -152,6 +154,7 @@ namespace PrettyCats.Controllers
 			bool isParent = kitten.IsParent;
 			string redirectTo = isParent ? "AdminChangeParents" : "AdminChangeKittens";
 
+			logger.Info("Remove kittten id=" + kitten.ID);
 			if (!DbStorage.IsKittenExists(kitten))
 			{
 				return Error("Котенка с таким именем не существует!!!");
@@ -172,6 +175,7 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult EditKitten(Pets kitten)
 		{
+			logger.Info("Edit kittten id=" + kitten.ID);
 			if (DbStorage.IsKittenExistsWithAnotherId(kitten))
 			{
 				return Error("Котенок с таким именем уже есть!!!");
@@ -204,6 +208,7 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public int RemovePicture(int id)
 		{
+			logger.Info("Remove picture id=" + id);
 			Pictures picture = DbStorage.Instance.Pictures.Find(id);
 
 			RemovePicture(picture);
@@ -232,6 +237,8 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public string AddImage(HttpPostedFileBase file, string kittenName)
 		{
+			logger.Info("Add picture kittenName=" + kittenName);
+
 			var length = file.ContentLength;
 			var bytes = new byte[length];
 			file.InputStream.Read(bytes, 0, length);
@@ -315,6 +322,7 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
 		{
+			logger.Info("Add main photo for kittenName=" + kittenName);
 			string path = SaveImage(kittenName, f);
 			string redirectTo = "AdminChangeKittens";
 
