@@ -160,7 +160,7 @@ namespace PrettyCats.Controllers
 				return Error("Котенка с таким именем не существует!!!");
 			}
 
-			if (isParent && !DbStorage.IsKittenExistsWithParent(kitten))
+			if (isParent && DbStorage.IsKittenExistsWithParent(kitten))
 			{
 				return Error("Родитель не может быть удален, так как есть котята с таким родителем!!!");
 			}
