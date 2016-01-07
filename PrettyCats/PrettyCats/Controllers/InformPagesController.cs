@@ -26,5 +26,15 @@ namespace PrettyCats.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult Documents()
+		{
+			return View();
+		}
+
+		public ActionResult Archive()
+		{
+			return View();
+		}
 	}
 }
