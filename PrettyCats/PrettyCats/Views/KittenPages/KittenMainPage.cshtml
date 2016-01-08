@@ -54,13 +54,15 @@
 
 			if ($(elements[i]).css('left') == '0px') {
 				var imgSrc = $(elements[i]).find("img").prop('src');
-				var text = "Вы выбрали этого котенка. Позвоните нам и сообщите его имя, а также стоимость.";
-				var $message = "<div class='dialog-message'><img src='" + imgSrc + "'/><p class='message-text'>" + text + "</p>";
-
-				$message += "</div>";
+				var number = "@owner.Phone";
+				var ownerName = "@owner.Name";
+				var kittenName = "@Model.RussianName";
+				var text = "<br/><br/><span class='big-number'> <b>Вы выбрали котенка '" + kittenName + "'</b></span><br/> &nbsp;&nbsp;Для покупки необходимо <b>позвонить по номеру</b> ниже и сообщить имя котенка. &nbsp;&nbsp;Если у Вас остались какие-то <b>вопросы</b>, мы всегда готовы ответить на них!";
+				
+				var $message = "<div class='dialog-message'><img class='main-slide-image' src='" + imgSrc + "'/><p class='message-text'>" + text + "</p> <span class='big-number'><b>" + number + " " + ownerName +" </b><br /> Будем рады вашему звонку!</span></div>";
 
 				BootstrapDialog.show({
-					title: "Ваш выбор",
+					title: "Котенок " + kittenName,
 					message: $message,
 					buttons: [
 						{
