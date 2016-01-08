@@ -130,3 +130,14 @@
             width: auto !important;
             height: 100% !important;
         }
+
+        
+.slides-overrider {
+        width: 600px !important;
+    height: 400px !important;
+}
+
+.image-overrider {
+    width: 600px !important;
+    height: 400px !important;
+}
