@@ -2,7 +2,7 @@
 @model PrettyCats.Database.Pets
 
 @{
-	ViewBag.Title = "ParentCatMainPage";
+	ViewBag.Title = "Информация о кошке/коте";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 	var owner = DbStorage.Instance.Owners.Find(Model.OwnerID);
 }

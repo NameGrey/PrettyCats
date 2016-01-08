@@ -1,0 +1,5 @@
+﻿User-agent: Yandex
+Disallow: /views/Admin
+
+User-agent: Yandex
+Disallow: /views/Layouts
