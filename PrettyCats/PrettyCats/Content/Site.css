@@ -220,7 +220,6 @@ div > a hover{
     height: 40px;
     background-size: cover;
     display: inline-block;
-    margin-top: 10px;
 }
 
 .back-link :nth-child(1){
@@ -234,4 +233,12 @@ div > a hover{
 
 #table {
     font-size: 1.2em;
+}
+
+.nav-hr-top {
+    margin-bottom: 0px;
+}
+
+.nav-hr-bottom {
+    margin-top: 0px;
 }

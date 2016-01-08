@@ -32,9 +32,9 @@
 	}
 }
 
-<script src="~/Scripts/DielogForm.js"></script>
-<script src="~/Scripts/FlowType.js"></script>
-<link rel="stylesheet" type="text/css" href="~/Content/DialogForm.css">
+<script src="@Url.Content("~/Scripts/DielogForm.js")"></script>
+<script src="@Url.Content("~/Scripts/FlowType.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DialogForm.css")">
 <script>
 	$(document).ready(function() {
 		$('#table').flowtype({
@@ -77,10 +77,8 @@
 </script>
 
 <div class="row">
-	<div class="col-xs-12 col-md-10 col-md-offset-2 col-lg-offset-3">
-		<a class="back-link" href="@Url.Action(backLink)">
-			<div class="image" style="width:59px;"></div>
-		</a>
+	<div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{backLink, "KittenPages"})
 		<h3 style="text-align: center; margin-top:0px;margin-bottom: 30px;display:inline-block;vertical-align: middle;">Подробная информация о котенке @Model.RussianName</h3>
 
 	</div>
@@ -101,7 +99,7 @@
 				{
 					<tr><td><b>Мама:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.MotherID">@motherName</a></td></tr>
 				}
-				
+
 				@if (Model.FatherID > 0)
 				{
 					<tr><td><b>Папа:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.FatherID">@fatherName</a></td></tr>
@@ -112,11 +110,9 @@
 				<tr><td colspan="2">@Model.UnderThePictureText</td></tr>
 			</table>
 		</div>
-		<a class="back-link" href="@Url.Action(backLink)">
-			<div class="image"></div>
-		</a>
+		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{backLink, "KittenPages"})
 	</div>
-	
+
 	<div class="col-xs-6 col-md-6"></div>
 </div>
 

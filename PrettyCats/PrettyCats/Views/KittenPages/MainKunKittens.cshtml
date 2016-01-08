@@ -5,9 +5,7 @@
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 }
 <div class="container">
-	<a class="back-link" href="~/Home/Index">
-		<div class="image"></div>
-	</a>
+	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{"Index", "Home"})
 
 	@{
 		if (Model != null)

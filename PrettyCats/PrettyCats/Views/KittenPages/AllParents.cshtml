@@ -6,12 +6,8 @@
 
 <h2 style="text-align: center; color:white;"> Наши кошки</h2>
 
-<hr>
-
 <div class="container">
-	<a class="back-link" href="~/Home/Index">
-		<div class="image"></div>
-	</a>
+	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
 	@{
 		if (Model != null)
 		{
@@ -36,4 +32,5 @@
 			}
 		}
 	}
+	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
 </div>
