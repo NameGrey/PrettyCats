@@ -5,21 +5,23 @@
 	@{
 		var linkName = Model != null ? Model.Name : String.Empty;
 	}
-	$(document).ready(function () {
-		$("#@linkName").on("click", function (e) {
-		$("<input>").prop({
-			"type": "file",
-			"multiple": true
-		}).on("change", function (e) {
-			files.push(this.files);
-			var mes =  "@linkName";
 
-			iterateFiles(files, mes);
+	$(document).ready(function() {
+			$("#@linkName").on("click", function(e) {
+				$("<input>").prop({
+						"type": "file",
+						"multiple": true
+					})
+					.on("change", function(e) {
+						files.push(this.files);
+						var mes = "@linkName";
 
-			files = [];
-		}).trigger("click");
-	});
-	}
+						iterateFiles(files, mes);
+
+						files = [];
+					}).trigger("click");
+			});
+		}
 	);
 
 </script>
@@ -66,5 +68,6 @@
 	<div class="bottom-fotos-container">
 		<input onclick="" type="button" id="@Model.Name" name="del-fotos" value="Добавить фотки">
 		<input onclick="location.href='KittenPictures/@Model.ID';" type="button" name="add-fotos" value="Удалить фотки">
+		<span id='left-files'></span>
 	</div>
 </div>

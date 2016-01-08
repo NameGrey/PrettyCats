@@ -17,6 +17,7 @@ namespace PrettyCats.Controllers
 	public class AdminController : Controller
 	{
 		readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		static object lockObj = new object();
 
 		protected override void OnException(ExceptionContext filterContext)
 		{
@@ -244,60 +245,62 @@ namespace PrettyCats.Controllers
 		{
 			logger.Info("Add picture kittenName=" + kittenName);
 
-			var length = file.ContentLength;
-			var bytes = new byte[length];
-			file.InputStream.Read(bytes, 0, length);
-
-			string kittenNameNumbered = DbStorage.GetNumberedImage(kittenName);
-			string kittenNameNumberedSmall = DbStorage.GetNumberedImage(kittenName, true);
-			string dirPath = Server.MapPath(DbStorage.KittensImageDirectoryPath + "/" + kittenName);
-			string linkPath = DbStorage.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
-
-			if (!Directory.Exists(dirPath))
+			lock (lockObj)
 			{
-				Directory.CreateDirectory(dirPath);
+				var length = file.ContentLength;
+				var bytes = new byte[length];
+				file.InputStream.Read(bytes, 0, length);
+
+				string kittenNameNumbered = DbStorage.GetNumberedImage(kittenName);
+				string kittenNameNumberedSmall = DbStorage.GetNumberedImage(kittenName, true);
+				string dirPath = Server.MapPath(DbStorage.KittensImageDirectoryPath + "/" + kittenName);
+				string linkPath = DbStorage.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
+
+				if (!Directory.Exists(dirPath))
+				{
+					Directory.CreateDirectory(dirPath);
+				}
+
+				string saveImagePath = SaveImage(dirPath + "\\" + kittenNameNumbered, bytes);
+
+				var image = new WebImage(bytes);
+
+				int width = image.Width;
+				int height = image.Height;
+
+				int newWidth = 0;
+				int newHeight = 0;
+
+				if (width > height)
+				{
+					newWidth = 72;
+					newHeight = newWidth*height/width;
+				}
+				else
+				{
+					newHeight = 72;
+					newWidth = newHeight*width/height;
+				}
+
+				image.Resize(newWidth, newHeight);
+
+				SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(2, 2).Resize(newWidth, newHeight, false));
+				//ResizeImage(dirPath + "\\" + kittenNameNumbered, dirPath + "\\" + kittenNameNumberedSmall, ImageFormat.Jpeg, newWidth,
+				//	newHeight);
+
+				if (saveImagePath != String.Empty)
+				{
+					DbStorage.Instance.Pets.First(i => i.Name == kittenName)
+						.Pictures.Add(
+							new Pictures()
+							{
+								Image = linkPath,
+								ImageSmall = DbStorage.GetSmallKittenImageFileName(linkPath),
+								CssClass = newWidth > newHeight ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
+							});
+					DbStorage.Instance.SaveChanges();
+				}
 			}
-
-			string saveImagePath = SaveImage(dirPath + "\\" + kittenNameNumbered, bytes);
-
-			var image = new WebImage(bytes);
-
-			int width = image.Width;
-			int height = image.Height;
-
-			int newWidth = 0;
-			int newHeight = 0;
-
-			if (width > height)
-			{
-				newWidth = 72;
-				newHeight = newWidth * height / width;
-			}
-			else
-			{
-				newHeight = 72;
-				newWidth = newHeight * width / height;
-			}
-
-			image.Resize(newWidth, newHeight);
-
-			SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(2, 2).Resize(newWidth, newHeight, false));
-			//ResizeImage(dirPath + "\\" + kittenNameNumbered, dirPath + "\\" + kittenNameNumberedSmall, ImageFormat.Jpeg, newWidth,
-			//	newHeight);
-
-			if (saveImagePath != String.Empty)
-			{
-				DbStorage.Instance.Pets.First(i => i.Name == kittenName)
-					.Pictures.Add(
-						new Pictures()
-						{
-							Image = linkPath,
-							ImageSmall = DbStorage.GetSmallKittenImageFileName(linkPath),
-							CssClass = newWidth > newHeight ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
-						});
-				DbStorage.Instance.SaveChanges();
-			}
-
 			return kittenName;
 		}
 

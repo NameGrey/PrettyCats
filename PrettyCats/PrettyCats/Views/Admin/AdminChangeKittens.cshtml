@@ -6,6 +6,9 @@
 	Layout = "~/Views/Layouts/_AdminPanelLayout.cshtml";
 }
 
+<script src="@Url.Content("~/Scripts/DielogForm.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DialogForm.css")">
+
 <style>
 	#selectedFiles img {
 		max-width: 125px;
@@ -18,8 +21,10 @@
 <script>
 
 	var files = [];
-	
+
 	function iterateFiles(filesArray, kittenName) {
+		var count = 0;
+
 		for (var i = 0; i < filesArray.length; i++) {
 			for (var j = 0; j < filesArray[i].length; j++) {
 				var request = new XMLHttpRequest();
@@ -28,12 +33,22 @@
 				formData.append('file', filesArray[i][j]);
 				formData.append('kittenName', kittenName);
 
-				request.open('post', '@Url.Action("AddImage", "Admin")', false);
+				request.open('post', '@Url.Action("AddImage", "Admin")');
+				request.upload.onprogress = function(evt) {
+					if (evt.lengthComputable) {
+						var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
+
+						if (percentComplete == 100) {
+							++count;
+						}
+						$('#left-files').text(percentComplete + "% завершено");
+					}
+				};
+
 				request.onreadystatechange = function () {
 					if (request.readyState == 4) {
 						if (request.status == 200) {
-							if (i == filesArray.length - 1 && j == filesArray[i].length - 1)
-								alert("Все файлы успешно загружены!!!");
+							$('#left-files').text(count + " файлов загрузилось!!!");
 						}
 					}
 				}
