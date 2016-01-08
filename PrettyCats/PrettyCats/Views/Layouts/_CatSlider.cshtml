@@ -94,7 +94,7 @@
 						<img data-u="thumb" id="@i.CssClass" src="@Url.Content(i.ImageSmall)" />
 				</div>
 			}
-			@if (!Model.IsParent)
+			@if (!Model.IsParent && !Model.IsInArchive)
 			{
 				<button type="button" id="BuyButton" class="btn btn-primary" data-dismiss="modal" onclick=" ChooseKitten() " hidden>Хочу...</button>
 			}

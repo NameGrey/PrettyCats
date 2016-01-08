@@ -256,6 +256,7 @@
     <Content Include="Views\Admin\AdminChangeParents.cshtml" />
     <Content Include="Views\KittenPages\AllParents.cshtml" />
     <Content Include="Views\KittenPages\_BackLink.cshtml" />
+    <Content Include="Views\KittenPages\Archive.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

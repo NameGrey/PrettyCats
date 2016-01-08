@@ -75,6 +75,13 @@ namespace PrettyCats.Database
 			return path;
 		}
 
+		public static IEnumerable<Pets> GetKittensByBreed(int breedId, bool isInArhive = false)
+		{
+			return from pet in Instance.Pets
+				where pet.BreedID == breedId && !pet.IsParent && pet.IsInArchive == isInArhive && pet.WhereDisplay != 3
+				select pet;
+		}
+
 		public static string GetNumberedImage(string kittenName, bool small = false)
 		{
 			int newNumber = (from el in Instance.Pets where el.Name == kittenName select el.Pictures).First().Count() + 1;

@@ -42,9 +42,10 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AllAvailableKittens()
 		{
-			var v = DbStorage.Instance.Pets.ToList();
-			return View(v);
+			return View();
 		}
+
+		#region Display kittens
 
 		public ActionResult AllParents()
 		{
@@ -54,20 +55,44 @@ namespace PrettyCats.Controllers
 
 		public ActionResult BengalKittens()
 		{
-			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 2 && !pet.IsParent select pet;
+			var v = DbStorage.GetKittensByBreed(2);
 			return View(v.ToList());
 		}
 
 		public ActionResult BritishKittens()
 		{
-			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 3 && !pet.IsParent select pet;
+			var v = DbStorage.GetKittensByBreed(3);
 			return View(v.ToList());
 		}
 
 		public ActionResult MainKunKittens()
 		{
-			var v = from pet in DbStorage.Instance.Pets where pet.BreedID == 1 && !pet.IsParent select pet;
+			var v = DbStorage.GetKittensByBreed(1);
 			return View(v.ToList());
 		}
+
+		public ActionResult Archive()
+		{
+			return View();
+		}
+
+		public ActionResult BengalKittens_Archive()
+		{
+			var v = DbStorage.GetKittensByBreed(2, true);
+			return View("BengalKittens", v.ToList());
+		}
+
+		public ActionResult BritishKittens_Archive()
+		{
+			var v = DbStorage.GetKittensByBreed(3, true);
+			return View("BritishKittens", v.ToList());
+		}
+
+		public ActionResult MainKunKittens_Archive()
+		{
+			var v = DbStorage.GetKittensByBreed(1, true);
+			return View("MainKunKittens", v.ToList());
+		}
+		#endregion
 	}
 }

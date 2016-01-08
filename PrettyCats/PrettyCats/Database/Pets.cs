@@ -49,6 +49,8 @@ namespace PrettyCats.Database
 
         public int? Price { get; set; }
 
+        public bool IsInArchive { get; set; }
+
         public virtual Owners Owners { get; set; }
 
         public virtual PetBreeds PetBreeds { get; set; }

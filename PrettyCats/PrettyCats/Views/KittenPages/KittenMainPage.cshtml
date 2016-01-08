@@ -11,14 +11,15 @@
 
 	if (Model.BreedID == 1)
 	{
-		backLink += "MainKunKittens";
+		backLink += Model.IsInArchive ? "MainKunKittens_Archive" : "MainKunKittens";
+		
 	}else if (Model.BreedID == 3)
 	{
-		backLink += "BritishKittens";
+		backLink += Model.IsInArchive ? "BritishKittens_Archive" : "BritishKittens";
 	}
 	else
 	{
-		backLink += "BengalKittens";
+		backLink += Model.IsInArchive ? "BengalKittens_Archive" : "BengalKittens";
 	}
 
 	if (Model.MotherID > 0)
