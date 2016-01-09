@@ -4,6 +4,7 @@
 @{
 	Pictures pict = null;
 	string path = String.Empty;
+	string status = String.Empty;
 
 	if (Model.PictureID != null)
 	{
@@ -17,6 +18,10 @@
 	{
 		link = "/kittenpages/ParentCatMainPage/";
 	}
+	else
+	{
+		status = "Статус: " + Model.Status;
+	}
 
 	link += Model.ID;
 	
@@ -26,6 +31,7 @@
 	<a href="@link">
 		<img class="img-circle img-responsive img-center" src="@path" alt="">
 	</a>
-	<h2>@Model.RussianName</h2>
+	<h2 style="margin-bottom: 0px;">@Model.RussianName</h2>
+	<span class="under-name-status"> @status</span>
 	<p>@Model.UnderThePictureText</p>
 </div>

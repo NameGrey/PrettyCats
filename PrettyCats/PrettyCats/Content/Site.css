@@ -250,3 +250,8 @@ div > a hover{
     display: block;
     width: 100%;
 }
+.under-name-status {
+    font-style: italic;
+    margin-bottom: 10px;
+    display: block;
+}
