@@ -49,7 +49,7 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AllParents()
 		{
-			var v = DbStorage.Instance.Pets.Where(i=>i.IsParent).ToList();
+			var v = DbStorage.Instance.Pets.Where(i => i.IsParent && i.WhereDisplay != 3).ToList();
 			return View(v);
 		}
 

@@ -49,7 +49,7 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AdminChangeParents()
 		{
-			var v = DbStorage.Instance.Pets.Where(e => e.IsParent && e.WhereDisplay != 3).ToList();
+			var v = DbStorage.Instance.Pets.Where(e => e.IsParent).ToList();
 			return View("AdminChangeParents", v);
 		}
 
