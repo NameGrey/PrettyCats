@@ -28,6 +28,7 @@
 
 @{
 	string mPicture = String.Empty;
+	string leftFilesName = "left-files-" + Model.Name;
 	
 	if (Model != null && Model.PictureID != null)
 	{
@@ -68,6 +69,6 @@
 	<div class="bottom-fotos-container">
 		<input onclick="" type="button" id="@Model.Name" name="del-fotos" value="Добавить фотки">
 		<input onclick="location.href='KittenPictures/@Model.ID';" type="button" name="add-fotos" value="Удалить фотки">
-		<span id='left-files'></span>
+		<span style="color:#32cd32;" id="@leftFilesName"></span>
 	</div>
 </div>

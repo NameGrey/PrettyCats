@@ -84,11 +84,8 @@ namespace PrettyCats.Database
 
 		public static string GetNumberedImage(string kittenName, bool small = false)
 		{
-			int newNumber = (from el in Instance.Pets where el.Name == kittenName select el.Pictures).ToList()
-				.First()
-				.OrderByDescending(i => i.ID)
-				.First()
-				.ID + 1;
+			int newNumber = Instance.Pictures.OrderByDescending(i => i.ID).First().ID + 1;
+
 			string format = small ? SmallImageFilenameFormat : ImageFilenameFormat;
 			// extract only the fielname
 			var fileName = String.Format(format, kittenName, newNumber);
