@@ -61,7 +61,8 @@ namespace PrettyCats.Controllers
 
 		public ActionResult BritishKittens()
 		{
-			var v = DbStorage.GetKittensByBreed(3);
+			var v = DbStorage.GetKittensByBreed(3).ToList();
+			v.AddRange(DbStorage.GetKittensByBreed(4));
 			return View(v.ToList());
 		}
 
@@ -84,7 +85,9 @@ namespace PrettyCats.Controllers
 
 		public ActionResult BritishKittens_Archive()
 		{
-			var v = DbStorage.GetKittensByBreed(3, true);
+			var v = DbStorage.GetKittensByBreed(3, true).ToList();
+			v.AddRange(DbStorage.GetKittensByBreed(4, true));
+
 			return View("BritishKittens", v.ToList());
 		}
 
