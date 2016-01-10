@@ -13,8 +13,9 @@
 	if (Model.BreedID == 1)
 	{
 		backLink += Model.IsInArchive ? "MainKunKittens_Archive" : "MainKunKittens";
-		
-	}else if (Model.BreedID == 3)
+
+	}
+	else if (Model.BreedID == 3 || Model.BreedID == 4)
 	{
 		backLink += Model.IsInArchive ? "BritishKittens_Archive" : "BritishKittens";
 	}
@@ -100,10 +101,16 @@
 		<div class="Description">
 			<table>
 				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
-				<tr><td><b>Дата рождения: </b></td><td> @date </td></tr>
+				@if (!String.IsNullOrEmpty(date))
+				{
+					<tr><td><b>Дата рождения: </b></td><td> @date </td></tr>
+				}
 				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
 				<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
-				<tr><td><b>Стоимость:</b></td><td>@Model.Price</td></tr>
+				@if (Model.Price != null && Model.Price > 0)
+				{
+					<tr><td><b>Стоимость:</b></td><td>@Model.Price</td></tr>
+				}
 				@if (Model.MotherID > 0)
 				{
 					<tr><td><b>Мама:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.MotherID">@motherName</a></td></tr>
@@ -113,10 +120,13 @@
 				{
 					<tr><td><b>Папа:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.FatherID">@fatherName</a></td></tr>
 				}
-				<tr><td><b>Заводчик:</b></td><td>@owner.Name</td><td><b>Телефон: </b></td><td>@owner.Phone</td></tr>
+				<tr><td><b>Заводчик:</b></td><td>@owner.Name</td>@if(!String.IsNullOrEmpty(owner.Phone)){<td><b>Телефон: </b></td><td>@owner.Phone</td>}</tr>
 				<tr><td><b>Статус:</b></td><td>@Model.Status</td></tr>
-				<tr><td><b>Описание:</b></td></tr>
-				<tr><td colspan="4">@Model.UnderThePictureText</td></tr>
+				@if (!String.IsNullOrEmpty(Model.UnderThePictureText))
+				{
+					<tr><td><b>Описание:</b></td></tr>
+					<tr><td colspan="4">@Model.UnderThePictureText</td></tr>
+				}
 			</table>
 		</div>
 		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{backLink, "KittenPages"})

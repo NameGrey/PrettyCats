@@ -24,12 +24,18 @@
 		<div class="Description">
 			<table>
 				<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
-				<tr><td><b>Дата рождения: </b></td><td> @date</td></tr>
+				@if (!String.IsNullOrEmpty(date))
+				{
+					<tr><td><b>Дата рождения: </b></td><td> @date</td></tr>
+				}
 				<tr><td><b>Порода:</b></td><td>@DbStorage.Instance.PetBreeds.Find(Model.BreedID).RussianName</td></tr>
 				<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
-				<tr><td><b>Заводчик:</b></td><td>@owner.Name</td><td><b>Телефон: </b></td><td>@owner.Phone</td></tr>
-				<tr><td><b>Описание:</b></td></tr>
-				<tr><td colspan="2">@Model.UnderThePictureText</td></tr>
+				<tr><td><b>Владелец:</b></td><td>@owner.Name</td>@if(@owner.Phone.Length > 0){<td><b>Телефон: </b></td><td>@owner.Phone</td>}</tr>
+				@if (Model.UnderThePictureText.Length > 0)
+				{
+					<tr><td><b>Описание:</b></td></tr>
+					<tr><td colspan="2">@Model.UnderThePictureText</td></tr>
+				}
 			</table>
 		</div>
 		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{"AllParents", "kittenpages"})
