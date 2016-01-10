@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
 
@@ -16,6 +17,13 @@ namespace PrettyCats.Controllers
 {
 	public class AdminController : Controller
 	{
+		enum PictureSizes
+		{
+			MainPicture,
+			StandartSliderPicture,
+			SmallSliderPicture
+		}
+
 		readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		static object lockObj = new object();
 
@@ -231,10 +239,10 @@ namespace PrettyCats.Controllers
 				DbStorage.Instance.Pictures.Remove(picture);
 				DbStorage.Instance.SaveChanges();
 
-				var v = DbStorage.GetSmallKittenImageFileName(picture.Image);
+				var smallKittenPath = DbStorage.GetSmallKittenImageFileName(picture.Image);
 
 				RemoveFile(Server.MapPath(picture.Image));
-				RemoveFile(Server.MapPath(v));
+				RemoveFile(Server.MapPath(smallKittenPath));
 			}
 
 			return picture.ID;
@@ -245,63 +253,54 @@ namespace PrettyCats.Controllers
 		{
 			logger.Info("Add picture kittenName=" + kittenName);
 
+			var mStream = new MemoryStream();
+			file.InputStream.CopyTo(mStream);
+
+			AddPhoto(mStream, kittenName);
+
+			return kittenName;
+		}
+
+		/// <summary>
+		/// Add a picture of a kitten on the site (Create two photo: first is standart for slider and second is small for slider)
+		/// </summary>
+		/// <param name="file">Memory stream of image</param>
+		/// <param name="kittenName">Name of kitten which picture we want to add</param>
+		private void AddPhoto(MemoryStream file, string kittenName)
+		{
 			lock (lockObj)
 			{
-				var length = file.ContentLength;
-				var bytes = new byte[length];
-				file.InputStream.Read(bytes, 0, length);
-
+				var smallPictureStream = new MemoryStream();
 				string kittenNameNumbered = DbStorage.GetNumberedImage(kittenName);
 				string kittenNameNumberedSmall = DbStorage.GetNumberedImage(kittenName, true);
 				string dirPath = Server.MapPath(DbStorage.KittensImageDirectoryPath + "/" + kittenName);
 				string linkPath = DbStorage.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
+				string smallLinkPath = DbStorage.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
 
 				if (!Directory.Exists(dirPath))
 				{
 					Directory.CreateDirectory(dirPath);
 				}
 
-				string saveImagePath = SaveImage(dirPath + "\\" + kittenNameNumbered, bytes);
+				file.Position = 0;
+				file.CopyTo(smallPictureStream);
 
-				var image = new WebImage(bytes);
+				WebImage savedImage = SaveImage(dirPath + "\\" + kittenNameNumbered, file, PictureSizes.StandartSliderPicture);
+				WebImage savedSmallImage = SaveImage(dirPath + "\\" + kittenNameNumberedSmall, smallPictureStream, PictureSizes.SmallSliderPicture);
 
-				int width = image.Width;
-				int height = image.Height;
-
-				int newWidth = 0;
-				int newHeight = 0;
-
-				if (width > height)
-				{
-					newWidth = 72;
-					newHeight = newWidth*height/width;
-				}
-				else
-				{
-					newHeight = 72;
-					newWidth = newHeight*width/height;
-				}
-
-				image.Resize(newWidth, newHeight);
-
-				SaveImage(dirPath + "\\" + kittenNameNumberedSmall, image.Crop(2, 2).Resize(newWidth, newHeight, false));
-				//ResizeImage(dirPath + "\\" + kittenNameNumbered, dirPath + "\\" + kittenNameNumberedSmall, ImageFormat.Jpeg, newWidth,
-				//	newHeight);
-
-				if (saveImagePath != String.Empty)
+				if (savedImage != null && savedSmallImage!= null)
 				{
 					DbStorage.Instance.Pets.First(i => i.Name == kittenName)
 						.Pictures.Add(
 							new Pictures()
 							{
 								Image = linkPath,
-								ImageSmall = DbStorage.GetSmallKittenImageFileName(linkPath),
-								CssClass = newWidth > newHeight ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
+								ImageSmall = smallLinkPath,
+								CssClass = savedImage.Width > savedImage.Height ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
 							});
 					DbStorage.Instance.SaveChanges();
 				}
 			}
-			return kittenName;
 		}
 
 		public static bool ResizeImage(string orgFile, string resizedFile, ImageFormat format, int width, int height)
@@ -331,7 +330,11 @@ namespace PrettyCats.Controllers
 		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
 		{
 			logger.Info("Add main photo for kittenName=" + kittenName);
-			string path = SaveImage(kittenName, f);
+
+			var copy = new MemoryStream();
+			f.InputStream.CopyTo(copy);
+
+			string path = SaveMainPicture(kittenName, f.InputStream);
 			string redirectTo = "AdminChangeKittens";
 
 			if (!String.IsNullOrEmpty(path))
@@ -344,19 +347,22 @@ namespace PrettyCats.Controllers
 
 				kitten.PictureID = pict.ID;
 				DbStorage.Instance.SaveChanges();
+
+				//Save main photo for kittens main page.
+				AddPhoto(copy, kittenName);
 			}
 
 			return RedirectToAction(redirectTo);
 		}
 
-		private string SaveImage(string kittenName, HttpPostedFileBase file)
+		private string SaveMainPicture(string kittenName, Stream file)
 		{
 			string path = String.Empty;
 			
 			// Verify that the user selected a file
-			if (file != null && file.ContentLength > 0 && !String.IsNullOrEmpty(kittenName))
+			if (file != null && file.Length > 0 && !String.IsNullOrEmpty(kittenName))
 			{
-				var sizeImage = new WebImage(file.InputStream).Crop(1,1).Resize(300, 300, false, true);
+				var sizeImage = new WebImage(file).Crop(1,1).Resize(300, 300, false, true);
 
 				path = DbStorage.GetKittenImagePath(kittenName);
 				RemoveFile(Server.MapPath(path));
@@ -366,45 +372,81 @@ namespace PrettyCats.Controllers
 			return path;
 		}
 
-		private string SaveImage(string filename, byte[] file)
+		/// <summary>
+		/// Save Image in specified picture size
+		/// </summary>
+		/// <param name="filename">Local file path</param>
+		/// <param name="file">Image stream</param>
+		/// <param name="pictureSize">Size of image</param>
+		/// <returns></returns>
+		private WebImage SaveImage(string filename, Stream file, PictureSizes pictureSize)
 		{
+			WebImage result = null;
+			
 			try
 			{
-				var sizeImage = new WebImage(file);
-				int width = sizeImage.Width;
-				int height = sizeImage.Height;
+				result = new WebImage(file);
+				int width = result.Width;
+				int height = result.Height;
+				Size newSize = GetImageSize(pictureSize, width, height);
 
-				int newWidth = 0;
-				int newHeight = 0;
-
-				if (width > height)
-				{
-					newWidth = 600;
-					newHeight = newWidth * height / width;
-					newHeight = newHeight > 400 ? 400 : newHeight;
-				}
-				else
-				{
-					newHeight = 400;
-					newWidth = newHeight * width / height;
-				}
-
-				sizeImage.Resize(newWidth, newHeight);
+				result.Resize(newSize.Width, newSize.Height);
 
 				RemoveFile(filename);
 				// save the file.
-				sizeImage.Save(filename);
-				
-				//var fileStream = new FileStream(Server.MapPath(path), FileMode.Create, FileAccess.ReadWrite);
-				//fileStream.Write(file, 0, file.Length);
-				//fileStream.Close();
+				result.Save(filename);
+
+				result.FileName = filename;
 			}
 			catch (Exception)
 			{
-				filename = String.Empty;
+				result = null;
 			}
 
-			return filename;
+			return result;
+		}
+
+		private Size GetImageSize(PictureSizes size, int width, int height)
+		{
+			int newWidth = 0;
+			int newHeight = 0;
+
+			switch (size)
+			{
+				case PictureSizes.MainPicture:
+					newWidth = 300;
+					newHeight = 300;
+					break;
+
+				case PictureSizes.StandartSliderPicture:
+					if (width > height)
+					{
+						newWidth = 600;
+						newHeight = newWidth * height / width;
+						newHeight = newHeight > 400 ? 400 : newHeight;
+					}
+					else
+					{
+						newHeight = 400;
+						newWidth = newHeight * width / height;
+					}
+					break;
+
+				case PictureSizes.SmallSliderPicture:
+					if (width > height)
+					{
+						newWidth = 72;
+						newHeight = newWidth * height / width;
+					}
+					else
+					{
+						newHeight = 72;
+						newWidth = newHeight * width / height;
+					}
+					break;
+			}
+
+			return new Size(newWidth, newHeight); ;
 		}
 
 		private string SaveImage(string filename, WebImage image)
