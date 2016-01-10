@@ -8,7 +8,7 @@
 
 	if (Model.PictureID != null)
 	{
-		pict = DbStorage.Instance.Pictures.Find(Model.PictureID);
+		pict = DbStorage.Pictures.Find(i=> i.ID == Model.PictureID);
 		path = Url.Content(pict.Image);
 	}
 

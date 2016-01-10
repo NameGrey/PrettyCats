@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
@@ -22,22 +20,22 @@ namespace PrettyCats.Controllers
 
 		public ActionResult KittenMainPage(int id)
 		{
-			return View(DbStorage.Instance.Pets.Find(id));
+			return View(DbStorage.Pets.Find(i => i.ID == id));
 		}
 
 		public ActionResult ParentCatMainPage(int id)
 		{
-			return View(DbStorage.Instance.Pets.Find(id));
+			return View(DbStorage.Pets.Find(i=>i.ID == id));
 		}
 
 		public ActionResult GetKittenHtml(int id)
 		{
-			return View(DbStorage.Instance.Pets.Find(id));
+			return View(DbStorage.Pets.Find(i=>i.ID == id));
 		}
 
 		public ActionResult KittenOnTheMainPageHtml(int id)
 		{
-			return View(DbStorage.Instance.Pets.Find(id));
+			return View(DbStorage.Pets.Find(i=>i.ID == id));
 		}
 
 		public ActionResult AllAvailableKittens()
@@ -49,7 +47,7 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AllParents()
 		{
-			var v = DbStorage.Instance.Pets.Where(i => i.IsParent && i.WhereDisplay != 3).ToList();
+			var v = DbStorage.Pets.Where(i => i.IsParent && i.WhereDisplay != 3).ToList();
 			return View(v);
 		}
 

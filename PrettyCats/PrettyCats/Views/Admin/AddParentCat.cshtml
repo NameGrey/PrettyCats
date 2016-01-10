@@ -33,21 +33,21 @@
 		<div class="form-group">
 			@Html.Label("Порода", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(x => x.BreedID, new SelectList(DbStorage.Instance.PetBreeds, "ID", "RussianName"))
+				@Html.DropDownListFor(x => x.BreedID, new SelectList(DbStorage.PetBreeds, "ID", "RussianName"))
 			</div>
 		</div>
 
 		<div class="form-group">
 			@Html.Label("Владелец", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(x => x.OwnerID, new SelectList(DbStorage.Instance.Owners, "ID", "Name"))
+				@Html.DropDownListFor(x => x.OwnerID, new SelectList(DbStorage.Owners, "ID", "Name"))
 			</div>
 		</div>
 
 		<div class="form-group">
 			@Html.Label("Отображение", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(x => x.WhereDisplay, new SelectList(DbStorage.Instance.DisplayPlaces, "ID", "PlaceOfDisplaying"))
+				@Html.DropDownListFor(x => x.WhereDisplay, new SelectList(DbStorage.DisplayPlaces, "ID", "PlaceOfDisplaying"))
 			</div>
 		</div>
 

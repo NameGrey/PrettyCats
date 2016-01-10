@@ -6,7 +6,7 @@
 
 @{
 	Layout = null;
-	Pictures mainPicture = Model.PictureID > 0 ? DbStorage.Instance.Pictures.Find(Model.PictureID) : null;
+	Pictures mainPicture = Model.PictureID > 0 ? DbStorage.Pictures.Find(i=>i.ID == Model.PictureID) : null;
 }
 
 <script>

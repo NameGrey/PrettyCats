@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -9,7 +8,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.WebPages;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
 
@@ -51,13 +49,13 @@ namespace PrettyCats.Controllers
 
 		public ActionResult AdminChangeKittens()
 		{
-			var v = DbStorage.Instance.Pets.Where(e=>!e.IsParent).ToList();
+			var v = DbStorage.Pets.Where(e=>!e.IsParent);
 			return View("AdminChangeKittens", v);
 		}
 
 		public ActionResult AdminChangeParents()
 		{
-			var v = DbStorage.Instance.Pets.Where(e => e.IsParent).ToList();
+			var v = DbStorage.Pets.Where(e => e.IsParent);
 			return View("AdminChangeParents", v);
 		}
 
@@ -103,12 +101,11 @@ namespace PrettyCats.Controllers
 			}
 
 			// Initialize addition fields
-			newKitten.Owners = DbStorage.Instance.Owners.First(i => i.ID == newKitten.OwnerID);
-			newKitten.PetBreeds = DbStorage.Instance.PetBreeds.First(i => i.ID == newKitten.BreedID);
+			newKitten.Owners = DbStorage.Owners.First(i => i.ID == newKitten.OwnerID);
+			newKitten.PetBreeds = DbStorage.PetBreeds.First(i => i.ID == newKitten.BreedID);
 			newKitten.IsParent = false;
 
-			DbStorage.Instance.Pets.Add(newKitten);
-			DbStorage.Instance.SaveChanges();
+			DbStorage.AddNewKitten(newKitten);
 
 			return RedirectToAction("AdminChangeKittens");
 		}
@@ -124,12 +121,11 @@ namespace PrettyCats.Controllers
 			}
 
 			// Initialize addition fields
-			newKitten.Owners = DbStorage.Instance.Owners.First(i => i.ID == newKitten.OwnerID);
-			newKitten.PetBreeds = DbStorage.Instance.PetBreeds.First(i => i.ID == newKitten.BreedID);
+			newKitten.Owners = DbStorage.Owners.First(i => i.ID == newKitten.OwnerID);
+			newKitten.PetBreeds = DbStorage.PetBreeds.First(i => i.ID == newKitten.BreedID);
 			newKitten.IsParent = true;
 
-			DbStorage.Instance.Pets.Add(newKitten);
-			DbStorage.Instance.SaveChanges();
+			DbStorage.AddNewKitten(newKitten);
 
 			return RedirectToAction("AdminChangeParents");
 		}
@@ -174,14 +170,9 @@ namespace PrettyCats.Controllers
 				return Error("Родитель не может быть удален, так как есть котята с таким родителем!!!");
 			}
 
-			//List<Pictures> listRemoveImages = (from i in DbStorage.Instance.Pictures where i.Pets.Contains(kitten) select i).ToList();
-			//DbStorage.Instance.Pictures.RemoveRange(kitten.Pictures);
-			//Pictures mainPicture = DbStorage.Instance.Pictures.Find(kitten.PictureID);
-			//DbStorage.Instance.Pictures.Remove(mainPicture);
 			RemoveAllPictures(kitten.Pictures.ToList());
 
-			DbStorage.Instance.Pets.Remove(kitten);
-			DbStorage.Instance.SaveChanges();
+			DbStorage.RemoveKitten(kitten);
 
 			return RedirectToAction(redirectTo);
 		}
@@ -199,11 +190,10 @@ namespace PrettyCats.Controllers
 			string redirectTo = isParent ? "AdminChangeParents" : "AdminChangeKittens";
 
 			// Initialize addition fields
-			kitten.Owners = DbStorage.Instance.Owners.First(i => i.ID == kitten.OwnerID);
-			kitten.PetBreeds = DbStorage.Instance.PetBreeds.First(i => i.ID == kitten.BreedID);
-			DbStorage.Instance.Pets.AddOrUpdate(kitten); 
+			kitten.Owners = DbStorage.Owners.First(i => i.ID == kitten.OwnerID);
+			kitten.PetBreeds = DbStorage.PetBreeds.First(i => i.ID == kitten.BreedID);
 
-			DbStorage.Instance.SaveChanges();
+			DbStorage.EditKitten(kitten);
 
 			return RedirectToAction(redirectTo);
 		}
@@ -223,7 +213,7 @@ namespace PrettyCats.Controllers
 		public int RemovePicture(int id)
 		{
 			logger.Info("Remove picture id=" + id);
-			Pictures picture = DbStorage.Instance.Pictures.Find(id);
+			Pictures picture = DbStorage.Pictures.Find(i => i.ID == id);
 
 			RemovePicture(picture);
 			
@@ -236,8 +226,7 @@ namespace PrettyCats.Controllers
 			{
 				picture.Pets.First().Pictures.Remove(picture);
 
-				DbStorage.Instance.Pictures.Remove(picture);
-				DbStorage.Instance.SaveChanges();
+				DbStorage.RemovePicture(picture);
 
 				var smallKittenPath = DbStorage.GetSmallKittenImageFileName(picture.Image);
 
@@ -290,15 +279,13 @@ namespace PrettyCats.Controllers
 
 				if (savedImage != null && savedSmallImage!= null)
 				{
-					DbStorage.Instance.Pets.First(i => i.Name == kittenName)
-						.Pictures.Add(
-							new Pictures()
-							{
-								Image = linkPath,
-								ImageSmall = smallLinkPath,
-								CssClass = savedImage.Width > savedImage.Height ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
-							});
-					DbStorage.Instance.SaveChanges();
+					DbStorage.AddPictureForTheKitten(kittenName, new Pictures()
+					{
+						Image = linkPath,
+						ImageSmall = smallLinkPath,
+						CssClass = savedImage.Width > savedImage.Height ? DbStorage.SmallImageHorizontal : DbStorage.SmallImageVertical
+					});
+
 				}
 			}
 		}
@@ -339,14 +326,13 @@ namespace PrettyCats.Controllers
 
 			if (!String.IsNullOrEmpty(path))
 			{
-				var pict = DbStorage.Instance.Pictures.Add(new Pictures() { Image = path });
-				DbStorage.Instance.SaveChanges();
+				var pict = DbStorage.AddPicture(new Pictures() { Image = path });
 
 				Pets kitten = DbStorage.GetKittenByName(kittenName);
 				redirectTo = kitten.IsParent ? "AdminChangeParents" : "AdminChangeKittens";
 
 				kitten.PictureID = pict.ID;
-				DbStorage.Instance.SaveChanges();
+				DbStorage.EditKitten(kitten);
 
 				//Save main photo for kittens main page.
 				AddPhoto(copy, kittenName);

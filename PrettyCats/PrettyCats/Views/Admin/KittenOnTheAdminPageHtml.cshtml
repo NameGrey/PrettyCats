@@ -32,7 +32,7 @@
 	
 	if (Model != null && Model.PictureID != null)
 	{
-		mPicture = Url.Content(DbStorage.Instance.Pictures.Find(Model.PictureID).Image);
+		mPicture = Url.Content(DbStorage.Pictures.Find(i=>i.ID == Model.PictureID).Image);
 	}
 }
 <div class="kitten-block-admin">
@@ -54,7 +54,7 @@
 	<div class="setting-container">
 		<table>
 			<tr style="height: 40px;">
-				<td>@DbStorage.Instance.DisplayPlaces.First(el=>el.ID == Model.WhereDisplay).PlaceOfDisplaying</td>
+				<td>@DbStorage.DisplayPlaces.First(el=>el.ID == Model.WhereDisplay).PlaceOfDisplaying</td>
 			</tr>
 			<tr style="height: 40px">
 				<td>Имя на английском</td>

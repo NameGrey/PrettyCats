@@ -206,6 +206,7 @@
     <Compile Include="Database\PetBreeds.cs" />
     <Compile Include="Database\Pets.cs" />
     <Compile Include="Database\Pictures.cs" />
+    <Compile Include="Database\DbStorageCash.cs" />
     <Compile Include="Database\Storage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

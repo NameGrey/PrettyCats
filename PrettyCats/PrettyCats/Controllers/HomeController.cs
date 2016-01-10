@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
@@ -22,7 +21,7 @@ namespace PrettyCats.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			var v = DbStorage.Instance.Pets.ToList();
+			var v = DbStorage.Pets.ToList();
 
 			return View(v);
 		}
