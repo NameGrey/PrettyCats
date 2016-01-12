@@ -1,5 +1,2 @@
-﻿User-agent: All
+﻿User-agent: *
 Disallow: /views/Admin
-
-User-agent: All
-Disallow: /views/Layouts
