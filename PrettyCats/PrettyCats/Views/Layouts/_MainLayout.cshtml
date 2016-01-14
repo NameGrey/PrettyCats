@@ -10,6 +10,7 @@
 <head>
 	<meta name="viewport" content="width=device-width" />
 	<title>@ViewBag.Title</title>
+	
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
@@ -21,72 +22,100 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" type="image/x-icon" href="~/Resources/favicon.ico" />
 </head>
-<body>
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top blue-nav" role="navigation">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="@Url.Action("Index", "Home")"><div class="logo"></div></a>
-			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li>
-						<a href="@Url.Action("AllAvailableKittens", "KittenPages")">Наши котята</a>
-					</li>
-					<li>
-						<a href="@Url.Action("HowChooseKitten", "InformPage")">Как выбрать котенка</a>
-					 </li>
-					<li>
-						<a href="@Url.Action("AllParents", "KittenPages")">Наши кошки</a>
-					</li>
-					<li>
-						<a href="@Url.Action("Archive", "KittenPages")">Архив</a>
-					</li>
-					@*<li>
+	<body>
+		<script type="text/javascript">
+
+			(function (d, w, c) {
+				(w[c] = w[c] || []).push(function () {
+					try {
+						w.yaCounter34699075 = new Ya.Metrika({
+							id: 34699075,
+							clickmap: true,
+							trackLinks: true,
+							accurateTrackBounce: true
+						});
+					} catch (e) { }
+				});
+
+				var n = d.getElementsByTagName("script")[0],
+					s = d.createElement("script"),
+					f = function () { n.parentNode.insertBefore(s, n); };
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+				if (w.opera == "[object Opera]") {
+					d.addEventListener("DOMContentLoaded", f, false);
+				} else { f(); }
+			})(document, window, "yandex_metrika_callbacks");
+
+		</script>
+		<noscript><div><img src="https://mc.yandex.ru/watch/34699075" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top blue-nav" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="@Url.Action("Index", "Home")"><div class="logo"></div></a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="@Url.Action("AllAvailableKittens", "KittenPages")">Наши котята</a>
+						</li>
+						<li>
+							<a href="@Url.Action("HowChooseKitten", "InformPage")">Как выбрать котенка</a>
+						</li>
+						<li>
+							<a href="@Url.Action("AllParents", "KittenPages")">Наши кошки</a>
+						</li>
+						<li>
+							<a href="@Url.Action("Archive", "KittenPages")">Архив</a>
+						</li>
+						@*<li>
 						<a href="@Url.Action("Documents", "InformPages")">Документы</a>
 					</li>*@
-					@*<li>
+						@*<li>
 						<a href="@Url.Action("ContactsPage", "Home")">Наши выпускники</a>
 					</li>*@
-					<li>
-						<a href="@Url.Action("ContactsPage", "Home")">Контакты</a>
-					</li>
-				</ul>
+						<li>
+							<a href="@Url.Action("ContactsPage", "Home")">Контакты</a>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
 			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
-	<!-- Image Background Page Header -->
-	<!-- Note: The background image is set within the business-casual.css file. -->
-	<header class="business-header" style="margin-bottom: 10px;">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<h1 class="tagline">Питомник Art Duviks Cat</h1>
+			<!-- /.container -->
+		</nav>
+		<!-- Image Background Page Header -->
+		<!-- Note: The background image is set within the business-casual.css file. -->
+		<header class="business-header" style="margin-bottom: 10px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="tagline">Питомник Art Duviks Cat</h1>
+					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 		@RenderBody()
 
-	<hr>
-	<!-- Footer -->
-	<footer>
-		<div class="row">
-			<div class="col-lg-12">
-				<p style="text-align: center;">&copy; Art Duviks Cat 2016</p>
+		<hr>
+		<!-- Footer -->
+		<footer>
+			<div class="row">
+				<div class="col-lg-12">
+					<p style="text-align: center;">&copy; Art Duviks Cat 2016</p>
+				</div>
 			</div>
-		</div>
-		<!-- /.row -->
-	</footer>
-</body>
+			<!-- /.row -->
+		</footer>
+	</body>
 </html>
