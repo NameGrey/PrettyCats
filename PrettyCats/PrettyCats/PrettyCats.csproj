@@ -197,7 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InformPagesController.cs" />
+    <Compile Include="Controllers\InformPageController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
     <Compile Include="Database\DbStorage.cs" />
     <Compile Include="Database\DisplayPlaces.cs" />
@@ -234,7 +234,7 @@
     <Content Include="Views\KittenPages\ParentCatMainPage.cshtml" />
     <Content Include="Views\Layouts\_CatSlider.cshtml" />
     <Content Include="Views\Home\ContactsPage.cshtml" />
-    <Content Include="Views\InformPages\InformPage.cshtml" />
+    <Content Include="Views\InformPage\InformPage.cshtml" />
     <Content Include="Views\KittenPages\AllAvailableKittens.cshtml" />
     <Content Include="Views\KittenPages\KittenOnTheMainPageHtml.cshtml" />
     <Content Include="Views\KittenPages\GetKittenHtml.cshtml" />

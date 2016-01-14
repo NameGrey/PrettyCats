@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PrettyCats.Database;
 using PrettyCats.Helpers;
 
 namespace PrettyCats.Controllers
 {
-	public class InformPagesController : Controller
+	public class InformPageController : Controller
 	{
 		protected override void OnException(ExceptionContext filterContext)
 		{
@@ -24,7 +25,11 @@ namespace PrettyCats.Controllers
 
 		public ActionResult HowChooseKitten()
 		{
-			return View();
+			Pages page = new Pages();
+			page.Content = "sd";
+			page.Name = "Как выбрать котенка?";
+
+			return View("InformPage", page);
 		}
 
 		public ActionResult Documents()
