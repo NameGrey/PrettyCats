@@ -113,12 +113,12 @@
 				}
 				@if (Model.MotherID > 0)
 				{
-					<tr><td><b>Мама:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.MotherID">@motherName</a></td></tr>
+					<tr><td><b>Мама:</b></td><td><a href="/parent-kitten-page/@Model.MotherID">@motherName</a></td></tr>
 				}
 
 				@if (Model.FatherID > 0)
 				{
-					<tr><td><b>Папа:</b></td><td><a href="/kittenpages/ParentCatMainPage/@Model.FatherID">@fatherName</a></td></tr>
+					<tr><td><b>Папа:</b></td><td><a href="/parent-kitten-page/@Model.FatherID">@fatherName</a></td></tr>
 				}
 				<tr><td><b>Заводчик:</b></td><td>@owner.Name</td>@if(!String.IsNullOrEmpty(owner.Phone)){<td><b>Телефон: </b></td><td>@owner.Phone</td>}</tr>
 				<tr><td><b>Статус:</b></td><td>@Model.Status</td></tr>

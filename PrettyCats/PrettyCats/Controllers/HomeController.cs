@@ -31,6 +31,7 @@ namespace PrettyCats.Controllers
 			return View();
 		}
 
+		[Route("contacts")]
 		public ActionResult ContactsPage()
 		{
 			return View();

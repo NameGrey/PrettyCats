@@ -23,6 +23,7 @@ namespace PrettyCats.Controllers
 
 		// GET: InformPages
 
+		[Route("kak-vibrat-kotenka")]
 		public ActionResult HowChooseKitten()
 		{
 			Pages page = new Pages();
