@@ -51,6 +51,9 @@ namespace PrettyCats.Database
 
         public bool IsInArchive { get; set; }
 
+        [StringLength(50)]
+        public string VideoUrl { get; set; }
+
         public virtual Owners Owners { get; set; }
 
         public virtual PetBreeds PetBreeds { get; set; }
