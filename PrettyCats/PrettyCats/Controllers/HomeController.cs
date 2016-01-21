@@ -32,9 +32,19 @@ namespace PrettyCats.Controllers
 		}
 
 		[Route("contacts")]
+		public ActionResult Contacts()
+		{
+			return View("ContactsPage");
+		}
+
+		//These pages should be removed when search system find new urls for them
+		#region Redirect pages
+
 		public ActionResult ContactsPage()
 		{
-			return View();
+			return RedirectPermanent("/contacts");
 		}
+
+		#endregion
 	}
 }
