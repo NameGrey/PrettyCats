@@ -38,7 +38,10 @@
 				}
 			</table>
 		</div>
-		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{"AllParents", "kittenpages"})
+		@{
+			string act = ViewBag.BackLink ?? "/";
+		}
+		@Html.Partial("~/Views/KittenPages/_BackLinkAbsolute.cshtml", act)
 	</div>
 
 	<div class="col-xs-6 col-md-6"></div>

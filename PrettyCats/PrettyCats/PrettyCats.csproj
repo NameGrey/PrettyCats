@@ -259,6 +259,7 @@
     <Content Include="Views\KittenPages\AllParents.cshtml" />
     <Content Include="Views\KittenPages\_BackLink.cshtml" />
     <Content Include="Views\KittenPages\Archive.cshtml" />
+    <Content Include="Views\KittenPages\_BackLinkAbsolute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

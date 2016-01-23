@@ -28,6 +28,7 @@ namespace PrettyCats.Controllers
 		[Route("parent-kitten-page/{id}")]
 		public ActionResult ParentCatMainPage_old(int id)
 		{
+			ViewBag.BackLink = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : "";
 			return View("ParentCatMainPage", DbStorage.Pets.Find(i=>i.ID == id));
 		}
 
