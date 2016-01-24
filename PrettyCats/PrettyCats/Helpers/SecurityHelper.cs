@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace PrettyCats.Helpers
 {
@@ -16,7 +17,7 @@ namespace PrettyCats.Helpers
 
 			if (password == ADMIN_PASS && name == ADMIN_NAME)
 			{
-				SessionHelper.CreateOrUpdateSessionObject(ADMIN_NAME, ADMIN_PASS);
+				FormsAuthentication.SetAuthCookie(name, true);
 				result = true;
 			}
 

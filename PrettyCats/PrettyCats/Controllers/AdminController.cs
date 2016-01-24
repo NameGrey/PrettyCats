@@ -42,17 +42,20 @@ namespace PrettyCats.Controllers
 			return View("Admin");
 		}
 
+		[Authorize]
 		public ActionResult AdminPanel()
 		{
 			return View();
 		}
 
+		[Authorize]
 		public ActionResult AdminChangeKittens()
 		{
 			var v = DbStorage.Pets.Where(e=>!e.IsParent);
 			return View("AdminChangeKittens", v);
 		}
 
+		[Authorize]
 		public ActionResult AdminChangeParents()
 		{
 			var v = DbStorage.Pets.Where(e => e.IsParent);
@@ -69,6 +72,7 @@ namespace PrettyCats.Controllers
 			return View();
 		}
 
+		[Authorize]
 		public ActionResult KittenPictures(int id)
 		{
 			Pets kitten = DbStorage.GetKittenByID(id);
@@ -91,6 +95,7 @@ namespace PrettyCats.Controllers
 
 		#region Work with kitten
 
+		[Authorize]
 		[HttpPost]
 		public ActionResult AddKitten(Pets newKitten, HttpPostedFileBase[] files)
 		{
@@ -110,6 +115,7 @@ namespace PrettyCats.Controllers
 			return RedirectToAction("AdminChangeKittens");
 		}
 
+		[Authorize]
 		[HttpPost]
 		public ActionResult AddParentCat(Pets newKitten, HttpPostedFileBase[] files)
 		{
@@ -130,18 +136,21 @@ namespace PrettyCats.Controllers
 			return RedirectToAction("AdminChangeParents");
 		}
 
+		[Authorize]
 		[HttpGet]
 		public ActionResult AddKitten()
 		{
 			return View(new Pets());
 		}
 
+		[Authorize]
 		[HttpGet]
 		public ActionResult AddParentCat()
 		{
 			return View(new Pets());
 		}
 
+		[Authorize]
 		[HttpGet]
 		public ActionResult EditKitten(int id)
 		{
@@ -153,6 +162,7 @@ namespace PrettyCats.Controllers
 			return View(kitten);
 		}
 
+		[Authorize]
 		public ActionResult RemoveKitten(int id)
 		{
 			Pets kitten = DbStorage.GetKittenByID(id);
@@ -177,6 +187,7 @@ namespace PrettyCats.Controllers
 			return RedirectToAction(redirectTo);
 		}
 
+		[Authorize]
 		[HttpPost]
 		public ActionResult EditKitten(Pets kitten)
 		{
@@ -209,6 +220,8 @@ namespace PrettyCats.Controllers
 				RemovePicture(pic);
 			}
 		}
+
+		[Authorize]
 		[HttpPost]
 		public int RemovePicture(int id)
 		{
@@ -220,6 +233,7 @@ namespace PrettyCats.Controllers
 			return id;
 		}
 
+		[Authorize]
 		public int RemovePicture(Pictures picture)
 		{
 			if (picture.Pets.Count > 0)
@@ -237,6 +251,7 @@ namespace PrettyCats.Controllers
 			return picture.ID;
 		}
 
+		[Authorize]
 		[HttpPost]
 		public string AddImage(HttpPostedFileBase file, string kittenName)
 		{
@@ -314,6 +329,7 @@ namespace PrettyCats.Controllers
 			}
 		}
 
+		[Authorize]
 		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
 		{
 			logger.Info("Add main photo for kittenName=" + kittenName);
