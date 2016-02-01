@@ -51,7 +51,14 @@ namespace PrettyCats.Controllers
 		[Authorize]
 		public ActionResult AdminChangeKittens()
 		{
-			var v = DbStorage.Pets.Where(e=>!e.IsParent);
+			var v = DbStorage.Pets.Where(e=>!e.IsParent && !e.IsInArchive);
+			return View("AdminChangeKittens", v);
+		}
+
+		[Authorize]
+		public ActionResult AdminChangeKittensArchive()
+		{
+			var v = DbStorage.Pets.Where(e => !e.IsParent && e.IsInArchive);
 			return View("AdminChangeKittens", v);
 		}
 
@@ -199,6 +206,10 @@ namespace PrettyCats.Controllers
 
 			bool isParent = kitten.IsParent;
 			string redirectTo = isParent ? "AdminChangeParents" : "AdminChangeKittens";
+			Pets oldKitten = DbStorage.GetKittenByID(kitten.ID);
+
+			if(oldKitten.IsInArchive)
+				redirectTo = "AdminChangeKittensArchive";
 
 			// Initialize addition fields
 			kitten.Owners = DbStorage.Owners.First(i => i.ID == kitten.OwnerID);
