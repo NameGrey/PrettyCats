@@ -60,23 +60,19 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens")]
 		public ActionResult BengalKittens_old()
 		{
-			var v = DbStorage.GetKittensByBreed(2);
-			return View("BengalKittens", v.ToList());
+			return GetBengalKittensView();
 		}
 
 		[Route("scotland-kittens")]
 		public ActionResult BritishKittens_old()
 		{
-			var v = DbStorage.GetKittensByBreed(3).ToList();
-			v.AddRange(DbStorage.GetKittensByBreed(4));
-			return View("BritishKittens", v.ToList());
+			return GetSctolandKittensView();
 		}
 
 		[Route("mainkun-kittens")]
 		public ActionResult MainKunKittens_old()
 		{
-			var v = DbStorage.GetKittensByBreed(1);
-			return View("MainKunKittens", v.ToList());
+			return GetMainkunKittensView();
 		}
 
 		[Route("archive")]
@@ -88,25 +84,44 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens-archive")]
 		public ActionResult BengalKittens_Archive_old()
 		{
-			var v = DbStorage.GetKittensByBreed(2, true);
-			return View("BengalKittens", v.ToList());
+			return GetBengalKittensView();
 		}
 
 		[Route("scotland-kittens-archive")]
 		public ActionResult BritishKittens_Archive_old()
 		{
-			var v = DbStorage.GetKittensByBreed(3, true).ToList();
-			v.AddRange(DbStorage.GetKittensByBreed(4, true));
-
-			return View("BritishKittens", v.ToList());
+			return GetSctolandKittensView();
 		}
 
 		[Route("mainkun-kittens-archive")]
 		public ActionResult MainKunKittens_Archive_old()
 		{
+			return GetMainkunKittensView();
+		}
+
+		private ActionResult GetSctolandKittensView()
+		{
+			var v = DbStorage.GetKittensByBreed(3, true).ToList();
+			v.AddRange(DbStorage.GetKittensByBreed(4, true));
+			ViewBag.BackLink = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : "";
+
+			return View("BritishKittens", v.ToList());
+		}
+
+		private ActionResult GetBengalKittensView()
+		{
+			var v = DbStorage.GetKittensByBreed(2, true);
+			ViewBag.BackLink = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : "";
+			return View("BengalKittens", v.ToList());
+		}
+
+		private ActionResult GetMainkunKittensView()
+		{
 			var v = DbStorage.GetKittensByBreed(1, true);
+			ViewBag.BackLink = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : "";
 			return View("MainKunKittens", v.ToList());
 		}
+
 		#endregion
 
 		//These pages should be removed when search system find new urls for them

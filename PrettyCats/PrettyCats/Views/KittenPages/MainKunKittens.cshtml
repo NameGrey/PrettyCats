@@ -5,7 +5,10 @@
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 }
 <div class="container">
-	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new []{"Index", "Home"})
+	@{
+		string act = ViewBag.BackLink ?? "/";
+	}
+	@Html.Partial("~/Views/KittenPages/_BackLinkAbsolute.cshtml", act)
 
 	@{
 		if (Model != null)
