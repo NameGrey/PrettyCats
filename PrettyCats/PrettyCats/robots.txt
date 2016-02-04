@@ -1,2 +1,8 @@
 ﻿User-agent: *
 Disallow: /views/Admin
+
+User-agent: *
+Disallow: /Admin
+
+User-agent: *
+Disallow: /home/Error
