@@ -61,6 +61,7 @@ namespace PrettyCats.Controllers
 		public ActionResult BengalKittens_old()
 		{
 			var v = DbStorage.GetKittensByBreed(2);
+			ViewBag.PreviousPage = "NotArchive";
 			return View("BengalKittens", v.ToList());
 		}
 
@@ -69,6 +70,7 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(3).ToList();
 			v.AddRange(DbStorage.GetKittensByBreed(4));
+			ViewBag.PreviousPage = "NotArchive";
 			return View("BritishKittens", v.ToList());
 		}
 
@@ -76,6 +78,7 @@ namespace PrettyCats.Controllers
 		public ActionResult MainKunKittens_old()
 		{
 			var v = DbStorage.GetKittensByBreed(1);
+			ViewBag.PreviousPage = "NotArchive";
 			return View("MainKunKittens", v.ToList());
 		}
 
@@ -89,6 +92,7 @@ namespace PrettyCats.Controllers
 		public ActionResult BengalKittens_Archive_old()
 		{
 			var v = DbStorage.GetKittensByBreed(2, true);
+			ViewBag.PreviousPage = "Archive";
 			return View("BengalKittens", v.ToList());
 		}
 
@@ -97,7 +101,8 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(3, true).ToList();
 			v.AddRange(DbStorage.GetKittensByBreed(4, true));
-
+			ViewBag.PreviousPage = "Archive";
+			
 			return View("BritishKittens", v.ToList());
 		}
 
@@ -105,6 +110,7 @@ namespace PrettyCats.Controllers
 		public ActionResult MainKunKittens_Archive_old()
 		{
 			var v = DbStorage.GetKittensByBreed(1, true);
+			ViewBag.PreviousPage = "Archive";
 			return View("MainKunKittens", v.ToList());
 		}
 		#endregion

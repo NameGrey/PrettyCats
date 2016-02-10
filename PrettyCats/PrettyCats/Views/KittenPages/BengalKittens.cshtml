@@ -5,7 +5,15 @@
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 }
 <div class="container">
-@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
+	@if (ViewBag.PreviousPage == "Archive")
+	{
+		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Archive", "KittenPages" })
+	}
+	else
+	{
+		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
+	}
+	
 	@{
 		if (Model != null)
 		{
