@@ -218,6 +218,7 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Models\ArticleModelView.cs" />
     <Compile Include="Models\OwnerModelView.cs" />
     <Compile Include="Models\BreedModelView.cs" />
     <Compile Include="Models\DisplayPlaceModelView.cs" />
@@ -261,6 +262,9 @@
     <Content Include="Views\KittenPages\_BackLink.cshtml" />
     <Content Include="Views\KittenPages\Archive.cshtml" />
     <Content Include="Views\KittenPages\_BackLinkAbsolute.cshtml" />
+    <Content Include="Views\InformPage\Articles.cshtml" />
+    <Content Include="Views\InformPage\KittenCostArticle.cshtml" />
+    <Content Include="Views\InformPage\GetArticleHtml.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
