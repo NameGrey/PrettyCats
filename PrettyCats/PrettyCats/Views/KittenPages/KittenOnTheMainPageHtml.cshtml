@@ -13,10 +13,12 @@
 	}
 
 	string link = "/kitten-page/";
+	string actionName = "kitten-page";
 
 	if (Model.IsParent)
 	{
 		link = "/parent-kitten-page/";
+		actionName = "parent-kitten-page";
 	}
 	else
 	{
@@ -27,11 +29,17 @@
 	
 }
 
-<div class="col-sm-4">
-	<a href="@link">
-		<img class="img-circle img-responsive img-center" src="@path" alt="">
-	</a>
-	<h2 style="margin-bottom: 0px;">@Model.RussianName</h2>
-	<span class="under-name-status"> @status</span>
-	<p>@Model.UnderThePictureText</p>
-</div>
+<script></script>
+
+<form action="@link">
+	<div class="col-sm-4">
+		<a href="@link">
+			<img class="img-circle img-responsive img-center" style="margin-bottom: 24px;" src="@path" alt="">
+		</a>
+		<h2 style="margin-top: -5px; margin-bottom: 0px; float: left; margin-right: 5px;">@Model.RussianName</h2>
+
+		<input type="submit" class="btn-primary" value="Посмотреть" />
+		<input type="hidden" name="id" value="@Model.ID" />
+		<span class="under-name-status" style="clear: both;"> @status</span>
+	</div>
+</form>
