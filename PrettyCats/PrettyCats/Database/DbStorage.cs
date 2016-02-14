@@ -217,6 +217,16 @@ namespace PrettyCats.Database
 			return fileName;
 		}
 
+		public static void SetNewOrderForPicture(int id, int newOrder)
+		{
+			var picture = Pictures.FirstOrDefault(i => i.ID == id);
+
+			if (picture != null)
+			{
+				picture.Order = newOrder;
+			}
+		}
+
 		public static string GetSmallKittenImageFileName(string imagePath)
 		{
 			string result = String.Empty;

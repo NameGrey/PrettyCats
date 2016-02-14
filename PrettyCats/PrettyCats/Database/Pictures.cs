@@ -22,6 +22,8 @@ namespace PrettyCats.Database
         [StringLength(50)]
         public string CssClass { get; set; }
 
+        public int Order { get; set; }
+
         public virtual ICollection<Pets> Pets { get; set; }
     }
 }

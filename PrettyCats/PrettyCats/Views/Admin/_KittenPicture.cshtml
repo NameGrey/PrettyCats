@@ -4,8 +4,26 @@
 	<div class="image-container">
 		<img class="main-kitten-image" src="@Url.Content(Model.Image)" />
 	</div>
-	<div class="button-container">
+	<div class="button-container" style="width:200px;">
 		
+		@using (Ajax.BeginForm("KittenPictureChangeOrder", "Admin", new AjaxOptions
+				{
+					HttpMethod = "post",
+					//OnBegin = "beginRequest",
+					//OnComplete = "endRequest",
+					OnSuccess = "successChangeOrderRequest(" + Model.ID + ")",
+					//OnFailure = "failRequest"
+
+				}))
+		{
+			<div class="form-group">
+				<span>Изменить порядок сортировки</span>
+				<input type="hidden" value="@Model.ID" name="id" />
+				<input style="float:left; width:50px;"  type="text" value="@Model.Order" id="@Model.ID" name="newOrder" />
+				<input style="float:left; margin-left: 5px;" type="submit" value="Изменить">
+			</div>
+		}
+
 		@using (Ajax.BeginForm("RemovePicture", "Admin", new AjaxOptions
 				{
 					HttpMethod = "post",
@@ -18,7 +36,7 @@
 		{
 			<div class="form-group">
 				<input type="hidden" value=@Model.ID id="id" name="id" />
-				<input type="submit" value="Удалить">
+				<input type="submit" style="margin-top:5px;" value="Удалить">
 			</div>
 		}
 

@@ -21,10 +21,17 @@
 	function successRequest(itemId) {
 		$('#' + itemId).hide();
 	}
+
+	function successChangeOrderRequest(itemId, newOrder) {
+		$('input').find('#' + itemId).val(newOrder);
+	}
 </script>
 
 <h2>Фотографии котенка</h2>
-
+<hr/>
+<div style="margin-top: -20px;">
+	@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })
+</div>
 <div>
 	<hr />
 	@foreach (var i in Model)
@@ -35,5 +42,5 @@
 </div>
 
 <div>
-	@Html.ActionLink("Вернуться", backTo, "Admin")
+	@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })
 </div>

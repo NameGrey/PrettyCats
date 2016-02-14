@@ -84,7 +84,16 @@ namespace PrettyCats.Controllers
 		{
 			Pets kitten = DbStorage.GetKittenByID(id);
 
-			return View(kitten.Pictures.ToList());
+			return View(kitten.Pictures.OrderBy(i=>i.Order).ToList());
+		}
+
+		[Authorize]
+		[HttpPost]
+		public int KittenPictureChangeOrder(int id, int newOrder)
+		{
+			DbStorage.SetNewOrderForPicture(id, newOrder);
+
+			return newOrder;
 		}
 
 		public ActionResult LogIn(string username, string password)

@@ -96,7 +96,7 @@
 				</div>
 			}
 			
-			@foreach (var i in Model.Pictures)
+			@foreach (var i in Model.Pictures.OrderBy(i=>i.Order))
 			{
 				<div data-p="144.50" style="display: none;">
 					<img data-u="image" class="main-slide-image" src="@Url.Content(i.Image)" />
