@@ -3,21 +3,28 @@
 	ViewBag.Title = "Статьи сайта | Почитать интересное про кошек";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 }
-<div class="row">
-	<div class="col-xs-1 col-md-2 col-sm-1 col-lg-3"></div>
 
-	<div class="col-xs-10 col-md-8 col-sm-10 col-lg-6">
-		<div class="page">
-			<div class="page-name text-center">Статьи</div>
-			<div class="horizLine"></div>
+<div class="container">
+	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
 
-			@Html.Partial("GetArticleHtml", new ArticleModelView(
-				"../Resources/ArticleImages/KittenCost.jpg", 
-				"Сколько стоят породистые котята?", 
-				"В данной статье мы расскажем вам, из чего складывается стоимость котенка, почему одни животные стоят дешевле, другие дороже. Это связано с том, что...",
-				"/kitten-cost/")
-			)
+	<div class="row">
+		<div class="col-xs-1 col-md-2 col-sm-1 col-lg-2"></div>
 
+		<div class="col-xs-10 col-md-8 col-sm-10 col-lg-8">
+			<div class="page">
+				<div class="page-name text-center">Статьи</div>
+				<div class="horizLine"></div>
+
+				@Html.Partial("GetArticleHtml", new ArticleModelView(
+				"../Resources/ArticleImages/KittenCost.jpg",
+				"Сколько стоят породистые котята?",
+				"В данной статье мы расскажем вам, из чего складывается стоимость котенка, почему одни животные стоят дешевле, другие дороже...",
+				"/kitten-cost-price/")
+				)
+
+			</div>
 		</div>
 	</div>
+
+	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
 </div>

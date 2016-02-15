@@ -265,6 +265,7 @@
     <Content Include="Views\InformPage\Articles.cshtml" />
     <Content Include="Views\InformPage\KittenCostArticle.cshtml" />
     <Content Include="Views\InformPage\GetArticleHtml.cshtml" />
+    <Content Include="Views\InformPage\_GotoChoosing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -274,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\ArticleImages\" />
     <Folder Include="Resources\Kittens\" />
   </ItemGroup>
   <PropertyGroup>
