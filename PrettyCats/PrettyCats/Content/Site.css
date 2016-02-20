@@ -270,8 +270,12 @@ div > a hover{
     width: 800px;
 }
 
-.video-container {
-    
+.miss-kittens {
+    font-size: 18px;
+}
+
+.miss-kittens a {
+    font-style: oblique;
 }
 
 .top-buffer { margin-top:40px; }
