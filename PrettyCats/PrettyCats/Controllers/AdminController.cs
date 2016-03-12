@@ -96,6 +96,21 @@ namespace PrettyCats.Controllers
 			return newOrder;
 		}
 
+		[Authorize]
+		[HttpPost]
+		public ActionResult ChangePicturesOrder(List<Pictures> json)
+		{
+			var result = new List<Pictures>();
+
+			foreach (var pict in json)
+			{
+				DbStorage.SetNewOrderForPicture(pict.ID, pict.Order);
+				result.Add(DbStorage.Pictures.First(i => i.ID == pict.ID));
+			}
+			
+			return View("KittenPictures", result);
+		}
+
 		public ActionResult LogIn(string username, string password)
 		{
 			if (SecurityHelper.LogInAdmin(username, password))
