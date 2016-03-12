@@ -12,6 +12,11 @@
 		{
 			backTo = "AdminChangeParents";
 		}
+
+		if (Model[0].Pets.First().IsInArchive)
+		{
+			backTo = "AdminChangeKittensArchive";
+		}
 	}
 }
 
