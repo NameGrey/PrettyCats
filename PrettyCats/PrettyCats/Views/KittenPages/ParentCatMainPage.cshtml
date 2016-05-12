@@ -20,35 +20,40 @@
 <div class="container">
 	@Html.Partial("~/Views/Layouts/_CatSlider.cshtml")
 	<div class="row" id="table">
-		<div class="backgroung-overrider" id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 800px;height: auto;">
-			<div class="Description">
-				<table>
-					<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
-					@if (!String.IsNullOrEmpty(date))
-					{
-						<tr><td><b>Дата рождения: </b></td><td> @date</td></tr>
-					}
-					<tr><td><b>Порода:</b></td><td>@DbStorage.PetBreeds.Find(i => i.ID == Model.BreedID).RussianName</td></tr>
-					<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
-					<tr>
-						<td><b>Владелец:</b></td>
-						<td>@owner.Name</td>@if (!String.IsNullOrEmpty(owner.Phone))
+		<div class="col-md-8 col-md-offset-1 col-lg-offset-2">
+			<div class="backgroung-overrider" id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; padding-left:10px; height: auto;">
+				<div class="Description">
+					<table>
+						<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
+						@if (!String.IsNullOrEmpty(date))
 						{
-							<td><b>Телефон: </b></td>
-							<td>@owner.Phone</td>}
-					</tr>
-					@if (!String.IsNullOrEmpty(Model.UnderThePictureText))
-					{
-						<tr><td><b>Описание:</b></td></tr>
-						<tr><td colspan="4">@Model.UnderThePictureText</td></tr>
-					}
-				</table>
+							<tr><td><b>Дата рождения: </b></td><td> @date</td></tr>
+						}
+						<tr><td><b>Порода:</b></td><td>@DbStorage.PetBreeds.Find(i => i.ID == Model.BreedID).RussianName</td></tr>
+						<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
+						<tr>
+							<td><b>Владелец:</b></td>
+							<td>@owner.Name</td>@if (!String.IsNullOrEmpty(owner.Phone))
+							                    {
+								                    <td><b>Телефон: </b></td>
+								                    <td>@owner.Phone</td>}
+						</tr>
+						@if (!String.IsNullOrEmpty(Model.UnderThePictureText))
+						{
+							<tr><td><b>Описание:</b></td></tr>
+							<tr><td colspan="4">@Model.UnderThePictureText</td></tr>
+						}
+					</table>
+				</div>
 			</div>
+		</div>
+		<div class="col-xs-6 col-md-6"></div>
+		<div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
 			@{
 				string act = ViewBag.BackLink ?? "/";
 			}
 			@Html.Partial("~/Views/KittenPages/_BackLinkAbsolute.cshtml", act)
 		</div>
-		<div class="col-xs-6 col-md-6"></div>
 	</div>
+
 </div>

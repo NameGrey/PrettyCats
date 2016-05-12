@@ -120,9 +120,8 @@ opacity:1;
 }
 
 .Description{
-    width:800px;
     position:relative;
-    margin:10px 15px;
+    margin:10px auto;
 }
 
 #BuyButton{
