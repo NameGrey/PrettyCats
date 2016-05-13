@@ -1,43 +1,23 @@
-﻿@using PrettyCats.Database
-@model PrettyCats.Database.Pets
+﻿@model PrettyCats.Models.KittenModelView
 @{
-	ViewBag.Title = "Информация о котенке";
-	Layout = "~/Views/Layouts/_MainLayout.cshtml";
-	var owner = DbStorage.Owners.Find(i=>i.ID == Model.OwnerID);
-	string motherName = String.Empty;
-	string fatherName = String.Empty;
-	string date = String.Empty;
-	
-	string backLink = String.Empty;
+    ViewBag.Title = "Информация о котенке";
+    Layout = "~/Views/Layouts/_MainLayout.cshtml";
 
-	if (Model.BreedID == 1)
-	{
-		backLink += Model.IsInArchive ? "MainKunKittens_Archive" : "MainKunKittens";
+    string backLink = String.Empty;
 
-	}
-	else if (Model.BreedID == 3 || Model.BreedID == 4)
-	{
-		backLink += Model.IsInArchive ? "BritishKittens_Archive" : "BritishKittens";
-	}
-	else
-	{
-		backLink += Model.IsInArchive ? "BengalKittens_Archive" : "BengalKittens";
-	}
+    if (Model.BreedID == 1)
+    {
+        backLink += Model.IsInArchive ? "MainKunKittens_Archive" : "MainKunKittens";
 
-	if (Model.MotherID > 0)
-	{
-		motherName = DbStorage.Pets.Find(i=>i.ID == Model.MotherID).RussianName;
-	}
-
-	if (Model.FatherID > 0)
-	{
-		fatherName = DbStorage.Pets.Find(i=>i.ID == Model.FatherID).RussianName;
-	}
-	
-	if (Model.BirthDate != null)
-	 {
-		date = ((DateTime) Model.BirthDate).ToString("dd.MM.yyyy");
-	 }
+    }
+    else if (Model.BreedID == 3 || Model.BreedID == 4)
+    {
+        backLink += Model.IsInArchive ? "BritishKittens_Archive" : "BritishKittens";
+    }
+    else
+    {
+        backLink += Model.IsInArchive ? "BengalKittens_Archive" : "BengalKittens";
+    }
 }
 
 <script src="@Url.Content("~/Scripts/DielogForm.js")"></script>
@@ -61,8 +41,8 @@
 
 			if ($(elements[i]).css('left') == '0px') {
 				var imgSrc = $(elements[i]).find("img").prop('src');
-				var number = "@owner.Phone";
-				var ownerName = "@owner.Name";
+				var number = "@Model.OwnerPhone";
+				var ownerName = "@Model.OwnerName";
 				var kittenName = "@Model.RussianName";
 				var text = "<br/><br/><span class='big-number'> <b>Вы выбрали котенка '" + kittenName + "'</b></span><br/> &nbsp;&nbsp;Для покупки необходимо <b>позвонить по номеру</b> ниже и сообщить имя котенка. &nbsp;&nbsp;Если у Вас остались какие-то <b>вопросы</b>, мы всегда готовы ответить на них!";
 				
@@ -86,8 +66,6 @@
 	}
 
 	function DisplayVideo() {
-		var number = "@owner.Phone";
-		var ownerName = "@owner.Name";
 		var kittenName = "@Model.RussianName";
 		var text = '<iframe width="100%" height="500px" src="@Model.VideoUrl" frameborder="0" allowfullscreen></iframe>';
 
@@ -124,11 +102,11 @@
 				<div class="Description">
 					<table>
 						<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
-						@if (!String.IsNullOrEmpty(date))
+						@if (!String.IsNullOrEmpty(Model.BirthDate))
 						{
-							<tr><td><b>Дата рождения: </b></td><td> @date </td></tr>
+							<tr><td><b>Дата рождения: </b></td><td> @Model.BirthDate </td></tr>
 						}
-						<tr><td><b>Порода:</b></td><td>@DbStorage.PetBreeds.Find(i => i.ID == Model.BreedID).RussianName</td></tr>
+						<tr><td><b>Порода:</b></td><td>@Model.BreedName</td></tr>
 						<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
 						@if (Model.Price != null && Model.Price > 0)
 						{
@@ -138,26 +116,26 @@
 						{
 							<tr><td><b>Видео:</b></td><td><a href="javascript:DisplayVideo()">Смотреть</a></td></tr>
 						}
-						@if (Model.MotherID > 0)
+						@if (!string.IsNullOrEmpty(Model.MotherName))
 						{
-							<tr><td><b>Мама:</b></td><td><a href="/parent-kitten-page/@Model.MotherID">@motherName</a></td></tr>
+							<tr><td><b>Мама:</b></td><td><a href="/parent-kitten-page/@Model.MotherID">Model.MotherName</a></td></tr>
 						}
 						@if (Model.FatherID > 0)
 						{
-							<tr><td><b>Папа:</b></td><td><a href="/parent-kitten-page/@Model.FatherID">@fatherName</a></td></tr>
+							<tr><td><b>Папа:</b></td><td><a href="/parent-kitten-page/@Model.FatherID">@Model.FatherName</a></td></tr>
 						}
 						<tr>
 							<td><b>Заводчик:</b></td>
-							<td>@owner.Name</td>@if (!String.IsNullOrEmpty(owner.Phone))
+							<td>@Model.OwnerName</td>@if (!String.IsNullOrEmpty(Model.OwnerPhone))
 							                    {
 								                    <td><b>Телефон: </b></td>
-								                    <td>@owner.Phone</td>}
+								                    <td>@Model.OwnerPhone</td>}
 						</tr>
 						<tr><td><b>Статус:</b></td><td>@Model.Status</td></tr>
-						@if (!String.IsNullOrEmpty(Model.UnderThePictureText))
+						@if (!String.IsNullOrEmpty(Model.UnderPictureText))
 						{
 							<tr><td><b>Описание:</b></td></tr>
-							<tr><td colspan="4">@Model.UnderThePictureText</td></tr>
+							<tr><td colspan="4">@Model.UnderPictureText</td></tr>
 						}
 					</table>
 				</div>

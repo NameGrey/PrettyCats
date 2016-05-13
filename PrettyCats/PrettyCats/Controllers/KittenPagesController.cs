@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
+using PrettyCats.Models;
 
 namespace PrettyCats.Controllers
 {
@@ -22,7 +23,27 @@ namespace PrettyCats.Controllers
 		[Route("kitten-page/{id}")]
 		public ActionResult KittenMainPage_old(int id)
 		{
-			return View("KittenMainPage", DbStorage.Pets.Find(i => i.ID == id));
+		    var kitten = from pet in DbStorage.Pets
+		        join mother in DbStorage.Pets on pet.MotherID equals mother.ID
+		        join father in DbStorage.Pets on pet.FatherID equals father.ID
+		        join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+		        join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+		        select
+		            new KittenModelView()
+		            {
+		                BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+		                BreedID = pet.BreedID,
+		                BreedName = breed.RussianName,
+		                Color = pet.Color,
+		                FatherID = pet.FatherID,
+		                FatherName = father.RussianName,
+		                IsInArchive = pet.IsInArchive,
+		                MotherID = pet.MotherID,
+		                MotherName = mother.Name,
+		                OwnerName = owner.Name
+		            };
+
+            return View("KittenMainPage", kitten.First());
 		}
 
 		[Route("parent-kitten-page/{id}")]
