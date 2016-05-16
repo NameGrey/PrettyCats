@@ -1,16 +1,8 @@
-﻿@using PrettyCats.Database
-@model PrettyCats.Database.Pets
+﻿@model PrettyCats.Models.KittenModelView
 
 @{
 	ViewBag.Title = "Информация о кошке/коте";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
-	var owner = DbStorage.Owners.Find(i=>i.ID == Model.OwnerID);
-	string date = String.Empty;
-
-	if (Model.BirthDate != null)
-	{
-		date = ((DateTime)Model.BirthDate).ToString("dd.MM.yyyy");
-	}
 }
 
 <script src="~/Scripts/DielogForm.js"></script>
@@ -32,18 +24,18 @@
 				<div class="Description">
 					<table>
 						<tr><td><b>Имя:</b></td><td>@Model.RussianName</td></tr>
-						@if (!String.IsNullOrEmpty(date))
+						@if (!String.IsNullOrEmpty(Model.BirthDate))
 						{
-							<tr><td><b>Дата рождения: </b></td><td> @date</td></tr>
+							<tr><td><b>Дата рождения: </b></td><td> @Model.BirthDate</td></tr>
 						}
-						<tr><td><b>Порода:</b></td><td>@DbStorage.PetBreeds.Find(i => i.ID == Model.BreedID).RussianName</td></tr>
+						<tr><td><b>Порода:</b></td><td>@Model.BreedName</td></tr>
 						<tr><td><b>Окрас:</b></td><td>@Model.Color</td></tr>
 						<tr>
 							<td><b>Владелец:</b></td>
-							<td>@owner.Name</td>@if (!String.IsNullOrEmpty(owner.Phone))
+							<td>@Model.OwnerName</td>@if (!String.IsNullOrEmpty(Model.OwnerPhone))
 							                    {
 								                    <td><b>Телефон: </b></td>
-								                    <td>@owner.Phone</td>}
+								                    <td>@Model.OwnerPhone</td>}
 						</tr>
 						@if (!String.IsNullOrEmpty(Model.UnderThePictureText))
 						{

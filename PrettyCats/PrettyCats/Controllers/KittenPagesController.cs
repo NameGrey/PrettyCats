@@ -23,34 +23,44 @@ namespace PrettyCats.Controllers
 		[Route("kitten-page/{id}")]
 		public ActionResult KittenMainPage_old(int id)
 		{
-		    var kitten = from pet in DbStorage.Pets
-		        join mother in DbStorage.Pets on pet.MotherID equals mother.ID
-		        join father in DbStorage.Pets on pet.FatherID equals father.ID
-		        join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
-		        join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
-		        select
-		            new KittenModelView()
-		            {
-		                BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-		                BreedID = pet.BreedID,
-		                BreedName = breed.RussianName,
-		                Color = pet.Color,
-		                FatherID = pet.FatherID,
-		                FatherName = father.RussianName,
-		                IsInArchive = pet.IsInArchive,
-		                MotherID = pet.MotherID,
-		                MotherName = mother.Name,
-		                OwnerName = owner.Name
-		            };
-
-            return View("KittenMainPage", kitten.First());
+            return View("KittenMainPage", GetModelViewByKittenId(id)); // TODO: if there is no such kitten show common site error for this
 		}
+
+	    private KittenModelView GetModelViewByKittenId(int id)
+	    {
+	        return (from pet in DbStorage.Pets
+	            join mother in DbStorage.Pets on pet.MotherID equals mother.ID
+	            join father in DbStorage.Pets on pet.FatherID equals father.ID
+	            join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+	            join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+                where pet.ID == id
+	            select
+
+	                new KittenModelView()
+	                {
+	                    BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+	                    BreedID = pet.BreedID,
+	                    BreedName = breed.RussianName,
+	                    Color = pet.Color,
+	                    FatherID = pet.FatherID,
+	                    FatherName = father.RussianName,
+	                    IsInArchive = pet.IsInArchive,
+	                    MotherID = pet.MotherID,
+	                    MotherName = mother.Name,
+	                    OwnerName = owner.Name,
+	                    OwnerPhone = owner.Phone,
+	                    UnderThePictureText = pet.UnderThePictureText,
+	                    VideoUrl = pet.VideoUrl,
+	                    Price = pet.Price,
+	                    Status = pet.Status
+	                }).FirstOrDefault();
+	    }
 
 		[Route("parent-kitten-page/{id}")]
 		public ActionResult ParentCatMainPage_old(int id)
 		{
-			ViewBag.BackLink = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : "";
-			return View("ParentCatMainPage", DbStorage.Pets.Find(i=>i.ID == id));
+			ViewBag.BackLink = Request.UrlReferrer?.AbsoluteUri ?? "";
+			return View("ParentCatMainPage", GetModelViewByKittenId(id));
 		}
 
 		public ActionResult GetKittenHtml(int id)

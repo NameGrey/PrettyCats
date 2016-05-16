@@ -6,11 +6,11 @@
 
         public string RussianName { get; set; }
 
-        public int MotherID { get; set; }
+        public int? MotherID { get; set; }
 
         public string MotherName { get; set; }
 
-        public int FatherID { get; set; }
+        public int? FatherID { get; set; }
 
         public string FatherName { get; set; }
 
@@ -24,7 +24,7 @@
 
         public string OwnerPhone { get; set; }
 
-        public string UnderPictureText { get; set; }
+        public string UnderThePictureText { get; set; }
 
         public bool IsInArchive { get; set; }
 
