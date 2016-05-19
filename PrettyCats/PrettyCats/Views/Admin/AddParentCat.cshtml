@@ -1,5 +1,4 @@
-﻿@using PrettyCats.Database
-@model PrettyCats.Database.Pets
+﻿@model PrettyCats.Models.AddKittenModelView
 
 @{
 	ViewBag.Title = "Добавить родителя";
@@ -33,21 +32,21 @@
 		<div class="form-group">
 			@Html.Label("Порода", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(x => x.BreedID, new SelectList(DbStorage.PetBreeds, "ID", "RussianName"))
+				@Html.DropDownListFor(x => x.BreedID, new SelectList(Model.Breeds, "ID", "RussianName"))
 			</div>
 		</div>
 
 		<div class="form-group">
 			@Html.Label("Владелец", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(x => x.OwnerID, new SelectList(DbStorage.Owners, "ID", "Name"))
+				@Html.DropDownListFor(x => x.OwnerID, new SelectList(Model.Owners, "ID", "Name"))
 			</div>
 		</div>
 
 		<div class="form-group">
 			@Html.Label("Отображение", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(x => x.WhereDisplay, new SelectList(DbStorage.DisplayPlaces, "ID", "PlaceOfDisplaying"))
+				@Html.DropDownListFor(x => x.WhereDisplay, new SelectList(Model.DisplayPlaces, "ID", "PlaceOfDisplaying"))
 			</div>
 		</div>
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PrettyCats.Database;
@@ -28,33 +29,82 @@ namespace PrettyCats.Controllers
 
 	    private KittenModelView GetModelViewByKittenId(int id)
 	    {
-	        return (from pet in DbStorage.Pets
-	            join mother in DbStorage.Pets on pet.MotherID equals mother.ID
-	            join father in DbStorage.Pets on pet.FatherID equals father.ID
-	            join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
-	            join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
-                where pet.ID == id
-	            select
+		    var list = from pet in DbStorage.Pets
+			    join mother in DbStorage.Pets on pet.MotherID equals mother.ID into outerMother
+			    from leftOuterMother in outerMother.DefaultIfEmpty()
+			    join father in DbStorage.Pets on pet.FatherID equals father.ID into outerFather
+			    from leftOuterFather in outerFather.DefaultIfEmpty()
+				join mainPicture in DbStorage.Pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
+				from leftOuterMainPicture in outerMainPicture
+			    join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+			    join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+				where pet.ID == id
+			    select
+				    new KittenModelView()
+				    {
+					    BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+					    BreedID = pet.BreedID,
+					    BreedName = breed.RussianName,
+					    Color = pet.Color,
+					    FatherID = pet.FatherID,
+					    FatherName = leftOuterFather != null ? leftOuterFather.RussianName : string.Empty,
+					    IsInArchive = pet.IsInArchive,
+					    MotherID = pet.MotherID,
+					    MotherName = leftOuterMother != null ? leftOuterMother.RussianName : string.Empty,
+					    OwnerName = owner.Name,
+					    OwnerPhone = owner.Phone,
+					    UnderThePictureText = pet.UnderThePictureText,
+					    VideoUrl = pet.VideoUrl,
+					    Price = pet.Price,
+						IsParent = pet.IsParent,
+					    Status = pet.Status,
+						MainImageCssClass = leftOuterMainPicture != null ? leftOuterMainPicture.CssClass : string.Empty,
+						MainImageSmallSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.Image : string.Empty,
+						MainImageStandartSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.ImageSmall : string.Empty,
+						Pictures = pet.Pictures
+				    };
 
-	                new KittenModelView()
-	                {
-	                    BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-	                    BreedID = pet.BreedID,
-	                    BreedName = breed.RussianName,
-	                    Color = pet.Color,
-	                    FatherID = pet.FatherID,
-	                    FatherName = father.RussianName,
-	                    IsInArchive = pet.IsInArchive,
-	                    MotherID = pet.MotherID,
-	                    MotherName = mother.Name,
-	                    OwnerName = owner.Name,
-	                    OwnerPhone = owner.Phone,
-	                    UnderThePictureText = pet.UnderThePictureText,
-	                    VideoUrl = pet.VideoUrl,
-	                    Price = pet.Price,
-	                    Status = pet.Status
-	                }).FirstOrDefault();
+			return list.FirstOrDefault();
 	    }
+
+		private KittenShortModelView GetShortModelViewByKittenId(int id)
+		{
+			return (from pet in DbStorage.Pets
+					join picture in DbStorage.Pictures on pet.PictureID equals picture.ID into outerPicture
+					from leftOuterPicture in outerPicture.DefaultIfEmpty()
+					join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+					join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+					where pet.ID == id
+					select
+						new KittenShortModelView()
+						{
+							ID = pet.ID,
+							PictureID = pet.PictureID,
+							ImageUrl = leftOuterPicture.Image,
+							IsParent = pet.IsParent,
+							RussianName = pet.RussianName,
+							Status = pet.Status
+						}).FirstOrDefault();
+		}
+
+		private IEnumerable<KittenShortModelView> ConvertToShortKittenModelView(IEnumerable<Pets> pets)
+		{
+			return (from pet in pets
+					join picture in DbStorage.Pictures on pet.PictureID equals picture.ID into outerPicture
+					from leftOuterPicture in outerPicture.DefaultIfEmpty()
+					join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+					join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+					select
+						new KittenShortModelView()
+						{
+							ID = pet.ID,
+							PictureID = pet.PictureID,
+							ImageUrl = leftOuterPicture.Image,
+							IsParent = pet.IsParent,
+							RussianName = pet.RussianName,
+							Status = pet.Status
+						});
+		}
 
 		[Route("parent-kitten-page/{id}")]
 		public ActionResult ParentCatMainPage_old(int id)
@@ -70,7 +120,7 @@ namespace PrettyCats.Controllers
 
 		public ActionResult KittenOnTheMainPageHtml(int id)
 		{
-			return View(DbStorage.Pets.Find(i=>i.ID == id));
+			return View(GetShortModelViewByKittenId(id));
 		}
 
 		#region Display kittens
@@ -93,7 +143,7 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(2);
 			ViewBag.PreviousPage = "NotArchive";
-			return View("BengalKittens", v.ToList());
+			return View("BengalKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("scotland-kittens")]
@@ -102,7 +152,7 @@ namespace PrettyCats.Controllers
 			var v = DbStorage.GetKittensByBreed(3).ToList();
 			v.AddRange(DbStorage.GetKittensByBreed(4));
 			ViewBag.PreviousPage = "NotArchive";
-			return View("BritishKittens", v.ToList());
+			return View("BritishKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("mainkun-kittens")]
@@ -110,7 +160,7 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(1);
 			ViewBag.PreviousPage = "NotArchive";
-			return View("MainKunKittens", v.ToList());
+			return View("MainKunKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("archive")]
@@ -124,7 +174,7 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(2, true);
 			ViewBag.PreviousPage = "Archive";
-			return View("BengalKittens", v.ToList());
+			return View("BengalKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("scotland-kittens-archive")]
@@ -134,7 +184,7 @@ namespace PrettyCats.Controllers
 			v.AddRange(DbStorage.GetKittensByBreed(4, true));
 			ViewBag.PreviousPage = "Archive";
 			
-			return View("BritishKittens", v.ToList());
+			return View("BritishKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("mainkun-kittens-archive")]
@@ -142,7 +192,7 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(1, true);
 			ViewBag.PreviousPage = "Archive";
-			return View("MainKunKittens", v.ToList());
+			return View("MainKunKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 		#endregion
 
@@ -151,12 +201,12 @@ namespace PrettyCats.Controllers
 		
 		public ActionResult KittenMainPage(int id)
 		{
-			return RedirectPermanent(String.Format("/kitten-page/{0}", id));
+			return RedirectPermanent($"/kitten-page/{id}");
 		}
 
 		public ActionResult ParentCatMainPage(int id)
 		{
-			return RedirectPermanent(String.Format("/parent-kitten-page/{0}", id));
+			return RedirectPermanent($"/parent-kitten-page/{id}");
 		}
 
 		public ActionResult AllAvailableKittens()

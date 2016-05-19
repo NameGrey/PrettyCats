@@ -1,12 +1,10 @@
-﻿@using PrettyCats.Database
-@model PrettyCats.Database.Pets
+﻿@model PrettyCats.Models.KittenModelView
 
 <script type="text/javascript" src="../../Scripts/jssor.slider.mini.js"></script>
 <script type="text/javascript" src="../../Scripts/jssor.slider.min.js"></script>
 
 @{
 	Layout = null;
-	Pictures mainPicture = Model.PictureID > 0 ? DbStorage.Pictures.Find(i=>i.ID == Model.PictureID) : null;
 }
 
 <script>
@@ -88,11 +86,11 @@
 			<div style="position:absolute;display:block;background:url('../../Resources/Slides/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
 		</div>
 		<div class="slides-overrider" data-u="slides" style="cursor: default; position: relative; overflow: hidden;">
-			@if (mainPicture != null && mainPicture.ImageSmall != null)
+			@if (Model.MainImageSmallSizeUrl != null && Model.MainImageStandartSizeUrl != null)
 			{
 				<div data-p="144.50" style="display: none;">
-					<img data-u="image" class="main-slide-image" src="@Url.Content(mainPicture.Image)" />
-					<img data-u="thumb" id="@mainPicture.CssClass" src="@Url.Content(mainPicture.ImageSmall)" />
+					<img data-u="image" class="main-slide-image" src="@Url.Content(Model.MainImageStandartSizeUrl)" />
+					<img data-u="thumb" id="@Model.MainImageCssClass" src="@Url.Content(Model.MainImageSmallSizeUrl)" />
 				</div>
 			}
 			

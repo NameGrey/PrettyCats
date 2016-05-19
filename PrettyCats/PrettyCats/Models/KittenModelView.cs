@@ -1,4 +1,7 @@
-﻿namespace PrettyCats.Models
+﻿using System.Collections.Generic;
+using PrettyCats.Database;
+
+namespace PrettyCats.Models
 {
     public class KittenModelView
 	{
@@ -30,8 +33,18 @@
 
         public string VideoUrl { get; set; }
 
-        public decimal? Price { get; set; }
+        public int? Price { get; set; }
 
         public string Status { get; set; }
-    }
+
+		public bool IsParent { get; set; }
+
+		public string MainImageSmallSizeUrl { get; set; }
+
+		public string MainImageStandartSizeUrl { get; set; }
+
+		public string MainImageCssClass { get; set; }
+
+		public IEnumerable<Pictures> Pictures { get; set; }
+	}
 }

@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -217,6 +218,9 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Models\KittenShortModelView.cs" />
+    <Compile Include="Models\KittenOnTheAdminPageModelView.cs" />
+    <Compile Include="Models\AddKittenModelView.cs" />
     <Compile Include="Models\ArticleModelView.cs" />
     <Compile Include="Models\OwnerModelView.cs" />
     <Compile Include="Models\BreedModelView.cs" />

@@ -1,24 +1,19 @@
-﻿@using PrettyCats.Database
-@model PrettyCats.Database.Pets
+﻿@model PrettyCats.Models.KittenShortModelView
 
 @{
-	Pictures pict = null;
 	string path = String.Empty;
 	string status = String.Empty;
 
 	if (Model.PictureID != null)
 	{
-		pict = DbStorage.Pictures.Find(i=> i.ID == Model.PictureID);
-		path = Url.Content(pict.Image);
+		path = Url.Content(Model.ImageUrl);
 	}
 
 	string link = "/kitten-page/";
-	string actionName = "kitten-page";
 
 	if (Model.IsParent)
 	{
 		link = "/parent-kitten-page/";
-		actionName = "parent-kitten-page";
 	}
 	else
 	{
@@ -28,8 +23,6 @@
 	link += Model.ID;
 	
 }
-
-<script></script>
 
 <form action="@link">
 	<div class="col-sm-4">

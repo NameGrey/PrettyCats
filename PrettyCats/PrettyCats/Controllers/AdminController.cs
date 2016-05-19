@@ -10,6 +10,8 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
+using PrettyCats.Models;
+using WebGrease.Css.Extensions;
 
 namespace PrettyCats.Controllers
 {
@@ -52,15 +54,32 @@ namespace PrettyCats.Controllers
 		public ActionResult AdminChangeKittens()
 		{
 			var v = DbStorage.Pets.Where(e=>!e.IsParent && !e.IsInArchive);
-			return View("AdminChangeKittens", v);
+			return View("AdminChangeKittens", ConvertToKittenOnTheAdminPageModelView(v));
 		}
 
 		[Authorize]
 		public ActionResult AdminChangeKittensArchive()
 		{
 			var v = DbStorage.Pets.Where(e => !e.IsParent && e.IsInArchive);
-			return View("AdminChangeKittens", v);
+			return View("AdminChangeKittens", ConvertToKittenOnTheAdminPageModelView(v));
 		}
+
+        private IEnumerable<KittenOnTheAdminPageModelView> ConvertToKittenOnTheAdminPageModelView(IEnumerable<Pets> pets)
+        {
+	        return pets.Select(pet => new KittenOnTheAdminPageModelView()
+	        {
+		        ID = pet.ID,
+		        Name = pet.Name,
+		        PictureID = pet.PictureID,
+		        RussianName = pet.RussianName,
+		        PlaceOfDisplaying = DbStorage.DisplayPlaces.FirstOrDefault(i=>i.ID == pet.WhereDisplay.Value).PlaceOfDisplaying,
+		        ImageUrl = DbStorage.Pictures.FirstOrDefault(i => i.ID == pet.PictureID)?.Image,
+		        AllParents = DbStorage.Pets.Where(i=>i.IsParent).ToList(),
+		        DisplayPlaces = DbStorage.DisplayPlaces.ToList(),
+		        Breeds = DbStorage.PetBreeds.ToList(),
+		        Owners = DbStorage.Owners.ToList()
+	        });
+        }
 
 		[Authorize]
 		public ActionResult AdminChangeParents()
@@ -171,14 +190,20 @@ namespace PrettyCats.Controllers
 		[HttpGet]
 		public ActionResult AddKitten()
 		{
-			return View(new Pets());
+		    var newKitten = new AddKittenModelView(DbStorage.PetBreeds, DbStorage.Owners,
+		        DbStorage.Pets.Where(i => i.IsParent).ToList(), DbStorage.DisplayPlaces);
+
+            return View(newKitten);
 		}
 
 		[Authorize]
 		[HttpGet]
 		public ActionResult AddParentCat()
 		{
-			return View(new Pets());
+            var newParent = new AddKittenModelView(DbStorage.PetBreeds, DbStorage.Owners,
+                DbStorage.Pets.Where(i => i.IsParent).ToList(), DbStorage.DisplayPlaces);
+
+            return View(newParent);
 		}
 
 		[Authorize]
@@ -190,10 +215,52 @@ namespace PrettyCats.Controllers
 			if (kitten == null)
 				return RedirectToAction("AdminChangeKittens");
 			
-			return View(kitten);
+			return View(GetModelViewByKittenId(id));
 		}
 
-		[Authorize]
+        private AddKittenModelView GetModelViewByKittenId(int id)
+        {
+            var result = from pet in DbStorage.Pets
+                join mother in DbStorage.Pets on pet.MotherID equals mother.ID into outerMother
+                from leftOuterMother in outerMother.DefaultIfEmpty()
+                join father in DbStorage.Pets on pet.FatherID equals father.ID into outerFather
+                from leftOuterFather in outerFather.DefaultIfEmpty()
+                join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+                join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+				where pet.ID == id
+                select
+
+                    new AddKittenModelView(DbStorage.PetBreeds, DbStorage.Owners,
+                        DbStorage.Pets.Where(i => i.IsParent).ToList(), DbStorage.DisplayPlaces)
+                    {
+                        ID = pet.ID,
+                        PictureID = pet.PictureID,
+                        Name = pet.Name,
+						RussianName = pet.RussianName,
+                        OwnerID = pet.OwnerID,
+                        WhereDisplay = pet.WhereDisplay,
+                        IsParent = pet.IsParent,
+                        BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+                        BreedID = pet.BreedID,
+                        BreedName = breed.RussianName,
+                        Color = pet.Color,
+                        FatherID = pet.FatherID,
+                        FatherName = leftOuterFather != null ? leftOuterFather.RussianName : String.Empty,
+                        IsInArchive = pet.IsInArchive,
+                        MotherID = pet.MotherID,
+                        MotherName = leftOuterMother != null ? leftOuterMother.RussianName : String.Empty,
+                        OwnerName = owner.Name,
+                        OwnerPhone = owner.Phone,
+                        UnderThePictureText = pet.UnderThePictureText,
+                        VideoUrl = pet.VideoUrl,
+                        Price = pet.Price,
+                        Status = pet.Status
+                    };
+
+            return result.FirstOrDefault();
+        }
+
+        [Authorize]
 		public ActionResult RemoveKitten(int id)
 		{
 			Pets kitten = DbStorage.GetKittenByID(id);
