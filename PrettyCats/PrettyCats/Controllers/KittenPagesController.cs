@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Web.Mvc;
 using PrettyCats.Database;
 using PrettyCats.Helpers;
@@ -143,7 +144,8 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(2);
 			ViewBag.PreviousPage = "NotArchive";
-			return View("BengalKittens", ConvertToShortKittenModelView(v).ToList());
+			ViewBag.Title = "Котята бенгальской породы";
+			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("scotland-kittens")]
@@ -152,7 +154,18 @@ namespace PrettyCats.Controllers
 			var v = DbStorage.GetKittensByBreed(3).ToList();
 			v.AddRange(DbStorage.GetKittensByBreed(4));
 			ViewBag.PreviousPage = "NotArchive";
-			return View("BritishKittens", ConvertToShortKittenModelView(v).ToList());
+			ViewBag.Title = "Шотландские котята";
+			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
+		}
+
+		[Route("scotland-kittens-archive")]
+		public ActionResult BritishKittens_Archive_old()
+		{
+			var v = DbStorage.GetKittensByBreed(3, true).ToList();
+			v.AddRange(DbStorage.GetKittensByBreed(4, true));
+			ViewBag.PreviousPage = "Archive";
+			ViewBag.Title = "Шотландские котята (Архив)";
+			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("mainkun-kittens")]
@@ -160,7 +173,8 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(1);
 			ViewBag.PreviousPage = "NotArchive";
-			return View("MainKunKittens", ConvertToShortKittenModelView(v).ToList());
+			ViewBag.Title = "Котята породы Мейн-кун";
+			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("archive")]
@@ -174,17 +188,8 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(2, true);
 			ViewBag.PreviousPage = "Archive";
-			return View("BengalKittens", ConvertToShortKittenModelView(v).ToList());
-		}
-
-		[Route("scotland-kittens-archive")]
-		public ActionResult BritishKittens_Archive_old()
-		{
-			var v = DbStorage.GetKittensByBreed(3, true).ToList();
-			v.AddRange(DbStorage.GetKittensByBreed(4, true));
-			ViewBag.PreviousPage = "Archive";
-			
-			return View("BritishKittens", ConvertToShortKittenModelView(v).ToList());
+			ViewBag.Title = "Котята бенгальской породы (Архив)";
+			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 
 		[Route("mainkun-kittens-archive")]
@@ -192,7 +197,8 @@ namespace PrettyCats.Controllers
 		{
 			var v = DbStorage.GetKittensByBreed(1, true);
 			ViewBag.PreviousPage = "Archive";
-			return View("MainKunKittens", ConvertToShortKittenModelView(v).ToList());
+			ViewBag.Title = "Котята породы Мейн-кун (Архив)";
+			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
 		}
 		#endregion
 

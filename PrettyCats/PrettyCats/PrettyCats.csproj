@@ -255,9 +255,7 @@
     <Content Include="Views\Admin\MuliplayFilesUploader.cshtml" />
     <Content Include="Views\Admin\KittenPictures.cshtml" />
     <Content Include="Views\Admin\_KittenPicture.cshtml" />
-    <Content Include="Views\KittenPages\BritishKittens.cshtml" />
-    <Content Include="Views\KittenPages\MainKunKittens.cshtml" />
-    <Content Include="Views\KittenPages\BengalKittens.cshtml" />
+    <Content Include="Views\KittenPages\CategoryKittens.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\AddParentCat.cshtml" />
     <Content Include="Views\Admin\AdminChangeParents.cshtml" />

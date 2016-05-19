@@ -1,7 +1,6 @@
 ﻿@model List<PrettyCats.Models.KittenShortModelView>
 
 @{
-	ViewBag.Title = "Шотландские котята";
 	Layout = "~/Views/Layouts/_MainLayout.cshtml";
 }
 <div class="container">
@@ -23,7 +22,7 @@
 
 			if (rowCounter == 0)
 			{
-				<div class="miss-kittens">На данный момент свободных котят нет. Вы можете посмотреть уже проданных в этом году котят в <b>@Html.ActionLink("Архиве", "BritishKittens_Archive_old")</b> или выбрать котенка другой породы, например, <b>@Html.ActionLink("Бенгалов", "BengalKittens_old")</b> или <b>@Html.ActionLink("Мейн-кунов", "MainkunKittens_old")</b>.</div>
+				<div class="miss-kittens">На данный момент свободных котят нет. Вы можете посмотреть уже проданных в этом году котят в <b>@Html.ActionLink("Архиве", "Archive_old")</b></div>
 			}
 			else
 			{
