@@ -1,10 +1,7 @@
-namespace PrettyCats.Database
-{
-	using System;
-	using System.Data.Entity;
-	using System.ComponentModel.DataAnnotations.Schema;
-	using System.Linq;
+using System.Data.Entity;
 
+namespace PrettyCats.DAL
+{
 	public partial class Storage : DbContext
 	{
 		public Storage()

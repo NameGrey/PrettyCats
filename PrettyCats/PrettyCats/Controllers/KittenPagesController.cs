@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Configuration;
 using System.Web.Mvc;
-using PrettyCats.Database;
+using PrettyCats.DAL;
 using PrettyCats.Helpers;
 using PrettyCats.Models;
 
@@ -25,48 +25,48 @@ namespace PrettyCats.Controllers
 		[Route("kitten-page/{id}")]
 		public ActionResult KittenMainPage_old(int id)
 		{
-            return View("KittenMainPage", GetModelViewByKittenId(id)); // TODO: if there is no such kitten show common site error for this
+			return View("KittenMainPage", GetModelViewByKittenId(id)); // TODO: if there is no such kitten show common site error for this
 		}
 
-	    private KittenModelView GetModelViewByKittenId(int id)
-	    {
-		    var list = from pet in DbStorage.Pets
-			    join mother in DbStorage.Pets on pet.MotherID equals mother.ID into outerMother
-			    from leftOuterMother in outerMother.DefaultIfEmpty()
-			    join father in DbStorage.Pets on pet.FatherID equals father.ID into outerFather
-			    from leftOuterFather in outerFather.DefaultIfEmpty()
+		private KittenModelView GetModelViewByKittenId(int id)
+		{
+			var list = from pet in DbStorage.Pets
+				join mother in DbStorage.Pets on pet.MotherID equals mother.ID into outerMother
+				from leftOuterMother in outerMother.DefaultIfEmpty()
+				join father in DbStorage.Pets on pet.FatherID equals father.ID into outerFather
+				from leftOuterFather in outerFather.DefaultIfEmpty()
 				join mainPicture in DbStorage.Pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
 				from leftOuterMainPicture in outerMainPicture
-			    join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
-			    join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+				join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
+				join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
 				where pet.ID == id
-			    select
-				    new KittenModelView()
-				    {
-					    BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-					    BreedID = pet.BreedID,
-					    BreedName = breed.RussianName,
-					    Color = pet.Color,
-					    FatherID = pet.FatherID,
-					    FatherName = leftOuterFather != null ? leftOuterFather.RussianName : string.Empty,
-					    IsInArchive = pet.IsInArchive,
-					    MotherID = pet.MotherID,
-					    MotherName = leftOuterMother != null ? leftOuterMother.RussianName : string.Empty,
-					    OwnerName = owner.Name,
-					    OwnerPhone = owner.Phone,
-					    UnderThePictureText = pet.UnderThePictureText,
-					    VideoUrl = pet.VideoUrl,
-					    Price = pet.Price,
+				select
+					new KittenModelView()
+					{
+						BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+						BreedID = pet.BreedID,
+						BreedName = breed.RussianName,
+						Color = pet.Color,
+						FatherID = pet.FatherID,
+						FatherName = leftOuterFather != null ? leftOuterFather.RussianName : string.Empty,
+						IsInArchive = pet.IsInArchive,
+						MotherID = pet.MotherID,
+						MotherName = leftOuterMother != null ? leftOuterMother.RussianName : string.Empty,
+						OwnerName = owner.Name,
+						OwnerPhone = owner.Phone,
+						UnderThePictureText = pet.UnderThePictureText,
+						VideoUrl = pet.VideoUrl,
+						Price = pet.Price,
 						IsParent = pet.IsParent,
-					    Status = pet.Status,
+						Status = pet.Status,
 						MainImageCssClass = leftOuterMainPicture != null ? leftOuterMainPicture.CssClass : string.Empty,
 						MainImageSmallSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.Image : string.Empty,
 						MainImageStandartSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.ImageSmall : string.Empty,
 						Pictures = pet.Pictures
-				    };
+					};
 
 			return list.FirstOrDefault();
-	    }
+		}
 
 		private KittenShortModelView GetShortModelViewByKittenId(int id)
 		{

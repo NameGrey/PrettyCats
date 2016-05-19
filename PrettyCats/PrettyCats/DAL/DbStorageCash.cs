@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace PrettyCats.Database
+namespace PrettyCats.DAL
 {
 
 	public class DbStorageCash

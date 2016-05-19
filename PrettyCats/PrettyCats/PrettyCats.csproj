@@ -201,15 +201,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformPageController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
-    <Compile Include="Database\DbStorage.cs" />
-    <Compile Include="Database\DisplayPlaces.cs" />
-    <Compile Include="Database\Owners.cs" />
-    <Compile Include="Database\Pages.cs" />
-    <Compile Include="Database\PetBreeds.cs" />
-    <Compile Include="Database\Pets.cs" />
-    <Compile Include="Database\Pictures.cs" />
-    <Compile Include="Database\DbStorageCash.cs" />
-    <Compile Include="Database\Storage.cs" />
+    <Compile Include="DAL\DbStorage.cs" />
+    <Compile Include="DAL\DisplayPlaces.cs" />
+    <Compile Include="DAL\Owners.cs" />
+    <Compile Include="DAL\Pages.cs" />
+    <Compile Include="DAL\PetBreeds.cs" />
+    <Compile Include="DAL\Pets.cs" />
+    <Compile Include="DAL\Pictures.cs" />
+    <Compile Include="DAL\DbStorageCash.cs" />
+    <Compile Include="DAL\Storage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using PrettyCats.Database;
+using PrettyCats.DAL;
 using PrettyCats.Helpers;
 
 namespace PrettyCats.Controllers
