@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using PrettyCats.DAL.Enteties;
 
-namespace PrettyCats.DAL.Repositories
+namespace PrettyCats.DAL.Repositories.DbRepositories
 {
 	public class DbPicturesRepository: IPicturesRepository
 	{

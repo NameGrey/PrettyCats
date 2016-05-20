@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web.UI.WebControls;
 using PrettyCats.DAL.Enteties;
 
-namespace PrettyCats.DAL.Repositories
+namespace PrettyCats.DAL.Repositories.DbRepositories
 {
 	public class DBKittensRepository: IKittensRepository
 	{

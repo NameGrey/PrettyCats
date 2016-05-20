@@ -201,11 +201,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformPageController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
-    <Compile Include="DAL\Repositories\DbDisplayPlacesRepository.cs" />
-    <Compile Include="DAL\Repositories\DbOwnersRepository.cs" />
-    <Compile Include="DAL\Repositories\DBKittensRepository.cs" />
-    <Compile Include="DAL\Repositories\DbBreedsRepository.cs" />
-    <Compile Include="DAL\Repositories\DbPicturesRepository.cs" />
+    <Compile Include="DAL\Repositories\DbRepositories\DbDisplayPlacesRepository.cs" />
+    <Compile Include="DAL\Repositories\DbRepositories\DbOwnersRepository.cs" />
+    <Compile Include="DAL\Repositories\DbRepositories\DBKittensRepository.cs" />
+    <Compile Include="DAL\Repositories\DbRepositories\DbBreedsRepository.cs" />
+    <Compile Include="DAL\Repositories\DbRepositories\DbPicturesRepository.cs" />
     <Compile Include="DAL\Enteties\DisplayPlaces.cs" />
     <Compile Include="DAL\Enteties\IEntity.cs" />
     <Compile Include="DAL\Repositories\IKittenDisplayPlaceRepository.cs" />

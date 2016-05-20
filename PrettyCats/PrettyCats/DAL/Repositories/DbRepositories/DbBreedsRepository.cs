@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PrettyCats.DAL.Enteties;
 
-namespace PrettyCats.DAL.Repositories
+namespace PrettyCats.DAL.Repositories.DbRepositories
 {
 	public class DbBreedsRepository : IKittenBreedRepository
 	{

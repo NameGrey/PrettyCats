@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PrettyCats.DAL.Enteties;
 using PrettyCats.DAL.Repositories;
+using PrettyCats.DAL.Repositories.DbRepositories;
 using PrettyCats.Helpers;
 using PrettyCats.Models;
 
