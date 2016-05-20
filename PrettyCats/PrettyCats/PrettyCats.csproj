@@ -201,6 +201,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformPageController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
+    <Compile Include="DAL\DatabaseInitializer.cs" />
     <Compile Include="DAL\Repositories\DbRepositories\DbDisplayPlacesRepository.cs" />
     <Compile Include="DAL\Repositories\DbRepositories\DbOwnersRepository.cs" />
     <Compile Include="DAL\Repositories\DbRepositories\DBKittensRepository.cs" />

@@ -12,6 +12,7 @@ namespace PrettyCats.DAL.Repositories
 			: base("DBConnectionDebug")
 #endif
 		{
+			Database.SetInitializer(new DatabaseInitializer());
 		}
 
 		public virtual DbSet<DisplayPlaces> DisplayPlaces { get; set; }
