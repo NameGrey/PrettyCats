@@ -1,12 +1,19 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using PrettyCats.DAL;
+using PrettyCats.DAL.Repositories;
 using PrettyCats.Helpers;
 
 namespace PrettyCats.Controllers
 {
 	public class HomeController : Controller
 	{
+		private IKittensRepository kittensRepository;
+
+		public HomeController()
+		{
+			kittensRepository = new DBKittensRepository(new StorageContext());
+		}
+
 		protected override void OnException(ExceptionContext filterContext)
 		{
 			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
@@ -21,9 +28,7 @@ namespace PrettyCats.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			var v = DbStorage.Pets.ToList();
-
-			return View(v);
+			return View(kittensRepository.GetCollection().ToList());
 		}
 
 		public ActionResult Error()

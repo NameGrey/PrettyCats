@@ -1,25 +1,22 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrettyCats.DAL
+namespace PrettyCats.DAL.Enteties
 {
-	public partial class Pictures
+	public class Owners: IEntity
 	{
-		public Pictures()
+		public Owners()
 		{
 			Pets = new HashSet<Pets>();
 		}
 
 		public int ID { get; set; }
 
-		public string Image { get; set; }
-
-		public string ImageSmall { get; set; }
+		[StringLength(50)]
+		public string Name { get; set; }
 
 		[StringLength(50)]
-		public string CssClass { get; set; }
-
-		public int Order { get; set; }
+		public string Phone { get; set; }
 
 		public virtual ICollection<Pets> Pets { get; set; }
 	}

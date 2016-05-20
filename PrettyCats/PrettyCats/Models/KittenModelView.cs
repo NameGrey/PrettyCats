@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PrettyCats.DAL;
+using PrettyCats.DAL.Enteties;
 
 namespace PrettyCats.Models
 {

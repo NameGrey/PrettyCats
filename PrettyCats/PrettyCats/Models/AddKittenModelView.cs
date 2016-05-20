@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using PrettyCats.DAL;
+using PrettyCats.DAL.Enteties;
 
 namespace PrettyCats.Models
 {
@@ -16,13 +18,13 @@ namespace PrettyCats.Models
 		public List<Pets> AllParents { get; set; }
 		public List<DisplayPlaces> DisplayPlaces { get; set; }
 
-		public AddKittenModelView(List<PetBreeds> breeds, List<Owners> owners, List<Pets> allParents,
-			List<DisplayPlaces> displayPlaces)
+		public AddKittenModelView(IEnumerable<PetBreeds> breeds, IEnumerable<Owners> owners, IEnumerable<Pets> allParents,
+			IEnumerable<DisplayPlaces> displayPlaces)
 		{
-			Breeds = breeds;
-			Owners = owners;
-			AllParents = allParents;
-			DisplayPlaces = displayPlaces;
+			Breeds = breeds.ToList();
+			Owners = owners.ToList();
+			AllParents = allParents.ToList();
+			DisplayPlaces = displayPlaces.ToList();
 		}
 	}
 }

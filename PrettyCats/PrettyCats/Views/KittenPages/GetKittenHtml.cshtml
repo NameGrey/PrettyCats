@@ -1,5 +1,6 @@
 ﻿@using PrettyCats.DAL
-@model Pets
+@using PrettyCats.DAL.Enteties
+@model PrettyCats.DAL.Enteties.Pets
 
 @{
 	Pictures pict = null;
@@ -7,7 +8,7 @@
 
 	if (Model.PictureID != null)
 	{
-		pict = DbStorage.Pictures.Find(i=>i.ID == Model.PictureID);
+		pict = DatabaseStorageWithMemoryCashing.Pictures.Find(i=>i.ID == Model.PictureID);
 		path = Url.Content(pict.Image);
 	}
 

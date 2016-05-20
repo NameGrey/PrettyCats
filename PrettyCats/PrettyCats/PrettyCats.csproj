@@ -201,15 +201,27 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformPageController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
-    <Compile Include="DAL\DbStorage.cs" />
-    <Compile Include="DAL\DisplayPlaces.cs" />
-    <Compile Include="DAL\Owners.cs" />
-    <Compile Include="DAL\Pages.cs" />
-    <Compile Include="DAL\PetBreeds.cs" />
-    <Compile Include="DAL\Pets.cs" />
-    <Compile Include="DAL\Pictures.cs" />
-    <Compile Include="DAL\DbStorageCash.cs" />
-    <Compile Include="DAL\Storage.cs" />
+    <Compile Include="DAL\Repositories\DbDisplayPlacesRepository.cs" />
+    <Compile Include="DAL\Repositories\DbOwnersRepository.cs" />
+    <Compile Include="DAL\Repositories\DBKittensRepository.cs" />
+    <Compile Include="DAL\Repositories\DbBreedsRepository.cs" />
+    <Compile Include="DAL\Repositories\DbPicturesRepository.cs" />
+    <Compile Include="DAL\Enteties\DisplayPlaces.cs" />
+    <Compile Include="DAL\Enteties\IEntity.cs" />
+    <Compile Include="DAL\Repositories\IKittenDisplayPlaceRepository.cs" />
+    <Compile Include="DAL\Repositories\IKittenOwnerRepository.cs" />
+    <Compile Include="DAL\Repositories\IKittenBreedRepository.cs" />
+    <Compile Include="DAL\Repositories\IKittensRepository.cs" />
+    <Compile Include="DAL\Repositories\IPicturesRepository.cs" />
+    <Compile Include="DAL\Repositories\IReadOnlyRepository.cs" />
+    <Compile Include="DAL\Enteties\Owners.cs" />
+    <Compile Include="DAL\Enteties\Pages.cs" />
+    <Compile Include="DAL\Enteties\PetBreeds.cs" />
+    <Compile Include="DAL\Enteties\Pets.cs" />
+    <Compile Include="DAL\Enteties\Pictures.cs" />
+    <Compile Include="DAL\Repositories\IRepository.cs" />
+    <Compile Include="DAL\Services\PicturesLinksConstructor.cs" />
+    <Compile Include="DAL\Repositories\StorageContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

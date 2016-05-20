@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PrettyCats.DAL
+namespace PrettyCats.DAL.Enteties
 {
-	public partial class DisplayPlaces
+	public class DisplayPlaces: IEntity
 	{
 		public int ID { get; set; }
 

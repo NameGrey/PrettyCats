@@ -1,10 +1,11 @@
 using System.Data.Entity;
+using PrettyCats.DAL.Enteties;
 
-namespace PrettyCats.DAL
+namespace PrettyCats.DAL.Repositories
 {
-	public partial class Storage : DbContext
+	public class StorageContext : DbContext
 	{
-		public Storage()
+		public StorageContext()
 #if DEBUG
 			: base("DBConnectionDebugLocal")
 #else

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Configuration;
 using System.Web.Mvc;
-using PrettyCats.DAL;
+using PrettyCats.DAL.Enteties;
+using PrettyCats.DAL.Repositories;
 using PrettyCats.Helpers;
 using PrettyCats.Models;
 
@@ -11,6 +10,20 @@ namespace PrettyCats.Controllers
 {
 	public class KittenPagesController : Controller
 	{
+		private IKittensRepository kittensRepository;
+		private IPicturesRepository picturesRepository;
+		private IKittenBreedRepository breedsRepository;
+		private IKittenOwnerRepository ownersRepository;
+
+		public KittenPagesController()
+		{
+			var newContext = new StorageContext();
+			kittensRepository = new DBKittensRepository(newContext);
+			picturesRepository = new DbPicturesRepository(newContext);
+			breedsRepository = new DbBreedsRepository(newContext);
+			ownersRepository = new DbOwnersRepository(newContext);
+		}
+
 		protected override void OnException(ExceptionContext filterContext)
 		{
 			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
@@ -30,15 +43,20 @@ namespace PrettyCats.Controllers
 
 		private KittenModelView GetModelViewByKittenId(int id)
 		{
-			var list = from pet in DbStorage.Pets
-				join mother in DbStorage.Pets on pet.MotherID equals mother.ID into outerMother
+			var pets = kittensRepository.GetCollection().ToList();
+			var pictures = picturesRepository.GetCollection();
+			var petBreeds = breedsRepository.GetCollection();
+			var owners = ownersRepository.GetCollection();
+
+			var list = from pet in pets
+				join mother in pets on pet.MotherID equals mother.ID into outerMother
 				from leftOuterMother in outerMother.DefaultIfEmpty()
-				join father in DbStorage.Pets on pet.FatherID equals father.ID into outerFather
+				join father in pets on pet.FatherID equals father.ID into outerFather
 				from leftOuterFather in outerFather.DefaultIfEmpty()
-				join mainPicture in DbStorage.Pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
-				from leftOuterMainPicture in outerMainPicture
-				join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
-				join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+				join mainPicture in pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
+				from leftOuterMainPicture in outerMainPicture.DefaultIfEmpty()
+				join breed in petBreeds on pet.BreedID equals breed.ID
+				join owner in owners on pet.OwnerID equals owner.ID
 				where pet.ID == id
 				select
 					new KittenModelView()
@@ -70,11 +88,16 @@ namespace PrettyCats.Controllers
 
 		private KittenShortModelView GetShortModelViewByKittenId(int id)
 		{
-			return (from pet in DbStorage.Pets
-					join picture in DbStorage.Pictures on pet.PictureID equals picture.ID into outerPicture
+			var pets = kittensRepository.GetCollection().ToList();
+			var pictures = picturesRepository.GetCollection();
+			var petBreeds = breedsRepository.GetCollection();
+			var owners = ownersRepository.GetCollection();
+
+			return (from pet in pets
+					join picture in pictures on pet.PictureID equals picture.ID into outerPicture
 					from leftOuterPicture in outerPicture.DefaultIfEmpty()
-					join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
-					join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+					join breed in petBreeds on pet.BreedID equals breed.ID
+					join owner in owners on pet.OwnerID equals owner.ID
 					where pet.ID == id
 					select
 						new KittenShortModelView()
@@ -90,11 +113,15 @@ namespace PrettyCats.Controllers
 
 		private IEnumerable<KittenShortModelView> ConvertToShortKittenModelView(IEnumerable<Pets> pets)
 		{
+			var pictures = picturesRepository.GetCollection();
+			var petBreeds = breedsRepository.GetCollection();
+			var owners = ownersRepository.GetCollection();
+
 			return (from pet in pets
-					join picture in DbStorage.Pictures on pet.PictureID equals picture.ID into outerPicture
+					join picture in pictures on pet.PictureID equals picture.ID into outerPicture
 					from leftOuterPicture in outerPicture.DefaultIfEmpty()
-					join breed in DbStorage.PetBreeds on pet.BreedID equals breed.ID
-					join owner in DbStorage.Owners on pet.OwnerID equals owner.ID
+					join breed in petBreeds on pet.BreedID equals breed.ID
+					join owner in owners on pet.OwnerID equals owner.ID
 					select
 						new KittenShortModelView()
 						{
@@ -116,7 +143,9 @@ namespace PrettyCats.Controllers
 
 		public ActionResult GetKittenHtml(int id)
 		{
-			return View(DbStorage.Pets.Find(i=>i.ID == id));
+			var pets = kittensRepository.GetCollection().ToList();
+
+			return View(pets.Find(i=>i.ID == id));
 		}
 
 		public ActionResult KittenOnTheMainPageHtml(int id)
@@ -135,14 +164,16 @@ namespace PrettyCats.Controllers
 		[Route("parent-kittens")]
 		public ActionResult AllParents_old()
 		{
-			var v = DbStorage.Pets.Where(i => i.IsParent && i.WhereDisplay != 3).ToList();
+			var pets = kittensRepository.GetCollection().ToList();
+			var v = pets.Where(i => i.IsParent && i.WhereDisplay != 3).ToList();
+
 			return View("AllParents", v);
 		}
 
 		[Route("bengal-kittens")]
 		public ActionResult BengalKittens_old()
 		{
-			var v = DbStorage.GetKittensByBreed(2);
+			var v = kittensRepository.GetKittensByBreed(2);
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Котята бенгальской породы";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -151,8 +182,8 @@ namespace PrettyCats.Controllers
 		[Route("scotland-kittens")]
 		public ActionResult BritishKittens_old()
 		{
-			var v = DbStorage.GetKittensByBreed(3).ToList();
-			v.AddRange(DbStorage.GetKittensByBreed(4));
+			var v = kittensRepository.GetKittensByBreed(3).ToList();
+			v.AddRange(kittensRepository.GetKittensByBreed(4));
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Шотландские котята";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -161,8 +192,8 @@ namespace PrettyCats.Controllers
 		[Route("scotland-kittens-archive")]
 		public ActionResult BritishKittens_Archive_old()
 		{
-			var v = DbStorage.GetKittensByBreed(3, true).ToList();
-			v.AddRange(DbStorage.GetKittensByBreed(4, true));
+			var v = kittensRepository.GetKittensByBreed(3, true).ToList();
+			v.AddRange(kittensRepository.GetKittensByBreed(4, true));
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Шотландские котята (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -171,7 +202,7 @@ namespace PrettyCats.Controllers
 		[Route("mainkun-kittens")]
 		public ActionResult MainKunKittens_old()
 		{
-			var v = DbStorage.GetKittensByBreed(1);
+			var v = kittensRepository.GetKittensByBreed(1);
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Котята породы Мейн-кун";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -186,7 +217,7 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens-archive")]
 		public ActionResult BengalKittens_Archive_old()
 		{
-			var v = DbStorage.GetKittensByBreed(2, true);
+			var v = kittensRepository.GetKittensByBreed(2, true);
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Котята бенгальской породы (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -195,7 +226,7 @@ namespace PrettyCats.Controllers
 		[Route("mainkun-kittens-archive")]
 		public ActionResult MainKunKittens_Archive_old()
 		{
-			var v = DbStorage.GetKittensByBreed(1, true);
+			var v = kittensRepository.GetKittensByBreed(1, true);
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Котята породы Мейн-кун (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
