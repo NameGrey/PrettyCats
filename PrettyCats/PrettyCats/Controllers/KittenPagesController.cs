@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using PrettyCats.DAL.Enteties;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.DAL.Repositories.DbRepositories;
@@ -23,8 +24,17 @@ namespace PrettyCats.Controllers
 			picturesRepository = new DbPicturesRepository(newContext);
 			breedsRepository = new DbBreedsRepository(newContext);
 			ownersRepository = new DbOwnersRepository(newContext);
+
+			CustomizeMapper();
 		}
 
+		private void CustomizeMapper()
+		{
+			//Mapper.Initialize(cfg => cfg.CreateMap<Pets, KittenModelView>()
+			//.ForMember(dest => dest.BreedName, src => src.MapFrom(pet => pet.PetBreeds.RussianName))
+			//.ForMember(dest => dest.FatherName, src => src.MapFrom(c=>kittensRepository.GetCollection().FirstOrDefault(p=>p.ID == c.FatherID).RussianName))
+			//.ForMember(dest => dest.MotherName, src => src.MapFrom(c => kittensRepository.GetCollection().FirstOrDefault(p => p.ID == c.MotherID).RussianName)));
+		}
 		protected override void OnException(ExceptionContext filterContext)
 		{
 			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());

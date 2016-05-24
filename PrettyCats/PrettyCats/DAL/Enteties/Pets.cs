@@ -56,7 +56,7 @@ namespace PrettyCats.DAL.Enteties
 		public virtual Owners Owners { get; set; }
 
 		public virtual PetBreeds PetBreeds { get; set; }
-
+		
 		public virtual ICollection<Pictures> Pictures { get; set; }
 	}
 }
