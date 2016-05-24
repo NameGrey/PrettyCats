@@ -237,6 +237,11 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Migrations\201605241004044_InitialCreate.cs" />
+    <Compile Include="Migrations\201605241004044_InitialCreate.Designer.cs">
+      <DependentUpon>201605241004044_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\KittenShortModelView.cs" />
     <Compile Include="Models\KittenOnTheAdminPageModelView.cs" />
     <Compile Include="Models\AddKittenModelView.cs" />
@@ -299,6 +304,11 @@
     <Folder Include="App_Data\" />
     <Folder Include="Resources\ArticleImages\" />
     <Folder Include="Resources\Kittens\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605241004044_InitialCreate.resx">
+      <DependentUpon>201605241004044_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
