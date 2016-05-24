@@ -5,11 +5,6 @@ namespace PrettyCats.DAL.Enteties
 {
 	public class Owners: IEntity
 	{
-		public Owners()
-		{
-			Pets = new HashSet<Pets>();
-		}
-
 		public int ID { get; set; }
 
 		[StringLength(50)]
@@ -17,7 +12,5 @@ namespace PrettyCats.DAL.Enteties
 
 		[StringLength(50)]
 		public string Phone { get; set; }
-
-		public virtual ICollection<Pets> Pets { get; set; }
 	}
 }

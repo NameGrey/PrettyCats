@@ -24,42 +24,34 @@ namespace PrettyCats.DAL.Repositories
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Owners>()
-				.HasMany(e => e.Pets)
-				.WithRequired(e => e.Owners)
-				.HasForeignKey(e => e.OwnerID)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<Pages>()
-				.Property(e => e.Content)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<PetBreeds>()
-				.Property(e => e.Description)
-				.IsUnicode(false);
-
-			modelBuilder.Entity<PetBreeds>()
-				.HasMany(e => e.Pets)
-				.WithRequired(e => e.PetBreeds)
-				.HasForeignKey(e => e.BreedID)
+			modelBuilder.Entity<Pets>()
+				.HasRequired(i=>i.Owners)
+				.WithMany()
+				.HasForeignKey(i=>i.OwnerID)
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Pets>()
-				.Property(e => e.UnderThePictureText)
-				.IsUnicode(false);
+				.HasOptional(i => i.Mother)
+				.WithMany()
+				.HasForeignKey(i => i.MotherID)
+				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Pets>()
-				.HasMany(e => e.Pictures)
-				.WithMany(e => e.Pets)
-				.Map(m => m.ToTable("PetPictures").MapLeftKey("KittenID").MapRightKey("PictureID"));
+				.HasOptional(i => i.Father)
+				.WithMany()
+				.HasForeignKey(i => i.FatherID)
+				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<Pictures>()
-				.Property(e => e.Image)
-				.IsUnicode(false);
+			modelBuilder.Entity<Pets>()
+				.HasRequired(i=>i.PetBreeds)
+				.WithMany()
+				.HasForeignKey(i=>i.BreedID)
+				.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<Pictures>()
-				.Property(e => e.ImageSmall)
-				.IsUnicode(false);
+			modelBuilder.Entity<Pets>()
+				.HasRequired(i => i.DisplayPlace)
+				.WithMany()
+				.HasForeignKey(i => i.WhereDisplay);
 		}
 	}
 }

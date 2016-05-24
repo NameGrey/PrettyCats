@@ -5,11 +5,6 @@ namespace PrettyCats.DAL.Enteties
 {
 	public class Pictures: IEntity
 	{
-		public Pictures()
-		{
-			Pets = new HashSet<Pets>();
-		}
-
 		public int ID { get; set; }
 
 		public string Image { get; set; }
@@ -21,6 +16,10 @@ namespace PrettyCats.DAL.Enteties
 
 		public int Order { get; set; }
 
-		public virtual ICollection<Pets> Pets { get; set; }
+		public bool IsMainPicture { get; set; }
+
+		public int PetID { get; set; }
+
+		public Pets Pet { get; set; }
 	}
 }

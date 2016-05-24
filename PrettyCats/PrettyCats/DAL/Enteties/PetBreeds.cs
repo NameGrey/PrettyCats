@@ -5,11 +5,6 @@ namespace PrettyCats.DAL.Enteties
 {
 	public class PetBreeds: IEntity
 	{
-		public PetBreeds()
-		{
-			Pets = new HashSet<Pets>();
-		}
-
 		public int ID { get; set; }
 
 		[Required]
@@ -20,7 +15,5 @@ namespace PrettyCats.DAL.Enteties
 		public string RussianName { get; set; }
 
 		public string Description { get; set; }
-
-		public virtual ICollection<Pets> Pets { get; set; }
 	}
 }

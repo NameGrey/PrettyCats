@@ -93,20 +93,20 @@ namespace PrettyCats.Controllers
 			var petBreeds = breedsRepository.GetCollection();
 			var owners = ownersRepository.GetCollection();
 			var displayPlaces = displayPlacesRepository.GetCollection();
-
-			return pets.Select(pet => new KittenOnTheAdminPageModelView()
-			{
-				ID = pet.ID,
-				Name = pet.Name,
-				PictureID = pet.PictureID,
-				RussianName = pet.RussianName,
-				PlaceOfDisplaying = displayPlacesRepository.GetByID(pet.WhereDisplay.Value).PlaceOfDisplaying,
-				ImageUrl = pictures.FirstOrDefault(i => i.ID == pet.PictureID)?.Image,
-				AllParents = allPets.Where(i=>i.IsParent).ToList(),
-				DisplayPlaces = displayPlaces.ToList(),
-				Breeds = petBreeds.ToList(),
-				Owners = owners.ToList()
-			});
+			return null; //TODO: Replace using Automapper!!!
+						 //return pets.Select(pet => new KittenOnTheAdminPageModelView()
+						 //{
+						 //	ID = pet.ID,
+						 //	Name = pet.Name,
+						 //	PictureID = pet.PictureID,
+						 //	RussianName = pet.RussianName,
+						 //	PlaceOfDisplaying = displayPlacesRepository.GetByID(pet.WhereDisplay.Value).PlaceOfDisplaying,
+						 //	ImageUrl = pictures.FirstOrDefault(i => i.ID == pet.PictureID)?.Image,
+						 //	AllParents = allPets.Where(i=>i.IsParent).ToList(),
+						 //	DisplayPlaces = displayPlaces.ToList(),
+						 //	Breeds = petBreeds.ToList(),
+						 //	Owners = owners.ToList()
+						 //});
 		}
 
 		[Authorize]
@@ -252,45 +252,45 @@ namespace PrettyCats.Controllers
 			var pets = kittensRepository.GetCollection().ToList();
 			var petBreeds = breedsRepository.GetCollection();
 			var owners = ownersRepository.GetCollection();
+			//TODO: Replace using Automapper!!!
+			//var result = from pet in pets
+			//	join mother in pets on pet.MotherID equals mother.ID into outerMother
+			//	from leftOuterMother in outerMother.DefaultIfEmpty()
+			//	join father in pets on pet.FatherID equals father.ID into outerFather
+			//	from leftOuterFather in outerFather.DefaultIfEmpty()
+			//	join breed in petBreeds on pet.BreedID equals breed.ID
+			//	join owner in owners on pet.OwnerID equals owner.ID
+			//	where pet.ID == id
+			//	select
 
-			var result = from pet in pets
-				join mother in pets on pet.MotherID equals mother.ID into outerMother
-				from leftOuterMother in outerMother.DefaultIfEmpty()
-				join father in pets on pet.FatherID equals father.ID into outerFather
-				from leftOuterFather in outerFather.DefaultIfEmpty()
-				join breed in petBreeds on pet.BreedID equals breed.ID
-				join owner in owners on pet.OwnerID equals owner.ID
-				where pet.ID == id
-				select
+			//		new AddKittenModelView(breedsRepository.GetCollection(), ownersRepository.GetCollection(),
+			//	kittensRepository.GetCollection().Where(i => i.IsParent), displayPlacesRepository.GetCollection())
+			//		{
+			//			ID = pet.ID,
+			//			PictureID = pet.PictureID,
+			//			Name = pet.Name,
+			//			RussianName = pet.RussianName,
+			//			OwnerID = pet.OwnerID,
+			//			WhereDisplay = pet.WhereDisplay,
+			//			IsParent = pet.IsParent,
+			//			BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+			//			BreedID = pet.BreedID,
+			//			BreedName = breed.RussianName,
+			//			Color = pet.Color,
+			//			FatherID = pet.FatherID,
+			//			FatherName = leftOuterFather != null ? leftOuterFather.RussianName : String.Empty,
+			//			IsInArchive = pet.IsInArchive,
+			//			MotherID = pet.MotherID,
+			//			MotherName = leftOuterMother != null ? leftOuterMother.RussianName : String.Empty,
+			//			OwnerName = owner.Name,
+			//			OwnerPhone = owner.Phone,
+			//			UnderThePictureText = pet.UnderThePictureText,
+			//			VideoUrl = pet.VideoUrl,
+			//			Price = pet.Price,
+			//			Status = pet.Status
+			//		};
 
-					new AddKittenModelView(breedsRepository.GetCollection(), ownersRepository.GetCollection(),
-				kittensRepository.GetCollection().Where(i => i.IsParent), displayPlacesRepository.GetCollection())
-					{
-						ID = pet.ID,
-						PictureID = pet.PictureID,
-						Name = pet.Name,
-						RussianName = pet.RussianName,
-						OwnerID = pet.OwnerID,
-						WhereDisplay = pet.WhereDisplay,
-						IsParent = pet.IsParent,
-						BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-						BreedID = pet.BreedID,
-						BreedName = breed.RussianName,
-						Color = pet.Color,
-						FatherID = pet.FatherID,
-						FatherName = leftOuterFather != null ? leftOuterFather.RussianName : String.Empty,
-						IsInArchive = pet.IsInArchive,
-						MotherID = pet.MotherID,
-						MotherName = leftOuterMother != null ? leftOuterMother.RussianName : String.Empty,
-						OwnerName = owner.Name,
-						OwnerPhone = owner.Phone,
-						UnderThePictureText = pet.UnderThePictureText,
-						VideoUrl = pet.VideoUrl,
-						Price = pet.Price,
-						Status = pet.Status
-					};
-
-			return result.FirstOrDefault();
+			return null;//result.FirstOrDefault();
 		}
 
 		[Authorize]
@@ -371,10 +371,8 @@ namespace PrettyCats.Controllers
 		[Authorize]
 		public int RemovePicture(Pictures picture)
 		{
-			if (picture.Pets.Count > 0)
+			if (picture != null)
 			{
-				picture.Pets.First().Pictures.Remove(picture);
-
 				picturesRepository.Delete(picture.ID);
 
 				var smallKittenPath = picturesLinksConstructor.GetSmallKittenImageFileName(picture.Image);
@@ -477,13 +475,12 @@ namespace PrettyCats.Controllers
 
 			if (!String.IsNullOrEmpty(path))
 			{
-				picturesRepository.Insert(new Pictures() { Image = path });
+				picturesRepository.Insert(new Pictures() { Image = path, IsMainPicture = true});
 				picturesRepository.Save();
 
 				Pets kitten = kittensRepository.GetKittenByName(kittenName);
 				redirectTo = kitten.IsParent ? "AdminChangeParents" : "AdminChangeKittens";
 
-				kitten.PictureID = picturesRepository.GetCollection().FirstOrDefault(i=>i.Image == path)?.ID;
 				kittensRepository.Update(kitten);
 
 				//Save main photo for kittens main page.

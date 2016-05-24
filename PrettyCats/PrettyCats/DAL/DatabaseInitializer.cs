@@ -22,24 +22,21 @@ namespace PrettyCats.DAL
 					ID = 1,
 					Description = "",
 					RussianName = "Шотландцы",
-					Name = "Scotland",
-					Pets = new List<Pets>()
+					Name = "Scotland"
 				},
 				new PetBreeds()
 				{
 					ID = 2,
 					Description = "",
 					RussianName = "Мейн-куны",
-					Name = "Mainkun",
-					Pets = new List<Pets>()
+					Name = "Mainkun"
 				},
 				new PetBreeds()
 				{
 					ID = 3,
 					Description = "",
 					RussianName = "Бенгалы",
-					Name = "Bengal",
-					Pets = new List<Pets>()
+					Name = "Bengal"
 				}
 			});
 

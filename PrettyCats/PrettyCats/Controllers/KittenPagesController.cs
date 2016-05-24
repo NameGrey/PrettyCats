@@ -58,43 +58,43 @@ namespace PrettyCats.Controllers
 			var pictures = picturesRepository.GetCollection();
 			var petBreeds = breedsRepository.GetCollection();
 			var owners = ownersRepository.GetCollection();
+			//TODO: Replace using Automapper!!!
+			//var list = from pet in pets
+			//	join mother in pets on pet.MotherID equals mother.ID into outerMother
+			//	from leftOuterMother in outerMother.DefaultIfEmpty()
+			//	join father in pets on pet.FatherID equals father.ID into outerFather
+			//	from leftOuterFather in outerFather.DefaultIfEmpty()
+			//	join mainPicture in pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
+			//	from leftOuterMainPicture in outerMainPicture.DefaultIfEmpty()
+			//	join breed in petBreeds on pet.BreedID equals breed.ID
+			//	join owner in owners on pet.OwnerID equals owner.ID
+			//	where pet.ID == id
+			//	select
+			//		new KittenModelView()
+			//		{
+			//			BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
+			//			BreedID = pet.BreedID,
+			//			BreedName = breed.RussianName,
+			//			Color = pet.Color,
+			//			FatherID = pet.FatherID,
+			//			FatherName = leftOuterFather != null ? leftOuterFather.RussianName : string.Empty,
+			//			IsInArchive = pet.IsInArchive,
+			//			MotherID = pet.MotherID,
+			//			MotherName = leftOuterMother != null ? leftOuterMother.RussianName : string.Empty,
+			//			OwnerName = owner.Name,
+			//			OwnerPhone = owner.Phone,
+			//			UnderThePictureText = pet.UnderThePictureText,
+			//			VideoUrl = pet.VideoUrl,
+			//			Price = pet.Price,
+			//			IsParent = pet.IsParent,
+			//			Status = pet.Status,
+			//			MainImageCssClass = leftOuterMainPicture != null ? leftOuterMainPicture.CssClass : string.Empty,
+			//			MainImageSmallSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.Image : string.Empty,
+			//			MainImageStandartSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.ImageSmall : string.Empty,
+			//			Pictures = pet.Pictures
+			//		};
 
-			var list = from pet in pets
-				join mother in pets on pet.MotherID equals mother.ID into outerMother
-				from leftOuterMother in outerMother.DefaultIfEmpty()
-				join father in pets on pet.FatherID equals father.ID into outerFather
-				from leftOuterFather in outerFather.DefaultIfEmpty()
-				join mainPicture in pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
-				from leftOuterMainPicture in outerMainPicture.DefaultIfEmpty()
-				join breed in petBreeds on pet.BreedID equals breed.ID
-				join owner in owners on pet.OwnerID equals owner.ID
-				where pet.ID == id
-				select
-					new KittenModelView()
-					{
-						BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-						BreedID = pet.BreedID,
-						BreedName = breed.RussianName,
-						Color = pet.Color,
-						FatherID = pet.FatherID,
-						FatherName = leftOuterFather != null ? leftOuterFather.RussianName : string.Empty,
-						IsInArchive = pet.IsInArchive,
-						MotherID = pet.MotherID,
-						MotherName = leftOuterMother != null ? leftOuterMother.RussianName : string.Empty,
-						OwnerName = owner.Name,
-						OwnerPhone = owner.Phone,
-						UnderThePictureText = pet.UnderThePictureText,
-						VideoUrl = pet.VideoUrl,
-						Price = pet.Price,
-						IsParent = pet.IsParent,
-						Status = pet.Status,
-						MainImageCssClass = leftOuterMainPicture != null ? leftOuterMainPicture.CssClass : string.Empty,
-						MainImageSmallSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.Image : string.Empty,
-						MainImageStandartSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.ImageSmall : string.Empty,
-						Pictures = pet.Pictures
-					};
-
-			return list.FirstOrDefault();
+			return null; //list.FirstOrDefault();
 		}
 
 		private KittenShortModelView GetShortModelViewByKittenId(int id)
@@ -103,23 +103,23 @@ namespace PrettyCats.Controllers
 			var pictures = picturesRepository.GetCollection();
 			var petBreeds = breedsRepository.GetCollection();
 			var owners = ownersRepository.GetCollection();
-
-			return (from pet in pets
-					join picture in pictures on pet.PictureID equals picture.ID into outerPicture
-					from leftOuterPicture in outerPicture.DefaultIfEmpty()
-					join breed in petBreeds on pet.BreedID equals breed.ID
-					join owner in owners on pet.OwnerID equals owner.ID
-					where pet.ID == id
-					select
-						new KittenShortModelView()
-						{
-							ID = pet.ID,
-							PictureID = pet.PictureID,
-							ImageUrl = leftOuterPicture.Image,
-							IsParent = pet.IsParent,
-							RussianName = pet.RussianName,
-							Status = pet.Status
-						}).FirstOrDefault();
+			return null; //TODO: Replace using Automapper!!!
+						 //return (from pet in pets
+						 //		join picture in pictures on pet.PictureID equals picture.ID into outerPicture
+						 //		from leftOuterPicture in outerPicture.DefaultIfEmpty()
+						 //		join breed in petBreeds on pet.BreedID equals breed.ID
+						 //		join owner in owners on pet.OwnerID equals owner.ID
+						 //		where pet.ID == id
+						 //		select
+						 //			new KittenShortModelView()
+						 //			{
+						 //				ID = pet.ID,
+						 //				PictureID = pet.PictureID,
+						 //				ImageUrl = leftOuterPicture.Image,
+						 //				IsParent = pet.IsParent,
+						 //				RussianName = pet.RussianName,
+						 //				Status = pet.Status
+						 //			}).FirstOrDefault();
 		}
 
 		private IEnumerable<KittenShortModelView> ConvertToShortKittenModelView(IEnumerable<Pets> pets)
@@ -127,22 +127,22 @@ namespace PrettyCats.Controllers
 			var pictures = picturesRepository.GetCollection();
 			var petBreeds = breedsRepository.GetCollection();
 			var owners = ownersRepository.GetCollection();
-
-			return (from pet in pets
-					join picture in pictures on pet.PictureID equals picture.ID into outerPicture
-					from leftOuterPicture in outerPicture.DefaultIfEmpty()
-					join breed in petBreeds on pet.BreedID equals breed.ID
-					join owner in owners on pet.OwnerID equals owner.ID
-					select
-						new KittenShortModelView()
-						{
-							ID = pet.ID,
-							PictureID = pet.PictureID,
-							ImageUrl = leftOuterPicture.Image,
-							IsParent = pet.IsParent,
-							RussianName = pet.RussianName,
-							Status = pet.Status
-						});
+			return null; //TODO: Replace using Automapper!!!
+						 //return (from pet in pets
+						 //		join picture in pictures on pet.PictureID equals picture.ID into outerPicture
+						 //		from leftOuterPicture in outerPicture.DefaultIfEmpty()
+						 //		join breed in petBreeds on pet.BreedID equals breed.ID
+						 //		join owner in owners on pet.OwnerID equals owner.ID
+						 //		select
+						 //			new KittenShortModelView()
+						 //			{
+						 //				ID = pet.ID,
+						 //				PictureID = pet.PictureID,
+						 //				ImageUrl = leftOuterPicture.Image,
+						 //				IsParent = pet.IsParent,
+						 //				RussianName = pet.RussianName,
+						 //				Status = pet.Status
+						 //			});
 		}
 
 		[Route("parent-kitten-page/{id}")]

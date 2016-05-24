@@ -34,8 +34,6 @@ namespace PrettyCats.DAL.Enteties
 
 		public int? FatherID { get; set; }
 
-		public int? PictureID { get; set; }
-
 		public int? WhereDisplay { get; set; }
 
 		[StringLength(50)]
@@ -56,7 +54,12 @@ namespace PrettyCats.DAL.Enteties
 		public virtual Owners Owners { get; set; }
 
 		public virtual PetBreeds PetBreeds { get; set; }
-		
+
+		public Pets Mother { get; set; }
+
+		public Pets Father { get; set; }
+
 		public virtual ICollection<Pictures> Pictures { get; set; }
+		public virtual DisplayPlaces DisplayPlace { get; set; }
 	}
 }
