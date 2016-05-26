@@ -272,9 +272,6 @@
     <Folder Include="Resources\Kittens\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\PrettyCats.DAL\PrettyCats.DAL.csproj">
       <Project>{e871f8f4-3556-4b81-8dd0-a2e9a686665b}</Project>
       <Name>PrettyCats.DAL</Name>
