@@ -16,14 +16,5 @@ namespace PrettyCats.Models
 		public List<Owners> Owners { get; set; }
 		public List<Pets> AllParents { get; set; }
 		public List<DisplayPlaces> DisplayPlaces { get; set; }
-
-		public AddKittenModelView(IEnumerable<PetBreeds> breeds, IEnumerable<Owners> owners, IEnumerable<Pets> allParents,
-			IEnumerable<DisplayPlaces> displayPlaces)
-		{
-			Breeds = breeds.ToList();
-			Owners = owners.ToList();
-			AllParents = allParents.ToList();
-			DisplayPlaces = displayPlaces.ToList();
-		}
 	}
 }

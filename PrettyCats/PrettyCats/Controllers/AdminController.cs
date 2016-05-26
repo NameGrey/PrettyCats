@@ -48,6 +48,38 @@ namespace PrettyCats.Controllers
 			displayPlacesRepository = new DbDisplayPlacesRepository(newContext);
 
 			picturesLinksConstructor = new PicturesLinksConstructor();
+			CustomizeAutomapper();
+		}
+
+		private void CustomizeAutomapper()
+		{
+			AutoMapper.Mapper.Initialize(cfg =>
+			{
+				cfg.CreateMap<Pets, KittenOnTheAdminPageModelView>()
+					.ForMember(i => i.PlaceOfDisplaying, i => i.MapFrom(m => m.DisplayPlace.PlaceOfDisplaying))
+					.ForMember(i => i.ImageUrl,
+						i => i.MapFrom(
+							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First().Image : string.Empty))
+					.ForMember(i => i.AllParents, i => i.UseValue(kittensRepository.GetCollection().Where(el => el.IsParent)))
+					.ForMember(i => i.DisplayPlaces, i => i.UseValue(displayPlacesRepository.GetCollection()))
+					.ForMember(i => i.Breeds, i => i.UseValue(breedsRepository.GetCollection()))
+					.ForMember(i => i.Owners, i => i.UseValue(ownersRepository.GetCollection()))
+					.ForMember(i => i.PictureID,
+						i => i.MapFrom(
+							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? (int?) src.Pictures.First().ID : null));
+
+				cfg.CreateMap<Pets, AddKittenModelView>()
+					.ForMember(i => i.BreedName, i => i.MapFrom(src => src.PetBreeds != null ? src.PetBreeds.RussianName : string.Empty))
+					.ForMember(i => i.FatherName, i => i.MapFrom(src => src.Father != null ? src.Father.RussianName : string.Empty))
+					.ForMember(i => i.MotherName, i => i.MapFrom(src => src.Mother != null ? src.Mother.RussianName : string.Empty))
+					.ForMember(i => i.OwnerName, i => i.MapFrom(src => src.Owners != null ? src.Owners.Name : string.Empty))
+					.ForMember(i => i.OwnerPhone, i => i.MapFrom(src => src.Owners != null ? src.Owners.Phone : string.Empty))
+					.ForMember(i => i.Owners, i=>i.UseValue(ownersRepository.GetCollection()))
+					.ForMember(i => i.AllParents, i => i.UseValue(kittensRepository.GetCollection().Where(el => el.IsParent)))
+					.ForMember(i => i.DisplayPlaces, i => i.UseValue(displayPlacesRepository.GetCollection()))
+					.ForMember(i => i.Breeds, i => i.UseValue(breedsRepository.GetCollection()));
+			});
+
 		}
 
 		protected override void OnException(ExceptionContext filterContext)
@@ -76,45 +108,27 @@ namespace PrettyCats.Controllers
 		[Authorize]
 		public ActionResult AdminChangeKittens()
 		{
-			var v = kittensRepository.GetCollection().Where(e=>!e.IsParent && !e.IsInArchive);
-			return View("AdminChangeKittens", ConvertToKittenOnTheAdminPageModelView(v));
+			return GetKittensCollectionView(false, false);
 		}
 
 		[Authorize]
 		public ActionResult AdminChangeKittensArchive()
 		{
-			var v = kittensRepository.GetCollection().Where(e => !e.IsParent && e.IsInArchive);
-			return View("AdminChangeKittens", ConvertToKittenOnTheAdminPageModelView(v));
+			return GetKittensCollectionView(false, true);
 		}
 
-		private IEnumerable<KittenOnTheAdminPageModelView> ConvertToKittenOnTheAdminPageModelView(IEnumerable<Pets> pets)
+		private ActionResult GetKittensCollectionView(bool isParent, bool isInArchive)
 		{
-			var allPets = kittensRepository.GetCollection();
-			var pictures = picturesRepository.GetCollection();
-			var petBreeds = breedsRepository.GetCollection();
-			var owners = ownersRepository.GetCollection();
-			var displayPlaces = displayPlacesRepository.GetCollection();
-			return null; //TODO: Replace using Automapper!!!
-						 //return pets.Select(pet => new KittenOnTheAdminPageModelView()
-						 //{
-						 //	ID = pet.ID,
-						 //	Name = pet.Name,
-						 //	PictureID = pet.PictureID,
-						 //	RussianName = pet.RussianName,
-						 //	PlaceOfDisplaying = displayPlacesRepository.GetByID(pet.WhereDisplay.Value).PlaceOfDisplaying,
-						 //	ImageUrl = pictures.FirstOrDefault(i => i.ID == pet.PictureID)?.Image,
-						 //	AllParents = allPets.Where(i=>i.IsParent).ToList(),
-						 //	DisplayPlaces = displayPlaces.ToList(),
-						 //	Breeds = petBreeds.ToList(),
-						 //	Owners = owners.ToList()
-						 //});
+			var kittens = kittensRepository.GetCollection().Where(e => e.IsParent == isParent && e.IsInArchive == isInArchive);
+			var kittensModelViews = AutoMapper.Mapper.Map<IEnumerable<Pets>, IEnumerable<KittenOnTheAdminPageModelView>>(kittens);
+
+			return View(isParent ? "AdminChangeParents" : "AdminChangeKittens", kittensModelViews);
 		}
 
 		[Authorize]
 		public ActionResult AdminChangeParents()
 		{
-			var v = kittensRepository.GetCollection().Where(e => e.IsParent);
-			return View("AdminChangeParents", v);
+			return GetKittensCollectionView(true, false);
 		}
 
 		public ActionResult KittenOnTheAdminPageHtml()
@@ -140,6 +154,7 @@ namespace PrettyCats.Controllers
 		public int KittenPictureChangeOrder(int id, int newOrder)
 		{
 			picturesRepository.SetNewOrderForPicture(id, newOrder);
+			picturesRepository.Save();
 
 			return newOrder;
 		}
@@ -153,6 +168,8 @@ namespace PrettyCats.Controllers
 			foreach (var pict in json)
 			{
 				picturesRepository.SetNewOrderForPicture(pict.ID, pict.Order);
+				picturesRepository.Save();
+
 				result.Add(picturesRepository.GetByID(pict.ID));
 			}
 			
@@ -214,26 +231,32 @@ namespace PrettyCats.Controllers
 			newKitten.IsParent = isParent;
 
 			kittensRepository.Insert(newKitten);
+			kittensRepository.Save();
 		}
 
 		[Authorize]
 		[HttpGet]
 		public ActionResult AddKitten()
 		{
-			var newKitten = new AddKittenModelView(breedsRepository.GetCollection(), ownersRepository.GetCollection(),
-				kittensRepository.GetCollection().Where(i => !i.IsParent), displayPlacesRepository.GetCollection());
-
-			return View(newKitten);
+			return View(CreateAddKittenModelView(false));
 		}
 
 		[Authorize]
 		[HttpGet]
 		public ActionResult AddParentCat()
 		{
-			var newParent = new AddKittenModelView(breedsRepository.GetCollection(), ownersRepository.GetCollection(),
-				kittensRepository.GetCollection().Where(i => i.IsParent), displayPlacesRepository.GetCollection());
+			return View(CreateAddKittenModelView(true));
+		}
 
-			return View(newParent);
+		private AddKittenModelView CreateAddKittenModelView(bool isParent)
+		{
+			return new AddKittenModelView()
+			{
+				Breeds = breedsRepository.GetCollection().ToList(),
+				Owners = ownersRepository.GetCollection().ToList(),
+				AllParents = kittensRepository.GetCollection().Where(i => i.IsParent == isParent).ToList(),
+				DisplayPlaces = displayPlacesRepository.GetCollection().ToList()
+			};
 		}
 
 		[Authorize]
@@ -250,48 +273,8 @@ namespace PrettyCats.Controllers
 
 		private AddKittenModelView GetModelViewByKittenId(int id)
 		{
-			var pets = kittensRepository.GetCollection().ToList();
-			var petBreeds = breedsRepository.GetCollection();
-			var owners = ownersRepository.GetCollection();
-			//TODO: Replace using Automapper!!!
-			//var result = from pet in pets
-			//	join mother in pets on pet.MotherID equals mother.ID into outerMother
-			//	from leftOuterMother in outerMother.DefaultIfEmpty()
-			//	join father in pets on pet.FatherID equals father.ID into outerFather
-			//	from leftOuterFather in outerFather.DefaultIfEmpty()
-			//	join breed in petBreeds on pet.BreedID equals breed.ID
-			//	join owner in owners on pet.OwnerID equals owner.ID
-			//	where pet.ID == id
-			//	select
-
-			//		new AddKittenModelView(breedsRepository.GetCollection(), ownersRepository.GetCollection(),
-			//	kittensRepository.GetCollection().Where(i => i.IsParent), displayPlacesRepository.GetCollection())
-			//		{
-			//			ID = pet.ID,
-			//			PictureID = pet.PictureID,
-			//			Name = pet.Name,
-			//			RussianName = pet.RussianName,
-			//			OwnerID = pet.OwnerID,
-			//			WhereDisplay = pet.WhereDisplay,
-			//			IsParent = pet.IsParent,
-			//			BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-			//			BreedID = pet.BreedID,
-			//			BreedName = breed.RussianName,
-			//			Color = pet.Color,
-			//			FatherID = pet.FatherID,
-			//			FatherName = leftOuterFather != null ? leftOuterFather.RussianName : String.Empty,
-			//			IsInArchive = pet.IsInArchive,
-			//			MotherID = pet.MotherID,
-			//			MotherName = leftOuterMother != null ? leftOuterMother.RussianName : String.Empty,
-			//			OwnerName = owner.Name,
-			//			OwnerPhone = owner.Phone,
-			//			UnderThePictureText = pet.UnderThePictureText,
-			//			VideoUrl = pet.VideoUrl,
-			//			Price = pet.Price,
-			//			Status = pet.Status
-			//		};
-
-			return null;//result.FirstOrDefault();
+			var pet = kittensRepository.GetByID(id);
+			return AutoMapper.Mapper.Map<Pets, AddKittenModelView>(pet);
 		}
 
 		[Authorize]
@@ -315,6 +298,7 @@ namespace PrettyCats.Controllers
 			RemoveAllPictures(kitten.Pictures.ToList());
 
 			kittensRepository.Delete(kitten.ID);
+			kittensRepository.Save();
 
 			return RedirectToAction(redirectTo);
 		}
@@ -341,6 +325,7 @@ namespace PrettyCats.Controllers
 			kitten.PetBreeds = breedsRepository.GetByID(kitten.BreedID);
 
 			kittensRepository.Update(kitten);
+			kittensRepository.Save();
 
 			return RedirectToAction(redirectTo);
 		}
@@ -375,6 +360,7 @@ namespace PrettyCats.Controllers
 			if (picture != null)
 			{
 				picturesRepository.Delete(picture.ID);
+				picturesRepository.Save();
 
 				var smallKittenPath = picturesLinksConstructor.GetSmallKittenImageFileName(picture.Image);
 
@@ -435,6 +421,7 @@ namespace PrettyCats.Controllers
 						CssClass = savedImage.Width > savedImage.Height ? DBKittensRepository.SmallImageHorizontal : DBKittensRepository.SmallImageVertical
 					});
 
+					kittensRepository.Save();
 				}
 			}
 		}
@@ -476,13 +463,15 @@ namespace PrettyCats.Controllers
 
 			if (!String.IsNullOrEmpty(path))
 			{
-				picturesRepository.Insert(new Pictures() { Image = path, IsMainPicture = true});
-				picturesRepository.Save();
-
 				Pets kitten = kittensRepository.GetKittenByName(kittenName);
+
+				picturesRepository.Insert(new Pictures() { Image = path, IsMainPicture = true, Pet = kitten, PetID = kitten.ID});
+				picturesRepository.Save();
+				
 				redirectTo = kitten.IsParent ? "AdminChangeParents" : "AdminChangeKittens";
 
 				kittensRepository.Update(kitten);
+				kittensRepository.Save();
 
 				//Save main photo for kittens main page.
 				AddPhoto(copy, kittenName);

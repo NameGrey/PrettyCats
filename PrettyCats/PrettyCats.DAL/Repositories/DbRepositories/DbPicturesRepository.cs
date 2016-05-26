@@ -54,7 +54,7 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 		public void Delete(int id)
 		{
-			throw new System.NotImplementedException();
+			dbContext.Pictures.Remove(dbContext.Pictures.Find(id));
 		}
 
 		public void Update(Pictures pet)
