@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using PrettyCats.DAL;
+using PrettyCats.DAL.Entities;
 using PrettyCats.Helpers;
 
 namespace PrettyCats.Controllers

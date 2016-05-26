@@ -48,12 +48,6 @@
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>Libraries\log4net.dll</HintPath>
     </Reference>
@@ -207,28 +201,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformPageController.cs" />
     <Compile Include="Controllers\KittenPagesController.cs" />
-    <Compile Include="DAL\DatabaseInitializer.cs" />
-    <Compile Include="DAL\Repositories\DbRepositories\DbDisplayPlacesRepository.cs" />
-    <Compile Include="DAL\Repositories\DbRepositories\DbOwnersRepository.cs" />
-    <Compile Include="DAL\Repositories\DbRepositories\DBKittensRepository.cs" />
-    <Compile Include="DAL\Repositories\DbRepositories\DbBreedsRepository.cs" />
-    <Compile Include="DAL\Repositories\DbRepositories\DbPicturesRepository.cs" />
-    <Compile Include="DAL\Entities\DisplayPlaces.cs" />
-    <Compile Include="DAL\Entities\IEntity.cs" />
-    <Compile Include="DAL\Repositories\IKittenDisplayPlaceRepository.cs" />
-    <Compile Include="DAL\Repositories\IKittenOwnerRepository.cs" />
-    <Compile Include="DAL\Repositories\IKittenBreedRepository.cs" />
-    <Compile Include="DAL\Repositories\IKittensRepository.cs" />
-    <Compile Include="DAL\Repositories\IPicturesRepository.cs" />
-    <Compile Include="DAL\Repositories\IReadOnlyRepository.cs" />
-    <Compile Include="DAL\Entities\Owners.cs" />
-    <Compile Include="DAL\Entities\Pages.cs" />
-    <Compile Include="DAL\Entities\PetBreeds.cs" />
-    <Compile Include="DAL\Entities\Pets.cs" />
-    <Compile Include="DAL\Entities\Pictures.cs" />
-    <Compile Include="DAL\Repositories\IRepository.cs" />
-    <Compile Include="DAL\Services\PicturesLinksConstructor.cs" />
-    <Compile Include="DAL\StorageContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -237,11 +209,6 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
-    <Compile Include="Migrations\201605241004044_InitialCreate.cs" />
-    <Compile Include="Migrations\201605241004044_InitialCreate.Designer.cs">
-      <DependentUpon>201605241004044_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\KittenShortModelView.cs" />
     <Compile Include="Models\KittenOnTheAdminPageModelView.cs" />
     <Compile Include="Models\AddKittenModelView.cs" />
@@ -306,9 +273,13 @@
     <Folder Include="Resources\Kittens\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605241004044_InitialCreate.resx">
-      <DependentUpon>201605241004044_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrettyCats.DAL\PrettyCats.DAL.csproj">
+      <Project>{e871f8f4-3556-4b81-8dd0-a2e9a686665b}</Project>
+      <Name>PrettyCats.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
-using PrettyCats.DAL.Enteties;
+using PrettyCats.DAL;
+using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.DAL.Repositories.DbRepositories;
 using PrettyCats.Helpers;
