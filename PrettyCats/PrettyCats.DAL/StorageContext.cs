@@ -52,6 +52,11 @@ namespace PrettyCats.DAL
 				.HasRequired(i => i.DisplayPlace)
 				.WithMany()
 				.HasForeignKey(i => i.WhereDisplay);
+
+			modelBuilder.Entity<Pictures>()
+				.HasRequired(i => i.Pet)
+				.WithMany(el => el.Pictures)
+				.HasForeignKey(i => i.PetID);
 		}
 	}
 }

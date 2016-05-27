@@ -7,6 +7,8 @@ namespace PrettyCats.DAL.Entities
 {
 	public class Pets: IEntity
 	{
+		private const string HiddenName = "Не отображать";
+
 		public Pets()
 		{
 			Pictures = new HashSet<Pictures>();
@@ -59,7 +61,10 @@ namespace PrettyCats.DAL.Entities
 
 		public Pets Father { get; set; }
 
-		public virtual ICollection<Pictures> Pictures { get; set; }
-		public virtual DisplayPlaces DisplayPlace { get; set; }
+		public ICollection<Pictures> Pictures { get; set; }
+		public DisplayPlaces DisplayPlace { get; set; }
+
+		[NotMapped]
+		public bool IsHidden => DisplayPlace != null && DisplayPlace.PlaceOfDisplaying != HiddenName;
 	}
 }

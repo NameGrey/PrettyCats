@@ -1,6 +1,6 @@
 ﻿namespace PrettyCats.Models
 {
-    public class KittenShortModelView
+	public class KittenShortModelView
 	{
 		public int ID { get; set; }
 		public int? PictureID { get; set; }
@@ -13,5 +13,5 @@
 
 		public string Status { get; set; }
 
-    }
+	}
 }

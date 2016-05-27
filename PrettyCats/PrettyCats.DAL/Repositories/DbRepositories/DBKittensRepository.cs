@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using PrettyCats.DAL.Entities;
@@ -27,7 +28,7 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 			public IEnumerable<Pets> GetCollection()
 			{
-				return dbContext.Pets;
+				return dbContext.Pets.Include(b=>b.Pictures);
 			}
 
 			#endregion

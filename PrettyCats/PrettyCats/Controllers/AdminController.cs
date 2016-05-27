@@ -59,16 +59,17 @@ namespace PrettyCats.Controllers
 					.ForMember(i => i.PlaceOfDisplaying, i => i.MapFrom(m => m.DisplayPlace.PlaceOfDisplaying))
 					.ForMember(i => i.ImageUrl,
 						i => i.MapFrom(
-							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First().Image : string.Empty))
+							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First(el => el.IsMainPicture).Image : string.Empty))
 					.ForMember(i => i.AllParents, i => i.UseValue(kittensRepository.GetCollection().Where(el => el.IsParent)))
 					.ForMember(i => i.DisplayPlaces, i => i.UseValue(displayPlacesRepository.GetCollection()))
 					.ForMember(i => i.Breeds, i => i.UseValue(breedsRepository.GetCollection()))
 					.ForMember(i => i.Owners, i => i.UseValue(ownersRepository.GetCollection()))
 					.ForMember(i => i.PictureID,
 						i => i.MapFrom(
-							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? (int?) src.Pictures.First().ID : null));
+							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? (int?) src.Pictures.First(el => el.IsMainPicture).ID : null));
 
 				cfg.CreateMap<Pets, AddKittenModelView>()
+					.ForMember(i => i.BirthDate, i => i.MapFrom(src => src.BirthDate != null ? ((DateTime)src.BirthDate).ToString("dd.MM.yyyy") : string.Empty))
 					.ForMember(i => i.BreedName, i => i.MapFrom(src => src.PetBreeds != null ? src.PetBreeds.RussianName : string.Empty))
 					.ForMember(i => i.FatherName, i => i.MapFrom(src => src.Father != null ? src.Father.RussianName : string.Empty))
 					.ForMember(i => i.MotherName, i => i.MapFrom(src => src.Mother != null ? src.Mother.RussianName : string.Empty))

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.ClientServices.Providers;
 using System.Web.Mvc;
+using AutoMapper;
 using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
@@ -30,10 +33,28 @@ namespace PrettyCats.Controllers
 
 		private void CustomizeMapper()
 		{
-			//Mapper.Initialize(cfg => cfg.CreateMap<Pets, KittenModelView>()
-			//.ForMember(dest => dest.BreedName, src => src.MapFrom(pet => pet.PetBreeds.RussianName))
-			//.ForMember(dest => dest.FatherName, src => src.MapFrom(c=>kittensRepository.GetCollection().FirstOrDefault(p=>p.ID == c.FatherID).RussianName))
-			//.ForMember(dest => dest.MotherName, src => src.MapFrom(c => kittensRepository.GetCollection().FirstOrDefault(p => p.ID == c.MotherID).RussianName)));
+			Mapper.Initialize(cfg=>
+			{
+				cfg.CreateMap<Pets, KittenModelView>()
+					.ForMember(i => i.BirthDate, i => i.MapFrom(src => src.BirthDate != null ? ((DateTime) src.BirthDate).ToString("dd.MM.yyyy") : string.Empty))
+					.ForMember(i => i.BreedName, i => i.MapFrom(src => src.PetBreeds != null ? src.PetBreeds.RussianName : string.Empty))
+					.ForMember(i => i.FatherName, i => i.MapFrom(src => src.Father != null ? src.Father.RussianName : string.Empty))
+					.ForMember(i => i.MotherName, i => i.MapFrom(src => src.Mother != null ? src.Mother.RussianName : string.Empty))
+					.ForMember(i => i.OwnerName, i => i.MapFrom(src => src.Owners != null ? src.Owners.Name : string.Empty))
+					.ForMember(i => i.OwnerPhone, i => i.MapFrom(src => src.Owners != null ? src.Owners.Phone : string.Empty))
+					.ForMember(i => i.MainImageSmallSizeUrl, 
+						i=>i.MapFrom(src=>src.Pictures.FirstOrDefault(el=>el.IsMainPicture) != null ? src.Pictures.First(el=>el.IsMainPicture).ImageSmall : string.Empty))
+					.ForMember(i => i.MainImageStandartSizeUrl,
+						i => i.MapFrom(src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First(el => el.IsMainPicture).Image : string.Empty))
+					.ForMember(i=>i.Pictures, i=>i.UseValue(picturesRepository.GetCollection()));
+
+				cfg.CreateMap<Pets, KittenShortModelView>()
+					.ForMember(i=>i.PictureID, 
+						i=>i.MapFrom(src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? (int?)src.Pictures.First(el => el.IsMainPicture).ID : null))
+					.ForMember(i => i.ImageUrl, 
+						i => i.MapFrom(src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First(el => el.IsMainPicture).Image : string.Empty));
+
+			});
 		}
 		protected override void OnException(ExceptionContext filterContext)
 		{
@@ -54,95 +75,21 @@ namespace PrettyCats.Controllers
 
 		private KittenModelView GetModelViewByKittenId(int id)
 		{
-			var pets = kittensRepository.GetCollection().ToList();
-			var pictures = picturesRepository.GetCollection();
-			var petBreeds = breedsRepository.GetCollection();
-			var owners = ownersRepository.GetCollection();
-			//TODO: Replace using Automapper!!!
-			//var list = from pet in pets
-			//	join mother in pets on pet.MotherID equals mother.ID into outerMother
-			//	from leftOuterMother in outerMother.DefaultIfEmpty()
-			//	join father in pets on pet.FatherID equals father.ID into outerFather
-			//	from leftOuterFather in outerFather.DefaultIfEmpty()
-			//	join mainPicture in pictures on pet.PictureID equals mainPicture.ID into outerMainPicture
-			//	from leftOuterMainPicture in outerMainPicture.DefaultIfEmpty()
-			//	join breed in petBreeds on pet.BreedID equals breed.ID
-			//	join owner in owners on pet.OwnerID equals owner.ID
-			//	where pet.ID == id
-			//	select
-			//		new KittenModelView()
-			//		{
-			//			BirthDate = pet.BirthDate?.ToString("dd.MM.yyyy"),
-			//			BreedID = pet.BreedID,
-			//			BreedName = breed.RussianName,
-			//			Color = pet.Color,
-			//			FatherID = pet.FatherID,
-			//			FatherName = leftOuterFather != null ? leftOuterFather.RussianName : string.Empty,
-			//			IsInArchive = pet.IsInArchive,
-			//			MotherID = pet.MotherID,
-			//			MotherName = leftOuterMother != null ? leftOuterMother.RussianName : string.Empty,
-			//			OwnerName = owner.Name,
-			//			OwnerPhone = owner.Phone,
-			//			UnderThePictureText = pet.UnderThePictureText,
-			//			VideoUrl = pet.VideoUrl,
-			//			Price = pet.Price,
-			//			IsParent = pet.IsParent,
-			//			Status = pet.Status,
-			//			MainImageCssClass = leftOuterMainPicture != null ? leftOuterMainPicture.CssClass : string.Empty,
-			//			MainImageSmallSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.Image : string.Empty,
-			//			MainImageStandartSizeUrl = leftOuterMainPicture != null ? leftOuterMainPicture.ImageSmall : string.Empty,
-			//			Pictures = pet.Pictures
-			//		};
+			var kitten = kittensRepository.GetByID(id);
 
-			return null; //list.FirstOrDefault();
+			return Mapper.Map<Pets, KittenModelView>(kitten);
 		}
 
 		private KittenShortModelView GetShortModelViewByKittenId(int id)
 		{
-			var pets = kittensRepository.GetCollection().ToList();
-			var pictures = picturesRepository.GetCollection();
-			var petBreeds = breedsRepository.GetCollection();
-			var owners = ownersRepository.GetCollection();
-			return null; //TODO: Replace using Automapper!!!
-						 //return (from pet in pets
-						 //		join picture in pictures on pet.PictureID equals picture.ID into outerPicture
-						 //		from leftOuterPicture in outerPicture.DefaultIfEmpty()
-						 //		join breed in petBreeds on pet.BreedID equals breed.ID
-						 //		join owner in owners on pet.OwnerID equals owner.ID
-						 //		where pet.ID == id
-						 //		select
-						 //			new KittenShortModelView()
-						 //			{
-						 //				ID = pet.ID,
-						 //				PictureID = pet.PictureID,
-						 //				ImageUrl = leftOuterPicture.Image,
-						 //				IsParent = pet.IsParent,
-						 //				RussianName = pet.RussianName,
-						 //				Status = pet.Status
-						 //			}).FirstOrDefault();
+			var kitten = kittensRepository.GetByID(id);
+
+			return Mapper.Map<Pets, KittenShortModelView>(kitten);
 		}
 
 		private IEnumerable<KittenShortModelView> ConvertToShortKittenModelView(IEnumerable<Pets> pets)
 		{
-			var pictures = picturesRepository.GetCollection();
-			var petBreeds = breedsRepository.GetCollection();
-			var owners = ownersRepository.GetCollection();
-			return null; //TODO: Replace using Automapper!!!
-						 //return (from pet in pets
-						 //		join picture in pictures on pet.PictureID equals picture.ID into outerPicture
-						 //		from leftOuterPicture in outerPicture.DefaultIfEmpty()
-						 //		join breed in petBreeds on pet.BreedID equals breed.ID
-						 //		join owner in owners on pet.OwnerID equals owner.ID
-						 //		select
-						 //			new KittenShortModelView()
-						 //			{
-						 //				ID = pet.ID,
-						 //				PictureID = pet.PictureID,
-						 //				ImageUrl = leftOuterPicture.Image,
-						 //				IsParent = pet.IsParent,
-						 //				RussianName = pet.RussianName,
-						 //				Status = pet.Status
-						 //			});
+			return Mapper.Map<IEnumerable<Pets>, IEnumerable<KittenShortModelView>>(pets);
 		}
 
 		[Route("parent-kitten-page/{id}")]
@@ -150,13 +97,6 @@ namespace PrettyCats.Controllers
 		{
 			ViewBag.BackLink = Request.UrlReferrer?.AbsoluteUri ?? "";
 			return View("ParentCatMainPage", GetModelViewByKittenId(id));
-		}
-
-		public ActionResult GetKittenHtml(int id)
-		{
-			var pets = kittensRepository.GetCollection().ToList();
-
-			return View(pets.Find(i=>i.ID == id));
 		}
 
 		public ActionResult KittenOnTheMainPageHtml(int id)
@@ -175,10 +115,9 @@ namespace PrettyCats.Controllers
 		[Route("parent-kittens")]
 		public ActionResult AllParents_old()
 		{
-			var pets = kittensRepository.GetCollection().ToList();
-			var v = pets.Where(i => i.IsParent && i.WhereDisplay != 3).ToList();
+			var parents = kittensRepository.GetCollection().Where(i => i.IsParent && !i.IsHidden).ToList();
 
-			return View("AllParents", v);
+			return View("AllParents", ConvertToShortKittenModelView(parents).ToList());
 		}
 
 		[Route("bengal-kittens")]
