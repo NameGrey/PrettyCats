@@ -9,11 +9,11 @@ namespace PrettyCats.Controllers
 {
 	public class HomeController : Controller
 	{
-		private IKittensRepository kittensRepository;
+		private IKittensRepository _kittensRepository;
 
 		public HomeController()
 		{
-			kittensRepository = new DBKittensRepository(new StorageContext());
+			_kittensRepository = new DBKittensRepository(new StorageContext());
 		}
 
 		protected override void OnException(ExceptionContext filterContext)
@@ -30,7 +30,7 @@ namespace PrettyCats.Controllers
 		// GET: Home
 		public ActionResult Index()
 		{
-			return View(kittensRepository.GetCollection().ToList());
+			return View(_kittensRepository.GetCollection().ToList());
 		}
 
 		public ActionResult Error()

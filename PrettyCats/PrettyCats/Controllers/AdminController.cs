@@ -27,27 +27,27 @@ namespace PrettyCats.Controllers
 			SmallSliderPicture
 		}
 
-		readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		static object lockObj = new object();
+		readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		static object _lockObj = new object();
 
-		private IKittensRepository kittensRepository;
-		private IPicturesRepository picturesRepository;
-		private IKittenBreedRepository breedsRepository;
-		private IKittenOwnerRepository ownersRepository;
-		private IKittenDisplayPlaceRepository displayPlacesRepository;
+		private IKittensRepository _kittensRepository;
+		private IPicturesRepository _picturesRepository;
+		private IKittenBreedRepository _breedsRepository;
+		private IKittenOwnerRepository _ownersRepository;
+		private IKittenDisplayPlaceRepository _displayPlacesRepository;
 
-		private PicturesLinksConstructor picturesLinksConstructor;
+		private PicturesLinksConstructor _picturesLinksConstructor;
 
 		public AdminController()
 		{
 			var newContext = new StorageContext();
-			kittensRepository = new DBKittensRepository(newContext);
-			picturesRepository = new DbPicturesRepository(newContext);
-			breedsRepository = new DbBreedsRepository(newContext);
-			ownersRepository = new DbOwnersRepository(newContext);
-			displayPlacesRepository = new DbDisplayPlacesRepository(newContext);
+			_kittensRepository = new DBKittensRepository(newContext);
+			_picturesRepository = new DbPicturesRepository(newContext);
+			_breedsRepository = new DbBreedsRepository(newContext);
+			_ownersRepository = new DbOwnersRepository(newContext);
+			_displayPlacesRepository = new DbDisplayPlacesRepository(newContext);
 
-			picturesLinksConstructor = new PicturesLinksConstructor();
+			_picturesLinksConstructor = new PicturesLinksConstructor();
 			CustomizeAutomapper();
 		}
 
@@ -60,10 +60,10 @@ namespace PrettyCats.Controllers
 					.ForMember(i => i.ImageUrl,
 						i => i.MapFrom(
 							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First(el => el.IsMainPicture).Image : string.Empty))
-					.ForMember(i => i.AllParents, i => i.UseValue(kittensRepository.GetCollection().Where(el => el.IsParent)))
-					.ForMember(i => i.DisplayPlaces, i => i.UseValue(displayPlacesRepository.GetCollection()))
-					.ForMember(i => i.Breeds, i => i.UseValue(breedsRepository.GetCollection()))
-					.ForMember(i => i.Owners, i => i.UseValue(ownersRepository.GetCollection()))
+					.ForMember(i => i.AllParents, i => i.UseValue(_kittensRepository.GetCollection().Where(el => el.IsParent)))
+					.ForMember(i => i.DisplayPlaces, i => i.UseValue(_displayPlacesRepository.GetCollection()))
+					.ForMember(i => i.Breeds, i => i.UseValue(_breedsRepository.GetCollection()))
+					.ForMember(i => i.Owners, i => i.UseValue(_ownersRepository.GetCollection()))
 					.ForMember(i => i.PictureID,
 						i => i.MapFrom(
 							src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? (int?) src.Pictures.First(el => el.IsMainPicture).ID : null));
@@ -75,10 +75,10 @@ namespace PrettyCats.Controllers
 					.ForMember(i => i.MotherName, i => i.MapFrom(src => src.Mother != null ? src.Mother.RussianName : string.Empty))
 					.ForMember(i => i.OwnerName, i => i.MapFrom(src => src.Owners != null ? src.Owners.Name : string.Empty))
 					.ForMember(i => i.OwnerPhone, i => i.MapFrom(src => src.Owners != null ? src.Owners.Phone : string.Empty))
-					.ForMember(i => i.Owners, i=>i.UseValue(ownersRepository.GetCollection()))
-					.ForMember(i => i.AllParents, i => i.UseValue(kittensRepository.GetCollection().Where(el => el.IsParent)))
-					.ForMember(i => i.DisplayPlaces, i => i.UseValue(displayPlacesRepository.GetCollection()))
-					.ForMember(i => i.Breeds, i => i.UseValue(breedsRepository.GetCollection()));
+					.ForMember(i => i.Owners, i=>i.UseValue(_ownersRepository.GetCollection()))
+					.ForMember(i => i.AllParents, i => i.UseValue(_kittensRepository.GetCollection().Where(el => el.IsParent)))
+					.ForMember(i => i.DisplayPlaces, i => i.UseValue(_displayPlacesRepository.GetCollection()))
+					.ForMember(i => i.Breeds, i => i.UseValue(_breedsRepository.GetCollection()));
 			});
 
 		}
@@ -120,7 +120,7 @@ namespace PrettyCats.Controllers
 
 		private ActionResult GetKittensCollectionView(bool isParent, bool isInArchive)
 		{
-			var kittens = kittensRepository.GetCollection().Where(e => e.IsParent == isParent && e.IsInArchive == isInArchive);
+			var kittens = _kittensRepository.GetCollection().Where(e => e.IsParent == isParent && e.IsInArchive == isInArchive);
 			var kittensModelViews = AutoMapper.Mapper.Map<IEnumerable<Pets>, IEnumerable<KittenOnTheAdminPageModelView>>(kittens);
 
 			return View(isParent ? "AdminChangeParents" : "AdminChangeKittens", kittensModelViews);
@@ -145,7 +145,7 @@ namespace PrettyCats.Controllers
 		[Authorize]
 		public ActionResult KittenPictures(int id)
 		{
-			Pets kitten = kittensRepository.GetByID(id);
+			Pets kitten = _kittensRepository.GetByID(id);
 
 			return View(kitten.Pictures.OrderBy(i=>i.Order).ToList());
 		}
@@ -154,8 +154,8 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public int KittenPictureChangeOrder(int id, int newOrder)
 		{
-			picturesRepository.SetNewOrderForPicture(id, newOrder);
-			picturesRepository.Save();
+			_picturesRepository.SetNewOrderForPicture(id, newOrder);
+			_picturesRepository.Save();
 
 			return newOrder;
 		}
@@ -168,10 +168,10 @@ namespace PrettyCats.Controllers
 
 			foreach (var pict in json)
 			{
-				picturesRepository.SetNewOrderForPicture(pict.ID, pict.Order);
-				picturesRepository.Save();
+				_picturesRepository.SetNewOrderForPicture(pict.ID, pict.Order);
+				_picturesRepository.Save();
 
-				result.Add(picturesRepository.GetByID(pict.ID));
+				result.Add(_picturesRepository.GetByID(pict.ID));
 			}
 			
 			return View("KittenPictures", result);
@@ -196,8 +196,8 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult AddKitten(Pets newKitten, HttpPostedFileBase[] files)
 		{
-			logger.Info("Add kittten method");
-			if (kittensRepository.IsKittenExistsWithAnotherId(newKitten))
+			_logger.Info("Add kittten method");
+			if (_kittensRepository.IsKittenExistsWithAnotherId(newKitten))
 			{
 				return Error("Котенок с таким именем уже есть!!!");
 			}
@@ -212,9 +212,9 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult AddParentCat(Pets newKitten, HttpPostedFileBase[] files)
 		{
-			logger.Info("Add parent method");
+			_logger.Info("Add parent method");
 
-			if (kittensRepository.IsKittenExistsWithAnotherId(newKitten))
+			if (_kittensRepository.IsKittenExistsWithAnotherId(newKitten))
 			{
 				return Error("Кошка с таким именем уже есть!!!");
 			}
@@ -227,12 +227,12 @@ namespace PrettyCats.Controllers
 		private void InsertNewKittenIntoRepository(Pets newKitten, bool isParent)
 		{
 			// Initialize addition fields
-			newKitten.Owners = ownersRepository.GetByID(newKitten.OwnerID);
-			newKitten.PetBreeds = breedsRepository.GetByID(newKitten.BreedID);
+			newKitten.Owners = _ownersRepository.GetByID(newKitten.OwnerID);
+			newKitten.PetBreeds = _breedsRepository.GetByID(newKitten.BreedID);
 			newKitten.IsParent = isParent;
 
-			kittensRepository.Insert(newKitten);
-			kittensRepository.Save();
+			_kittensRepository.Insert(newKitten);
+			_kittensRepository.Save();
 		}
 
 		[Authorize]
@@ -253,10 +253,10 @@ namespace PrettyCats.Controllers
 		{
 			return new AddKittenModelView()
 			{
-				Breeds = breedsRepository.GetCollection().ToList(),
-				Owners = ownersRepository.GetCollection().ToList(),
-				AllParents = kittensRepository.GetCollection().Where(i => i.IsParent == isParent).ToList(),
-				DisplayPlaces = displayPlacesRepository.GetCollection().ToList()
+				Breeds = _breedsRepository.GetCollection().ToList(),
+				Owners = _ownersRepository.GetCollection().ToList(),
+				AllParents = _kittensRepository.GetCollection().Where(i => i.IsParent == isParent).ToList(),
+				DisplayPlaces = _displayPlacesRepository.GetCollection().ToList()
 			};
 		}
 
@@ -264,7 +264,7 @@ namespace PrettyCats.Controllers
 		[HttpGet]
 		public ActionResult EditKitten(int id)
 		{
-			Pets kitten = kittensRepository.GetByID(id);
+			Pets kitten = _kittensRepository.GetByID(id);
 
 			if (kitten == null)
 				return RedirectToAction("AdminChangeKittens");
@@ -274,32 +274,32 @@ namespace PrettyCats.Controllers
 
 		private AddKittenModelView GetModelViewByKittenId(int id)
 		{
-			var pet = kittensRepository.GetByID(id);
+			var pet = _kittensRepository.GetByID(id);
 			return AutoMapper.Mapper.Map<Pets, AddKittenModelView>(pet);
 		}
 
 		[Authorize]
 		public ActionResult RemoveKitten(int id)
 		{
-			Pets kitten = kittensRepository.GetByID(id);
+			Pets kitten = _kittensRepository.GetByID(id);
 			bool isParent = kitten.IsParent;
 			string redirectTo = isParent ? "AdminChangeParents" : "AdminChangeKittens";
 
-			logger.Info("Remove kittten id=" + kitten.ID);
-			if (!kittensRepository.IsKittenExists(kitten))
+			_logger.Info("Remove kittten id=" + kitten.ID);
+			if (!_kittensRepository.IsKittenExists(kitten))
 			{
 				return Error("Котенка с таким именем не существует!!!");
 			}
 
-			if (isParent && kittensRepository.IsKittenExistsWithParent(kitten))
+			if (isParent && _kittensRepository.IsKittenExistsWithParent(kitten))
 			{
 				return Error("Родитель не может быть удален, так как есть котята с таким родителем!!!");
 			}
 
 			RemoveAllPictures(kitten.Pictures.ToList());
 
-			kittensRepository.Delete(kitten.ID);
-			kittensRepository.Save();
+			_kittensRepository.Delete(kitten.ID);
+			_kittensRepository.Save();
 
 			return RedirectToAction(redirectTo);
 		}
@@ -308,25 +308,25 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public ActionResult EditKitten(Pets kitten)
 		{
-			logger.Info("Edit kittten id=" + kitten.ID);
-			if (kittensRepository.IsKittenExistsWithAnotherId(kitten))
+			_logger.Info("Edit kittten id=" + kitten.ID);
+			if (_kittensRepository.IsKittenExistsWithAnotherId(kitten))
 			{
 				return Error("Котенок с таким именем уже есть!!!");
 			}
 
 			bool isParent = kitten.IsParent;
 			string redirectTo = isParent ? "AdminChangeParents" : "AdminChangeKittens";
-			Pets oldKitten = kittensRepository.GetByID(kitten.ID);
+			Pets oldKitten = _kittensRepository.GetByID(kitten.ID);
 
 			if(oldKitten.IsInArchive)
 				redirectTo = "AdminChangeKittensArchive";
 
 			// Initialize addition fields
-			kitten.Owners = ownersRepository.GetByID(kitten.OwnerID);
-			kitten.PetBreeds = breedsRepository.GetByID(kitten.BreedID);
+			kitten.Owners = _ownersRepository.GetByID(kitten.OwnerID);
+			kitten.PetBreeds = _breedsRepository.GetByID(kitten.BreedID);
 
-			kittensRepository.Update(kitten);
-			kittensRepository.Save();
+			_kittensRepository.Update(kitten);
+			_kittensRepository.Save();
 
 			return RedirectToAction(redirectTo);
 		}
@@ -347,8 +347,8 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public int RemovePicture(int id)
 		{
-			logger.Info("Remove picture id=" + id);
-			Pictures picture = picturesRepository.GetByID(id);
+			_logger.Info("Remove picture id=" + id);
+			Pictures picture = _picturesRepository.GetByID(id);
 
 			RemovePicture(picture);
 			
@@ -360,10 +360,10 @@ namespace PrettyCats.Controllers
 		{
 			if (picture != null)
 			{
-				picturesRepository.Delete(picture.ID);
-				picturesRepository.Save();
+				_picturesRepository.Delete(picture.ID);
+				_picturesRepository.Save();
 
-				var smallKittenPath = picturesLinksConstructor.GetSmallKittenImageFileName(picture.Image);
+				var smallKittenPath = _picturesLinksConstructor.GetSmallKittenImageFileName(picture.Image);
 
 				RemoveFile(Server.MapPath(picture.Image));
 				RemoveFile(Server.MapPath(smallKittenPath));
@@ -376,7 +376,7 @@ namespace PrettyCats.Controllers
 		[HttpPost]
 		public string AddImage(HttpPostedFileBase file, string kittenName)
 		{
-			logger.Info("Add picture kittenName=" + kittenName);
+			_logger.Info("Add picture kittenName=" + kittenName);
 
 			var mStream = new MemoryStream();
 			file.InputStream.CopyTo(mStream);
@@ -393,11 +393,11 @@ namespace PrettyCats.Controllers
 		/// <param name="kittenName">Name of kitten which picture we want to add</param>
 		private void AddPhoto(MemoryStream file, string kittenName)
 		{
-			lock (lockObj)
+			lock (_lockObj)
 			{
 				var smallPictureStream = new MemoryStream();
-				string kittenNameNumbered = picturesRepository.GetNewNumberOfImage(kittenName);
-				string kittenNameNumberedSmall = picturesRepository.GetNewNumberOfImage(kittenName, true);
+				string kittenNameNumbered = _picturesRepository.GetNewNumberOfImage(kittenName);
+				string kittenNameNumberedSmall = _picturesRepository.GetNewNumberOfImage(kittenName, true);
 				string dirPath = Server.MapPath(PicturesLinksConstructor.KittensImageDirectoryPath + "/" + kittenName);
 				string linkPath = PicturesLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
 				string smallLinkPath = PicturesLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
@@ -415,14 +415,14 @@ namespace PrettyCats.Controllers
 
 				if (savedImage != null && savedSmallImage!= null)
 				{
-					kittensRepository.AddPictureForTheKitten(kittenName, new Pictures()
+					_kittensRepository.AddPictureForTheKitten(kittenName, new Pictures()
 					{
 						Image = linkPath,
 						ImageSmall = smallLinkPath,
 						CssClass = savedImage.Width > savedImage.Height ? DBKittensRepository.SmallImageHorizontal : DBKittensRepository.SmallImageVertical
 					});
 
-					kittensRepository.Save();
+					_kittensRepository.Save();
 				}
 			}
 		}
@@ -454,7 +454,7 @@ namespace PrettyCats.Controllers
 		[Authorize]
 		public ActionResult AddMainFoto(HttpPostedFileBase f, string kittenName)
 		{
-			logger.Info("Add main photo for kittenName=" + kittenName);
+			_logger.Info("Add main photo for kittenName=" + kittenName);
 
 			var copy = new MemoryStream();
 			f.InputStream.CopyTo(copy);
@@ -464,19 +464,19 @@ namespace PrettyCats.Controllers
 
 			if (!String.IsNullOrEmpty(path))
 			{
-				Pets kitten = kittensRepository.GetKittenByName(kittenName);
-				var oldMainPicture = picturesRepository.GetCollection().FirstOrDefault(i => i.IsMainPicture && i.Pet.ID == kitten.ID);
+				Pets kitten = _kittensRepository.GetKittenByName(kittenName);
+				var oldMainPicture = _picturesRepository.GetCollection().FirstOrDefault(i => i.IsMainPicture && i.Pet.ID == kitten.ID);
 
 				if (oldMainPicture != null)
-					picturesRepository.Delete(oldMainPicture.ID);
+					_picturesRepository.Delete(oldMainPicture.ID);
 
-				picturesRepository.Insert(new Pictures() { Image = path, IsMainPicture = true, Pet = kitten, PetID = kitten.ID});
-				picturesRepository.Save();
+				_picturesRepository.Insert(new Pictures() { Image = path, IsMainPicture = true, Pet = kitten, PetID = kitten.ID});
+				_picturesRepository.Save();
 				
 				redirectTo = kitten.IsParent ? "AdminChangeParents" : "AdminChangeKittens";
 
-				kittensRepository.Update(kitten);
-				kittensRepository.Save();
+				_kittensRepository.Update(kitten);
+				_kittensRepository.Save();
 
 				//Save main photo for kittens main page.
 				AddPhoto(copy, kittenName);
@@ -494,7 +494,7 @@ namespace PrettyCats.Controllers
 			{
 				var sizeImage = new WebImage(file).Crop(1,1).Resize(300, 300, false, true);
 
-				path = picturesLinksConstructor.GetKittenImagePath(kittenName);
+				path = _picturesLinksConstructor.GetKittenImagePath(kittenName);
 				RemoveFile(Server.MapPath(path));
 				sizeImage.Save(Server.MapPath(path));
 			}

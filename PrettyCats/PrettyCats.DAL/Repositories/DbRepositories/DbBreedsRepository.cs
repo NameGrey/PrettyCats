@@ -5,21 +5,21 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 {
 	public class DbBreedsRepository : IKittenBreedRepository
 	{
-		private StorageContext dbContext;
+		private StorageContext _dbContext;
 
 		public DbBreedsRepository(StorageContext context)
 		{
-			dbContext = context;
+			_dbContext = context;
 		}
 
 		public PetBreeds GetByID(int id)
 		{
-			return dbContext.PetBreeds.Find(id);
+			return _dbContext.PetBreeds.Find(id);
 		}
 
 		public IEnumerable<PetBreeds> GetCollection()
 		{
-			return dbContext.PetBreeds;
+			return _dbContext.PetBreeds;
 		}
 	}
 }

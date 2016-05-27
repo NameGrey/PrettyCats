@@ -4,14 +4,14 @@ namespace PrettyCats.Helpers
 {
 	public static class SecurityHelper
 	{
-		private const string ADMIN_NAME = "Serg";
-		private const string ADMIN_PASS = "pass43";
+		private const string AdminName = "Serg";
+		private const string AdminPass = "pass43";
 
 		public static bool LogInAdmin(string name, string password)
 		{
 			bool result = false;
 
-			if (password == ADMIN_PASS && name == ADMIN_NAME)
+			if (password == AdminPass && name == AdminName)
 			{
 				FormsAuthentication.SetAuthCookie(name, true);
 				result = true;
@@ -22,7 +22,7 @@ namespace PrettyCats.Helpers
 
 		public static bool LogOutAdmin()
 		{
-			return SessionHelper.DeleteSessionObject(ADMIN_NAME);
+			return SessionHelper.DeleteSessionObject(AdminName);
 		}
 	}
 }

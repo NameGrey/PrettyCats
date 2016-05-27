@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.ClientServices.Providers;
 using System.Web.Mvc;
 using AutoMapper;
 using PrettyCats.DAL;
@@ -15,12 +14,12 @@ namespace PrettyCats.Controllers
 {
 	public class KittenPagesController : Controller
 	{
-		private IKittensRepository kittensRepository;
+		private readonly IKittensRepository _kittensRepository;
 
 		public KittenPagesController()
 		{
 			var newContext = new StorageContext();
-			kittensRepository = new DBKittensRepository(newContext);
+			_kittensRepository = new DBKittensRepository(newContext);
 
 			CustomizeMapper();
 		}
@@ -69,14 +68,14 @@ namespace PrettyCats.Controllers
 
 		private KittenModelView GetModelViewByKittenId(int id)
 		{
-			var kitten = kittensRepository.GetByID(id);
+			var kitten = _kittensRepository.GetByID(id);
 
 			return Mapper.Map<Pets, KittenModelView>(kitten);
 		}
 
 		private KittenShortModelView GetShortModelViewByKittenId(int id)
 		{
-			var kitten = kittensRepository.GetByID(id);
+			var kitten = _kittensRepository.GetByID(id);
 
 			return Mapper.Map<Pets, KittenShortModelView>(kitten);
 		}
@@ -109,7 +108,7 @@ namespace PrettyCats.Controllers
 		[Route("parent-kittens")]
 		public ActionResult AllParents_old()
 		{
-			var parents = kittensRepository.GetCollection().Where(i => i.IsParent && !i.IsHidden).ToList();
+			var parents = _kittensRepository.GetCollection().Where(i => i.IsParent && !i.IsHidden).ToList();
 
 			return View("AllParents", ConvertToShortKittenModelView(parents).ToList());
 		}
@@ -117,7 +116,7 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens")]
 		public ActionResult BengalKittens_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(3);
+			var v = _kittensRepository.GetKittensByBreed(3);
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Котята бенгальской породы";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -126,7 +125,7 @@ namespace PrettyCats.Controllers
 		[Route("scotland-kittens")]
 		public ActionResult BritishKittens_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(1).ToList();
+			var v = _kittensRepository.GetKittensByBreed(1).ToList();
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Шотландские котята";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -135,7 +134,7 @@ namespace PrettyCats.Controllers
 		[Route("scotland-kittens-archive")]
 		public ActionResult BritishKittens_Archive_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(1, true).ToList();
+			var v = _kittensRepository.GetKittensByBreed(1, true).ToList();
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Шотландские котята (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -144,7 +143,7 @@ namespace PrettyCats.Controllers
 		[Route("mainkun-kittens")]
 		public ActionResult MainKunKittens_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(2);
+			var v = _kittensRepository.GetKittensByBreed(2);
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Котята породы Мейн-кун";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -159,7 +158,7 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens-archive")]
 		public ActionResult BengalKittens_Archive_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(3, true);
+			var v = _kittensRepository.GetKittensByBreed(3, true);
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Котята бенгальской породы (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -168,7 +167,7 @@ namespace PrettyCats.Controllers
 		[Route("mainkun-kittens-archive")]
 		public ActionResult MainKunKittens_Archive_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(2, true);
+			var v = _kittensRepository.GetKittensByBreed(2, true);
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Котята породы Мейн-кун (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());

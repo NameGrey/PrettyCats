@@ -5,21 +5,21 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 {
 	public class DbOwnersRepository : IKittenOwnerRepository
 	{
-		private StorageContext dbContext;
+		private StorageContext _dbContext;
 
 		public DbOwnersRepository(StorageContext context)
 		{
-			dbContext = context;
+			_dbContext = context;
 		}
 
 		public Owners GetByID(int id)
 		{
-			return dbContext.Owners.Find(id);
+			return _dbContext.Owners.Find(id);
 		}
 
 		public IEnumerable<Owners> GetCollection()
 		{
-			return dbContext.Owners;
+			return _dbContext.Owners;
 		}
 	}
 }

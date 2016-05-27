@@ -5,21 +5,21 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 {
 	public class DbDisplayPlacesRepository : IKittenDisplayPlaceRepository
 	{
-		private StorageContext dbContext;
+		private StorageContext _dbContext;
 
 		public DbDisplayPlacesRepository(StorageContext context)
 		{
-			dbContext = context;
+			_dbContext = context;
 		}
 
 		public DisplayPlaces GetByID(int id)
 		{
-			return dbContext.DisplayPlaces.Find(id);
+			return _dbContext.DisplayPlaces.Find(id);
 		}
 
 		public IEnumerable<DisplayPlaces> GetCollection()
 		{
-			return dbContext.DisplayPlaces;
+			return _dbContext.DisplayPlaces;
 		}
 	}
 }
