@@ -16,17 +16,11 @@ namespace PrettyCats.Controllers
 	public class KittenPagesController : Controller
 	{
 		private IKittensRepository kittensRepository;
-		private IPicturesRepository picturesRepository;
-		private IKittenBreedRepository breedsRepository;
-		private IKittenOwnerRepository ownersRepository;
 
 		public KittenPagesController()
 		{
 			var newContext = new StorageContext();
 			kittensRepository = new DBKittensRepository(newContext);
-			picturesRepository = new DbPicturesRepository(newContext);
-			breedsRepository = new DbBreedsRepository(newContext);
-			ownersRepository = new DbOwnersRepository(newContext);
 
 			CustomizeMapper();
 		}
@@ -46,7 +40,7 @@ namespace PrettyCats.Controllers
 						i=>i.MapFrom(src=>src.Pictures.FirstOrDefault(el=>el.IsMainPicture) != null ? src.Pictures.First(el=>el.IsMainPicture).ImageSmall : string.Empty))
 					.ForMember(i => i.MainImageStandartSizeUrl,
 						i => i.MapFrom(src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First(el => el.IsMainPicture).Image : string.Empty))
-					.ForMember(i=>i.Pictures, i=>i.UseValue(picturesRepository.GetCollection()));
+					.ForMember(i=>i.Pictures, i=>i.MapFrom(src=>src.Pictures));
 
 				cfg.CreateMap<Pets, KittenShortModelView>()
 					.ForMember(i=>i.PictureID, 
@@ -123,7 +117,7 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens")]
 		public ActionResult BengalKittens_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(2);
+			var v = kittensRepository.GetKittensByBreed(3);
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Котята бенгальской породы";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -132,8 +126,7 @@ namespace PrettyCats.Controllers
 		[Route("scotland-kittens")]
 		public ActionResult BritishKittens_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(3).ToList();
-			v.AddRange(kittensRepository.GetKittensByBreed(4));
+			var v = kittensRepository.GetKittensByBreed(1).ToList();
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Шотландские котята";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -142,8 +135,7 @@ namespace PrettyCats.Controllers
 		[Route("scotland-kittens-archive")]
 		public ActionResult BritishKittens_Archive_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(3, true).ToList();
-			v.AddRange(kittensRepository.GetKittensByBreed(4, true));
+			var v = kittensRepository.GetKittensByBreed(1, true).ToList();
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Шотландские котята (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -152,7 +144,7 @@ namespace PrettyCats.Controllers
 		[Route("mainkun-kittens")]
 		public ActionResult MainKunKittens_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(1);
+			var v = kittensRepository.GetKittensByBreed(2);
 			ViewBag.PreviousPage = "NotArchive";
 			ViewBag.Title = "Котята породы Мейн-кун";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -167,7 +159,7 @@ namespace PrettyCats.Controllers
 		[Route("bengal-kittens-archive")]
 		public ActionResult BengalKittens_Archive_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(2, true);
+			var v = kittensRepository.GetKittensByBreed(3, true);
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Котята бенгальской породы (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());
@@ -176,7 +168,7 @@ namespace PrettyCats.Controllers
 		[Route("mainkun-kittens-archive")]
 		public ActionResult MainKunKittens_Archive_old()
 		{
-			var v = kittensRepository.GetKittensByBreed(1, true);
+			var v = kittensRepository.GetKittensByBreed(2, true);
 			ViewBag.PreviousPage = "Archive";
 			ViewBag.Title = "Котята породы Мейн-кун (Архив)";
 			return View("CategoryKittens", ConvertToShortKittenModelView(v).ToList());

@@ -23,7 +23,7 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 			public Pets GetByID(int id)
 			{
-				return dbContext.Pets.Find(id);
+				return dbContext.Pets.Where(i=>i.ID == id).Include(i=>i.Pictures).FirstOrDefault();
 			}
 
 			public IEnumerable<Pets> GetCollection()
@@ -61,14 +61,12 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 		public Pets GetKittenByName(string name)
 		{
-			return (from el in dbContext.Pets where el.Name == name select el).FirstOrDefault();
+			return dbContext.Pets.Where(i => i.Name == name).Include(i => i.Pictures).FirstOrDefault();
 		}
 
 		public IEnumerable<Pets> GetKittensByBreed(int breedId, bool isInArhive = false)
 		{
-			return from pet in dbContext.Pets
-				where pet.BreedID == breedId && !pet.IsParent && pet.IsInArchive == isInArhive && pet.WhereDisplay != 3
-				select pet;
+			return dbContext.Pets.Where(i => !i.IsParent && i.IsInArchive == isInArhive && i.WhereDisplay != 3 && i.BreedID == breedId).Include(i => i.Pictures);
 		}
 
 		public bool IsKittenExistsWithAnotherId(Pets kitten)
@@ -83,7 +81,7 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 		public List<Pets> GetAllParents()
 		{
-			return (from i in dbContext.Pets where i.IsParent select i).ToList();
+			return dbContext.Pets.Where(i => i.IsParent).Include(i => i.Pictures).ToList();
 		}
 
 		public bool IsKittenExistsWithParent(Pets parent)

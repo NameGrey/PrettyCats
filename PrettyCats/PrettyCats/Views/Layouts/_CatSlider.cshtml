@@ -94,7 +94,7 @@
 				</div>
 			}
 			
-			@foreach (var i in Model.Pictures.OrderBy(i=>i.Order))
+			@foreach (var i in Model.Pictures.Where(i=>!i.IsMainPicture).OrderBy(i=>i.Order))
 			{
 				<div data-p="144.50" style="display: none;">
 					<img data-u="image" class="main-slide-image" src="@Url.Content(i.Image)" />

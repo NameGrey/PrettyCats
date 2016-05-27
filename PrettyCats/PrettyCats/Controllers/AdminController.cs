@@ -465,6 +465,10 @@ namespace PrettyCats.Controllers
 			if (!String.IsNullOrEmpty(path))
 			{
 				Pets kitten = kittensRepository.GetKittenByName(kittenName);
+				var oldMainPicture = picturesRepository.GetCollection().FirstOrDefault(i => i.IsMainPicture && i.Pet.ID == kitten.ID);
+
+				if (oldMainPicture != null)
+					picturesRepository.Delete(oldMainPicture.ID);
 
 				picturesRepository.Insert(new Pictures() { Image = path, IsMainPicture = true, Pet = kitten, PetID = kitten.ID});
 				picturesRepository.Save();

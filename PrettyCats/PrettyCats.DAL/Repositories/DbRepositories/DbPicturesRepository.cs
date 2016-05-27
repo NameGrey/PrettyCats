@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using PrettyCats.DAL.Entities;
 
@@ -39,12 +40,12 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 		public Pictures GetByID(int id)
 		{
-			return dbContext.Pictures.Find(id);
+			return dbContext.Pictures.Where(i => i.ID == id).Include(i => i.Pet).FirstOrDefault();
 		}
 
 		public IEnumerable<Pictures> GetCollection()
 		{
-			return dbContext.Pictures;
+			return dbContext.Pictures.Include(e=>e.Pet);
 		}
 
 		public void Insert(Pictures picture)
