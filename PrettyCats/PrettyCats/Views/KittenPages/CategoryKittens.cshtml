@@ -6,11 +6,11 @@
 <div class="container">
 	@if (ViewBag.PreviousPage == "Archive")
 	{
-		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Archive", "KittenPages" })
+		@Html.Partial("~/Views/KittenPages/PartialViews/_BackLink.cshtml", new[] { "Archive", "KittenPages" })
 	}
 	else
 	{
-		@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
+		@Html.Partial("~/Views/KittenPages/PartialViews/_BackLink.cshtml", new[] { "Index", "Home" })
 	}
 
 	@{
@@ -36,7 +36,7 @@
 
 							if (curr <= countAll)
 							{
-								@Html.Partial("~/Views/KittenPages/KittenOnTheMainPageHtml.cshtml", Model[curr - 1])
+								@Html.Partial("~/Views/KittenPages/PartialViews/_KittenOnTheMainPageHtml.cshtml", Model[curr - 1])
 							}
 						}
 					</div>

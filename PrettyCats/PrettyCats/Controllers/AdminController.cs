@@ -132,7 +132,7 @@ namespace PrettyCats.Controllers
 			return GetKittensCollectionView(true, false);
 		}
 
-		public ActionResult KittenOnTheAdminPageHtml()
+		public ActionResult _KittenOnTheAdminPageHtml()
 		{
 			return View();
 		}

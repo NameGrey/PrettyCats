@@ -69,7 +69,7 @@
 	<hr />
 	@foreach (var i in Model.Where(e=>!e.IsMainPicture).OrderBy(e=>e.Order))
 	{
-		@Html.Partial("_KittenPicture", i)
+		@Html.Partial("~/Views/Admin/PatialViews/_KittenPicture.cshtml", i)
 	}
 
 </div>

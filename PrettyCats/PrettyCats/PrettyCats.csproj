@@ -207,6 +207,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LinksHelper.cs" />
     <Compile Include="Helpers\Log4NetLogger.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -238,30 +239,30 @@
     <Content Include="Views\Home\ContactsPage.cshtml" />
     <Content Include="Views\InformPage\InformPage.cshtml" />
     <Content Include="Views\KittenPages\AllAvailableKittens.cshtml" />
-    <Content Include="Views\KittenPages\KittenOnTheMainPageHtml.cshtml" />
+    <Content Include="Views\KittenPages\PartialViews\_KittenOnTheMainPageHtml.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Layouts\_AdminPanelLayout.cshtml" />
-    <Content Include="Views\Admin\KittenOnTheAdminPageHtml.cshtml" />
+    <Content Include="Views\Admin\PatialViews\_KittenOnTheAdminPageHtml.cshtml" />
     <Content Include="Views\Admin\AdminChangeKittens.cshtml" />
     <Content Include="Views\Admin\AddKitten.cshtml" />
     <Content Include="Views\Admin\EditKitten.cshtml" />
     <Content Include="Views\Admin\Error.cshtml" />
     <Content Include="Views\Admin\MuliplayFilesUploader.cshtml" />
     <Content Include="Views\Admin\KittenPictures.cshtml" />
-    <Content Include="Views\Admin\_KittenPicture.cshtml" />
+    <Content Include="Views\Admin\PatialViews\_KittenPicture.cshtml" />
     <Content Include="Views\KittenPages\CategoryKittens.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\AddParentCat.cshtml" />
     <Content Include="Views\Admin\AdminChangeParents.cshtml" />
     <Content Include="Views\KittenPages\AllParents.cshtml" />
-    <Content Include="Views\KittenPages\_BackLink.cshtml" />
+    <Content Include="Views\KittenPages\PartialViews\_BackLink.cshtml" />
     <Content Include="Views\KittenPages\Archive.cshtml" />
-    <Content Include="Views\KittenPages\_BackLinkAbsolute.cshtml" />
+    <Content Include="Views\KittenPages\PartialViews\_BackLinkAbsolute.cshtml" />
     <Content Include="Views\InformPage\Articles.cshtml" />
     <Content Include="Views\InformPage\KittenCostArticle.cshtml" />
-    <Content Include="Views\InformPage\GetArticleHtml.cshtml" />
-    <Content Include="Views\InformPage\_GotoChoosing.cshtml" />
+    <Content Include="Views\InformPage\PartialViews\_GetArticleHtml.cshtml" />
+    <Content Include="Views\InformPage\PartialViews\_GotoChoosing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
