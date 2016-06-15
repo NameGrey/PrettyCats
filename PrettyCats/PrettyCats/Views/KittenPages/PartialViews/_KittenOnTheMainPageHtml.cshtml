@@ -9,19 +9,17 @@
 		path = Url.Content(Model.ImageUrl);
 	}
 
-	string link = "/kitten-page/";
+	string link;
 
 	if (Model.IsParent)
 	{
-		link = "/parent-kitten-page/";
+		link = Url.Action("ParentCatMainPage_old", "KittenPages", new {id = Model.ID}, this.Request.Url.Scheme);
 	}
 	else
 	{
 		status = "Статус: " + Model.Status;
+		link = Url.Action("KittenMainPage_old", "KittenPages", new { id = Model.ID }, this.Request.Url.Scheme);
 	}
-
-	link += Model.ID;
-	
 }
 
 <form action="@link">

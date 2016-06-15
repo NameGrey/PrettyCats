@@ -262,6 +262,7 @@
     <Content Include="Views\InformPage\KittenCostArticle.cshtml" />
     <Content Include="Views\InformPage\PartialViews\_GetArticleHtml.cshtml" />
     <Content Include="Views\InformPage\PartialViews\_GotoChoosing.cshtml" />
+    <Content Include="Views\CommonPartialViews\_Categories.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
