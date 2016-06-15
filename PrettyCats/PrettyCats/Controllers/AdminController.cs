@@ -227,8 +227,8 @@ namespace PrettyCats.Controllers
 		private void InsertNewKittenIntoRepository(Pets newKitten, bool isParent)
 		{
 			// Initialize addition fields
-			newKitten.Owners = _ownersRepository.GetByID(newKitten.OwnerID);
-			newKitten.PetBreeds = _breedsRepository.GetByID(newKitten.BreedID);
+			//newKitten.Owners = _ownersRepository.GetByID(newKitten.OwnerID);
+			//newKitten.PetBreeds = _breedsRepository.GetByID(newKitten.BreedID);
 			newKitten.IsParent = isParent;
 
 			_kittensRepository.Insert(newKitten);
