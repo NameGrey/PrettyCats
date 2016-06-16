@@ -230,7 +230,6 @@
     </Content>
     <Content Include="Views\Layouts\_MainLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Layouts\_MainPlusCategoriesLayout.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\KittenPages\KittenMainPage.cshtml" />
     <Content Include="Views\KittenPages\ParentCatMainPage.cshtml" />
