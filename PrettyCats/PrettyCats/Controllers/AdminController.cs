@@ -28,15 +28,15 @@ namespace PrettyCats.Controllers
 		}
 
 		readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		static object _lockObj = new object();
+		static readonly object _lockObj = new object();
 
-		private IKittensRepository _kittensRepository;
-		private IPicturesRepository _picturesRepository;
-		private IKittenBreedRepository _breedsRepository;
-		private IKittenOwnerRepository _ownersRepository;
-		private IKittenDisplayPlaceRepository _displayPlacesRepository;
+		private readonly IKittensRepository _kittensRepository;
+		private readonly IPicturesRepository _picturesRepository;
+		private readonly IKittenBreedRepository _breedsRepository;
+		private readonly IKittenOwnerRepository _ownersRepository;
+		private readonly IKittenDisplayPlaceRepository _displayPlacesRepository;
 
-		private PicturesLinksConstructor _picturesLinksConstructor;
+		private readonly PicturesLinksConstructor _picturesLinksConstructor;
 
 		public AdminController()
 		{
