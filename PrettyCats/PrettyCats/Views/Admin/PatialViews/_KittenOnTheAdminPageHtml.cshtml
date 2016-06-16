@@ -1,28 +1,7 @@
 ﻿@model PrettyCats.Models.KittenOnTheAdminPageModelView
 
 <script>
-	@{
-		var linkName = Model != null ? Model.Name : String.Empty;
-	}
-
-	$(document).ready(function() {
-			$("#@linkName").on("click", function(e) {
-				$("<input>").prop({
-						"type": "file",
-						"multiple": true
-					})
-					.on("change", function(e) {
-						files.push(this.files);
-						var mes = "@linkName";
-
-						iterateFiles(files, mes);
-
-						files = [];
-					}).trigger("click");
-			});
-		}
-	);
-
+	$(document).ready(function() { SetHandlerById("@Model.Name") });
 </script>
 
 @{

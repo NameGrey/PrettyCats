@@ -1,37 +1,53 @@
-﻿
-var files = [];
+﻿	var files = [];
 
-function iterateFiles(filesArray, kittenName) {
-	var count = 0;
+	function iterateFiles(filesArray, kittenName) {
+		var count = 0;
 
-	for (var i = 0; i < filesArray.length; i++) {
-		for (var j = 0; j < filesArray[i].length; j++) {
-			var request = new XMLHttpRequest();
-			var formData = new FormData();
+		for (var i = 0; i < filesArray.length; i++) {
+			for (var j = 0; j < filesArray[i].length; j++) {
+				var request = new XMLHttpRequest();
+				var formData = new FormData();
 
-			formData.append('file', filesArray[i][j]);
-			formData.append('kittenName', kittenName);
+				formData.append('file', filesArray[i][j]);
+				formData.append('kittenName', kittenName);
 
-			request.open('post', '/Admin/AddImage');
-			request.upload.onprogress = function (evt) {
-				if (evt.lengthComputable) {
-					var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
+				request.open('post', '/Admin/AddImage');
+				request.upload.onprogress = function(evt) {
+					if (evt.lengthComputable) {
+						var percentComplete = Math.ceil((evt.loaded / evt.total) * 100);
 
-					if (percentComplete == 100) {
-						++count;
+						if (percentComplete == 100) {
+							++count;
+						}
+						$('#left-files-' + kittenName).text(percentComplete + "% завершено");
 					}
-					$('#left-files-' + kittenName).text(percentComplete + "% завершено");
-				}
-			};
+				};
 
-			request.onreadystatechange = function () {
-				if (request.readyState == 4) {
-					if (request.status == 200) {
-						$('#left-files-' + kittenName).text(filesArray[0].length + " файлов загрузилось!!!");
+				request.onreadystatechange = function() {
+					if (request.readyState == 4) {
+						if (request.status == 200) {
+							$('#left-files-' + kittenName).text(filesArray[0].length + " файлов загрузилось!!!");
+						}
 					}
 				}
+				request.send(formData);
 			}
-			request.send(formData);
 		}
 	}
-}
+
+	function SetHandlerById(linkName) {
+
+		$("#" + linkName).on("click", function(e) {
+			$("<input>").prop({
+					"type": "file",
+					"multiple": true
+				})
+				.on("change", function(e) {
+					files.push(this.files);
+
+					iterateFiles(files, linkName);
+
+					files = [];
+				}).trigger("click");
+		});
+	}
