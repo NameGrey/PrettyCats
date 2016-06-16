@@ -192,7 +192,7 @@
     <Content Include="Scripts\jssor.slider.mini.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\slideshow.js" />
-    <Content Include="Scripts\UploadMultyplayFiles.js" />
+    <Content Include="Scripts\uploadMultyplayFiles.js" />
     <Content Include="Scripts\workWithPictures.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
