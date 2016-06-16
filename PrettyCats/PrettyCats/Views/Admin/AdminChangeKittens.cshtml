@@ -20,7 +20,7 @@
 <script src="~/Scripts/UploadMultyplayFiles.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
-<a href="AdminPanel" class="btn-admin btn-red">Назад</a>
+<a href="@Url.Action("AdminPanel", "Admin")" class="btn-admin btn-red">Назад</a>
 
 @Html.ActionLink("Добавить", "AddKitten", null, new { id = "update-container", @class = "btn-admin btn-red" })
 
@@ -30,4 +30,4 @@
 	@Html.Partial("~/Views/Admin/PatialViews/_KittenOnTheAdminPageHtml.cshtml", i)    
 }
 
-<a href="AdminPanel" class="btn-admin btn-red">Назад</a>
+<a href="@Url.Action("AdminPanel", "Admin")" class="btn-admin btn-red">Назад</a>
