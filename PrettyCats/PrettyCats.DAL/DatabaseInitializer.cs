@@ -19,23 +19,29 @@ namespace PrettyCats.DAL
 				new PetBreeds()
 				{
 					ID = 1,
-					Description = "",
-					RussianName = "Шотландцы",
+					ShortName = "Шотландцы",
+					FullName = "Котята шотландской породы",
+					LinkPage = "/scotland-kittens",
+					PicturePath = "/Resources/Breeds/Scotland.jpg",
 					Name = "Scotland"
 				},
 				new PetBreeds()
 				{
 					ID = 2,
-					Description = "",
-					RussianName = "Мейн-куны",
-					Name = "Mainkun"
+					ShortName = "Мейн-куны",
+					FullName = "Котята породы Мейн-кун",
+					Name = "Mainkun",
+					LinkPage = "/mainkun-kittens",
+					PicturePath = "/Resources/Breeds/Mainkun.jpg",
 				},
 				new PetBreeds()
 				{
 					ID = 3,
-					Description = "",
-					RussianName = "Бенгалы",
-					Name = "Bengal"
+					ShortName = "Бенгалы",
+					FullName = "Котята бенгальской породы",
+					Name = "Bengal",
+					LinkPage = "/bengal-kittens",
+					PicturePath = "/Resources/Breeds/bengal.jpg",
 				}
 			});
 
