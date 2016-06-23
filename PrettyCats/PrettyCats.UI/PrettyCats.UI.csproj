@@ -94,7 +94,7 @@
     <Content Include="pages\html-partials\main.html" />
     <Content Include="pages\html-partials\kittens.html" />
     <Content Include="Index.html" />
-    <Content Include="pages\templates\categories.html" />
+    <Content Include="pages\templates\breeds.html" />
     <Content Include="Resources\BackFish.png" />
     <Content Include="Resources\BackFishBones.png" />
     <Content Include="Resources\Breeds\bengal.jpg" />

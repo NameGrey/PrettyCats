@@ -14,6 +14,6 @@ artDuviksControllers.controller("MainController", function ($scope) {
 	*/
 });
 
-artDuviksControllers.controller("CategoriesCtrl", function ($scope, $http) {
-	$scope.categories = $http({ method: 'GET', url: '/api/categories' });
+artDuviksControllers.controller("BreedsCtrl", function ($scope, $http) {
+	$scope.categories = $http({ method: 'GET', url: '/api/breeds' });
 });
