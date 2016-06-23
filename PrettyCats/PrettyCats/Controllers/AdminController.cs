@@ -304,33 +304,6 @@ namespace PrettyCats.Controllers
 			return RedirectToAction(redirectTo);
 		}
 
-		[Authorize]
-		[HttpPost]
-		public ActionResult EditKitten(Pets kitten)
-		{
-			_logger.Info("Edit kittten id=" + kitten.ID);
-			if (_kittensRepository.IsKittenExistsWithAnotherId(kitten))
-			{
-				return Error("Котенок с таким именем уже есть!!!");
-			}
-
-			bool isParent = kitten.IsParent;
-			string redirectTo = isParent ? "AdminChangeParents" : "AdminChangeKittens";
-			Pets oldKitten = _kittensRepository.GetByID(kitten.ID);
-
-			if(oldKitten.IsInArchive)
-				redirectTo = "AdminChangeKittensArchive";
-
-			// Initialize addition fields
-			kitten.Owners = _ownersRepository.GetByID(kitten.OwnerID);
-			kitten.PetBreeds = _breedsRepository.GetByID(kitten.BreedID);
-
-			_kittensRepository.Update(kitten);
-			_kittensRepository.Save();
-
-			return RedirectToAction(redirectTo);
-		}
-
 		#endregion
 
 		#region Work with images

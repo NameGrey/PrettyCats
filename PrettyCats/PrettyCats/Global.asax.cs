@@ -1,8 +1,10 @@
 ﻿using System.IO;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Newtonsoft.Json;
 using PrettyCats.Controllers;
 
 namespace PrettyCats
@@ -14,8 +16,13 @@ namespace PrettyCats
 			
 			log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
 			AreaRegistration.RegisterAllAreas();
+			GlobalConfiguration.Configure(WebApiConfig.Register);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+			json.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
+			GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 		}
 
 		protected void Application_EndRequest()

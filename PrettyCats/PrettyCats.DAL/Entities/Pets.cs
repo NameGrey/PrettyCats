@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace PrettyCats.DAL.Entities
 {
@@ -53,8 +55,10 @@ namespace PrettyCats.DAL.Entities
 		[StringLength(50)]
 		public string VideoUrl { get; set; }
 
+		[JsonIgnore]
 		public virtual Owners Owners { get; set; }
 
+		[JsonIgnore]
 		public virtual PetBreeds PetBreeds { get; set; }
 
 		public Pets Mother { get; set; }
