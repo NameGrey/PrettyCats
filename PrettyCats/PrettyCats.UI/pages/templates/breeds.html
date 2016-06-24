@@ -2,7 +2,7 @@
 	<div ng-repeat="breed in breeds" class="col-sm-4">
 		<h2 class="text-center">{{breed.ShortName}}</h2>
 		<a href="{{breed.LinkPage}}">
-			<img class="img-circle img-responsive img-center" ng-src="breed.PicturePath" alt="{{breed.FullName}}">
+			<img class="img-circle img-responsive img-center" ng-src="{{breed.PicturePath}}" alt="{{breed.FullName}}">
 		</a>
 	</div>
 </div>

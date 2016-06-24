@@ -28,7 +28,7 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 			public IEnumerable<Pets> GetCollection()
 			{
-				return _dbContext.Pets.Include(b=>b.Pictures);
+				return _dbContext.Pets.Include(b=>b.Pictures).Include(b=>b.PetBreeds);
 			}
 
 			#endregion

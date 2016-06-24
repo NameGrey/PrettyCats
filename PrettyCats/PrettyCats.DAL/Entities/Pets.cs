@@ -61,14 +61,18 @@ namespace PrettyCats.DAL.Entities
 		[JsonIgnore]
 		public virtual PetBreeds PetBreeds { get; set; }
 
+		[JsonIgnore]
 		public Pets Mother { get; set; }
 
+		[JsonIgnore]
 		public Pets Father { get; set; }
 
+		[JsonIgnore]
 		public ICollection<Pictures> Pictures { get; set; }
 		public DisplayPlaces DisplayPlace { get; set; }
 
 		[NotMapped]
+		[JsonIgnore]
 		public bool IsHidden => DisplayPlace != null && DisplayPlace.PlaceOfDisplaying != HiddenName;
 	}
 }

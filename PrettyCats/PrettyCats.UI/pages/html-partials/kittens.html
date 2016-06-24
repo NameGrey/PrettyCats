@@ -1,3 +1,9 @@
-﻿<div>
-	<h1>{{message}}</h1>
+﻿<div class="container" ng-controller="KittensCtrl">
+	<div class="row">
+		<!-- TODO: Add Back reference!-->
+		<button ng-init="kttens = getKittens()" class="btn btn-primary">Click</button>
+		<div ng-repeat="kitten in kittens">
+			<thumbnail />
+		</div>
+	</div>
 </div>

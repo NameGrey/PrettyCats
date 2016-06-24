@@ -6,23 +6,37 @@ var baseUrl = "/pages/html-partials/";
 
 //Configure $routeProvider service
 artDuviksApp.config(function($routeProvider, $locationProvider) {
-		$routeProvider.
-			when("/", {
-				title: "Питомник Art Duviks Cat - купить котенка в Рязани пород Мейн Кун, Бенгальской, Британской и Шотландской пород",
-				description: "В питомнике Art Duviks Cat вы можете купить котят Мейн-кун, шотландцев и бенгалов.",
-				keywords: "Купить котенка в Рязани, купить котенка Мейн кун Рязань, купить шотландского котенка, купить бенгальского котенка, Арт дювикс кэт, Арт дювикс кет, Арт Дювекс",
-				templateUrl: baseUrl + "main.html",
-				controller: "MainController"
-			})
-			.when("/kittens", {
-				title: "Наши котята - выбрать котенка",
-				templateUrl: baseUrl + "kittens.html",
-				controller: "KittensController"
-			}).
-
+	$routeProvider.
+		when("/", {
+			title: "Питомник Art Duviks Cat - купить котенка в Рязани пород Мейн Кун, Бенгальской, Британской и Шотландской пород",
+			description: "В питомнике Art Duviks Cat вы можете купить котят Мейн-кун, шотландцев и бенгалов.",
+			keywords: "Купить котенка в Рязани, купить котенка Мейн кун Рязань, купить шотландского котенка, купить бенгальского котенка, Арт дювикс кэт, Арт дювикс кет, Арт Дювекс",
+			templateUrl: baseUrl + "main.html",
+			controller: "MainController"
+		})
+		.when("/kittens", {
+			title: "Наши котята - выбрать котенка",
+			templateUrl: baseUrl + "chooseBreed.html",
+			controller: "KittensCtrl"
+		})
+		.when("/scotland-kittens", {
+			title: "Шотландские котята - выбрать котенка шотландской породы",
+			templateUrl: baseUrl + "kittens.html",
+			controller: "KittensCtrl"
+		})
+		.when("/mainkun-kittens", {
+			title: "Мейн-куны - выбрать котенка Мейн-кун",
+			templateUrl: baseUrl + "kittens.html",
+			controller: "KittensCtrl"
+		})
+		.when("/bengal-kittens", {
+			title: "Бенгальские котята - выбрать котенка",
+			templateUrl: baseUrl + "kittens.html",
+			controller: "KittensCtrl"
+		}).
 		otherwise({ redirectTo: "/" });
 
-		$locationProvider.html5Mode({ enabled: true, requireBase: false });
+	$locationProvider.html5Mode({ enabled: true, requireBase: false });
 });
 
 artDuviksApp.config([

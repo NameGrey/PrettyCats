@@ -1,0 +1,13 @@
+﻿
+<form action="{{buildKittenLink(kitten)}}">
+	<div class="col-sm-4">
+		<a ng-href="{{buildKittenLink(kitten)}}">
+			<img class="img-circle img-responsive img-center" style="margin-bottom: 24px;" ng-src="{{getKittenMainPicture(kitten).Image}}" alt="{{kitten.RussianName}}">
+		</a>
+		<h2 style="margin-top: -5px; margin-bottom: 0px; float: left; margin-right: 5px;">{{kitten.RussianName}}</h2>
+
+		<input type="submit" class="btn-primary" value="Посмотреть" />
+
+		<span class="under-name-status" style="clear: both;"> {{kitten.Status}}</span>
+	</div>
+</form>

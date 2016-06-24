@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="pages\html-partials\chooseBreed.html" />
+    <Content Include="pages\templates\thumbnail.html" />
     <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -121,6 +123,7 @@
     <Content Include="Scripts\angular\controllers.js" />
     <Content Include="Scripts\angular\directives.js" />
     <Content Include="Scripts\angular\master-page.js" />
+    <Content Include="Scripts\angular\services.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\DielogForm.js" />
