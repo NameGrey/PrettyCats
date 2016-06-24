@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
 using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
@@ -19,7 +20,7 @@ namespace PrettyCats.Controllers
 			_breedRepository = new DbBreedsRepository(context);
 		}
 
-		[Route("/")]
+		[Route("")]
 		public IEnumerable<PetBreeds> Get()
 		{
 			return _breedRepository.GetCollection();

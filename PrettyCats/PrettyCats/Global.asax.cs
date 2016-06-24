@@ -20,8 +20,6 @@ namespace PrettyCats
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-			json.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
 			GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 		}
 

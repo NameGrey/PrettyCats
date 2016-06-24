@@ -30,7 +30,7 @@ namespace PrettyCats.Controllers
 			{
 				cfg.CreateMap<Pets, KittenModelView>()
 					.ForMember(i => i.BirthDate, i => i.MapFrom(src => src.BirthDate != null ? ((DateTime) src.BirthDate).ToString("dd.MM.yyyy") : string.Empty))
-					.ForMember(i => i.BreedName, i => i.MapFrom(src => src.PetBreeds != null ? src.PetBreeds.RussianName : string.Empty))
+					.ForMember(i => i.BreedName, i => i.MapFrom(src => src.PetBreeds != null ? src.PetBreeds.ShortName : string.Empty))
 					.ForMember(i => i.FatherName, i => i.MapFrom(src => src.Father != null ? src.Father.RussianName : string.Empty))
 					.ForMember(i => i.MotherName, i => i.MapFrom(src => src.Mother != null ? src.Mother.RussianName : string.Empty))
 					.ForMember(i => i.OwnerName, i => i.MapFrom(src => src.Owners != null ? src.Owners.Name : string.Empty))
