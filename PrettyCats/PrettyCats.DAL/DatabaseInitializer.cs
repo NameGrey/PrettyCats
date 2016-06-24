@@ -51,6 +51,13 @@ namespace PrettyCats.DAL
 				new DisplayPlaces() {ID = 2, PlaceOfDisplaying = "Отображать на главной"},
 				new DisplayPlaces() {ID = 3, PlaceOfDisplaying = "Не отображать"}
 			});
+
+			context.Owners.AddRange(new List<Owners>()
+			{
+				new Owners() {ID = 1, Name = "Юлия", Phone = "8-903-640-57-96"},
+				new Owners() {ID = 2, Name = "Юлия", Phone = "8-965-712-20-49"},
+				new Owners() {ID = 3, Name = "Анна", Phone = "8-952-121-47-50"}
+			});
 		}
 	}
 }
