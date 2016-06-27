@@ -44,5 +44,11 @@ namespace PrettyCats.Controllers
 
 			return kitten.Pictures.FirstOrDefault(i => i.IsMainPicture && i.PetID == kitten.ID);
 		}
+
+		[Route("parents")]
+		public IEnumerable<Pets> GetParents()
+		{
+			return _kittensRepository.GetCollection().Where(i => i.IsParent && !i.IsInArchive);
+		}
 	}
 }

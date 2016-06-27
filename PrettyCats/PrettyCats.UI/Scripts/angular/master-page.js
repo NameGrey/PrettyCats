@@ -19,6 +19,11 @@ artDuviksApp.config(function($routeProvider, $locationProvider) {
 			templateUrl: baseUrl + "chooseBreed.html",
 			controller: "KittensCtrl"
 		})
+		.when("/parent-kittens", {
+		title: "Наши кошки",
+				templateUrl: baseUrl + "parents.html",
+				controller: "KittensCtrl"
+		})
 		.when("/scotland-kittens", {
 			title: "Шотландские котята - выбрать котенка шотландской породы",
 			templateUrl: baseUrl + "kittens.html",

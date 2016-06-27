@@ -15,13 +15,25 @@ artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $htt
 			.success(function(data) {
 				$scope.kittens = data;
 			})
-			.error(function(err) {
+			.error(function() {
 				$scope.kittens = null;
-				alert('Error!');
+			});
+	}
+
+	var getParents = function() {
+		var baseServerApiUrl = configuration.ServerApi;
+
+		$http.get(baseServerApiUrl + "/kittens/parents")
+			.success(function(data) {
+				$scope.parents = data;
+			})
+			.error(function() {
+				$scope.parents = null;
 			});
 	}
 
 	$scope.getKittens = getKittens;
+	$scope.getParents = getParents;
 });
 
 artDuviksControllers.controller("MainController", function ($scope) {
