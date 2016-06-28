@@ -74,8 +74,14 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="pages\html-partials\chooseBreed.html" />
+    <Content Include="pages\html-partials\parent.html" />
+    <Content Include="pages\html-partials\kitten.html" />
     <Content Include="pages\html-partials\parents.html" />
+    <Content Include="pages\templates\catSlider.html" />
     <Content Include="pages\templates\thumbnail.html" />
+    <Content Include="Resources\Slides\loading.gif" />
+    <Content Include="Resources\Slides\next.png" />
+    <Content Include="Resources\Slides\prev.png" />
     <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

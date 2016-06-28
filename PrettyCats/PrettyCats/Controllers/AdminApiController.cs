@@ -15,7 +15,7 @@ using PrettyCats.Models;
 
 namespace PrettyCats.Controllers
 {
-	[RoutePrefix("api/kittens")]
+	[RoutePrefix("api/admin/kittens")]
 	public class AdminApiController : ApiController
 	{
 		private readonly IKittensRepository _kittensRepository;

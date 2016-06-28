@@ -18,10 +18,15 @@ artDuviksApp.factory("kittensPathBuilder", function () {
 
 artDuviksApp.factory("kittensImageWorker", function($http, configuration) {
 	return {
-		getKittenMainPageUrl: function (kitten) {
+		getKittenMainPicture: function(kitten) {
 			var baseServerApiUrl = configuration.ServerApi;
 
-			return $http.get(baseServerApiUrl + "kittens/kitten-main-image/" + kitten.ID).success(function (data) { return data; });
+			return $http.get(baseServerApiUrl + "/pictures/main-picture/" + kitten.ID);
+		},
+		getKittenPictures: function (kitten) {
+			var baseServerApiUrl = configuration.ServerApi;
+
+			return $http.get(baseServerApiUrl + "/pictures/" + kitten.ID);
 		}
 	}
 });

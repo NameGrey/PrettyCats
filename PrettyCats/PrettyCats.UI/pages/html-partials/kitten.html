@@ -1,0 +1,42 @@
+﻿
+<div ng-init="selectKitten()" class="container">
+	<div class="row">
+		<div class="col-xs-12 col-md-8 col-lg-8 col-md-offset-2">
+			<!--TODO: Add back link-->
+			<h3 ng-hide="selectedKitten.IsParent" style="text-align: center; margin-top: 0px; margin-bottom: 30px; display: inline-block; vertical-align: middle;">Подробная информация о котенке {{selectedKitten.RussianName}}</h3>
+			<h3 ng-show="selectedKitten.IsParent" style="text-align: center; margin-top: 0px; margin-bottom: 30px; display: inline-block; vertical-align: middle;">Подробная информация о кошке/коте {{selectedKitten.RussianName}}</h3>
+		</div>
+	</div>
+	<!--TODO: Create directive instead of ng-view-->
+	<ng-include src="pages/templates/catSlider.html"> </ng-include>
+	<div class="row" id="table">
+		<div class="col-md-8 col-md-offset-1 col-lg-offset-2">
+			<div class="backgroung-overrider" id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; padding-left: 10px; height: auto;">
+				<div class="Description">
+					<table>
+						<tr><td><b>Имя:</b></td><td>{{selectedKitten.RussianName}}</td></tr>
+						<tr ng-show="selectedKitten.BirthDate"><td><b>Дата рождения: </b></td><td>{{selectedKitten.BirthDate}} </td></tr>
+						<tr><td><b>Порода:</b></td><td>{{selectedKitten.BreedName}}</td></tr>
+						<tr><td><b>Окрас:</b></td><td>{{selectedKitten.Color}}</td></tr>
+						<tr ng-show="selectedKitten.Price && selectedKitten.Price > 0"><td><b>Стоимость:</b></td><td>{{selectedKitten.Price}}</td></tr>
+						<tr ng-show="selectedKitten.VideoUrl"><td><b>Видео:</b></td><td><a ng-click="DisplayVideo()">Смотреть</a></td></tr>
+						<tr ng-show="selectedKitten.MotherName"><td><b>Мама:</b></td><td><a ng-href="selectedKitten.MotherLink">{{selectedKitten.MotherName}}</a></td></tr>
+						<tr ng-show="selectedKitten.FatherName"><td><b>Папа:</b></td><td><a ng-href="selectedKitten.FatherLink">{{selectedKitten.FatherName}}</a></td></tr>
+						<tr>
+							<td><b>Заводчик:</b></td>
+							<td>{{selectedKitten.OwnerName}}</td><td><b>Телефон: </b></td><td>{{selectedKitten.OwnerPhone}}</td>
+						</tr>
+						<tr><td><b>Статус:</b></td><td>{{selectedKitten.Status}}</td></tr>
+						<tr ng-show="selectedKitten.UnderThePictureText"><td><b>Описание:</b></td></tr>
+						<tr ng-show="selectedKitten.UnderThePictureText"><td colspan="4">{{selectedKitten.UnderThePictureText}}</td></tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-6 col-md-6"></div>
+		<div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
+			<!--TODO: Add back link-->
+		</div>
+	</div>
+</div>

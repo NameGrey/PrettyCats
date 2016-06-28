@@ -1,8 +1,8 @@
 ﻿
-<form action="{{buildKittenLink(kitten)}}">
+<form action="{{kitten.Link}}">
 	<div class="col-sm-4">
-		<a ng-href="{{buildKittenLink(kitten)}}">
-			<img class="img-circle img-responsive img-center" style="margin-bottom: 24px;" ng-src="{{getKittenMainPicture(kitten).Image}}" alt="{{kitten.RussianName}}">
+		<a ng-href="{{kitten.Link}}">
+			<img class="img-circle img-responsive img-center" style="margin-bottom: 24px;" ng-src="{{kitten.Image}}" alt="{{kitten.RussianName}}">
 		</a>
 		<h2 style="margin-top: -5px; margin-bottom: 0px; float: left; margin-right: 5px;">{{kitten.RussianName}}</h2>
 

@@ -20,9 +20,9 @@ artDuviksApp.config(function($routeProvider, $locationProvider) {
 			controller: "KittensCtrl"
 		})
 		.when("/parent-kittens", {
-		title: "Наши кошки",
-				templateUrl: baseUrl + "parents.html",
-				controller: "KittensCtrl"
+			title: "Наши кошки",
+			templateUrl: baseUrl + "parents.html",
+			controller: "KittensCtrl"
 		})
 		.when("/scotland-kittens", {
 			title: "Шотландские котята - выбрать котенка шотландской породы",
@@ -38,8 +38,18 @@ artDuviksApp.config(function($routeProvider, $locationProvider) {
 			title: "Бенгальские котята - выбрать котенка",
 			templateUrl: baseUrl + "kittens.html",
 			controller: "KittensCtrl"
-		}).
-		otherwise({ redirectTo: "/" });
+		})
+		.when("/kitten-page/:id", {
+			title: "Информация о котенке",
+			templateUrl: baseUrl + "kitten.html",
+			controller: "KittensCtrl"
+		})
+		.when("/parent-kitten-page/:id", {
+			title: "Информация о кошке",
+			templateUrl: baseUrl + "kitten.html",
+			controller: "KittensCtrl"
+		})
+		.otherwise("/");
 
 	$locationProvider.html5Mode({ enabled: true, requireBase: false });
 });
@@ -57,17 +67,23 @@ artDuviksApp.factory("configuration", function() {
 	});
 
 artDuviksApp.run([
-	"$rootScope", function($rootScope) {
+	"$rootScope", function ($rootScope) {
+
+		$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+			console.error("$stateChangeError: ", toState, error);
+		});
+
 		$rootScope.$on("$routeChangeSuccess", function(event, current, previous) {
+			if (current && current.$$route) {
+				if (current.$$route.title)
+					$rootScope.title = current.$$route.title;
 
-			if (current.$$route.title)
-				$rootScope.title = current.$$route.title;
+				if (current.$$route.keywords)
+					$rootScope.keywords = current.$$route.keywords;
 
-			if (current.$$route.keywords)
-				$rootScope.keywords = current.$$route.keywords;
-
-			if (current.$$route.description)
-				$rootScope.description = current.$$route.description;
+				if (current.$$route.description)
+					$rootScope.description = current.$$route.description;
+			}
 		});
 	}
 ]);
