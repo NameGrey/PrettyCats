@@ -49,6 +49,35 @@ artDuviksApp.config(function($routeProvider, $locationProvider) {
 			templateUrl: baseUrl + "kitten.html",
 			controller: "KittensCtrl"
 		})
+		.when("/admin-panel", {
+			title: "Панель администратора",
+			templateUrl: baseUrl + "admin/admin.html"
+		})
+		.when("/admin/available-kittens", {
+			title: "Панель доступных котят",
+			templateUrl: baseUrl + "admin/available-kittens.html",
+			controller: "KittensCtrl"
+		})
+		.when("/admin/archive-kittens", {
+			title: "Панель архивных котят",
+			templateUrl: baseUrl + "admin/available-kittens.html",
+			controller: "KittensCtrl"
+		})
+		.when("/admin/parents", {
+			title: "Панель родителей",
+			templateUrl: baseUrl + "admin/available-kittens.html",
+			controller: "KittensCtrl"
+		})
+		.when("/admin/addKitten", {
+			title: "Добавление нового котенка",
+			templateUrl: baseUrl + "admin/addKitten.html",
+			controller: "KittensCtrl"
+		})
+		.when("/admin/editKitten", {
+			title: "Редактирование нового котенка",
+			templateUrl: baseUrl + "admin/editKitten.html",
+			controller: "KittensCtrl"
+		})
 		.otherwise("/");
 
 	$locationProvider.html5Mode({ enabled: true, requireBase: false });

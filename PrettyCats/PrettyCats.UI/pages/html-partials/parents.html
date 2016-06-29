@@ -1,4 +1,7 @@
-﻿<div class="container" ng-controller="KittensCtrl">
+﻿<ng-include src="'pages/templates/navigation.html'"></ng-include>
+<ng-include src="'pages/templates/pageHeader.html'"></ng-include>
+
+<div class="container" ng-controller="KittensCtrl">
 	<div ng-init="getParents()" class="row">
 		<!-- TODO: Add Back reference!-->
 		<button class="btn btn-primary">Click</button>

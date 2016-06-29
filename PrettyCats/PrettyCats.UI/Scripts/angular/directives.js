@@ -14,3 +14,11 @@ artDuviksApp.directive("thumbnail", function() {
 		}
 }
 });
+
+artDuviksApp.directive("adminPageKitten", function() {
+	return {
+		restrict: "E",
+		templateUrl: "pages/templates/admin/adminPageKitten.html",
+		replace: true
+	}
+});

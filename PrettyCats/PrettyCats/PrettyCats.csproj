@@ -183,9 +183,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AdminApiController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\PicturesApiRepository.cs" />
+    <Compile Include="Controllers\PicturesApiController.cs" />
     <Compile Include="Controllers\KittenApiController.cs" />
     <Compile Include="Controllers\BreedApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

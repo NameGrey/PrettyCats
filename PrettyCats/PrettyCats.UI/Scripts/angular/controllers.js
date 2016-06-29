@@ -50,9 +50,17 @@ artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $htt
 			});
 	};
 
+	var getAllKittens = function () {
+
+		$http.get(baseServerApiUrl + "/kittens").success(function(data) {
+			$scope.kittens = data;
+		}).error(function() { $scope.kittens = null; });
+	}
+
 	$scope.getKittens = getKittens;
 	$scope.getParents = getParents;
 	$scope.selectKitten = selectKitten;
+	$scope.getAllKittens = getAllKittens;
 });
 
 artDuviksControllers.controller("MainController", function ($scope) {
