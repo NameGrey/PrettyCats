@@ -289,3 +289,10 @@ div > a hover{
 .under-picture-btn {
     margin-left: 10px;
 }
+
+#selectedFiles img {
+	max-width: 125px;
+	max-height: 125px;
+	float: left;
+	margin-bottom: 10px;
+}
