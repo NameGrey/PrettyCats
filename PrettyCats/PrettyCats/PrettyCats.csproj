@@ -193,6 +193,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GlobalConfiguration.cs" />
+    <Compile Include="Helpers\ImageWorker.cs" />
     <Compile Include="Helpers\Log4NetLogger.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -207,6 +209,8 @@
     <Compile Include="Models\DisplayPlaceModelView.cs" />
     <Compile Include="Models\KittenModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IPictureLinksConstructor.cs" />
+    <Compile Include="Services\PicturesLinksConstructor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

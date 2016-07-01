@@ -77,11 +77,13 @@
     <Content Include="pages\html-partials\admin\admin.html" />
     <Content Include="pages\html-partials\admin\available-kittens.html" />
     <Content Include="pages\html-partials\admin\editKitten.html" />
+    <Content Include="pages\html-partials\admin\modify-kitten-pictures.html" />
     <Content Include="pages\html-partials\chooseBreed.html" />
     <Content Include="pages\html-partials\parent.html" />
     <Content Include="pages\html-partials\kitten.html" />
     <Content Include="pages\html-partials\parents.html" />
     <Content Include="pages\templates\admin\adminPageKitten.html" />
+    <Content Include="pages\templates\admin\kittenPicture.html" />
     <Content Include="pages\templates\catSlider.html" />
     <Content Include="pages\templates\navigation.html" />
     <Content Include="pages\templates\pageHeader.html" />

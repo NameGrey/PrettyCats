@@ -73,9 +73,14 @@ artDuviksApp.config(function($routeProvider, $locationProvider) {
 			templateUrl: baseUrl + "admin/addKitten.html",
 			controller: "KittensCtrl"
 		})
-		.when("/admin/editKitten", {
+		.when("/admin/editKitten/:id", {
 			title: "Редактирование нового котенка",
 			templateUrl: baseUrl + "admin/editKitten.html",
+			controller: "KittensCtrl"
+		})
+		.when("/admin/kitten/modify-pictures/:id", {
+			title: "Редактирование фотографий котенка",
+			templateUrl: baseUrl + "admin/modify-kitten-pictures.html",
 			controller: "KittensCtrl"
 		})
 		.otherwise("/");

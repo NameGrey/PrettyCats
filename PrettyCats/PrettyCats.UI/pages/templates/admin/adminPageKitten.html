@@ -1,19 +1,17 @@
 ﻿
-<div ng-init="SetHandlerId(kitten.Name)" class="kitten-block-admin">
+<div class="kitten-block-admin" id="{{kitten.Name}}" ng-init="SetHandlerId(kitten.Name);initializeMainPicture(kitten);">
 	<div class="image-container">
-		<img class="main-kitten-image" ng-src="kitten.MainPicture.Image"/>
+		<img class="main-kitten-image" ng-src="{{kitten.MainPicture.Image}}"/>
 		<!--TODO: add the possbility load pictures-->
 		<!--@using (Html.BeginForm("AddMainFoto", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{-->
-		<input style="margin-left: 15px;" type="file" name="f">
-		<input style="margin-left: 15px;" type="hidden" name="kittenName">
-		<input class="send-main-foto-btn" style="margin-left: 15px;" type="submit" name="post-button" value="Сменить фото...">
-		
+		<input style="margin-left: 15px;" main-photo-selector="" data-ng-model="theFile" type="file" name="f" accept="image/jpeg">
+		<progress-bar kitten="{{kitten}}"></progress-bar>
 	</div>
 	<div class="button-container">
 		<!--TODO: add the possibility to edit and remove a kitten-->
-		<a href="#" class="btn-admin btn-red">Изменить</a>
-		<a href="#" class="btn-admin btn-red">Удалить</a>
+		<a href="/admin/editKitten/{{kitten.ID}}" class="btn-admin btn-red">Изменить</a>
+		<a href="" ng-click="removeKitten(kitten)" class="btn-admin btn-red">Удалить</a>
 		<a href="#" class="btn-admin btn-red hid">Сохранить</a>
 
 	</div>
@@ -35,7 +33,7 @@
 	<div class="bottom-fotos-container">
 		<input onclick="" type="button" id="{{kitten.Name}}" name="del-fotos" value="Добавить фотки">
 		<!--TODO: Open a kitten for modification his pictures-->
-		<input onclick="location.href = 'KittenPictures/@Model.ID';" type="button" name="add-fotos" value="Удалить/Изменить фотки">
+		<input href="/admin/kitten/modify-pictures/{{kitten.ID}}" type="button" name="add-fotos" value="Удалить/Изменить фотки">
 		<span style="color: #32cd32;" id="left-files-{{kitten.Name}}"></span>
 	</div>
 </div>

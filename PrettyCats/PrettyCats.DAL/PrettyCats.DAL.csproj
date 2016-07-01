@@ -84,7 +84,6 @@
     <Compile Include="Repositories\IPicturesRepository.cs" />
     <Compile Include="Repositories\IReadOnlyRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Services\PicturesLinksConstructor.cs" />
     <Compile Include="StorageContext.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -57,10 +57,30 @@ artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $htt
 		}).error(function() { $scope.kittens = null; });
 	}
 
+	var removeKitten = function (kitten) {
+		var index = $scope.kittens.indexOf(kitten);
+
+		if (index > 0) {
+			$http.get(baseServerApiUrl + "/kittens/remove").success(function() {
+				$("#" + kitten.Name + " .kitten-block-admin").remove();
+				$scope.kittens.splice(index, 1);
+			});
+		}
+	}
+
+	var getKittenPictures = function() {
+		return kittensImageWorker.getKittenPictures($routeParams.id);
+	}
+
+	$scope.theFile = null;
 	$scope.getKittens = getKittens;
 	$scope.getParents = getParents;
 	$scope.selectKitten = selectKitten;
 	$scope.getAllKittens = getAllKittens;
+	$scope.setMainPhotoFor = kittensImageWorker.setMainPhotoFor;
+	$scope.addThePhoto = kittensImageWorker.addThePhoto;
+	$scope.removeKitten = removeKitten;
+	$scope.getKittenPictures = getKittenPictures;
 });
 
 artDuviksControllers.controller("MainController", function ($scope) {
