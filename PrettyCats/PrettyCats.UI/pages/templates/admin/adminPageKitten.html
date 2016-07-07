@@ -26,19 +26,22 @@
 		</button>
 	</div>
 	<div class="setting-container">
-		<table>
-			<tr style="height: 40px;">
-				<td>{{kitten.PlaceOfDisplaying}}</td>
-			</tr>
-			<tr style="height: 40px">
-				<td>Имя на английском</td>
-				<td style="padding-left: 10px">{{kitten.Name}}</td>
-			</tr>
-			<tr style="height: 40px;">
-				<td>Имя на русском</td>
-				<td style="padding-left: 10px">{{kitten.RussianName}}</td>
-			</tr>
-		</table>
+		<div class="form-group img-rounded bg-success">
+			<table class="table-style">
+				<tr class="tr-style">
+					<td>Имя на английском</td>
+					<td style="padding-left: 10px">{{kitten.Name}}</td>
+				</tr>
+				<tr class="tr-style">
+					<td>Имя на русском</td>
+					<td style="padding-left: 10px">{{kitten.RussianName}}</td>
+				</tr>
+				<tr ng-class="{'tr-green' :kitten.Status == 'Свободен', 'tr-style': kitten.Status !== 'Свободен'}">
+					<td>Статус</td>
+					<td style="padding-left: 10px">{{kitten.Status}}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 	<div class="bottom-fotos-container">
 	</div>

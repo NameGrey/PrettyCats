@@ -185,3 +185,16 @@ a.btn-admin.btn-red {
 	margin-left: 8px;
 	margin-top: 5px;
 }
+
+.tr-style {
+	color: brown;
+}
+
+.tr-green {
+	color: green;
+}
+
+.table-style {
+	font-size: 14px;
+	margin: 5px;
+}
