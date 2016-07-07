@@ -31,8 +31,10 @@ namespace PrettyCats.Helpers
 			_server = server;
 		}
 
-		public void AddPhoto(MemoryStream file, string kittenName)
+		public Pictures AddPhoto(MemoryStream file, string kittenName)
 		{
+			Pictures result = null;
+
 			lock (_lockObj)
 			{
 				var smallPictureStream = new MemoryStream();
@@ -49,15 +51,19 @@ namespace PrettyCats.Helpers
 
 				file.CopyTo(smallPictureStream);
 
-				_picturesRepository.Insert(new Pictures()
+				result = new Pictures()
 				{
 					Image = linkPath,
 					ImageSmall = smallLinkPath
-				});
+				};
+
+				_picturesRepository.Insert(result);
 
 				SaveImage(dirPath + "\\" + kittenNameNumbered, file, PictureSizes.StandartSliderPicture);
 				SaveImage(dirPath + "\\" + kittenNameNumberedSmall, smallPictureStream, PictureSizes.SmallSliderPicture);
 			}
+
+			return result;
 		}
 
 		public string SaveMainPicture(string kittenName, Stream file)

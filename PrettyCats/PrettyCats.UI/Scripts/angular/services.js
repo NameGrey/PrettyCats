@@ -41,17 +41,14 @@ artDuviksApp.factory("kittensImageWorker", function($http, configuration) {
 			});
 		},
 
-		addThePhoto: function(files, kitten) {
+		addThePhoto: function(file, kitten) {
 			var baseServerApiUrl = configuration.ServerApi;
-			var t = $.param({ f: value, kittenName: kitten.Name });
+			var data = new FormData();
+			data.append("image", file);
+			data.append("kittenName", kitten.Name);
 
-			angular.forEach(files, function(value, key) {
-				$http({
-					method: 'POST',
-					url: baseServerApiUrl + "/pictures/add",
-					data: 'df',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-				});
+			return $http.post(baseServerApiUrl + '/pictures/add', data, {
+				headers: { "Content-Type": undefined }
 			});
 		},
 		initializeMainPicture: function(kitten) {

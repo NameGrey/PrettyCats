@@ -69,26 +69,22 @@ artDuviksApp.directive('mainPhotoSelector',
 );
 
 artDuviksApp.directive('multiplayPhotosSelector',
-	function () {
+	function(kittensImageWorker) {
 		return {
-			restrict: 'E',
-			templateUrl: "pages/templates/admin/multiplayPhotosSelector.html",
-			link:function(scope, el, attrs) {
-				var s = scope;
+			restrict: 'A',
+			link: function(scope, el, attrs) {
+				el.append("<input type='file' multiple class='hidden' accept='image/jpeg'>")
+					.bind("change", function(evt) {
+						angular.forEach(evt.target.files, function(value, key) {
+							kittensImageWorker.addThePhoto(value, scope.kitten);
+						});
+						$(evt.target).trigger("reset");
+					});
+
+				el.bind("click", function(event) {
+					$(event.target).next().trigger("click"); // the next should be input because we have added it before in this function
+				});
 			}
-			//,
-			//link: function ($scope, el, attrs, ngModel) {
-			//	el.find("input[type='file']").bind('change', function (event) {
-			//		angular.forEach(event.target.files, function(value, key) {
-			//			kittensImageWorker.addThePhoto(key, $scope.kitten);
-			//		});
-			//	});
-			//},
-			//controller: function($scope) {
-			//	$scope.chooseFiles = function(evt) {
-			//		var a = evt;
-			//	}
-			//}
 		}
 	}
 );

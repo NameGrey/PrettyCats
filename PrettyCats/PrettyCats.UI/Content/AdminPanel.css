@@ -180,3 +180,8 @@ a.btn-admin.btn-red {
 	cursor: pointer;
 	transition: all .5s;
 }
+
+.btn-space {
+	margin-left: 8px;
+	margin-top: 5px;
+}

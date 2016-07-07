@@ -86,7 +86,6 @@
     <Content Include="pages\templates\admin\kittenPicture.html" />
     <Content Include="pages\templates\catSlider.html" />
     <Content Include="pages\templates\admin\mainPhotoSelector.html" />
-    <Content Include="pages\templates\admin\multiplayPhotosSelector.html" />
     <Content Include="pages\templates\navigation.html" />
     <Content Include="pages\templates\pageHeader.html" />
     <Content Include="pages\templates\thumbnail.html" />

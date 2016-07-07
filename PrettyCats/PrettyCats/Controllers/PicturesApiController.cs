@@ -45,6 +45,28 @@ namespace PrettyCats.Controllers
 		}
 
 		[HttpPost]
+		[Route("add")]
+		public async Task<Pictures> AddNewPicture()
+		{
+			Pictures result = null;
+			if (!Request.Content.IsMimeMultipartContent())
+			{
+				//TODO: Handle the error (Research ways to handle exception Web aPI)
+			}
+
+			var provider = new MultipartMemoryStreamProvider();
+
+			await Request.Content.ReadAsMultipartAsync(provider);
+
+			byte[] picture = await provider.Contents[0].ReadAsByteArrayAsync();
+			string kittenName = await provider.Contents[1].ReadAsStringAsync();
+
+			_imageWorker.AddPhoto(new MemoryStream(picture), kittenName);
+
+			return result;
+		}
+
+		[HttpPost]
 		[Route("main-picture/add")]
 		public async Task<Pictures> SetMainPicture()
 		{
