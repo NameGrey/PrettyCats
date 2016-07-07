@@ -5,14 +5,12 @@
 		<!--TODO: add the possbility load pictures-->
 		<!--@using (Html.BeginForm("AddMainFoto", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{-->
-		<input style="margin-left: 15px;" main-photo-selector="" data-ng-model="theFile" type="file" name="f" accept="image/jpeg">
-		<progress-bar kitten="{{kitten}}"></progress-bar>
+		<main-photo-selector></main-photo-selector>
 	</div>
 	<div class="button-container">
 		<!--TODO: add the possibility to edit and remove a kitten-->
 		<a href="/admin/editKitten/{{kitten.ID}}" class="btn-admin btn-red">Изменить</a>
 		<a href="" ng-click="removeKitten(kitten)" class="btn-admin btn-red">Удалить</a>
-		<a href="#" class="btn-admin btn-red hid">Сохранить</a>
 
 	</div>
 	<div class="setting-container">
@@ -31,9 +29,9 @@
 		</table>
 	</div>
 	<div class="bottom-fotos-container">
-		<input onclick="" type="button" id="{{kitten.Name}}" name="del-fotos" value="Добавить фотки">
+		<multiplay-photos-selector></multiplay-photos-selector>
 		<!--TODO: Open a kitten for modification his pictures-->
-		<input href="/admin/kitten/modify-pictures/{{kitten.ID}}" type="button" name="add-fotos" value="Удалить/Изменить фотки">
+		<button class="btn btn-default"> Удалить/Изменить фотки</button>
 		<span style="color: #32cd32;" id="left-files-{{kitten.Name}}"></span>
 	</div>
 </div>

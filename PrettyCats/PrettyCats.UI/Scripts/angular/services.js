@@ -62,8 +62,12 @@ artDuviksApp.factory("kittensImageWorker", function($http, configuration) {
 
 					if (!data)
 						kitten.MainPicture = { Image: "empty" };
-					else
+					else {
 						kitten.MainPicture = data;
+						// We are adding milliseconds parameter to avoid caching of the picture.
+						// It's not the best way. TODO:Change it later
+						kitten.MainPicture.Image += "?" + new Date().getMilliseconds();
+					}
 				});
 		}
 	}

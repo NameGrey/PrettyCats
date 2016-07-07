@@ -37,10 +37,20 @@ artDuviksApp.directive("kittenPicture", function() {
 artDuviksApp.directive('mainPhotoSelector',
 	function (kittensImageWorker, $compile) {
 		return {
-			require: "ngModel",
-			restrict: 'A',
+			restrict: 'E',
+			templateUrl: "pages/templates/admin/mainPhotoSelector.html",
+			replace:true,
 			link: function ($scope, el, attrs, ngModel) {
-				el.bind('change', function(event) {
+
+				el.bind("click", function(event) {
+					var i = $(event.target).find("input[type='file']");
+
+				if (i) {
+					i.trigger("click");
+}
+				});
+
+				el.find("input[type='file']").bind('change', function(event) {
 					kittensImageWorker.setMainPhotoFor(event.target.files[0], $scope.kitten)
 						.success(function (data) {
 							var random = (new Date()).toString();
@@ -58,18 +68,27 @@ artDuviksApp.directive('mainPhotoSelector',
 	}
 );
 
-artDuviksApp.directive('multiplayPhotosSelector', ['kittensImageWorker',
-	function (kittensImageWorker) {
+artDuviksApp.directive('multiplayPhotosSelector',
+	function () {
 		return {
-			require: "ngModel",
-			restrict: 'A',
-			link: function ($scope, el, attrs, ngModel) {
-				el.bind('change', function (event) {
-					angular.forEach(event.target.files, function(value, key) {
-						kittensImageWorker.addThePhoto(key, $scope.kitten);
-					});
-				});
+			restrict: 'E',
+			templateUrl: "pages/templates/admin/multiplayPhotosSelector.html",
+			link:function(scope, el, attrs) {
+				var s = scope;
 			}
+			//,
+			//link: function ($scope, el, attrs, ngModel) {
+			//	el.find("input[type='file']").bind('change', function (event) {
+			//		angular.forEach(event.target.files, function(value, key) {
+			//			kittensImageWorker.addThePhoto(key, $scope.kitten);
+			//		});
+			//	});
+			//},
+			//controller: function($scope) {
+			//	$scope.chooseFiles = function(evt) {
+			//		var a = evt;
+			//	}
+			//}
 		}
 	}
-]);
+);
