@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
-using PrettyCats.DAL.Repositories.DbRepositories;
 
 namespace PrettyCats.Controllers
 {
@@ -12,11 +10,9 @@ namespace PrettyCats.Controllers
 	{
 		private readonly IKittenOwnerRepository _ownersRepository;
 
-		public OwnersApiController()
+		public OwnersApiController(IKittenOwnerRepository ownersRepository)
 		{
-			StorageContext context = new StorageContext();
-
-			_ownersRepository = new DbOwnersRepository(context);
+			_ownersRepository = ownersRepository;
 		}
 
 		[Route("")]

@@ -23,12 +23,10 @@ namespace PrettyCats.Controllers
 		private readonly IPictureLinksConstructor _picturesLinksConstructor;
 		private ImageWorker _imageWorker;
 
-		public PicturesApiController()
+		public PicturesApiController(IPicturesRepository picturesRepository, IPictureLinksConstructor picturesLinksConstructor)
 		{
-			StorageContext context = new StorageContext();
-
-			_picturesRepository = new DbPicturesRepository(context);
-			_picturesLinksConstructor = new PicturesLinksConstructor(GlobalAppConfiguration.BaseServerUrl);
+			_picturesRepository = picturesRepository;
+			_picturesLinksConstructor = picturesLinksConstructor;
 			_imageWorker = new ImageWorker(_picturesRepository, _picturesLinksConstructor, HttpContext.Current.Server);
 		}
 

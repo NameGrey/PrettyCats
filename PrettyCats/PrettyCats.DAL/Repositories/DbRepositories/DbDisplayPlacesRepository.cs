@@ -12,6 +12,11 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 			_dbContext = context;
 		}
 
+		public DbDisplayPlacesRepository() : this(new StorageContext())
+		{
+			
+		}
+
 		public DisplayPlaces GetByID(int id)
 		{
 			return _dbContext.DisplayPlaces.Find(id);

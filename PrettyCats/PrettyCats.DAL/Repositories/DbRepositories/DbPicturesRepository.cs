@@ -17,6 +17,11 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 			_dbContext = context;
 		}
 
+		public DbPicturesRepository() : this(new StorageContext())
+		{
+
+		}
+
 		public string GetNewNumberOfImage(string kittenName, bool small = false)
 		{
 			int newNumber = _dbContext.Pictures.OrderByDescending(i => i.ID).First().ID + 1;

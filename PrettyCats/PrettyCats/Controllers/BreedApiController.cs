@@ -13,11 +13,9 @@ namespace PrettyCats.Controllers
 	{
 		private readonly IKittenBreedRepository _breedRepository;
 
-		public BreedApiController()
+		public BreedApiController(IKittenBreedRepository breedRepository)
 		{
-			StorageContext context = new StorageContext();
-
-			_breedRepository = new DbBreedsRepository(context);
+			_breedRepository = breedRepository;
 		}
 
 		[Route("")]

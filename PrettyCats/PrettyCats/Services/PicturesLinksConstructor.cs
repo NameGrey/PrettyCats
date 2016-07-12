@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web.Http;
+using PrettyCats.Helpers;
 using PrettyCats.Services.Interfaces;
 
 namespace PrettyCats.Services
@@ -22,6 +24,11 @@ namespace PrettyCats.Services
 		public PicturesLinksConstructor(string baseServerUrl)
 		{
 			_baseServerUrl = baseServerUrl;
+		}
+
+		public PicturesLinksConstructor() : this(GlobalAppConfiguration.BaseServerUrl)
+		{
+			
 		}
 
 		public string GetKittenPicturesFolder(string kittenName, PathFullness pathFullness = PathFullness.AbsolutePath)

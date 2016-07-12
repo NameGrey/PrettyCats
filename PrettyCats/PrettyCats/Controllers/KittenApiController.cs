@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
-using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
-using PrettyCats.DAL.Repositories.DbRepositories;
 using PrettyCats.Helpers;
-using PrettyCats.Services;
 using PrettyCats.Services.Interfaces;
 
 namespace PrettyCats.Controllers
@@ -29,13 +24,11 @@ namespace PrettyCats.Controllers
 
 		private ImageWorker _imageWorker;
 
-		public KittenApiController()
+		public KittenApiController(IKittensRepository kittensRepository, IPicturesRepository picturesRepository, IPictureLinksConstructor picturesLinksConstructor)
 		{
-			StorageContext context = new StorageContext();
-
-			_kittensRepository = new DBKittensRepository(context);
-			_picturesRepository = new DbPicturesRepository(context);
-			_picturesLinksConstructor = new PicturesLinksConstructor(GlobalAppConfiguration.BaseServerUrl);
+			_kittensRepository = kittensRepository;
+			_picturesRepository = picturesRepository;
+			_picturesLinksConstructor = picturesLinksConstructor;
 
 			_imageWorker = new ImageWorker(_picturesRepository, _picturesLinksConstructor, HttpContext.Current.Server);
 		}

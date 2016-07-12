@@ -12,11 +12,9 @@ namespace PrettyCats.Controllers
 	{
 		private readonly IKittenDisplayPlaceRepository _displayPlaceRepository;
 
-		public DisplayPlacesApiController()
+		public DisplayPlacesApiController(IKittenDisplayPlaceRepository displayPlaceRepository)
 		{
-			StorageContext context = new StorageContext();
-
-			_displayPlaceRepository = new DbDisplayPlacesRepository(context);
+			_displayPlaceRepository = displayPlaceRepository;
 		}
 
 		[Route("")]

@@ -12,6 +12,11 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 			_dbContext = context;
 		}
 
+		public DbBreedsRepository() : this(new StorageContext())
+		{
+			
+		}
+
 		public PetBreeds GetByID(int id)
 		{
 			return _dbContext.PetBreeds.Find(id);

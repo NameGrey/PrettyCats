@@ -17,6 +17,11 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 			_dbContext = context;
 		}
 
+		public DBKittensRepository(): this(new StorageContext())
+		{
+			
+		}
+
 		#region IKittensRepository
 
 			#region IReadOnlyRepository
