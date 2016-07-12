@@ -43,7 +43,7 @@ namespace PrettyCats.Services
 			return path;
 		}
 		
-		public string GetSmallKittenImageFileName(string imagePath, PathFullness pathFullness = PathFullness.AbsolutePath)
+		public string GetSmallKittenImageFileName(string imagePath)
 		{
 			string result = String.Empty;
 			string name = Path.GetFileNameWithoutExtension(imagePath);
@@ -51,11 +51,10 @@ namespace PrettyCats.Services
 			if (name != null)
 			{
 				result = Regex.Match(name, @"\d+").Value;
-				result = Regex.Replace(imagePath, result, "_" + result);
-			}
+				string clearName = Regex.Match(name, @"[^\d]*").Value;
 
-			if (pathFullness == PathFullness.AbsolutePath)
-				result = _baseServerUrl + result;
+				result = Regex.Replace(imagePath, name, clearName + "_" + result);
+			}
 
 			return result;
 		}

@@ -84,6 +84,27 @@ namespace PrettyCats.Helpers
 			return result;
 		}
 
+		public int RemovePicture(Pictures picture)
+		{
+			if (picture != null)
+			{
+				_picturesRepository.Delete(picture.ID);
+				_picturesRepository.Save();
+
+				var smallKittenPath = _pictureLinksConstructor.GetSmallKittenImageFileName(picture.Image);
+				// Create relative paths removing server address from the path
+				var bigSizePictureServerPath =
+					_server.MapPath(picture.Image.Replace(GlobalAppConfiguration.BaseServerUrl, string.Empty));
+				var smallSizePictureServerPath =
+					_server.MapPath(smallKittenPath.Replace(GlobalAppConfiguration.BaseServerUrl, string.Empty));
+
+				RemoveFile(bigSizePictureServerPath);
+				RemoveFile(smallSizePictureServerPath);
+			}
+
+			return picture.ID;
+		}
+
 		/// <summary>
 		/// Save Image in specified picture size
 		/// </summary>
@@ -160,7 +181,7 @@ namespace PrettyCats.Helpers
 
 			return new Size(newWidth, newHeight); ;
 		}
-
+		
 		public void RemoveFile(string path)
 		{
 			if (System.IO.File.Exists(path))

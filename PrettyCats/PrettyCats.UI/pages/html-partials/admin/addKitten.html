@@ -1,2 +1,126 @@
-﻿<h1>Add kitten page!</h1>
-<!--TODO: create the page-->
+﻿<div  class="admin-panel">
+	<div class="form-horizontal" ng-controller="KittensCtrl" ng-init="getParents();getOwners();getBreeds();getDisplayPlaces();">
+			<h4>Добавление нового котенка</h4>
+			<hr />
+			<div class="form-group">
+				<label class="control-label col-md-2">Имя на английском</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="kitten.Name" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Имя на русском</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="kitten.RussianName" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Порода</label>
+				<div class="col-md-8">
+					<select class="form-control pointer" ng-model="kitten.BreedID">
+						<option ng-repeat="item in breeds" value="{{item.ID}}">{{item.ShortName}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Стоимость</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="kitten.Price" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Видео URL</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="kitten.VideoUrl" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Владелец</label>
+				<div class="col-md-8">
+					<select class="form-control pointer" ng-model="kitten.OwnerID">
+						<option ng-repeat="item in owners" value="{{item.ID}}">{{item.Name}} ({{item.Phone}})</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Мама</label>
+				<div class="col-md-8">
+					<select class="form-control pointer" ng-model="kitten.MotherID">
+						<option ng-repeat="item in parents" value="{{item.ID}}">{{item.Name}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Папа</label>
+				<div class="col-md-8">
+					<select class="form-control pointer" ng-model="kitten.FatherID">
+						<option ng-repeat="item in parents" value="{{item.ID}}">{{item.Name}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Отображение</label>
+				<div class="col-md-8">
+					<select class="form-control pointer" ng-model="kitten.WhereDisplay">
+						<option ng-repeat="item in displayPlaces" value="{{item.ID}}">{{item.PlaceOfDisplaying}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">В архив</label>
+				<div class="col-md-1">
+					<input type="checkbox" class="form-control" ng-model="kitten.IsInArchive" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Дата рождения</label>
+				<div class="col-md-8">
+					<!--TODO: add usage of selector from BookIt. But change Colors!-->
+					<input type="text" class="form-control" ng-model="kitten.BirthDate"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Окрас</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="kitten.Color" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Статус</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" ng-model="kitten.Status" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-md-2">Текст</label>
+				<div class="col-md-8">
+					<textarea class="form-control" ng-model="kitten.UnderThePictureText"></textarea>
+				</div>
+			</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-8">
+				<input type="submit" value="Создать" ng-click="addNewKitten(kitten)" class="btn btn-default"/>
+			</div>
+		</div>
+		<div ng-class="{'alert alert-danger' : errorMessage, 'alert alert-success': successMessage}" role="alert">
+			<span ng-show="errorMessage || successMessage" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			{{errorMessage}}{{successMessage}}
+		</div>
+		</div>
+</div>
+
+<!--TODO: Add back link-->

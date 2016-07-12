@@ -1,11 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using Newtonsoft.Json;
 using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.DAL.Repositories.DbRepositories;
+using PrettyCats.Helpers;
+using PrettyCats.Services;
+using PrettyCats.Services.Interfaces;
 
 namespace PrettyCats.Controllers
 {
@@ -13,12 +24,20 @@ namespace PrettyCats.Controllers
 	public class KittenApiController: ApiController
 	{
 		private readonly IKittensRepository _kittensRepository;
+		private readonly IPicturesRepository _picturesRepository;
+		private readonly IPictureLinksConstructor _picturesLinksConstructor;
+
+		private ImageWorker _imageWorker;
 
 		public KittenApiController()
 		{
 			StorageContext context = new StorageContext();
 
 			_kittensRepository = new DBKittensRepository(context);
+			_picturesRepository = new DbPicturesRepository(context);
+			_picturesLinksConstructor = new PicturesLinksConstructor(GlobalAppConfiguration.BaseServerUrl);
+
+			_imageWorker = new ImageWorker(_picturesRepository, _picturesLinksConstructor, HttpContext.Current.Server);
 		}
 
 		[Route("{id:int}")]
@@ -37,16 +56,65 @@ namespace PrettyCats.Controllers
 
 		[HttpPost]
 		[Route("add")]
-		public void AddKitten(Pets kitten)
+		public async Task<HttpResponseMessage> AddKitten()
 		{
-			if (_kittensRepository.IsKittenExists(kitten))
+			if (!Request.Content.IsMimeMultipartContent())
+			{
+			}
+
+			var provider = new MultipartMemoryStreamProvider();
+			await Request.Content.ReadAsMultipartAsync(provider);
+
+			byte[] kitten = await provider.Contents[0].ReadAsByteArrayAsync();
+			string jsonString = Encoding.UTF8.GetString(kitten);
+			var newKitten = JsonConvert.DeserializeObject<Pets>(jsonString);
+
+			if (_kittensRepository.IsKittenExists(newKitten))
 			{
 				throw new NotImplementedException();
 				//TODO: define how to handle exceptions as for server side as for client side
 			}
 
-			_kittensRepository.Insert(kitten);
+			_kittensRepository.Insert(newKitten);
 			_kittensRepository.Save();
+
+			return new HttpResponseMessage(HttpStatusCode.OK);
+		}
+
+		[HttpGet]
+		[Route("remove/{id:int}")]
+		public async Task<HttpResponseMessage> RemoveKitten(int id)
+		{
+			Pets kitten = _kittensRepository.GetByID(id);
+			bool isParent = kitten.IsParent;
+			
+			if (!_kittensRepository.IsKittenExists(kitten))
+			{
+				throw new NotImplementedException();
+				//TODO: define how to handle exceptions as for server side as for client side
+			}
+
+			if (isParent && _kittensRepository.IsKittenExistsWithParent(kitten))
+			{
+				throw new NotImplementedException();
+				//TODO: define how to handle exceptions as for server side as for client side
+				//return Error("Родитель не может быть удален, так как есть котята с таким родителем!!!");
+			}
+			
+			RemoveAllPictures(kitten.Pictures.ToList());
+
+			_kittensRepository.Delete(kitten.ID);
+			_kittensRepository.Save();
+
+			return new HttpResponseMessage(HttpStatusCode.OK);
+		}
+
+		public void RemoveAllPictures(List<Pictures> pictures)
+		{
+			foreach (var pic in pictures)
+			{
+				_imageWorker.RemovePicture(pic);
+			}
 		}
 
 		[HttpPost]

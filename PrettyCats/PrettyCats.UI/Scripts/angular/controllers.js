@@ -2,8 +2,9 @@
 
 var artDuviksControllers = angular.module("artDuviksControllers", []);
 
-artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $http, $routeParams, configuration, kittensImageWorker) {
+artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $http, $routeParams, $timeout, configuration, kittensImageWorker) {
 	var baseServerApiUrl = configuration.ServerApi;
+	$scope.kitten = {};
 
 	var getKittens = function() {
 		var breedNameFromPath = "/" + $location.path().split(/[\s/]+/).pop();
@@ -60,17 +61,88 @@ artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $htt
 	var removeKitten = function (kitten) {
 		var index = $scope.kittens.indexOf(kitten);
 
-		if (index > 0) {
-			$http.get(baseServerApiUrl + "/kittens/remove").success(function() {
-				$("#" + kitten.Name + " .kitten-block-admin").remove();
-				$scope.kittens.splice(index, 1);
+		if (index > -1) {
+			$http.get(baseServerApiUrl + "/kittens/remove/" + kitten.ID).success(function() {
+
+				$("#" + kitten.Name + ".kitten-block-admin").replaceWith("<div class='alert alert-success'>Котенок был удален!</div>");
+
+				$timeout(function() {
+					$("#" + kitten.Name + ".kitten-block-admin").remove();
+					$scope.kittens.splice(index, 1);
+				}, 1000);
+			}).error(function() {
+				$("#" + kitten.Name + ".kitten-block-admin").find(".bottom-fotos-container").append("<div class='alert alert-danger'>Ошибка при удалении!</div>");
+
+				$timeout(function() {
+					$("#" + kitten.Name + ".kitten-block-admin .bottom-fotos-container div").remove();
+				}, 1000);
+
 			});
 		}
+	}
+
+	var addNewKitten = function(kitten) {
+		var data = new FormData();
+		var json = JSON.stringify(kitten, null, 2);
+		data.append("newKitten", json);
+
+		$http.post(baseServerApiUrl + "/kittens/add", data, {headers:{"Content-Type": undefined}})
+			.success(function() {
+				$scope.successMessage = "Котенок успешно сохранен!";
+
+				$timeout(function() {
+					$scope.successMessage = null;
+					$location.path("/admin/available-kittens");
+				}, 2000);
+			})
+			.error(function() {
+				$scope.errorMessage = "Произошла непредвиденная ошибка на сервере. Котенок не был добавлен.";
+
+				$timeout(function() {
+					$scope.errorMessage = null;
+				}, 5000);
+			});
 	}
 
 	var getKittenPictures = function() {
 		return kittensImageWorker.getKittenPictures($routeParams.id);
 	}
+
+	var getOwners = function() {
+		var baseServerApiUrl = configuration.ServerApi;
+
+		$http.get(baseServerApiUrl + "/owners")
+			.success(function (data) {
+				$scope.owners = data;
+			})
+			.error(function () {
+				$scope.owners = null;
+			});
+	};
+
+	var getBreeds = function() { 
+		var baseServerApiUrl = configuration.ServerApi;
+
+		$http.get(baseServerApiUrl + "/breeds")
+			.success(function (data) {
+				$scope.breeds = data;
+			})
+			.error(function () {
+				$scope.breeds = null;
+			});
+	};
+
+	var getDisplayPlaces = function () {
+		var baseServerApiUrl = configuration.ServerApi;
+
+		$http.get(baseServerApiUrl + "/display-places")
+			.success(function (data) {
+				$scope.displayPlaces = data;
+			})
+			.error(function () {
+				$scope.displayPlaces = null;
+			});
+	};
 
 	$scope.theFile = null;
 	$scope.getKittens = getKittens;
@@ -80,7 +152,12 @@ artDuviksControllers.controller("KittensCtrl", function ($scope, $location, $htt
 	$scope.setMainPhotoFor = kittensImageWorker.setMainPhotoFor;
 	$scope.addThePhoto = kittensImageWorker.addThePhoto;
 	$scope.removeKitten = removeKitten;
+	$scope.addNewKitten = addNewKitten;
 	$scope.getKittenPictures = getKittenPictures;
+
+	$scope.getOwners = getOwners;
+	$scope.getBreeds = getBreeds;
+	$scope.getDisplayPlaces = getDisplayPlaces;
 });
 
 artDuviksControllers.controller("MainController", function ($scope) {

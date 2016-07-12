@@ -184,6 +184,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\OwnersApiController.cs" />
+    <Compile Include="Controllers\DisplayPlacesApiController.cs" />
     <Compile Include="Controllers\PicturesApiController.cs" />
     <Compile Include="Controllers\KittenApiController.cs" />
     <Compile Include="Controllers\BreedApiController.cs" />

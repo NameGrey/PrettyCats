@@ -8,6 +8,6 @@ namespace PrettyCats.Services.Interfaces
 
 		string GetKittenImagePath(string kittenName, bool withExtension = true, bool withNamedFolder = false, PathFullness pathFullness = PathFullness.AbsolutePath);
 
-		string GetSmallKittenImageFileName(string imagePath, PathFullness pathFullness = PathFullness.AbsolutePath);
+		string GetSmallKittenImageFileName(string imagePath);
 	}
 }
