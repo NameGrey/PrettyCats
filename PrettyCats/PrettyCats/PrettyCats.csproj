@@ -232,6 +232,7 @@
     <Compile Include="Models\DisplayPlaceModelView.cs" />
     <Compile Include="Models\KittenModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GlobalExceptionsHandler.cs" />
     <Compile Include="Services\Interfaces\IPictureLinksConstructor.cs" />
     <Compile Include="Services\PicturesLinksConstructor.cs" />
   </ItemGroup>
