@@ -8,11 +8,6 @@ namespace PrettyCats.Services
 	{
 		private readonly ILog _logger = log4net.LogManager.GetLogger(typeof (GlobalExceptionsHandler));
 
-		public GlobalExceptionsHandler()
-		{
-			XmlConfigurator.Configure();
-		}
-
 		public override void Handle(ExceptionHandlerContext context)
 		{
 			_logger.Error(context.Request.RequestUri, context.Exception);
