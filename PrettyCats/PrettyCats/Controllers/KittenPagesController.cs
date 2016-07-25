@@ -88,7 +88,7 @@ namespace PrettyCats.Controllers
 		[Route("parent-kitten-page/{id}")]
 		public ActionResult ParentCatMainPage_old(int id)
 		{
-			ViewBag.BackLink = Request.UrlReferrer?.AbsoluteUri ?? "";
+			ViewBag.BackLink = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : String.Empty;
 			return View("ParentCatMainPage", GetModelViewByKittenId(id));
 		}
 
@@ -179,12 +179,12 @@ namespace PrettyCats.Controllers
 		
 		public ActionResult KittenMainPage(int id)
 		{
-			return RedirectPermanent($"/kitten-page/{id}");
+			return RedirectPermanent(String.Format("/kitten-page/{0}", id));
 		}
 
 		public ActionResult ParentCatMainPage(int id)
 		{
-			return RedirectPermanent($"/parent-kitten-page/{id}");
+			return RedirectPermanent(String.Format("/parent-kitten-page/{0}", id));
 		}
 
 		public ActionResult AllAvailableKittens()

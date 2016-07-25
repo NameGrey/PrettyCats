@@ -93,7 +93,8 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 		{
 			var kitten = _dbContext.Pets.FirstOrDefault(i => i.Name == kittenName);
 
-			kitten?.Pictures.Add(picture);
+			if(kitten != null)
+				kitten.Pictures.Add(picture);
 		}
 	}
 }

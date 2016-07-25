@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrettyCats.DAL.Entities
 {
-	public class Pets: IEntity
+	public class Pets : IEntity
 	{
 		private const string HiddenName = "Не отображать";
 
@@ -65,6 +65,9 @@ namespace PrettyCats.DAL.Entities
 		public DisplayPlaces DisplayPlace { get; set; }
 
 		[NotMapped]
-		public bool IsHidden => DisplayPlace != null && DisplayPlace.PlaceOfDisplaying != HiddenName;
+		public bool IsHidden
+		{
+			get { return DisplayPlace != null && DisplayPlace.PlaceOfDisplaying != HiddenName; }
+		}
 	}
 }
