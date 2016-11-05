@@ -46,6 +46,7 @@ artDuviksApp.factory("kittensImageWorker", function($http, configuration) {
 			var data = new FormData();
 			data.append("image", file);
 			data.append("kittenName", kitten.Name);
+			data.append("kittenId", kitten.ID);
 
 			return $http.post(baseServerApiUrl + '/pictures/add', data, {
 				headers: { "Content-Type": undefined }

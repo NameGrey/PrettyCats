@@ -17,7 +17,7 @@ namespace PrettyCats.Services
 	public class PicturesLinksConstructor: IPictureLinksConstructor
 	{
 		private readonly string _baseServerUrl;
-		private const string KittensImageDirectoryPath = "\\Resources\\Kittens";
+		public const string KittensImageDirectoryPath = "\\Resources\\Kittens";
 
 		public string BaseServerUrl => _baseServerUrl;
 
@@ -36,13 +36,15 @@ namespace PrettyCats.Services
 			return KittensImageDirectoryPath + "\\" + kittenName;
 		}
 
-		public string GetKittenImagePath(string kittenName, bool withExtension = true, bool withNamedFolder = false, PathFullness pathFullness = PathFullness.AbsolutePath)
+		public string GetKittenImagePath(string kittenNameNumbered, bool withExtension = true, bool withNamedFolder = false, PathFullness pathFullness = PathFullness.AbsolutePath)
 		{
+			string clearName = Regex.Match(kittenNameNumbered, @"[^\d]*").Value;
+
 			// extract only the filename
-			var fileName = (withNamedFolder ? "\\" + kittenName + "\\" : String.Empty) + kittenName +
+			var fileName = (withNamedFolder ? "\\" + clearName + "\\" : String.Empty) + kittenNameNumbered +
 			               (withExtension ? ".jpg" : String.Empty);
 			// store the file inside /Resources/Kittens folder
-			var path = KittensImageDirectoryPath + (withNamedFolder ? "\\" + kittenName : String.Empty) + "\\" + fileName;
+			var path = KittensImageDirectoryPath + "\\" + fileName;
 
 			if (pathFullness == PathFullness.AbsolutePath)
 				path = _baseServerUrl + path;

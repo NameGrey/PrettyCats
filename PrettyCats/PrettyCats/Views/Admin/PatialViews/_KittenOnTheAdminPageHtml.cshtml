@@ -19,7 +19,7 @@
 		@using (Html.BeginForm("AddMainFoto", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{
 			<input style="margin-left: 15px;" type="file" name="f">
-			<input style="margin-left: 15px;" type="hidden" value="@Model.Name" name="kittenName">
+			<input style="margin-left: 15px;" type="hidden" value="@Model.Name" name="kittenNameNumbered">
 			<input class="send-main-foto-btn" style="margin-left: 15px;" type="submit" name="post-button" value="Сменить фото...">
 		}
 	</div>

@@ -77,7 +77,7 @@ namespace PrettyCats.Controllers
 
 		[HttpGet]
 		[Route("remove/{id:int}")]
-		public async Task<HttpResponseMessage> RemoveKitten(int id)
+		public HttpResponseMessage RemoveKitten(int id)
 		{
 			Pets kitten = _kittensRepository.GetByID(id);
 			bool isParent = kitten.IsParent;
@@ -96,6 +96,7 @@ namespace PrettyCats.Controllers
 			}
 			
 			RemoveAllPictures(kitten.Pictures.ToList());
+			_imageWorker.RemoveMainPicture(kitten.Name);
 
 			_kittensRepository.Delete(kitten.ID);
 			_kittensRepository.Save();

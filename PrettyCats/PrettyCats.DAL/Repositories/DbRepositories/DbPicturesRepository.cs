@@ -24,7 +24,9 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 		public string GetNewNumberOfImage(string kittenName, bool small = false)
 		{
-			int newNumber = _dbContext.Pictures.OrderByDescending(i => i.ID).First().ID + 1;
+			Pictures firstPicture = _dbContext.Pictures.OrderByDescending(i => i.ID).FirstOrDefault();
+
+			int newNumber = firstPicture != null? firstPicture.ID : 1;
 
 			string format = small ? SmallImageFilenameFormat : ImageFilenameFormat;
 			// extract only the fielname

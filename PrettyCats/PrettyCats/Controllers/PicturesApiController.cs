@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -44,12 +45,12 @@ namespace PrettyCats.Controllers
 
 		[HttpPost]
 		[Route("add")]
-		public async Task<Pictures> AddNewPicture()
+		public async void AddNewPicture()
 		{
-			Pictures result = null;
 			if (!Request.Content.IsMimeMultipartContent())
 			{
 				//TODO: Handle the error (Research ways to handle exception Web aPI)
+				throw  new NotImplementedException();
 			}
 
 			var provider = new MultipartMemoryStreamProvider();
@@ -58,10 +59,17 @@ namespace PrettyCats.Controllers
 
 			byte[] picture = await provider.Contents[0].ReadAsByteArrayAsync();
 			string kittenName = await provider.Contents[1].ReadAsStringAsync();
+			string kittenIdString = await provider.Contents[2].ReadAsStringAsync();
 
-			_imageWorker.AddPhoto(new MemoryStream(picture), kittenName);
+			int kittenId;
 
-			return result;
+			if (!int.TryParse(kittenIdString, out kittenId))
+			{
+				//TODO: Handle the error (Research ways to handle exception Web aPI)
+				throw new NotImplementedException();
+			}
+
+			_imageWorker.AddPhoto(new MemoryStream(picture), kittenName, false, kittenId);
 		}
 
 		[HttpPost]
@@ -72,6 +80,7 @@ namespace PrettyCats.Controllers
 			if (!Request.Content.IsMimeMultipartContent())
 			{
 				//TODO: Handle the error (Research ways to handle exception Web aPI)
+				throw new NotImplementedException();
 			}
 			
 			var provider = new MultipartMemoryStreamProvider();
@@ -85,6 +94,7 @@ namespace PrettyCats.Controllers
 			if (!int.TryParse(await provider.Contents[2].ReadAsStringAsync(), out kittenId))
 			{
 				//TODO: Handle the error (Research ways to handle exception Web aPI)
+				throw new NotImplementedException();
 			}
 
 			//try
@@ -114,13 +124,9 @@ namespace PrettyCats.Controllers
 
 				if (oldMainPicture != null)
 					_picturesRepository.Delete(oldMainPicture.ID);
-
-				result = new Pictures() {Image = path, IsMainPicture = true, PetID = kittenId};
-				_picturesRepository.Insert(result);
-				_picturesRepository.Save();
-
+				
 				//Save main photo for kittens main page.
-				_imageWorker.AddPhoto(copy, kittenName);
+				result = _imageWorker.AddPhoto(copy, kittenName, true, kittenId);
 			}
 
 			return result;

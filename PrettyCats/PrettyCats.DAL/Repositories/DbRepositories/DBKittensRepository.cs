@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using PrettyCats.DAL.Entities;
@@ -47,17 +49,25 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 			public void Delete(int id)
 			{
-				_dbContext.Pets.Remove(_dbContext.Pets.Find(id));
+				var ctx = ((IObjectContextAdapter) _dbContext).ObjectContext;
+				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Pets);
+				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Pictures);
+				ctx.Refresh(RefreshMode.ClientWins, _dbContext.DisplayPlaces);
+				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Owners);
+				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Pages);
+				ctx.Refresh(RefreshMode.ClientWins, _dbContext.PetBreeds);
+
+			_dbContext.Pets.Remove(_dbContext.Pets.Find(id));
 			}
 
-			public void Update(Pets pet)
+		public void Update(Pets pet)
 			{
 				_dbContext.Pets.AddOrUpdate(pet);
 			}
 
 			public void Save()
 			{
-				_dbContext.SaveChanges();
+			_dbContext.SaveChanges();
 			}
 
 			#endregion

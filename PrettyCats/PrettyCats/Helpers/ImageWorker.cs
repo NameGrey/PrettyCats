@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Helpers;
 using PrettyCats.DAL.Entities;
@@ -31,7 +34,7 @@ namespace PrettyCats.Helpers
 			_server = server;
 		}
 
-		public Pictures AddPhoto(MemoryStream file, string kittenName)
+		public Pictures AddPhoto(MemoryStream file, string kittenName, bool isMainPicture, int petId)
 		{
 			Pictures result = null;
 
@@ -41,8 +44,8 @@ namespace PrettyCats.Helpers
 				string kittenNameNumbered = _picturesRepository.GetNewNumberOfImage(kittenName);
 				string kittenNameNumberedSmall = _picturesRepository.GetNewNumberOfImage(kittenName, true);
 				string dirPath = _server.MapPath(_pictureLinksConstructor.GetKittenPicturesFolder(kittenName, PathFullness.RelativePath));
-				string linkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, true, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
-				string smallLinkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, true, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
+				string linkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
+				string smallLinkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
 
 				if (!Directory.Exists(dirPath))
 				{
@@ -54,10 +57,13 @@ namespace PrettyCats.Helpers
 				result = new Pictures()
 				{
 					Image = linkPath,
-					ImageSmall = smallLinkPath
+					ImageSmall = smallLinkPath,
+					IsMainPicture = isMainPicture,
+					PetID = petId
 				};
 
 				_picturesRepository.Insert(result);
+				_picturesRepository.Save();
 
 				SaveImage(dirPath + "\\" + kittenNameNumbered, file, PictureSizes.StandartSliderPicture);
 				SaveImage(dirPath + "\\" + kittenNameNumberedSmall, smallPictureStream, PictureSizes.SmallSliderPicture);
@@ -103,6 +109,13 @@ namespace PrettyCats.Helpers
 			}
 
 			return picture.ID;
+		}
+
+		public void RemoveMainPicture(string kittenName)
+		{
+			var path = PicturesLinksConstructor.KittensImageDirectoryPath + "\\" + kittenName + ".jpg";
+
+			RemoveFile(_server.MapPath(path));
 		}
 
 		/// <summary>
