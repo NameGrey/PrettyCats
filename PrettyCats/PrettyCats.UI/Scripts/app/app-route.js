@@ -2,8 +2,8 @@
 
 var artDuviksApp = angular.module("artDuviksApp");
 var adminPartialsUrl = ""; //TODO: add admin partials
-var kittensPartialUrl = "kittens/partials/";
-var breedsPartialurl = "breeds/partials/";
+var kittensPartialUrl = "Scripts/app/kittens/partials/";
+var breedsPartialurl = "Scripts/app/breeds/partials/";
 var mainPagePartialUrl = "Scripts/app/";
 
 //Configure $routeProvider service
