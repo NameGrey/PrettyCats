@@ -7,13 +7,14 @@
 	<meta charset="utf-8"/>
 	<base href="/"/>
 
-	<script src="../Scripts/jquery/jquery-2.1.4.js"></script>
-	<script src="../Scripts/jquery/jquery-2.1.4.min.js"></script>
-	<script src="../Scripts/jquery/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <!-- JQuery references -->
+	<script src="Scripts/thirdparty/jquery/jquery-2.1.4.js"></script>
+	<script src="Scripts/thirdparty/jquery/jquery-2.1.4.min.js"></script>
+	<script src="Scripts/thirdparty/jquery/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
 	<!-- Bootstrap references -->
-	<script src="../Scripts/bootstrap/bootstrap.js"></script>
-	<script src="../Scripts/bootstrap/bootstrap.min.js"></script>
+	<script src="../Scripts/thirdparty/bootstrap/bootstrap.js"></script>
+	<script src="../Scripts/thirdparty/bootstrap/bootstrap.min.js"></script>
 	<link href="../Content/bootstrap.min.css" rel="stylesheet"/>
 	<link href="../Content/bootstrap.css" rel="stylesheet"/>
 
@@ -21,27 +22,43 @@
 
 	<script src="../Scripts/angular/angular.js"></script>
 	<script src="../Scripts/angular/angular-route.js"></script>
-	<script src="../Scripts/angular/master-page.js"></script>
-	<script src="../Scripts/angular/services.js"></script>
-	<script src="../Scripts/angular/controllers.js"></script>
-	<script src="../Scripts/angular/directives.js"></script>
 
-	<!--Slider-->
-	<script src="../../Scripts/Slider/jssor.slider.min.js"></script>
-	<script src="../../Scripts/Slider/jssor.slider.mini.js"></script>
-	<script src="../../Scripts/Slider/slideshow.js"></script>
+    <!--App references-->
+    <!-- Shared module-->
+    <script src="../Scripts/app/shared/SharedModule.js"></script>
+    <script src="../Scripts/app/shared/directives/mainPhotoSelector.js"></script>
+    <script src="../Scripts/app/shared/directives/multiplayPhotoSelector.js"></script>
 
-	<!-- Other references-->
-	<link href="../Content/Site.css" rel="stylesheet"/>
-	<link href="Content/AdminPanel.css" rel="stylesheet" />
+    <!-- Kittens module-->
+    <script src="../Scripts/app/kittens/KittensModule.js"></script>
+    <script src="../Scripts/app/kittens/controllers/kittensCtrl.js"></script>
+    <script src="../Scripts/app/kittens/directives/kittensThumbnail.js"></script>
+    <script src="../Scripts/app/kittens/services/kittensImageWorker.js"></script>
+    <script src="../Scripts/app/kittens/services/kittensPathBuilder.js"></script>
 
-	<script src="../Scripts/uploadMultyplayFiles.js" type="text/javascript"></script>
+    <!-- Breeds module-->
+    <script src="../Scripts/app/breeds/BreedsModule.js"></script>
+    <script src="../Scripts/app/breeds/controllers/breedsCtrl.js"></script>
 
-	<script src="../Scripts/DielogForm.js"></script>
-	<script src="../Scripts/FlowType.js"></script>
-	<script src="../Scripts/kittenMainPage.js"></script>
-	<link rel="stylesheet" type="text/css" href="../Content/DialogForm.css">
+    <!-- Application module-->
+    <script src="../Scripts/app/app.js"></script>
+    <script src="../Scripts/app/app-route.js"></script>
 
+    <!--Slider-->
+    <script src="../Scripts/thirdparty/Slider/jssor.slider.min.js"></script>
+    <script src="../Scripts/thirdparty/Slider/jssor.slider.mini.js"></script>
+    <script src="../Scripts/thirdparty/Slider/slideshow.js"></script>
+
+    <!-- Other references-->
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/AdminPanel.css" rel="stylesheet" />
+
+    <script src="../Scripts/app/oldScripts/uploadMultyplayFiles.js" type="text/javascript"></script>
+
+    <script src="../Scripts/app/oldScripts/DielogForm.js"></script>
+    <script src="../Scripts/thirdparty/FlowType.js"></script>
+    <script src="../Scripts/app/oldScripts/kittenMainPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/DialogForm.css">
 </head>
 <body>
 	<div ng-view>
@@ -51,6 +68,7 @@
 	<hr>
 	<footer>
 		<p style="text-align: center;">&copy; Art Duviks Cat 2016</p>
-	</footer>
+	</footer>   
 </body>
+
 </html>

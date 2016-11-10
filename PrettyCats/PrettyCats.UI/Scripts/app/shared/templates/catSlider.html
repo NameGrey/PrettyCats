@@ -4,12 +4,12 @@
 		<!-- Loading Screen -->
 		<div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
 			<div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-			<div style="position:absolute;display:block;background:url('../../Resources/Slides/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+			<div style="position:absolute;display:block;background:url('../../../../Resources/Slides/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
 		</div>
 		<div class="slides-overrider" data-u="slides" style="cursor: default; position: relative; overflow: hidden;">
 			<div ng-show="selectedKitten.MainPicture.Image" data-p="144.50" style="display: none;">
 				<img data-u="image" class="main-slide-image" ng-src="selectedKitten.MainPicture.Image)" />
-				<img data-u="thumb" id="@Model.MainImageCssClass" ng-src="selectedKitten.MainPicture.ImageSmall" />
+				<img data-u="thumb" ng-src="selectedKitten.MainPicture.ImageSmall" />
 			</div>
 			<div ng-repeat="picture in selectedKitten.Pictures" data-p="144.50" style="display: none;">
 				<img data-u="image" class="main-slide-image" ng-src="picture.Image" />

@@ -1,5 +1,5 @@
-﻿<ng-include src="'pages/templates/navigation.html'"></ng-include>
-<ng-include src="'pages/templates/pageHeader.html'"></ng-include>
+﻿<ng-include src="'../../shared/templates/navigation.html'"></ng-include>
+<ng-include src="'../../shared/templates/pageHeader.html'"></ng-include>
 
 <div ng-init="selectKitten()" class="container">
 	<div class="row">
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<!--TODO: Create directive instead of ng-view-->
-	<ng-include src="pages/templates/catSlider.html"> </ng-include>
+	<ng-include src="../../shared/templates/catSlider.html"> </ng-include>
 	<div class="row" id="table">
 		<div class="col-md-8 col-md-offset-1 col-lg-offset-2">
 			<div class="backgroung-overrider" id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; padding-left: 10px; height: auto;">

@@ -73,26 +73,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="pages\html-partials\admin\addKitten.html" />
-    <Content Include="pages\html-partials\admin\admin.html" />
-    <Content Include="pages\html-partials\admin\available-kittens.html" />
-    <Content Include="pages\html-partials\admin\editKitten.html" />
-    <Content Include="pages\html-partials\admin\modify-kitten-pictures.html" />
-    <Content Include="pages\html-partials\chooseBreed.html" />
-    <Content Include="pages\html-partials\parent.html" />
-    <Content Include="pages\html-partials\kitten.html" />
-    <Content Include="pages\html-partials\parents.html" />
-    <Content Include="pages\templates\admin\adminPageKitten.html" />
-    <Content Include="pages\templates\admin\kittenPicture.html" />
-    <Content Include="pages\templates\catSlider.html" />
-    <Content Include="pages\templates\admin\mainPhotoSelector.html" />
-    <Content Include="pages\templates\navigation.html" />
-    <Content Include="pages\templates\pageHeader.html" />
-    <Content Include="pages\templates\thumbnail.html" />
+    <Content Include="Scripts\app\admin\partials\addKitten.html" />
+    <Content Include="Scripts\app\admin\partials\admin.html" />
+    <Content Include="Scripts\app\admin\partials\available-kittens.html" />
+    <Content Include="Scripts\app\admin\partials\editKitten.html" />
+    <Content Include="Scripts\app\admin\partials\modify-kitten-pictures.html" />
+    <Content Include="Scripts\app\kittens\partials\chooseBreed.html" />
+    <Content Include="Scripts\app\kittens\partials\kitten.html" />
+    <Content Include="Scripts\app\kittens\partials\parents.html" />
+    <Content Include="Scripts\app\shared\templates\admin\adminPageKitten.html" />
+    <Content Include="Scripts\app\shared\templates\admin\kittenPicture.html" />
+    <Content Include="Scripts\app\shared\templates\catSlider.html" />
+    <Content Include="Scripts\app\shared\templates\admin\mainPhotoSelector.html" />
+    <Content Include="Scripts\app\shared\templates\navigation.html" />
+    <Content Include="Scripts\app\shared\templates\pageHeader.html" />
+    <Content Include="Scripts\app\kittens\partials\thumbnail.html" />
     <Content Include="Resources\Slides\loading.gif" />
     <Content Include="Resources\Slides\next.png" />
     <Content Include="Resources\Slides\prev.png" />
-    <Content Include="Scripts\angular\admin\master-page.js" />
+    <Content Include="Scripts\app\admin\master-page.js" />
     <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -111,10 +110,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\slideShow.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="pages\html-partials\main.html" />
-    <Content Include="pages\html-partials\kittens.html" />
-    <Content Include="Index.html" />
-    <Content Include="pages\templates\breeds.html" />
+    <Content Include="Scripts\app\mainPage.html" />
+    <Content Include="Scripts\app\kittens\partials\kittens.html" />
+    <Content Include="index.html" />
+    <Content Include="Scripts\app\breeds\partial\breeds.html" />
     <Content Include="Resources\BackFish.png" />
     <Content Include="Resources\BackFishBones.png" />
     <Content Include="Resources\Breeds\bengal.jpg" />
@@ -138,27 +137,35 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
-    <Content Include="Scripts\angular\controllers.js" />
-    <Content Include="Scripts\angular\directives.js" />
-    <Content Include="Scripts\angular\master-page.js" />
-    <Content Include="Scripts\angular\services.js" />
-    <Content Include="Scripts\bootstrap\bootstrap.js" />
-    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
-    <Content Include="Scripts\DielogForm.js" />
-    <Content Include="Scripts\flowtype.js" />
-    <None Include="Scripts\jquery\jquery-2.1.4.intellisense.js" />
-    <Content Include="Scripts\jquery\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\Slider\jssor.slider.min.js" />
-    <Content Include="Scripts\Slider\jssor.slider.mini.js" />
-    <Content Include="Scripts\kittenMainPage.js" />
-    <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\Slider\slideshow.js" />
-    <Content Include="Scripts\uploadMultyplayFiles.js" />
-    <Content Include="Scripts\workWithPictures.js" />
+    <Content Include="Scripts\app\app-route.js" />
+    <Content Include="Scripts\app\breeds\BreedsModule.js" />
+    <Content Include="Scripts\app\breeds\controllers\breedsCtrl.js" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\kittens\controllers\kittensCtrl.js" />
+    <Content Include="Scripts\app\admin\directives\adminPageKitten.js" />
+    <Content Include="Scripts\app\kittens\directives\kittensThumbnail.js" />
+    <Content Include="Scripts\app\kittens\KittensModule.js" />
+    <Content Include="Scripts\app\shared\directives\mainPhotoSelector.js" />
+    <Content Include="Scripts\app\shared\directives\multiplayPhotoSelector.js" />
+    <Content Include="Scripts\app\kittens\services\kittensImageWorker.js" />
+    <Content Include="Scripts\app\kittens\services\kittensPathBuilder.js" />
+    <Content Include="Scripts\app\shared\SharedModule.js" />
+    <Content Include="Scripts\thirdparty\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\thirdparty\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\app\oldScripts\DielogForm.js" />
+    <Content Include="Scripts\thirdparty\flowtype.js" />
+    <None Include="Scripts\thirdparty\jquery\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\thirdparty\jquery\jquery-2.1.4.js" />
+    <Content Include="Scripts\thirdparty\jquery\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\thirdparty\jquery\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\thirdparty\Slider\jssor.slider.min.js" />
+    <Content Include="Scripts\thirdparty\Slider\jssor.slider.mini.js" />
+    <Content Include="Scripts\app\oldScripts\kittenMainPage.js" />
+    <Content Include="Scripts\thirdparty\Slider\slideshow.js" />
+    <Content Include="Scripts\app\oldScripts\uploadMultyplayFiles.js" />
+    <Content Include="Scripts\app\oldScripts\workWithPictures.js" />
     <Content Include="Web.config" />
-    <Content Include="Scripts\jquery\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\thirdparty\jquery\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +173,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
