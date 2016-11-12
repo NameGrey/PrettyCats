@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-angular.module('SharedModule').directive('mainPhotoSelector',
+angular.module('KittensModule').directive('mainPhotoSelector',
 	function (kittensImageWorker, $compile) {
 	    return {
 	        restrict: 'E',
-	        templateUrl: "pages/templates/admin/mainPhotoSelector.html",
+	        templateUrl: "Scripts/app/kittens/partials/mainPhotoSelector.html",
 	        replace: true,
 	        link: function ($scope, el, attrs, ngModel) {
 

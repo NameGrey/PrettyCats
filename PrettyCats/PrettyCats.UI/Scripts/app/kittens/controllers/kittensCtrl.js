@@ -4,6 +4,10 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     var baseServerApiUrl = configuration.ServerApi;
     $scope.kitten = {};
 
+    var initParent = function(kitten) {
+        kitten.IsParent = true;
+    }
+
     var getKittens = function () {
         var breedNameFromPath = "/" + $location.path().split(/[\s/]+/).pop();
 
@@ -22,9 +26,11 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         $http.get(baseServerApiUrl + "/kittens/parents")
 			.success(function (data) {
 			    $scope.parents = data;
-			})
-			.error(function () {
+                console.log("parents:", data);
+            })
+			.error(function (e) {
 			    $scope.parents = null;
+			    console.log("error:", e);
 			});
     };
 
@@ -143,6 +149,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     };
 
     $scope.theFile = null;
+    $scope.initParent = initParent;
     $scope.getKittens = getKittens;
     $scope.getParents = getParents;
     $scope.selectKitten = selectKitten;

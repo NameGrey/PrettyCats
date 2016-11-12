@@ -1,0 +1,14 @@
+﻿
+
+<div class="admin-panel">
+	<a ng-href="/admin-panel" class="btn-admin btn-red">Назад</a>
+	<a ng-href="/admin/addKitten" class="btn-admin btn-red">Добавить</a>
+	<div ng-controller="kittensCtrl" ng-init="getParents();initOwners();initBreeds();initDisplayPlaces();">
+		<!--TODO: Use filter for working with available kittens, archive kittens and parents on the same page.-->
+		<div ng-repeat="parent in parents">
+			<admin-page-kitten kitten="parent"></admin-page-kitten>
+		</div>
+	</div>
+	<a ng-href="/admin-panel" class="btn-admin btn-red">Назад</a>
+</div>
+

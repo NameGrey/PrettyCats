@@ -67,7 +67,7 @@ artDuviksApp.config(function ($routeProvider, $locationProvider) {
 		})
 		.when("/admin/parents", {
 		    title: "Панель родителей",
-		    templateUrl: adminPartialsUrl + "available-kittens.html",
+		    templateUrl: adminPartialsUrl + "parents.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/addKitten", {

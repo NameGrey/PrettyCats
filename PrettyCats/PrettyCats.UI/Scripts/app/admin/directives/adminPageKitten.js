@@ -1,12 +1,15 @@
 ﻿'use strict';
 
-artDuviksApp.directive("adminPageKitten", ['kittensImageWorker', function (kittensImageWorker) {
+angular.module('AdminModule').directive("adminPageKitten", ['kittensImageWorker', function (kittensImageWorker) {
     return {
         restrict: "E",
-        templateUrl: "pages/templates/admin/adminPageKitten.html",
-        replace: true,
+        templateUrl: "Scripts/app/admin/partials/adminPageKitten.html",
+        replace: false,
+        scope: {
+            kitten:"="
+        },
         link: function ($scope) {
-            kittensImageWorker.initializeMainPicture($scope.kitten);
+            kittensImageWorker.initializeMainPicture($scope.kit);
         }
     }
 }]);

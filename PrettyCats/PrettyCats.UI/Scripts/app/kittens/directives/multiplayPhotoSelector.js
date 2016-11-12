@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('SharedModule').directive('multiplayPhotosSelector',
+angular.module('KittensModule').directive('multiplayPhotosSelector',
 	function (kittensImageWorker) {
 	    return {
 	        restrict: 'A',
