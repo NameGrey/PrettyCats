@@ -17,7 +17,7 @@ namespace PrettyCats
 			log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
 			AreaRegistration.RegisterAllAreas();
 			GlobalConfiguration.Configure(WebApiConfig.Register);
-			RouteConfig.RegisterRoutes(RouteTable.Routes);
+			//RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			UnityConfig.RegisterComponents();
 

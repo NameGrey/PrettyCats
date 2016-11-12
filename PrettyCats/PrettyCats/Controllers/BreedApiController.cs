@@ -19,6 +19,7 @@ namespace PrettyCats.Controllers
 		}
 
 		[Route("")]
+		[HttpGet]
 		public IEnumerable<PetBreeds> Get()
 		{
 			return _breedRepository.GetCollection();

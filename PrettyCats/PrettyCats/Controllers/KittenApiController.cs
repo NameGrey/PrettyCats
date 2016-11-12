@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Filters;
 using Newtonsoft.Json;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
@@ -127,6 +126,7 @@ namespace PrettyCats.Controllers
 		}
 
 		[Route("")]
+		[HttpGet]
 		public IEnumerable<Pets> GetKittens()
 		{
 			return _kittensRepository.GetCollection();
