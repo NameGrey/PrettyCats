@@ -9,7 +9,7 @@ angular.module('AdminModule').directive("adminPageKitten", ['kittensImageWorker'
             kitten:"="
         },
         link: function ($scope) {
-            kittensImageWorker.initializeMainPicture($scope.kit);
+            kittensImageWorker.initializeMainPicture($scope.kitten);
         }
     }
 }]);

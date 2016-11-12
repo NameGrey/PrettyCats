@@ -92,11 +92,19 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 
         $http.post(baseServerApiUrl + "/kittens/add", data, { headers: { "Content-Type": undefined } })
 			.success(function () {
-			    $scope.successMessage = "Котенок успешно сохранен!";
+			    if (kitten.IsParent) {
+			        $scope.successMessage = "Родитель успешно сохранен!";
+                } else {
+                    $scope.successMessage = "Котенок успешно сохранен!";
+                }
 
-			    $timeout(function () {
+                $timeout(function () {
 			        $scope.successMessage = null;
-			        $location.path("/admin/available-kittens");
+			        if (kitten.IsParent) {
+			            $location.path("/admin/parents");
+			        } else {
+			            $location.path("/admin/available-kittens");
+			        }
 			    }, 2000);
 			})
 			.error(function () {
