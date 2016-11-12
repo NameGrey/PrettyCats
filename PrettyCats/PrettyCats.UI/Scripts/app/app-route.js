@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 var artDuviksApp = angular.module("artDuviksApp");
-var adminPartialsUrl = ""; //TODO: add admin partials
+var adminPartialsUrl = "Scripts/app/admin/partials/"; //TODO: add admin partials
 var kittensPartialUrl = "Scripts/app/kittens/partials/";
 var breedsPartialurl = "Scripts/app/breeds/partials/";
 var mainPagePartialUrl = "Scripts/app/";
@@ -53,36 +53,36 @@ artDuviksApp.config(function ($routeProvider, $locationProvider) {
 		})
 		.when("/admin-panel", {
 		    title: "Панель администратора",
-		    templateUrl: adminPartialsUrl + "admin/admin.html"
+		    templateUrl: adminPartialsUrl + "admin.html"
 		})
 		.when("/admin/available-kittens", {
 		    title: "Панель доступных котят",
-		    templateUrl: adminPartialsUrl + "admin/available-kittens.html",
+		    templateUrl: adminPartialsUrl + "available-kittens.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/archive-kittens", {
 		    title: "Панель архивных котят",
-		    templateUrl: adminPartialsUrl + "admin/available-kittens.html",
+		    templateUrl: adminPartialsUrl + "available-kittens.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/parents", {
 		    title: "Панель родителей",
-		    templateUrl: adminPartialsUrl + "admin/available-kittens.html",
+		    templateUrl: adminPartialsUrl + "available-kittens.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/addKitten", {
 		    title: "Добавление нового котенка",
-		    templateUrl: adminPartialsUrl + "admin/addKitten.html",
+		    templateUrl: adminPartialsUrl + "addKitten.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/editKitten/:id", {
 		    title: "Редактирование нового котенка",
-		    templateUrl: adminPartialsUrl + "admin/editKitten.html",
+		    templateUrl: adminPartialsUrl + "editKitten.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/kitten/modify-pictures/:id", {
 		    title: "Редактирование фотографий котенка",
-		    templateUrl: adminPartialsUrl + "admin/modify-kitten-pictures.html",
+		    templateUrl: adminPartialsUrl + "modify-kitten-pictures.html",
 		    controller: "kittensCtrl"
 		})
 
