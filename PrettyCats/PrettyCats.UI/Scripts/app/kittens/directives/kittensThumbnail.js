@@ -3,7 +3,7 @@
 angular.module('KittensModule').directive("thumbnail", function () {
     return {
         restrict: "E",
-        templateUrl: "../partials/thumbnail.html",
+        templateUrl: "Scripts/app/kittens/partials/thumbnail.html",
         replace: true,
         controller: function ($scope, kittensPathBuilder, kittensImageWorker) {
 
