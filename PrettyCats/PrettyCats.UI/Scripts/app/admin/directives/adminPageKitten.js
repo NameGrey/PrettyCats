@@ -6,7 +6,8 @@ angular.module('AdminModule').directive("adminPageKitten", ['kittensImageWorker'
         templateUrl: "Scripts/app/admin/partials/adminPageKitten.html",
         replace: false,
         scope: {
-            kitten:"="
+            kitten: "=",
+            removeKitten: "&"
         },
         link: function ($scope) {
             kittensImageWorker.initializeMainPicture($scope.kitten);

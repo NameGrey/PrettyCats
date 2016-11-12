@@ -63,8 +63,15 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     }
 
     var removeKitten = function (kitten) {
-        var index = $scope.kittens.indexOf(kitten);
+        var collection;
 
+        if (kitten.IsParent) {
+            collection = $scope.parents;
+        } else {
+            collection = $scope.kittens;
+        }
+        var index = collection.indexOf(kitten);
+        // TODO: fix this part - add html into template and create a message variable
         if (index > -1) {
             $http.get(baseServerApiUrl + "/kittens/remove/" + kitten.ID).success(function () {
 
@@ -72,7 +79,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 
                 $timeout(function () {
                     $("#" + kitten.Name + ".kitten-block-admin").remove();
-                    $scope.kittens.splice(index, 1);
+                    collection.splice(index, 1);
                 }, 1000);
             }).error(function () {
                 $("#" + kitten.Name + ".kitten-block-admin").find(".bottom-fotos-container").append("<div class='alert alert-danger'>Ошибка при удалении!</div>");
