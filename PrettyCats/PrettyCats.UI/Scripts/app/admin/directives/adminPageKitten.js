@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('AdminModule').directive("adminPageKitten", ['kittensImageWorker', function (kittensImageWorker) {
+angular.module('AdminModule').directive("adminPageKitten", ['kittensImageWorker','$location', function (kittensImageWorker, $location) {
     return {
         restrict: "E",
         templateUrl: "Scripts/app/admin/partials/adminPageKitten.html",
@@ -10,6 +10,11 @@ angular.module('AdminModule').directive("adminPageKitten", ['kittensImageWorker'
             removeKitten: "&"
         },
         link: function ($scope) {
+            $scope.editKitten = function (kitten) {
+                var url = "/admin/editKitten/" + kitten.ID;
+                $location.url(url);
+            }
+
             kittensImageWorker.initializeMainPicture($scope.kitten);
         }
     }

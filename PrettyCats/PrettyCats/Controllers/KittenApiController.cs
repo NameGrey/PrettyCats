@@ -55,12 +55,7 @@ namespace PrettyCats.Controllers
 			{
 			}
 
-			var provider = new MultipartMemoryStreamProvider();
-			await Request.Content.ReadAsMultipartAsync(provider);
-
-			byte[] kitten = await provider.Contents[0].ReadAsByteArrayAsync();
-			string jsonString = Encoding.UTF8.GetString(kitten);
-			var newKitten = JsonConvert.DeserializeObject<Pets>(jsonString);
+			var newKitten = await GetKittenFromRequest(Request);
 
 			if (_kittensRepository.IsKittenExists(newKitten))
 			{
@@ -72,6 +67,17 @@ namespace PrettyCats.Controllers
 			_kittensRepository.Save();
 
 			return new HttpResponseMessage(HttpStatusCode.OK);
+		}
+
+		private async Task<Pets> GetKittenFromRequest(HttpRequestMessage request)
+		{
+			var provider = new MultipartMemoryStreamProvider();
+			await request.Content.ReadAsMultipartAsync(provider);
+
+			byte[] kitten = await provider.Contents[0].ReadAsByteArrayAsync();
+			string jsonString = Encoding.UTF8.GetString(kitten);
+
+			return JsonConvert.DeserializeObject<Pets>(jsonString); ;
 		}
 
 		[HttpGet]
@@ -113,16 +119,25 @@ namespace PrettyCats.Controllers
 
 		[HttpPost]
 		[Route("edit")]
-		public void EditKitten(Pets kitten)
+		public async void EditKitten()
 		{
-			if (_kittensRepository.IsKittenExistsWithAnotherId(kitten))
+			if (!Request.Content.IsMimeMultipartContent())
 			{
-				throw new NotImplementedException();
-				//TODO: define how to handle exceptions as for server side as for client side
 			}
 
-			_kittensRepository.Update(kitten);
-			_kittensRepository.Save();
+			var editKitten = await GetKittenFromRequest(Request);
+
+			if (editKitten != null)
+			{
+				if (_kittensRepository.IsKittenExistsWithAnotherId(editKitten))
+				{
+					throw new NotImplementedException();
+					//TODO: define how to handle exceptions as for server side as for client side
+				}
+
+				_kittensRepository.Update(editKitten);
+				_kittensRepository.Save();
+			}
 		}
 
 		[Route("")]

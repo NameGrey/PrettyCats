@@ -1,11 +1,32 @@
 ﻿'use strict';
 
-angular.module('KittensModule').controller("kittensCtrl", function ($scope, $location, $http, $routeParams, $timeout, configuration, kittensImageWorker) {
+angular.module('KittensModule').controller("kittensCtrl", function ($scope, $location, $http, $routeParams, $timeout, configuration, kittensImageWorker, kittenBackendCommunicator) {
     var baseServerApiUrl = configuration.ServerApi;
-    $scope.kitten = {};
 
-    var initParent = function(kitten) {
-        kitten.IsParent = true;
+    var initKitten = function() {
+        var kittenId = $routeParams.id;
+        $scope.kitten = {};
+
+        if (kittenId) {
+            kittenBackendCommunicator.getKittenById(kittenId).then(
+                function(data) {
+                    $scope.kitten = data;
+                },
+                function(e) {
+                    console.log(e);
+                });
+        }
+    }
+    initKitten();
+
+    var showSuccessMessage = function(message)
+    {
+        
+    }
+
+    var showErrorMessage = function(message)
+    {
+        
     }
 
     var getKittens = function () {
@@ -34,25 +55,20 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 			});
     };
 
-    var selectKitten = function () {
+    var selectKitten = function() {
         var kittenId = $routeParams.id;
 
-        $http.get(baseServerApiUrl + "/kittens/" + kittenId)
-			.success(function (data) {
-			    $scope.selectedKitten = data;
+        if (kittenId) {
+            kittenBackendCommunicator.getKittenById(kittenId).then(
+                function(data) {
+                    scope.selectedKitten = data;
+                },
+                function (e) {
+                    scope.selectedKitten = null;
+                    console.log(e);
+                });
+        }
 
-			    kittensImageWorker.getKittenMainPicture($scope.selectedKitten).success(function (data) {
-			        $scope.selectedKitten.MainPicture = data;
-			    });
-
-			    kittensImageWorker.getKittenPictures($scope.selectedKitten).success(function (data) {
-			        $scope.selectedKitten.Pictures = data;
-			    });
-
-			})
-			.error(function () {
-			    $scope.selectedKitten = null;
-			});
     };
 
     var getAllKittens = function () {
@@ -60,6 +76,36 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         $http.get(baseServerApiUrl + "/kittens").success(function (data) {
             $scope.kittens = data;
         }).error(function () { $scope.kittens = null; });
+    }
+
+    var saveEditedKitten = function(kitten) {
+        if (kitten) {
+            kittenBackendCommunicator.saveEditedKitten(kitten).then(
+                function () {
+                    if (kitten.IsParent) {
+                        $scope.successMessage = "Родитель успешно сохранен!";
+                    } else {
+                        $scope.successMessage = "Котенок успешно сохранен!";
+                    }
+
+                    $timeout(function () {
+                        $scope.successMessage = null;
+                        if (kitten.IsParent) {
+                            $location.path("/admin/parents");
+                        } else {
+                            $location.path("/admin/available-kittens");
+                        }
+                    }, 2000);
+                },
+                function (e) {
+                    $scope.errorMessage = "Произошла ошибка на сервере!";
+                    console.log(e);
+
+                    $timeout(function () {
+                        $scope.errorMessage = null;
+                    }, 4000);
+                });
+        }
     }
 
     var removeKitten = function (kitten) {
@@ -92,35 +138,33 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         }
     }
 
-    var addNewKitten = function (kitten) {
-        var data = new FormData();
-        var json = JSON.stringify(kitten, null, 2);
-        data.append("newKitten", json);
+    var addNewKitten = function(kitten) {
+        if (kitten) {
+            kittenBackendCommunicator.addNewKitten(kitten)
+                .then(function() {
+                    if (kitten.IsParent) {
+                        $scope.successMessage = "Родитель успешно сохранен!";
+                    } else {
+                        $scope.successMessage = "Котенок успешно сохранен!";
+                    }
 
-        $http.post(baseServerApiUrl + "/kittens/add", data, { headers: { "Content-Type": undefined } })
-			.success(function () {
-			    if (kitten.IsParent) {
-			        $scope.successMessage = "Родитель успешно сохранен!";
-                } else {
-                    $scope.successMessage = "Котенок успешно сохранен!";
-                }
+                    $timeout(function() {
+                        $scope.successMessage = null;
+                        if (kitten.IsParent) {
+                            $location.path("/admin/parents");
+                        } else {
+                            $location.path("/admin/available-kittens");
+                        }
+                    }, 2000);
+                },
+                function () {
+                    $scope.errorMessage = "Произошла непредвиденная ошибка на сервере. Котенок не был добавлен.";
 
-                $timeout(function () {
-			        $scope.successMessage = null;
-			        if (kitten.IsParent) {
-			            $location.path("/admin/parents");
-			        } else {
-			            $location.path("/admin/available-kittens");
-			        }
-			    }, 2000);
-			})
-			.error(function () {
-			    $scope.errorMessage = "Произошла непредвиденная ошибка на сервере. Котенок не был добавлен.";
-
-			    $timeout(function () {
-			        $scope.errorMessage = null;
-			    }, 5000);
-			});
+                    $timeout(function() {
+                        $scope.errorMessage = null;
+                    }, 4000);
+                });
+        }
     }
 
     var getKittenPictures = function () {
@@ -164,7 +208,6 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     };
 
     $scope.theFile = null;
-    $scope.initParent = initParent;
     $scope.getKittens = getKittens;
     $scope.getParents = getParents;
     $scope.selectKitten = selectKitten;
@@ -173,6 +216,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     $scope.addThePhoto = kittensImageWorker.addThePhoto;
     $scope.removeKitten = removeKitten;
     $scope.addNewKitten = addNewKitten;
+    $scope.saveEditedKitten = saveEditedKitten;
     $scope.getKittenPictures = getKittenPictures;
 
     $scope.getOwners = getOwners;

@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\app\admin\components\kittenFieldsComponent\kittenFieldsComponent.html" />
+    <Content Include="Scripts\app\admin\components\kittenFieldsComponent\kittenFieldsComponent.js" />
     <Content Include="Scripts\app\admin\partials\addKitten.html" />
     <Content Include="Scripts\app\admin\partials\admin.html" />
     <Content Include="Scripts\app\admin\partials\parents.html" />
@@ -84,6 +86,7 @@
     <Content Include="Scripts\app\kittens\partials\parents.html" />
     <Content Include="Scripts\app\admin\partials\adminPageKitten.html" />
     <Content Include="Scripts\app\kittens\partials\kittenPicture.html" />
+    <Content Include="Scripts\app\kittens\services\kittenBackendCommunicator.js" />
     <Content Include="Scripts\app\shared\templates\catSlider.html" />
     <Content Include="Scripts\app\kittens\partials\mainPhotoSelector.html" />
     <Content Include="Scripts\app\shared\templates\navigation.html" />
