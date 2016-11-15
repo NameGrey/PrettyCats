@@ -4,6 +4,9 @@ angular.module('KittensModule').directive('multiplayPhotosSelector',
 	function (kittensImageWorker) {
 	    return {
 	        restrict: 'A',
+            scope: {
+                kitten:"="
+            },
 	        link: function (scope, el, attrs) {
 	            el.append("<input type='file' multiple class='hidden' accept='image/jpeg'>")
 					.bind("change", function (evt) {
