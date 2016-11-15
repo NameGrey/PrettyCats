@@ -6,7 +6,10 @@ angular.module('KittensModule').directive('mainPhotoSelector',
 	        restrict: 'E',
 	        templateUrl: "Scripts/app/kittens/partials/mainPhotoSelector.html",
 	        replace: true,
-	        link: function ($scope, el, attrs, ngModel) {
+            scope: {
+                kitten:"="
+            },
+            link: function ($scope, el, attrs, ngModel) {
 
 	            el.bind("click", function (event) {
 	                var i = $(event.target).find("input[type='file']");
