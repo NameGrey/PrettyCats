@@ -6,7 +6,7 @@
 	<div ng-controller="kittensCtrl" ng-init="getParents();initOwners();initBreeds();initDisplayPlaces();">
 		<!--TODO: Use filter for working with available kittens, archive kittens and parents on the same page.-->
 		<div ng-repeat="parent in parents" remove-kitten="removeKitten">
-			<admin-page-kitten kitten="parent" remove-kitten="removeKitten(parent)"></admin-page-kitten>
+			<admin-page-kitten kitten="parent" remove-kitten="removeKitten(kitten)"></admin-page-kitten>
 		</div>
 	</div>
 	<a ng-href="/admin-panel" class="btn-admin btn-red">Назад</a>
