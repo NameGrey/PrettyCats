@@ -12,6 +12,11 @@ angular.module('AdminModule').component("adminPageKitten", {
             $location.url(url);
         }
 
+        this.changeKittenPictures = function (kitten) {            
+            var url = "/admin/kitten/modify-pictures/" + kitten.ID;
+            $location.url(url);
+        }
+
         kittensImageWorker.initializeMainPicture(this.kitten);
     }
 });

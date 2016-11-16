@@ -1,23 +1,16 @@
-﻿<h2 ng-init="getKittenPictures($routeParams.id)">Фотографии котенка</h2>
+﻿<h2 ng-init="">Фотографии котенка</h2>
 <hr />
-<div style="margin-top: -20px;">
-	<!--TODO: Create back reference-->
-	<!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
-</div>
-<div>
-	<hr/>
-	<div ng-repeat="picture in pictures">
-		<kitten-picture></kitten-picture>
-	</div>
-</div>
 
-<div class="form-group">
-	<span>Изменить порядок сортировки</span>
-	<input style="float:left; margin-left: 5px;" type="submit" onclick="ChangeOrder()" value="Изменить">
-</div>
+<div class="admin-panel" ng-controller="kittensCtrl">
+    <div style="margin-top: -20px;">
+        <!--TODO: Create back reference-->
+        <!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
+    </div>
+    <change-pictures-component pictures="kitten.pictures">
 
-
-<div>
-	<!--TODO: Create back reference-->
-	<!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
+    </change-pictures-component>
+    <div>
+        <!--TODO: Create back reference-->
+        <!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
+    </div>
 </div>

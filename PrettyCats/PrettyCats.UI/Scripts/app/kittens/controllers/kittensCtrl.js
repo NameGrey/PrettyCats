@@ -11,6 +11,9 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
             kittenBackendCommunicator.getKittenById(kittenId).then(
                 function(data) {
                     $scope.kitten = data;
+                    getKittenPictures(data.ID).success(function(pics){
+                        $scope.kitten.pictures = pics;
+                    })
                 },
                 function(e) {
                     console.log(e);
@@ -167,8 +170,8 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         }
     }
 
-    var getKittenPictures = function () {
-        return kittensImageWorker.getKittenPictures($routeParams.id);
+    var getKittenPictures = function (id) {
+        return kittensImageWorker.getKittenPictures(id);
     }
 
     var getOwners = function () {

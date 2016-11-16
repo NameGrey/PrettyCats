@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 var artDuviksApp = angular.module("artDuviksApp");
-var adminPartialsUrl = "Scripts/app/admin/partials/"; //TODO: add admin partials
+var adminPartialsUrl = "Scripts/app/admin/partials/";
 var kittensPartialUrl = "Scripts/app/kittens/partials/";
 var breedsPartialurl = "Scripts/app/breeds/partials/";
 var mainPagePartialUrl = "Scripts/app/";
