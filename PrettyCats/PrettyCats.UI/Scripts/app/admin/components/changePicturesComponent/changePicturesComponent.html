@@ -1,3 +1,5 @@
-﻿<kitten-picture id="picture.ID" ng-repeat="picture in $ctrl.pictures" picture="picture">
+﻿
 
-</kitten-picture>
+<div class="image-container" id="{{picture.ID}}" ng-repeat="picture in $ctrl.pictures">
+    <img class="main-kitten-image" ng-src="{{picture.Image}}" />
+</div>

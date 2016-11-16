@@ -79,7 +79,6 @@
     <Content Include="Scripts\app\admin\components\kittenFieldsComponent\kittenFieldsComponent.html" />
     <Content Include="Scripts\app\admin\components\kittenFieldsComponent\kittenFieldsComponent.js" />
     <Content Include="Scripts\app\admin\components\adminKittensList\adminKittensList.html" />
-    <Content Include="Scripts\app\admin\components\kittenPicture\kittenPicture.js" />
     <Content Include="Scripts\app\admin\partials\addKitten.html" />
     <Content Include="Scripts\app\admin\partials\admin.html" />
     <Content Include="Scripts\app\admin\partials\parents.html" />
@@ -90,7 +89,6 @@
     <Content Include="Scripts\app\kittens\partials\kitten.html" />
     <Content Include="Scripts\app\kittens\partials\parents.html" />
     <Content Include="Scripts\app\admin\components\adminPageKitten\adminPageKitten.html" />
-    <Content Include="Scripts\app\admin\components\kittenPicture\kittenPicture.html" />
     <Content Include="Scripts\app\kittens\services\kittenBackendCommunicator.js" />
     <Content Include="Scripts\app\shared\templates\catSlider.html" />
     <Content Include="Scripts\app\kittens\partials\mainPhotoSelector.html" />
@@ -164,6 +162,8 @@
     <Content Include="Scripts\app\oldScripts\DielogForm.js" />
     <Content Include="Scripts\thirdparty\flowtype.js" />
     <None Include="Scripts\thirdparty\jquery\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\thirdparty\jqueryUI\jquery-ui.min.css" />
+    <Content Include="Scripts\thirdparty\jqueryUI\jquery-ui.min.js" />
     <Content Include="Scripts\thirdparty\jquery\jquery-2.1.4.js" />
     <Content Include="Scripts\thirdparty\jquery\jquery-2.1.4.min.js" />
     <Content Include="Scripts\thirdparty\jquery\jquery.unobtrusive-ajax.min.js" />
