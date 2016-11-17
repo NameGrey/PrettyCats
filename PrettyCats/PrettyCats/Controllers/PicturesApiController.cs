@@ -55,6 +55,7 @@ namespace PrettyCats.Controllers
 
 			var provider = new MultipartMemoryStreamProvider();
 
+			Request.Content.LoadIntoBufferAsync().Wait();
 			await Request.Content.ReadAsMultipartAsync(provider);
 
 			byte[] picture = await provider.Contents[0].ReadAsByteArrayAsync();
