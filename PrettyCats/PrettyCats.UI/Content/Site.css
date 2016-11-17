@@ -24,6 +24,16 @@
     border-style: outset;
 }
 
+.inform-message {
+    background-color: #5cb85c;
+    color: #eee8aa;
+}
+
+.error-message {
+    background-color: #5cb85c;
+    color: #d9534f;
+}
+
 .error-msg {
     color: brown;
 }

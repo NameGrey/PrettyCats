@@ -3,7 +3,7 @@
     <progress-bar ng-show="$ctrl.totalNumberOfFiles != 0" class="progress"
                   total-count="$ctrl.totalNumberOfFiles"
                   current-success="$ctrl.loadedFilesCount"
-                  current-errors ="$ctrl.filesWithErrorsCount">
+                  current-errors="$ctrl.filesWithErrorsCount">
     </progress-bar>
 	<div class="image-container">
 		<img class="main-kitten-image" ng-src="{{$ctrl.kitten.MainPicture.Image}}"/>
@@ -23,7 +23,8 @@
                 kitten="$ctrl.kitten"
                 number-of-files="$ctrl.totalNumberOfFiles"
                 send-files-count="$ctrl.loadedFilesCount"
-                files-with-errors="$ctrl.filesWithErrorsCount">
+                files-with-errors="$ctrl.filesWithErrorsCount"
+                on-loading-finished="$ctrl.loadingFinished()">
 			<span class="glyphicon glyphicon-download" aria-hidden="true"></span><span class="btn-space">Добавить фотки</span>
 		</button>
 		<br />
@@ -49,6 +50,8 @@
 			</table>
 		</div>
 	</div>
-	<div class="bottom-fotos-container">
-	</div>
+    <div class="bottom-fotos-container">
+        <p class="alert inform-message" ng-show="$ctrl.informMessage" ng-bind="$ctrl.informMessage"> </p>
+        <p class="alert error-message" ng-show="$ctrl.errorMessage" ng-bind="$ctrl.errorMessage"></p>
+    </div>
 </div>

@@ -8,9 +8,16 @@ angular.module('KittensModule').directive('multiplayPhotosSelector',
                 kitten: "=",
                 numberOfFiles: "=",
                 sendFilesCount: "=",
-                filesWithErrors: "="
+                filesWithErrors: "=",
+                onLoadingFinished: "&"
             },
-	        link: function (scope, el, attrs) {
+            link: function (scope, el, attrs) {
+                var loadingFinishedEvent = function () {
+                    if (scope.numberOfFiles > 0 && scope.numberOfFiles === scope.filesWithErrors + scope.sendFilesCount) {
+                       scope.onLoadingFinished();
+                    }
+                }
+
 	            el.append("<input type='file' multiple class='hidden' accept='image/jpeg'>")
 					.bind("change", function (evt) {
 					    scope.sendFilesCount = 0;
@@ -24,9 +31,11 @@ angular.module('KittensModule').directive('multiplayPhotosSelector',
 					        kittensImageWorker.addThePhoto(value, scope.kitten).then(
                                 function success() {
                                     scope.sendFilesCount = scope.sendFilesCount + 1;
+                                    loadingFinishedEvent();
                                 },
                                 function error(e) {
                                     scope.filesWithErrors = scope.filesWithErrors + 1;
+                                    loadingFinishedEvent();
                                 });
 					    });
 					    $(evt.target).trigger("reset");
