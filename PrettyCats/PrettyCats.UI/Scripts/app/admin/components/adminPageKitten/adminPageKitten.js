@@ -6,7 +6,11 @@ angular.module('AdminModule').component("adminPageKitten", {
         kitten: "=",
         removeKitten: "&"
     },
-    controller: function(kittensImageWorker, $location) {
+    controller: function (kittensImageWorker, $location) {
+        this.totalNumberOfFiles = 0;
+        this.loadedFilesCount = 0;
+        this.filesWithErrorsCount = 0;
+
         this.editKitten = function(kitten) {
             var url = "/admin/editKitten/" + kitten.ID;
             $location.url(url);

@@ -51,6 +51,13 @@ opacity:0;
 opacity:1;
 }
 
+progress-bar.progress{
+    position:absolute;
+    width:94%;
+    margin-left:15px;
+    height:5%;
+ }
+
 .post {
     width: 200px;
     height: 200px;

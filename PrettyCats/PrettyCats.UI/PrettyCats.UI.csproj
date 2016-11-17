@@ -90,6 +90,8 @@
     <Content Include="Scripts\app\kittens\partials\parents.html" />
     <Content Include="Scripts\app\admin\components\adminPageKitten\adminPageKitten.html" />
     <Content Include="Scripts\app\kittens\services\kittenBackendCommunicator.js" />
+    <Content Include="Scripts\app\shared\directives\progressBar\progressBar.html" />
+    <Content Include="Scripts\app\shared\directives\progressBar\progressBar.js" />
     <Content Include="Scripts\app\shared\templates\catSlider.html" />
     <Content Include="Scripts\app\kittens\partials\mainPhotoSelector.html" />
     <Content Include="Scripts\app\shared\templates\navigation.html" />
