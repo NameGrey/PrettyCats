@@ -15,5 +15,7 @@ namespace PrettyCats.DAL.Repositories
 
 		bool IsKittenExistsWithParent(Pets parent);
 		void AddPictureForTheKitten(string kittenName, Pictures picture);
+
+		void Refresh();
 	}
 }

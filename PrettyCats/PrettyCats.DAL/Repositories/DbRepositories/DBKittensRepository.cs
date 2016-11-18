@@ -49,15 +49,7 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 
 			public void Delete(int id)
 			{
-				var ctx = ((IObjectContextAdapter) _dbContext).ObjectContext;
-				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Pets);
-				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Pictures);
-				ctx.Refresh(RefreshMode.ClientWins, _dbContext.DisplayPlaces);
-				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Owners);
-				ctx.Refresh(RefreshMode.ClientWins, _dbContext.Pages);
-				ctx.Refresh(RefreshMode.ClientWins, _dbContext.PetBreeds);
-
-			_dbContext.Pets.Remove(_dbContext.Pets.Find(id));
+				_dbContext.Pets.Remove(_dbContext.Pets.Find(id));
 			}
 
 		public void Update(Pets pet)
@@ -109,6 +101,12 @@ namespace PrettyCats.DAL.Repositories.DbRepositories
 			var kitten = _dbContext.Pets.FirstOrDefault(i => i.Name == kittenName);
 
 			kitten?.Pictures.Add(picture);
+		}
+
+		public void Refresh()
+		{
+			_dbContext.Dispose();
+			_dbContext = new StorageContext();
 		}
 	}
 }

@@ -102,6 +102,7 @@ namespace PrettyCats.Controllers
 			
 			RemoveAllPictures(kitten.Pictures.ToList());
 			_imageWorker.RemoveMainPicture(kitten.Name);
+			_kittensRepository.Refresh();
 
 			_kittensRepository.Delete(kitten.ID);
 			_kittensRepository.Save();
