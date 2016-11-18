@@ -22,16 +22,6 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     }
     initKitten();
 
-    var showSuccessMessage = function(message)
-    {
-        
-    }
-
-    var showErrorMessage = function(message)
-    {
-        
-    }
-
     var getKittens = function () {
         var breedNameFromPath = "/" + $location.path().split(/[\s/]+/).pop();
 

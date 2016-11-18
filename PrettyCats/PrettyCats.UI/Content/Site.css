@@ -38,6 +38,12 @@
     color: brown;
 }
 
+.top-right-button {
+    position: absolute;
+    top: 12px;
+    right: 5px;
+}
+
 /* Customize the text color and shadow color and to optimize text legibility. */
 
 .tagline {

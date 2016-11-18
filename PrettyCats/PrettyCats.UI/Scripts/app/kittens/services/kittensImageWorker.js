@@ -34,6 +34,11 @@
                 headers: { "Content-Type": undefined }
             });
         },
+        removePhoto: function (photoId) {
+            var baseServerApiUrl = configuration.ServerApi;
+
+            return $http.delete(baseServerApiUrl + '/pictures/' + photoId);
+        },
         initializeMainPicture: function (kitten) {
             var baseServerApiUrl = configuration.ServerApi;
 

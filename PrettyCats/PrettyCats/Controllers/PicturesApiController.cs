@@ -43,6 +43,17 @@ namespace PrettyCats.Controllers
 			return _picturesRepository.GetCollection().FirstOrDefault(i=>i.IsMainPicture && i.PetID == kittenId);
 		}
 
+		[HttpDelete]
+		[Route("{id}")]
+		public void RemovePicture([FromUri] int id)
+		{
+			if (id > 0)
+			{
+				_picturesRepository.Delete(id);
+				_picturesRepository.Save();
+			}
+		}
+
 		[HttpPost]
 		[Route("add")]
 		public async void AddNewPicture()
