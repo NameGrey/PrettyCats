@@ -4,6 +4,34 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     var baseServerApiUrl = configuration.ServerApi;
     $scope.isValidFields = false;
 
+    var initController = function () {
+        var page = $location.path().split("/")[2] ;
+
+        if (page === "addParent") {
+            $scope.kitten = { IsParent: true };
+        } else if (page === "addKitten") {
+            $scope.kitten = { IsParent: false };
+            getParents();
+        } else if (page === "addArchiveKitten") {
+            $scope.kitten = { IsInArchive: true };
+            getParents();
+        } else if (page === "editKitten") {
+            initKitten();
+            getParents();
+        } else if (page === "available-kittens") {
+            getAvailableKittens();
+        } else if (page === "archive-kittens") {
+            $scope.kitten = { IsInArchive: true };
+            getArchiveKittens();
+        }else if (page === "parents") {
+            getParents();
+        }
+        
+        $scope.getOwners();
+        $scope.getBreeds();
+        $scope.getDisplayPlaces();
+    }
+
     var initKitten = function() {
         var kittenId = $routeParams.id;
         $scope.kitten = {};
@@ -12,16 +40,16 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
             kittenBackendCommunicator.getKittenById(kittenId).then(
                 function(data) {
                     $scope.kitten = data;
-                    getKittenPictures(data.ID).success(function(pics){
+                    // TODO: get only main Picture
+                    getKittenPictures(data.ID).success(function(pics) {
                         $scope.kitten.pictures = pics;
-                    })
+                    });
                 },
                 function(e) {
                     console.log(e);
                 });
         }
     }
-    initKitten();    
 
     var getKittens = function () {
         var breedNameFromPath = "/" + $location.path().split(/[\s/]+/).pop();
@@ -41,7 +69,6 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         $http.get(baseServerApiUrl + "/kittens/parents")
 			.success(function (data) {
 			    $scope.parents = data;
-                console.log("parents:", data);
             })
 			.error(function (e) {
 			    $scope.parents = null;
@@ -65,9 +92,16 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 
     };
 
-    var getAllKittens = function () {
+    var getAvailableKittens = function () {
 
         $http.get(baseServerApiUrl + "/kittens").success(function (data) {
+            $scope.kittens = data;
+        }).error(function () { $scope.kittens = null; });
+    }
+
+    var getArchiveKittens = function () {
+
+        $http.get(baseServerApiUrl + "/kittens/archive").success(function (data) {
             $scope.kittens = data;
         }).error(function () { $scope.kittens = null; });
     }
@@ -83,12 +117,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
                     }
 
                     $timeout(function () {
-                        $scope.successMessage = null;
-                        if (kitten.IsParent) {
-                            $location.path("/admin/parents");
-                        } else {
-                            $location.path("/admin/available-kittens");
-                        }
+                        $scope.returnBack(kitten);
                     }, 2000);
                 },
                 function (e) {
@@ -144,11 +173,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 
                     $timeout(function() {
                         $scope.successMessage = null;
-                        if (kitten.IsParent) {
-                            $location.path("/admin/parents");
-                        } else {
-                            $location.path("/admin/available-kittens");
-                        }
+                        $scope.returnBack(kitten);
                     }, 2000);
                 },
                 function () {
@@ -207,19 +232,29 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 			});
     };
 
+    var returnBack = function(currKitten) {
+        if (currKitten.IsParent) {
+            $location.path("/admin/parents");
+        } else if (currKitten.IsInArchive) {
+            $location.path("/admin/archive-kittens");
+        } else {
+            $location.path("/admin/available-kittens");
+        }
+    }
+
+    $scope.initController = initController;
     $scope.theFile = null;
     $scope.getKittens = getKittens;
     $scope.getParents = getParents;
     $scope.selectKitten = selectKitten;
-    $scope.getAllKittens = getAllKittens;
     $scope.setMainPhotoFor = kittensImageWorker.setMainPhotoFor;
     $scope.addThePhoto = kittensImageWorker.addThePhoto;
     $scope.removeKitten = removeKitten;
     $scope.addNewKitten = addNewKitten;
     $scope.saveEditedKitten = saveEditedKitten;
     $scope.getKittenPictures = getKittenPictures;
-
     $scope.getOwners = getOwners;
     $scope.getBreeds = getBreeds;
     $scope.getDisplayPlaces = getDisplayPlaces;
+    $scope.returnBack = returnBack;
 });

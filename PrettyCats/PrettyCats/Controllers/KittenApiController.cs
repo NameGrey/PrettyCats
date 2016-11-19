@@ -145,7 +145,14 @@ namespace PrettyCats.Controllers
 		[HttpGet]
 		public IEnumerable<Pets> GetKittens()
 		{
-			return _kittensRepository.GetCollection();
+			return _kittensRepository.GetCollection().Where(i => !i.IsParent && !i.IsInArchive);
+		}
+
+		[Route("archive")]
+		[HttpGet]
+		public IEnumerable<Pets> GetArchiveKittens()
+		{
+			return _kittensRepository.GetCollection().Where(i => !i.IsParent && i.IsInArchive);
 		}
 
 		[Route("parents")]
