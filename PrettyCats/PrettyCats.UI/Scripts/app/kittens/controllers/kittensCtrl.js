@@ -2,6 +2,7 @@
 
 angular.module('KittensModule').controller("kittensCtrl", function ($scope, $location, $http, $routeParams, $timeout, configuration, kittensImageWorker, kittenBackendCommunicator) {
     var baseServerApiUrl = configuration.ServerApi;
+    $scope.isValidFields = false;
 
     var initKitten = function() {
         var kittenId = $routeParams.id;
@@ -20,7 +21,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
                 });
         }
     }
-    initKitten();
+    initKitten();    
 
     var getKittens = function () {
         var breedNameFromPath = "/" + $location.path().split(/[\s/]+/).pop();
@@ -131,8 +132,8 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         }
     }
 
-    var addNewKitten = function(kitten) {
-        if (kitten) {
+    var addNewKitten = function (kitten) {
+        if (kitten && $scope.isValidFields) {
             kittenBackendCommunicator.addNewKitten(kitten)
                 .then(function() {
                     if (kitten.IsParent) {
@@ -157,6 +158,12 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
                         $scope.errorMessage = null;
                     }, 4000);
                 });
+        } else {
+            $scope.errorMessage = "Не все поля правильно заполнены!"
+
+            $timeout(function () {
+                $scope.errorMessage = null;
+            }, 4000);
         }
     }
 

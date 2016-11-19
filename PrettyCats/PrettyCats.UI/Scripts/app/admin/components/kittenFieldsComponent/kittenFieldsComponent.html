@@ -1,8 +1,10 @@
-﻿<div class="form-group">
+﻿<div class="form-group" ng-class="{'has-error' : !($ctrl.kitten.Name && $ctrl.kitten.Name.length > 0 && $ctrl.onlyEnglish) }">
     <label class="control-label col-md-2">Имя на английском</label>
     <div class="col-md-8">
-        <input type="text" class="form-control" ng-model="$ctrl.kitten.Name" />
+        <input type="text" class="form-control" ng-model="$ctrl.kitten.Name" ng-change="$ctrl.changeValidationFlag()"/>
     </div>
+    <p class="text-danger" ng-hide="$ctrl.kitten.Name && $ctrl.kitten.Name.length > 0"> Обязательное поле!!!</p>
+    <p class="text-danger" ng-hide="$ctrl.onlyEnglish"> Только англ. буквы</p>
 </div>
 
 <div class="form-group">
@@ -12,11 +14,12 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-class="{'has-error' : !($ctrl.kitten.BreedID > 0) }">
     <label class="control-label col-md-2">Порода</label>
     <div class="col-md-8">
-        <select class="form-control pointer" ng-model="$ctrl.kitten.BreedID" ng-options="item.ID as item.ShortName for item in $ctrl.breeds" />
+        <select class="form-control pointer" ng-model="$ctrl.kitten.BreedID" ng-options="item.ID as item.ShortName for item in $ctrl.breeds" ng-change="$ctrl.changeValidationFlag()"/>
     </div>
+    <p class="text-danger" ng-hide="$ctrl.kitten.BreedID > 0"> Обязательное поле!!!</p>
 </div>
 
 <div class="form-group" ng-if="!$ctrl.kitten.IsParent">
@@ -33,11 +36,12 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-class="{'has-error' : !($ctrl.kitten.OwnerID > 0) }">
     <label class="control-label col-md-2">Владелец</label>
     <div class="col-md-8">
-        <select class="form-control pointer" ng-model="$ctrl.kitten.OwnerID" ng-options="item.ID as item.Name + '('+item.Phone+')' for item in $ctrl.owners" />
+        <select class="form-control pointer" ng-model="$ctrl.kitten.OwnerID" ng-options="item.ID as item.Name + '('+item.Phone+')' for item in $ctrl.owners" ng-change="$ctrl.changeValidationFlag()" />
     </div>
+    <p class="text-danger" ng-hide="$ctrl.kitten.OwnerID > 0"> Обязательное поле!!!</p>
 </div>
 
 <div class="form-group" ng-if="!$ctrl.kitten.IsParent">
@@ -54,11 +58,12 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-class="{'has-error' : !($ctrl.kitten.WhereDisplay > 0) }">
     <label class="control-label col-md-2">Отображение</label>
     <div class="col-md-8">
-        <select class="form-control pointer" ng-model="$ctrl.kitten.WhereDisplay" ng-options="item.ID as item.PlaceOfDisplaying for item in $ctrl.displayPlaces"/>
+        <select class="form-control pointer" ng-model="$ctrl.kitten.WhereDisplay" ng-options="item.ID as item.PlaceOfDisplaying for item in $ctrl.displayPlaces" ng-change="$ctrl.changeValidationFlag()"/>
     </div>
+    <p class="text-danger" ng-hide="$ctrl.kitten.WhereDisplay > 0"> Обязательное поле!!!</p>
 </div>
 
 <div class="form-group" ng-if="!$ctrl.kitten.IsParent">
