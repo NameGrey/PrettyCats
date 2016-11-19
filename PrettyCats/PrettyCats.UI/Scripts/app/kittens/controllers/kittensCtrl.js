@@ -20,10 +20,13 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
             getParents();
         } else if (page === "available-kittens") {
             getAvailableKittens();
+            $scope.addKittenLink = "/admin/addKitten";
         } else if (page === "archive-kittens") {
+            $scope.addKittenLink = "/admin/addArchiveKitten";
             $scope.kitten = { IsInArchive: true };
             getArchiveKittens();
-        }else if (page === "parents") {
+        } else if (page === "parents") {
+            $scope.addKittenLink = "/admin/addParent";
             getParents();
         }
         
@@ -68,10 +71,10 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 
         $http.get(baseServerApiUrl + "/kittens/parents")
 			.success(function (data) {
-			    $scope.parents = data;
+			    $scope.kittens = data;
             })
 			.error(function (e) {
-			    $scope.parents = null;
+			    $scope.kittens = null;
 			    console.log("error:", e);
 			});
     };
@@ -132,14 +135,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     }
 
     var removeKitten = function (kitten) {
-        var collection;
-
-        if (kitten.IsParent) {
-            collection = $scope.parents;
-        } else {
-            collection = $scope.kittens;
-        }
-        var index = collection.indexOf(kitten);
+        var index = kittens.indexOf(kitten);
         // TODO: fix this part - add html into template and create a message variable
         if (index > -1) {
             $http.get(baseServerApiUrl + "/kittens/remove/" + kitten.ID).success(function () {
@@ -148,7 +144,7 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 
                 $timeout(function () {
                     $("#" + kitten.Name + ".kitten-block-admin").remove();
-                    collection.splice(index, 1);
+                    kittens.splice(index, 1);
                 }, 1000);
             }).error(function () {
                 $("#" + kitten.Name + ".kitten-block-admin").find(".bottom-fotos-container").append("<div class='alert alert-danger'>Ошибка при удалении!</div>");
