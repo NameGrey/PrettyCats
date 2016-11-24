@@ -1,9 +1,0 @@
-﻿<div class="admin-panel" ng-controller="kittensCtrl" ng-init="initController()">
-    <a ng-href="/admin-panel" class="btn-admin btn-red">Назад</a>
-    <a ng-href="{{addKittenLink}}" class="btn-admin btn-red">Добавить</a>
-
-    <div ng-repeat="kitten in kittens">
-        <admin-page-kitten kitten="kitten" remove-kitten="$ctrl.removeKitten(kitten)"></admin-page-kitten>
-    </div>
-    <a ng-href="/admin-panel" class="btn-admin btn-red">Назад</a>
-</div>

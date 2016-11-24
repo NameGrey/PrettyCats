@@ -23,12 +23,38 @@ angular.module('KittensModule').service("kittenBackendCommunicator", function ($
         });
     }
 
-    var getKittens = function () {
-
+    var commonGetKittensFunc = function (queryUrl) {
+        return $q(function (resolve, reject) {
+            $http.get(baseServerApiUrl + queryUrl)
+                .success(function (data) {
+                    resolve(data);
+                })
+                .error(function (e) {
+                    reject(e);
+                });
+        });
     }
 
     var getParents = function () {
+        return commonGetKittensFunc("/kittens/parents");
+    }
 
+    var getAvailableKittens = function () {
+        return commonGetKittensFunc("/kittens");
+    }
+
+    var getArchiveKittens = function () {
+        return commonGetKittensFunc("/kittens/archive");
+    }
+
+    var removeKitten = function(id) {
+        return $q(function(resolve, reject) {
+            $http.get(baseServerApiUrl + "/kittens/remove/" + id).success(function () {
+                resolve();
+            }).error(function (e) {
+                reject(e);
+            });
+        });
     }
 
     var addNewKitten = function(kitten) {
@@ -60,9 +86,11 @@ angular.module('KittensModule').service("kittenBackendCommunicator", function ($
 
     return {
         getKittenById: getKittenById,
-        getKittens: getKittens,
         getParents: getParents,
         addNewKitten: addNewKitten,
-        saveEditedKitten: saveEditedKitten
+        saveEditedKitten: saveEditedKitten,
+        getAvailableKittens: getAvailableKittens,
+        getArchiveKittens: getArchiveKittens,
+        removeKitten: removeKitten
 }
 });

@@ -3,13 +3,14 @@
 angular.module('AdminModule').component("adminPageKitten", {
     templateUrl: "Scripts/app/admin/components/adminPageKitten/adminPageKitten.html",
     bindings: {
-        kitten: "=",
+        kitten: "<",
         removeKitten: "&"
     },
     controller: function (kittensImageWorker, $location) {
         this.totalNumberOfFiles = 0;
         this.loadedFilesCount = 0;
         this.filesWithErrorsCount = 0;
+
         this.informMessage = null;
         this.errorMessage = null;
 

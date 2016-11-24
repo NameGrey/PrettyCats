@@ -57,17 +57,17 @@ artDuviksApp.config(function ($routeProvider, $locationProvider) {
 		})
 		.when("/admin/available-kittens", {
 		    title: "Панель доступных котят",
-		    templateUrl: adminPartialsUrl + "adminKittensPage.html",
+		    templateUrl: adminPartialsUrl + "/kittensViews/available-kittens.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/archive-kittens", {
 		    title: "Панель архивных котят",
-		    templateUrl: adminPartialsUrl + "adminKittensPage.html",
+		    templateUrl: adminPartialsUrl + "/kittensViews/archive-kittens.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/parents", {
 		    title: "Панель родителей",
-		    templateUrl: adminPartialsUrl + "adminKittensPage.html",
+		    templateUrl: adminPartialsUrl + "/kittensViews/parents.html",
 		    controller: "kittensCtrl"
 		})
 		.when("/admin/addKitten", {

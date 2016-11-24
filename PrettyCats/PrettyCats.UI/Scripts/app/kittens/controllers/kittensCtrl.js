@@ -66,19 +66,6 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
 			});
     };
 
-    var getParents = function () {
-        var baseServerApiUrl = configuration.ServerApi;
-
-        $http.get(baseServerApiUrl + "/kittens/parents")
-			.success(function (data) {
-			    $scope.kittens = data;
-            })
-			.error(function (e) {
-			    $scope.kittens = null;
-			    console.log("error:", e);
-			});
-    };
-
     var selectKitten = function() {
         var kittenId = $routeParams.id;
 
@@ -241,7 +228,6 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     $scope.initController = initController;
     $scope.theFile = null;
     $scope.getKittens = getKittens;
-    $scope.getParents = getParents;
     $scope.selectKitten = selectKitten;
     $scope.setMainPhotoFor = kittensImageWorker.setMainPhotoFor;
     $scope.addThePhoto = kittensImageWorker.addThePhoto;
