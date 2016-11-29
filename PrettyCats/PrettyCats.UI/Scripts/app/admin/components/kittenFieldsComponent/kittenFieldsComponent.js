@@ -13,18 +13,22 @@ angular.module('AdminModule').component("kittenFieldsComponent",
     },
     controller: function () {
         var regexp = new RegExp("[0-9а-яА-Я]");
-        this.onlyEnglish = !regexp.test(this.kitten.Name);
 
         //if you change these conditions, don't forget to change the same in template
         this.changeValidationFlag = function () {
-            this.onlyEnglish = !regexp.test(this.kitten.Name);
+            this.onlyEnglish = !this.kitten || !this.kitten.Name || this.kitten.Name.length > 0 && !regexp.test(this.kitten.Name);
+            this.isCorrectOwner = this.kitten.OwnerID > 0;
+            this.isCorrectBreed = this.kitten.BreedID > 0;
+            this.isCorrectWhereDisplay = this.kitten.WhereDisplay > 0;
 
             this.isValid =
-            this.kitten.Name && this.kitten.Name.length > 0 &&
-            this.kitten.OwnerID > 0 &&
-            this.kitten.BreedID > 0 &&
-            this.kitten.WhereDisplay > 0 &&
-            this.onlyEnglish;
+                this.kitten.Name && this.kitten.Name.length > 0 &&
+                this.isCorrectOwner &&
+                this.isCorrectBreed &&
+                this.isCorrectWhereDisplay &&
+                this.onlyEnglish;
         }
+
+        this.changeValidationFlag();
     }
 });

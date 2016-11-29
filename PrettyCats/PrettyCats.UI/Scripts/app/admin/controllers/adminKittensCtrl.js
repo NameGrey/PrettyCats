@@ -1,9 +1,10 @@
 ﻿'use strict';
 
 angular.module('AdminModule').controller('adminKittensCtrl',
-    function ($scope, kittenBackendCommunicator) {
+    function ($scope, kittenBackendCommunicator, $routeParams) {
         $scope.kittens = null;
         $scope.addKittenLink = null;
+        $scope.selectedKitten = null;
 
         var successLoadedKittens = function(data) {
             $scope.kittens = data;
@@ -30,5 +31,13 @@ angular.module('AdminModule').controller('adminKittensCtrl',
             $scope.addKittenLink = "/admin/addParent";
             kittenBackendCommunicator.getParents()
                 .then(successLoadedKittens, loadedWithErrorsKittens);
+        }
+
+        $scope.initEditedKitten = function () {
+            $scope.selectedKitten = { id: $routeParams.id };
+        }
+
+        $scope.initNewKitten = function() {
+            $scope.selectedKitten = { isNew: true };
         }
     });

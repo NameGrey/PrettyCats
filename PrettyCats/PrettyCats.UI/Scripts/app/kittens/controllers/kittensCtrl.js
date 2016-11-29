@@ -96,31 +96,6 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         }).error(function () { $scope.kittens = null; });
     }
 
-    var saveEditedKitten = function(kitten) {
-        if (kitten) {
-            kittenBackendCommunicator.saveEditedKitten(kitten).then(
-                function () {
-                    if (kitten.IsParent) {
-                        $scope.successMessage = "Родитель успешно сохранен!";
-                    } else {
-                        $scope.successMessage = "Котенок успешно сохранен!";
-                    }
-
-                    $timeout(function () {
-                        $scope.returnBack(kitten);
-                    }, 2000);
-                },
-                function (e) {
-                    $scope.errorMessage = "Произошла ошибка на сервере!";
-                    console.log(e);
-
-                    $timeout(function () {
-                        $scope.errorMessage = null;
-                    }, 4000);
-                });
-        }
-    }
-
     var removeKitten = function (kitten) {
         var index = kittens.indexOf(kitten);
         // TODO: fix this part - add html into template and create a message variable
@@ -144,85 +119,8 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
         }
     }
 
-    var addNewKitten = function (kitten) {
-        if (kitten && $scope.isValidFields) {
-            kittenBackendCommunicator.addNewKitten(kitten)
-                .then(function() {
-                    if (kitten.IsParent) {
-                        $scope.successMessage = "Родитель успешно сохранен!";
-                    } else {
-                        $scope.successMessage = "Котенок успешно сохранен!";
-                    }
-
-                    $timeout(function() {
-                        $scope.successMessage = null;
-                        $scope.returnBack(kitten);
-                    }, 2000);
-                },
-                function () {
-                    $scope.errorMessage = "Произошла непредвиденная ошибка на сервере. Котенок не был добавлен.";
-
-                    $timeout(function() {
-                        $scope.errorMessage = null;
-                    }, 4000);
-                });
-        } else {
-            $scope.errorMessage = "Не все поля правильно заполнены!"
-
-            $timeout(function () {
-                $scope.errorMessage = null;
-            }, 4000);
-        }
-    }
-
     var getKittenPictures = function (id) {
         return kittensImageWorker.getKittenPictures(id);
-    }
-
-    var getOwners = function () {
-        var baseServerApiUrl = configuration.ServerApi;
-
-        $http.get(baseServerApiUrl + "/owners")
-			.success(function (data) {
-			    $scope.owners = data;
-			})
-			.error(function () {
-			    $scope.owners = null;
-			});
-    };
-
-    var getBreeds = function () {
-        var baseServerApiUrl = configuration.ServerApi;
-
-        $http.get(baseServerApiUrl + "/breeds")
-			.success(function (data) {
-			    $scope.breeds = data;
-			})
-			.error(function () {
-			    $scope.breeds = null;
-			});
-    };
-
-    var getDisplayPlaces = function () {
-        var baseServerApiUrl = configuration.ServerApi;
-
-        $http.get(baseServerApiUrl + "/display-places")
-			.success(function (data) {
-			    $scope.displayPlaces = data;
-			})
-			.error(function () {
-			    $scope.displayPlaces = null;
-			});
-    };
-
-    var returnBack = function(currKitten) {
-        if (currKitten.IsParent) {
-            $location.path("/admin/parents");
-        } else if (currKitten.IsInArchive) {
-            $location.path("/admin/archive-kittens");
-        } else {
-            $location.path("/admin/available-kittens");
-        }
     }
 
     $scope.initController = initController;
@@ -232,11 +130,5 @@ angular.module('KittensModule').controller("kittensCtrl", function ($scope, $loc
     $scope.setMainPhotoFor = kittensImageWorker.setMainPhotoFor;
     $scope.addThePhoto = kittensImageWorker.addThePhoto;
     $scope.removeKitten = removeKitten;
-    $scope.addNewKitten = addNewKitten;
-    $scope.saveEditedKitten = saveEditedKitten;
     $scope.getKittenPictures = getKittenPictures;
-    $scope.getOwners = getOwners;
-    $scope.getBreeds = getBreeds;
-    $scope.getDisplayPlaces = getDisplayPlaces;
-    $scope.returnBack = returnBack;
 });

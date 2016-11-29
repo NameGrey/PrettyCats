@@ -1,18 +1,3 @@
-﻿<div class="admin-panel">
-    <div class="form-horizontal" ng-controller="kittensCtrl" ng-init="initController()">
-        <h4>Редактирование котенка</h4>
-        <hr />
-        <kitten-fields-component kitten="kitten" breeds="breeds" owners="owners" parents="parents" display-places="displayPlaces">
-        </kitten-fields-component>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-8">
-                <input type="submit" value="Сохранить" ng-click="saveEditedKitten(kitten)" class="btn btn-default"/>
-                <input type="submit" value="Отменить" ng-click="returnBack(kitten)" class="btn btn-default" />
-            </div>
-        </div>
-        <div ng-class="{'alert alert-danger' : errorMessage, 'alert alert-success': successMessage}" role="alert">
-            <span ng-show="errorMessage || successMessage" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            {{errorMessage}}{{successMessage}}
-        </div>
-    </div>
+﻿<div class="admin-panel" ng-controller="adminKittensCtrl" ng-init="initEditedKitten()">
+    <add-edit-kitten-component kitten="selectedKitten"></add-edit-kitten-component>
 </div>

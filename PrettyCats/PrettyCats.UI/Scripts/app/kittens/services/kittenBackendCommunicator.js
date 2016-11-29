@@ -23,7 +23,7 @@ angular.module('KittensModule').service("kittenBackendCommunicator", function ($
         });
     }
 
-    var commonGetKittensFunc = function (queryUrl) {
+    var getRequest = function (queryUrl) {
         return $q(function (resolve, reject) {
             $http.get(baseServerApiUrl + queryUrl)
                 .success(function (data) {
@@ -36,15 +36,27 @@ angular.module('KittensModule').service("kittenBackendCommunicator", function ($
     }
 
     var getParents = function () {
-        return commonGetKittensFunc("/kittens/parents");
+        return getRequest("/kittens/parents");
     }
 
     var getAvailableKittens = function () {
-        return commonGetKittensFunc("/kittens");
+        return getRequest("/kittens");
     }
 
     var getArchiveKittens = function () {
-        return commonGetKittensFunc("/kittens/archive");
+        return getRequest("/kittens/archive");
+    }
+
+    var getOwners = function() {
+        return getRequest("/owners");
+    }
+
+    var getBreeds = function () {
+        return getRequest("/breeds");
+    }
+
+    var getDisplayPlaces = function () {
+        return getRequest("/display-places");
     }
 
     var removeKitten = function(id) {
@@ -91,6 +103,9 @@ angular.module('KittensModule').service("kittenBackendCommunicator", function ($
         saveEditedKitten: saveEditedKitten,
         getAvailableKittens: getAvailableKittens,
         getArchiveKittens: getArchiveKittens,
-        removeKitten: removeKitten
+        removeKitten: removeKitten,
+        getOwners: getOwners,
+        getBreeds: getBreeds,
+        getDisplayPlaces: getDisplayPlaces
 }
 });
