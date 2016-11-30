@@ -29,6 +29,9 @@ angular.module('AdminModule').component("kittenFieldsComponent",
                 this.onlyEnglish;
         }
 
-        this.changeValidationFlag();
+        this.$onChanges = function ()
+        {
+            this.changeValidationFlag();
+        }
     }
 });

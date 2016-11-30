@@ -1,7 +1,7 @@
 ﻿<h2 ng-init="">Фотографии котенка</h2>
 <hr />
 
-<div class="admin-panel" ng-controller="kittensCtrl">
+<div class="admin-panel" ng-controller="adminKittensCtrl" ng-init="initEditedKitten(); getKittenPictures(selectedKitten.id);">
     <div style="margin-top: -20px;">
         <!--TODO: Create back reference-->
         <!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
@@ -17,7 +17,7 @@
         $( "change-pictures-component" ).disableSelection();
         });
     </script>
-    <change-pictures-component pictures="kitten.pictures">
+    <change-pictures-component pictures="selectedKitten.pictures">
 
     </change-pictures-component>
     <div>

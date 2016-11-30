@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('AdminModule').controller('adminKittensCtrl',
-    function ($scope, kittenBackendCommunicator, $routeParams) {
+    function ($scope, kittenBackendCommunicator, kittensImageWorker, $routeParams) {
         $scope.kittens = null;
         $scope.addKittenLink = null;
         $scope.selectedKitten = null;
@@ -39,5 +39,16 @@ angular.module('AdminModule').controller('adminKittensCtrl',
 
         $scope.initNewKitten = function() {
             $scope.selectedKitten = { isNew: true };
+        }
+
+        $scope.getKittenPictures = function(kittenId) {
+            kittensImageWorker.getKittenPictures(kittenId)
+                .then(
+                    function success(result) {
+                        $scope.selectedKitten = { pictures: result.data };
+                    },
+                    function error(e) {
+                        console.log(e);
+                    });
         }
     });

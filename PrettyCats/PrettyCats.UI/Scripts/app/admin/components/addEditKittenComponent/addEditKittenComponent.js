@@ -82,18 +82,25 @@ angular.module('AdminModule').component('addEditKittenComponent',
             }, interval);
         }
 
+        var notAllFieldsCorrect = function(kitten) {
+            ctrl.errorMessage = "Не все поля правильно заполнены!";
+            dropErrorMessageAfterSomeTime(kitten, errorMessageTimeout);
+        }
+
         var saveEditedKitten = function (kitten) {
-            if (kitten) {
+            if (kitten && ctrl.isValidFields) {
                 kittenBackendCommunicator.saveEditedKitten(kitten).then(
-                    function () {
+                    function() {
                         successSaveMessage(kitten);
                         returnAfterSomeTime(kitten, successMessageTimeout);
                     },
-                    function (e) {
+                    function(e) {
                         ctrl.errorMessage = "Произошла ошибка на сервере!";
                         console.log(e);
                         dropErrorMessageAfterSomeTime(kitten, errorMessageTimeout);
                     });
+            } else {
+                notAllFieldsCorrect(kitten);
             }
         }
 
@@ -128,9 +135,7 @@ angular.module('AdminModule').component('addEditKittenComponent',
                         dropErrorMessageAfterSomeTime(kitten, errorMessageTimeout);
                     });
             } else {
-                ctrl.errorMessage = "Не все поля правильно заполнены!"
-
-                dropErrorMessageAfterSomeTime(kitten, errorMessageTimeout);
+                notAllFieldsCorrect(kitten);
             }
         }
 
