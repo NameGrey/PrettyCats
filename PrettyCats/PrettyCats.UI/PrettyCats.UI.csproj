@@ -78,6 +78,8 @@
     <Content Include="Scripts\app\admin\components\adminKittensPageComponent\adminKittensPageComponent.js" />
     <Content Include="Scripts\app\admin\components\changePicturesComponent\changePicturesComponent.html" />
     <Content Include="Scripts\app\admin\components\changePicturesComponent\changePicturesComponent.js" />
+    <Content Include="Scripts\app\admin\components\messagePlaceComponent\messagePlaceComponent.js" />
+    <Content Include="Scripts\app\admin\components\messagePlaceComponent\messagePlaceComponent.html" />
     <Content Include="Scripts\app\admin\components\kittenFieldsComponent\kittenFieldsComponent.html" />
     <Content Include="Scripts\app\admin\components\kittenFieldsComponent\kittenFieldsComponent.js" />
     <Content Include="Scripts\app\admin\controllers\adminKittensCtrl.js" />

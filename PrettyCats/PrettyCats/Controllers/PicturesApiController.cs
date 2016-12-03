@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Http;
-using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
-using PrettyCats.DAL.Repositories.DbRepositories;
 using PrettyCats.Helpers;
-using PrettyCats.Services;
 using PrettyCats.Services.Interfaces;
 
 namespace PrettyCats.Controllers
@@ -82,6 +79,30 @@ namespace PrettyCats.Controllers
 			}
 
 			_imageWorker.AddPhoto(new MemoryStream(picture), kittenName, false, kittenId);
+		}
+
+		[HttpPost]
+		[Route("changeOrder")]
+		public async Task<HttpResponseMessage> ChangePicturesOrder(Pictures[] pictures)
+		{
+			try
+			{
+				await Task.Run(() =>
+				{
+					foreach (var pict in pictures)
+					{
+						_picturesRepository.SetNewOrderForPicture(pict.ID, pict.Order);
+					}
+					_picturesRepository.Save();
+				});
+
+				return new HttpResponseMessage(HttpStatusCode.OK);
+			}
+			catch (Exception e)
+			{
+				return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+			}
+			
 		}
 
 		[HttpPost]

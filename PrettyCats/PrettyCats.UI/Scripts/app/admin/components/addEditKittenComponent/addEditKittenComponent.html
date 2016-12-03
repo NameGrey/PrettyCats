@@ -11,8 +11,5 @@
             <input type="submit" value="Отменить" ng-click="$ctrl.returnBack($ctrl.kitten)" class="btn btn-default"/>
         </div>
     </div>
-    <div ng-class="{'alert alert-danger' : $ctrl.errorMessage, 'alert alert-success': $ctrl.successMessage}" role="alert">
-        <span ng-show="$ctrl.errorMessage || $ctrl.successMessage" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        {{$ctrl.errorMessage}}{{$ctrl.successMessage}}
-    </div>
+    <message-place-component success-message="$ctrl.successMessage" error-message="$ctrl.errorMessage"></message-place-component>
 </div>

@@ -5,6 +5,13 @@
 	padding-top: 50px;
 }
 
+.kitten-pictures-message-box > .alert-danger,
+ .kitten-pictures-message-box > .alert-success  {
+    height: 34px;
+    padding: 6px;
+    margin-bottom: 0px;
+}
+
 .admin-panel {
 	margin: 100px auto;
 	width: 700px;

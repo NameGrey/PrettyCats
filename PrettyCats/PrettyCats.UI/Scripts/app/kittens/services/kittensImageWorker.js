@@ -1,14 +1,18 @@
 ﻿angular.module('KittensModule').factory("kittensImageWorker", function ($http, configuration) {
+    var baseServerApiUrl = configuration.ServerApi;
     return {
         getKittenMainPicture: function (kitten) {
-            var baseServerApiUrl = configuration.ServerApi;
-
             return $http.get(baseServerApiUrl + "/pictures/main-picture/" + kitten.ID);
         },
         getKittenPictures: function (kittenId) {
             var baseServerApiUrl = configuration.ServerApi;
 
             return $http.get(baseServerApiUrl + "/pictures/" + kittenId);
+        },
+        changePicturesOrder: function (pictures) {
+            return $http.post(baseServerApiUrl + '/pictures/changeOrder', JSON.stringify(pictures), {
+                headers: { "Content-Type": 'application/json' }
+            });
         },
         setMainPhotoFor: function (file, kitten) {
             var baseServerApiUrl = configuration.ServerApi;
@@ -22,9 +26,7 @@
                 headers: { "Content-Type": undefined }
             });
         },
-
         addThePhoto: function (file, kitten) {
-            var baseServerApiUrl = configuration.ServerApi;
             var data = new FormData();
             data.append("image", file);
             data.append("kittenName", kitten.Name);
@@ -35,13 +37,9 @@
             });
         },
         removePhoto: function (photoId) {
-            var baseServerApiUrl = configuration.ServerApi;
-
             return $http.delete(baseServerApiUrl + '/pictures/' + photoId);
         },
         initializeMainPicture: function (kitten) {
-            var baseServerApiUrl = configuration.ServerApi;
-
             $http.get(baseServerApiUrl + "/pictures/main-picture/" + kitten.ID)
 				.success(function (data) {
 

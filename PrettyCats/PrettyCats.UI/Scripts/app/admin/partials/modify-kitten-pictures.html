@@ -1,7 +1,7 @@
 ﻿<h2 ng-init="">Фотографии котенка</h2>
 <hr />
 
-<div class="admin-panel" ng-controller="adminKittensCtrl" ng-init="initEditedKitten(); getKittenPictures(selectedKitten.id);">
+<div class="admin-panel" ng-controller="adminKittensCtrl" ng-init="initKittenForPicturesModification()">
     <div style="margin-top: -20px;">
         <!--TODO: Create back reference-->
         <!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
@@ -13,15 +13,21 @@
 
     <script>
         $( function() {
-        $( "change-pictures-component" ).sortable();
+        $( "change-pictures-component" ).sortable({
+            stop: function (event, ui) {
+                var picturesList = [];
+
+              //  $(event.target).children('.image-container').each(function (el) {
+                //    picturesList.push({ id: this.id, order: el + 1 });
+               // });
+
+               // angular.element($(event.target)).scope().
+            }
+        });
         $( "change-pictures-component" ).disableSelection();
         });
     </script>
-    <change-pictures-component pictures="selectedKitten.pictures">
+    <change-pictures-component pictures="selectedKitten.pictures" return-back-url="returnBackUrl">
 
     </change-pictures-component>
-    <div>
-        <!--TODO: Create back reference-->
-        <!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
-    </div>
 </div>

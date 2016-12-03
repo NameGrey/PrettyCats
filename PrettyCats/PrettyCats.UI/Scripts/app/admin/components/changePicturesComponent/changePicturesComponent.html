@@ -1,5 +1,18 @@
 ﻿
+
+
 <div class="image-container" id="{{picture.ID}}" ng-repeat="picture in $ctrl.pictures">
     <img class="main-kitten-image" ng-src="{{picture.Image}}"/>
     <button ng-click="$ctrl.removePicture(picture)" type="button" class="close top-right-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+<div></div>
+<div class="col-md-4">
+    <input type="submit" value="Назад" ng-click="$ctrl.returnBack($ctrl.returnBackUrl)" class="btn btn-default"/>
+    <input type="submit" value="Сохранить" ng-click="$ctrl.savePicturesOrder($ctrl.pictures)" class="btn btn-default"/>
+</div>
+<div class="col-md-8">
+    <message-place-component class="kitten-pictures-message-box"
+                             success-message="$ctrl.successMessage"
+                             error-message="$ctrl.errorMessage" 
+                             clean-interval="$ctrl.messageTimeout"></message-place-component>
 </div>

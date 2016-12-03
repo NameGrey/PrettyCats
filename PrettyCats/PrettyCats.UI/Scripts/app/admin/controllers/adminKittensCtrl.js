@@ -5,6 +5,7 @@ angular.module('AdminModule').controller('adminKittensCtrl',
         $scope.kittens = null;
         $scope.addKittenLink = null;
         $scope.selectedKitten = null;
+        $scope.returnBackUrl = null;
 
         var successLoadedKittens = function(data) {
             $scope.kittens = data;
@@ -13,6 +14,30 @@ angular.module('AdminModule').controller('adminKittensCtrl',
         var loadedWithErrorsKittens = function(e) {
             $scope.kittens = null;
             console.log(e);
+        }
+
+        var getKittenPictures = function (kittenId) {
+            kittensImageWorker.getKittenPictures(kittenId)
+                .then(
+                    function success(result) {
+                        $scope.selectedKitten = { pictures: result.data };
+                    },
+                    function error(e) {
+                        console.log(e);
+                    });
+        }
+
+        var initReturnBackUrl = function(kitten) {
+            var result;
+
+            if (kitten.IsParent) {
+                result = "/admin/parents";
+            } else if (kitten.IsInArchive) {
+                result = "/admin/archive-kittens";
+            } else {
+                result = "/admin/available-kittens";
+            }
+            return result;
         }
 
         $scope.initAvailableKittens = function () {
@@ -41,14 +66,21 @@ angular.module('AdminModule').controller('adminKittensCtrl',
             $scope.selectedKitten = { isNew: true };
         }
 
-        $scope.getKittenPictures = function(kittenId) {
-            kittensImageWorker.getKittenPictures(kittenId)
-                .then(
-                    function success(result) {
-                        $scope.selectedKitten = { pictures: result.data };
+        $scope.initKittenForPicturesModification = function() {
+            var kittenId = $routeParams.id;
+
+            if (kittenId) {
+                kittenBackendCommunicator.getKittenById(kittenId).then(
+                    function (data) {
+                        $scope.selectedKitten = data;
+                        $scope.returnBackUrl = initReturnBackUrl($scope.selectedKitten);
+
+                        getKittenPictures($scope.selectedKitten.ID);
                     },
-                    function error(e) {
+                    function (e) {
+                        $scope.selectedKitten = null;
                         console.log(e);
                     });
+            }
         }
     });
