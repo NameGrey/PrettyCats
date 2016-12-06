@@ -7,25 +7,32 @@ namespace PrettyCats
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-						"~/Scripts/jquery-2.1.4.js",
-						"~/Scripts/jquery-2.1.4.min.js"));
-
-			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-						"~/Scripts/jquery.validate"));
+						"~/Scripts/jquery/jquery-2.1.4.min.js",
+						"~/Scripts/jquery/jquery.unobtrusive - ajax.min.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.js",
-					  "~/Scripts/respond.js",
-					  "~/Scripts/Site.js"));
+					  "~/Scripts/bootstrap/bootstrap.js"));
 
-			bundles.Add(new StyleBundle("~/Content/css").Include(
-					  "~/Content/bootstrap.css",
-					  "~/Content/site.css",
-					  "~/Content/business-frontpage.css",
-					  "~/Content/SlideShow.css",
-					  "~/Content/AdminPanel.css"));
+			//TODO: need to add all the scripts from old version
+			bundles.Add(new ScriptBundle("~/bundles/kittenMainPageScripts").Include(
+					  "~/Scripts/Slider/jssor.slider.mini.js",
+					  "~/Scripts/Slider/jssor.slider.min.js",
+					  "~/Scripts/Slider/slideshow.js",
+					  "~/Scripts/flowtype.js",
+					  "~/Scripts/kittenMainPage.js",
+					  "~/Scripts/DialogForm.js"));
+			//TODO: need to add all the css from old version
+			//bundles.Add(new StyleBundle("~/bundles/kittenMainPageContent").Include(
+			//		  "~/Scripts/respond.js",
+			//		  "~/Scripts/site.js"));
 
-			BundleTable.EnableOptimizations = true;
+			bundles.Add(new StyleBundle("~/bundles/appContent").Include(
+					  "~/Content/bootstrap/bootstrap.min.css",
+					  "~/Content/app/site.css",
+					  "~/Content/app/DialogForm.css",
+					  "~/Content/SlideShow.css"));
+
+			BundleTable.EnableOptimizations = false;
 		}
 	}
 }

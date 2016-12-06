@@ -1,4 +1,5 @@
-﻿@model PrettyCats.Models.KittenModelView
+﻿@using System.Web.Optimization
+@model PrettyCats.Models.KittenModelView
 @{
     ViewBag.Title = "Информация о котенке";
     Layout = "~/Views/Layouts/_MainLayout.cshtml";
@@ -20,10 +21,7 @@
     }
 }
 
-<script src="@Url.Content("~/Scripts/DielogForm.js")"></script>
-<script src="@Url.Content("~/Scripts/FlowType.js")"></script>
-<script src="~/Scripts/kittenMainPage.js"></script>
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DialogForm.css")">
+    @Scripts.Render("~/bundles/kittenMainPageScripts")
 
 <script>
 	$(document).ready(function() {

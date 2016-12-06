@@ -17,6 +17,9 @@ angular.module('artDuviksApp').factory("kittensPathBuilder", function () {
         kittenModifyPictures: "/kitten/modify-pictures/",
         parents: "/parents",
         archiveKittens: "/archive-kittens",
-        availableKittens: "/available-kittens"
+        availableKittens: "/available-kittens",
+        addKitten: "/addKitten",
+        addArchiveKitten: "/addArchiveKitten",
+        addParent: "/addParent"
     }
 });

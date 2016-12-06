@@ -3,15 +3,13 @@
 
 <div class="admin-panel" ng-controller="adminKittensCtrl" ng-init="initKittenForPicturesModification()">
     <div style="margin-top: -20px;">
-        <!--TODO: Create back reference-->
-        <!--@Html.ActionLink("Вернуться", backTo, "Admin", null, new { @class = "btn-admin btn-red" })-->
-    </div>    
+    </div>
         
     <!-- JQuery UI references -->
     <script src="Scripts/thirdparty/jqueryUI/jquery-ui.min.js"></script>
     <link href="Scripts/thirdparty/jqueryUI/jquery-ui.min.css" rel="stylesheet" />
 
-    <script>
+    <script>// TODO: use directive to prevent work with DOM here
         $( function() {
         $( "change-pictures-component" ).sortable({
             stop: function (event, ui) {

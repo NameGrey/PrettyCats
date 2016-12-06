@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('artDuviksApp').controller('adminKittensCtrl',
-    function ($scope, kittenBackendCommunicator, kittensImageWorker, $routeParams) {
+    function ($scope, kittenBackendCommunicator, kittensImageWorker, kittensPathBuilder, $routeParams) {
         $scope.kittens = null;
         $scope.addKittenLink = null;
         $scope.selectedKitten = null;
@@ -31,29 +31,29 @@ angular.module('artDuviksApp').controller('adminKittensCtrl',
             var result;
 
             if (kitten.IsParent) {
-                result = "/admin/parents";
+                result = kittensPathBuilder.parents;
             } else if (kitten.IsInArchive) {
-                result = "/admin/archive-kittens";
+                result = kittensPathBuilder.archiveKittens;
             } else {
-                result = "/admin/available-kittens";
+                result = kittensPathBuilder.availableKittens;
             }
             return result;
         }
 
         $scope.initAvailableKittens = function () {
-            $scope.addKittenLink = "/admin/addKitten";
+            $scope.addKittenLink = kittensPathBuilder.addKitten;
             kittenBackendCommunicator.getAvailableKittens()
                 .then(successLoadedKittens, loadedWithErrorsKittens);
         }
 
         $scope.initArchiveKittens = function () {
-            $scope.addKittenLink = "/admin/addArchiveKitten";
+            $scope.addKittenLink = kittensPathBuilder.addArchiveKitten;
             kittenBackendCommunicator.getArchiveKittens()
                 .then(successLoadedKittens, loadedWithErrorsKittens);
         }
 
         $scope.initParents = function () {
-            $scope.addKittenLink = "/admin/addParent";
+            $scope.addKittenLink = kittensPathBuilder.addParent;
             kittenBackendCommunicator.getParents()
                 .then(successLoadedKittens, loadedWithErrorsKittens);
         }

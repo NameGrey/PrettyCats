@@ -19,7 +19,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -114,8 +113,9 @@
       <HintPath>..\packages\Unity.WebAPI.5.2.3\lib\net45\Unity.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebGrease">
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +143,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="529581_46.xml" />
+    <Content Include="Content\app\DialogForm.css" />
+    <Content Include="Content\app\Site.css" />
+    <Content Include="Content\app\slideShow.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Resources\BackFish.png" />
+    <Content Include="Content\Resources\BackFishBones.png" />
+    <Content Include="Content\Resources\Logo2.png" />
+    <Content Include="Content\Resources\mbackground.png" />
+    <Content Include="Content\Resources\top-picture.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -194,8 +206,24 @@
     <Content Include="Resources\Slides\thumb-11.jpg" />
     <Content Include="Resources\Slides\thumb-12.jpg" />
     <Content Include="robots.txt" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.min.css.map" />
     <None Include="Properties\PublishProfiles\MainProfile.pubxml" />
     <None Include="Properties\PublishProfiles\Without deleting files.pubxml" />
+    <None Include="Scripts\jquery\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\DialogForm.js" />
+    <Content Include="Scripts\flowtype.js" />
+    <Content Include="Scripts\jquery\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\kittenMainPage.js" />
+    <Content Include="Scripts\Slider\jssor.slider.min.js" />
+    <Content Include="Scripts\Slider\jssor.slider.mini.js" />
+    <Content Include="Scripts\Slider\slideshow.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -274,6 +302,7 @@
     <Content Include="Views\InformPage\PartialViews\_GetArticleHtml.cshtml" />
     <Content Include="Views\InformPage\PartialViews\_GotoChoosing.cshtml" />
     <Content Include="Views\CommonPartialViews\_Categories.cshtml" />
+    <Content Include="Scripts\jquery\jquery-2.1.4.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -283,10 +312,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
     <Folder Include="Resources\ArticleImages\" />
     <Folder Include="Resources\Kittens\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrettyCats.DAL\PrettyCats.DAL.csproj">
