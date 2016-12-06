@@ -2,8 +2,6 @@
 <html ng-app="artDuviksApp">
 <head>
 	<title ng-bind="title"></title>
-	<meta name="description" content="{{description}}">
-	<meta name="keywords" content="{{keywords}}">
 	<meta charset="utf-8"/>
 	<base href="/"/>
 
@@ -13,64 +11,58 @@
 	<script src="Scripts/thirdparty/jquery/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
 	<!-- Bootstrap references -->
-	<script src="../Scripts/thirdparty/bootstrap/bootstrap.js"></script>
-	<script src="../Scripts/thirdparty/bootstrap/bootstrap.min.js"></script>
-	<link href="../Content/bootstrap.min.css" rel="stylesheet"/>
-	<link href="../Content/bootstrap.css" rel="stylesheet"/>
+	<script src="/Scripts/thirdparty/bootstrap/bootstrap.js"></script>
+	<script src="/Scripts/thirdparty/bootstrap/bootstrap.min.js"></script>
+	<link href="/Content/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/Content/bootstrap.css" rel="stylesheet"/>
 
 	<!-- AngularJS references -->
 
-	<script src="../Scripts/angular/angular.js"></script>
-	<script src="../Scripts/angular/angular-route.js"></script>
-
-    <!--App references-->
-    <!--Admin module-->
-    <script src="../Scripts/app/admin/AdminModule.js"></script>
-    <script src="../Scripts/app/admin/controllers/adminKittensCtrl.js"></script>
-    <script src="../Scripts/app/admin/components/addEditKittenComponent/addEditKittenComponent.js"></script>
-    <script src="../Scripts/app/admin/components/adminKittensPageComponent/adminKittensPageComponent.js"></script>
-    <script src="../Scripts/app/admin/components/adminPageKitten/adminPageKitten.js"></script>
-    <script src="../Scripts/app/admin/components/kittenFieldsComponent/kittenFieldsComponent.js"></script>
-    <script src="../Scripts/app/admin/components/changePicturesComponent/changePicturesComponent.js"></script>
-    <script src="../Scripts/app/admin/components/messagePlaceComponent/messagePlaceComponent.js"></script>
-
-    <!-- Shared module-->
-    <script src="../Scripts/app/shared/SharedModule.js"></script>
-    <script src="../Scripts/app/shared/directives/progressBar/progressBar.js"></script>
-
-    <!-- Kittens module-->
-    <script src="../Scripts/app/kittens/KittensModule.js"></script>
-    <script src="../Scripts/app/kittens/controllers/kittensCtrl.js"></script>
-    <script src="../Scripts/app/kittens/directives/kittensThumbnail.js"></script>
-    <script src="../Scripts/app/kittens/services/kittensImageWorker.js"></script>
-    <script src="../Scripts/app/kittens/services/kittenBackendCommunicator.js"></script>
-    <script src="../Scripts/app/kittens/services/kittensPathBuilder.js"></script>
-    <script src="../Scripts/app/kittens/directives/mainPhotoSelector.js"></script>
-    <script src="../Scripts/app/kittens/directives/multiplayPhotoSelector.js"></script>
-
-    <!-- Breeds module-->
-    <script src="../Scripts/app/breeds/BreedsModule.js"></script>
-    <script src="../Scripts/app/breeds/controllers/breedsCtrl.js"></script>
+	<script src="/Scripts/angular/angular.js"></script>
+    <script src="/Scripts/angular/angular-route.js"></script>
 
     <!-- Application module-->
-    <script src="../Scripts/app/app.js"></script>
-    <script src="../Scripts/app/app-route.js"></script>
+    <script src="/Scripts/app/app.js"></script>
+    <script src="/Scripts/app/app-route.js"></script>
+
+    <!--App references-->
+    <!--Controllers-->
+    <script src="/Scripts/app/controllers/adminKittensCtrl.js"></script>
+    <script src="/Scripts/app/controllers/adminPanelCtrl.js"></script>
+
+    <!--Components-->
+    <script src="/Scripts/app/components/addEditKittenComponent/addEditKittenComponent.js"></script>
+    <script src="/Scripts/app/components/adminKittensPageComponent/adminKittensPageComponent.js"></script>
+    <script src="/Scripts/app/components/adminPageKitten/adminPageKitten.js"></script>
+    <script src="/Scripts/app/components/kittenFieldsComponent/kittenFieldsComponent.js"></script>
+    <script src="/Scripts/app/components/changePicturesComponent/changePicturesComponent.js"></script>
+    <script src="/Scripts/app/components/messagePlaceComponent/messagePlaceComponent.js"></script>
+
+    <!--Directives-->
+    <script src="/Scripts/app/directives/progressBar/progressBar.js"></script>
+    <script src="/Scripts/app/directives/mainPhotoSelector/mainPhotoSelector.js"></script>
+    <script src="/Scripts/app/directives/multiplayPhotoSelector.js"></script>
+
+    <!--Services-->
+    <script src="/Scripts/app/services/kittensImageWorker.js"></script>
+    <script src="/Scripts/app/services/kittenBackendCommunicator.js"></script>
+    <script src="/Scripts/app/services/kittensPathBuilder.js"></script>
 
     <!--Slider-->
-    <script src="../Scripts/thirdparty/Slider/jssor.slider.min.js"></script>
-    <script src="../Scripts/thirdparty/Slider/jssor.slider.mini.js"></script>
-    <script src="../Scripts/thirdparty/Slider/slideshow.js"></script>
+    <script src="/Scripts/thirdparty/Slider/jssor.slider.min.js"></script>
+    <script src="/Scripts/thirdparty/Slider/jssor.slider.mini.js"></script>
+    <script src="/Scripts/thirdparty/Slider/slideshow.js"></script>
 
     <!-- Other references-->
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/AdminPanel.css" rel="stylesheet" />
 
-    <script src="../Scripts/app/oldScripts/uploadMultyplayFiles.js" type="text/javascript"></script>
+    <script src="/Scripts/app/oldScripts/uploadMultyplayFiles.js" type="text/javascript"></script>
 
-    <script src="../Scripts/app/oldScripts/DielogForm.js"></script>
-    <script src="../Scripts/thirdparty/FlowType.js"></script>
-    <script src="../Scripts/app/oldScripts/kittenMainPage.js"></script>
-    <link rel="stylesheet" type="text/css" href="../Content/DialogForm.css">
+    <script src="/Scripts/app/oldScripts/DielogForm.js"></script>
+    <script src="/Scripts/thirdparty/FlowType.js"></script>
+    <script src="/Scripts/app/oldScripts/kittenMainPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/DialogForm.css">
 </head>
 <body>
 	<div ng-view>

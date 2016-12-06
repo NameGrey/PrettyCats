@@ -1,0 +1,9 @@
+﻿<a ng-href="/" class="btn-admin btn-red">Назад</a>
+<a ng-href="{{$ctrl.addKittenLink}}" class="btn-admin btn-red">Добавить</a>
+
+<div ng-repeat="kitten in $ctrl.kittens">
+    <admin-page-kitten kitten="kitten" remove-kitten="$ctrl.removeKitten(kitten)"
+                       show-kitten-removed-message="kitten.showKittenRemovedMessage"
+                       hide-kitten-removed-message="kitten.hideKittenRemovedMessage"></admin-page-kitten>
+</div>
+<a ng-href="/" class="btn-admin btn-red">Назад</a>

@@ -22,6 +22,16 @@
 	border-style: outset;
 }
 
+admin-page-kitten > .alert {
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+.kitten-field-error-message {
+    font-size: smaller;
+    margin-top: 11px;
+}
+
 .kitten-block-admin {
 	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);

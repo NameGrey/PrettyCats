@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var artDuviksApp = angular.module("artDuviksApp", ["ngRoute", "SharedModule", "BreedsModule", "KittensModule", "AdminModule"]);
+var artDuviksApp = angular.module("artDuviksApp", ["ngRoute"]);
 
 artDuviksApp.factory("configuration", function() {
 		return { ServerApi: "http://localhost:53820/api" };
