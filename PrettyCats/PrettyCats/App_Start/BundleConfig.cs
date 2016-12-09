@@ -30,7 +30,7 @@ namespace PrettyCats
 					  "~/Content/bootstrap/bootstrap.min.css",
 					  "~/Content/app/site.css",
 					  "~/Content/app/DialogForm.css",
-					  "~/Content/SlideShow.css"));
+					  "~/Content/app/slideShow.css"));
 
 			BundleTable.EnableOptimizations = false;
 		}

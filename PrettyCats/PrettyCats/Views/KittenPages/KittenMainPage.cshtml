@@ -21,19 +21,24 @@
     }
 }
 
-    @Scripts.Render("~/bundles/kittenMainPageScripts")
+    
 
 <script>
-	$(document).ready(function() {
-		$('#table').flowtype({
-			minFont: 14,
-			maxFont: 40,
-			minimum: 500,
-			maximum: 1200,
-			fontRatio: 70
-		});
-	});
+    $(document).ready(function() {
+        $('#table').flowtype({
+            minFont: 14,
+            maxFont: 40,
+            minimum: 500,
+            maximum: 1200,
+            fontRatio: 70
+        });
+    });
 </script>
+
+<script src="@Url.Content("~/Scripts/DialogForm.js")"></script>
+<script src="@Url.Content("~/Scripts/FlowType.js")"></script>
+<script src="@Url.Content("~/Scripts/kittenMainPage.js")"></script>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/app/DialogForm.css")">
 
 <div class="container">
 	<div class="row">

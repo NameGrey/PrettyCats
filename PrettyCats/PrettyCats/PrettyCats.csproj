@@ -154,6 +154,10 @@
     <Content Include="Content\Resources\BackFishBones.png" />
     <Content Include="Content\Resources\Logo2.png" />
     <Content Include="Content\Resources\mbackground.png" />
+    <Content Include="Content\Resources\Slides\a17.png" />
+    <Content Include="Content\Resources\Slides\next.png" />
+    <Content Include="Content\Resources\Slides\prev.png" />
+    <Content Include="Content\Resources\Slides\t01.png" />
     <Content Include="Content\Resources\top-picture.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
