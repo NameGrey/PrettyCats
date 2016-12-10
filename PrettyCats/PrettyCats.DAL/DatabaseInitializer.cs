@@ -22,7 +22,7 @@ namespace PrettyCats.DAL
 					ShortName = "Шотландцы",
 					FullName = "Котята шотландской породы",
 					LinkPage = "/scotland-kittens",
-					PicturePath = "/Resources/Breeds/Scotland.jpg",
+					PicturePath = "/Content/Resources/Breeds/Scotland.jpg",
 					Name = "Scotland"
 				},
 				new PetBreeds()
@@ -32,7 +32,7 @@ namespace PrettyCats.DAL
 					FullName = "Котята породы Мейн-кун",
 					Name = "Mainkun",
 					LinkPage = "/mainkun-kittens",
-					PicturePath = "/Resources/Breeds/Mainkun.jpg",
+					PicturePath = "/Content/Resources/Breeds/Mainkun.jpg",
 				},
 				new PetBreeds()
 				{
@@ -41,7 +41,7 @@ namespace PrettyCats.DAL
 					FullName = "Котята бенгальской породы",
 					Name = "Bengal",
 					LinkPage = "/bengal-kittens",
-					PicturePath = "/Resources/Breeds/bengal.jpg",
+					PicturePath = "/Content/Resources/Breeds/bengal.jpg",
 				}
 			});
 

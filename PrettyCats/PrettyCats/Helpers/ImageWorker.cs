@@ -45,7 +45,7 @@ namespace PrettyCats.Helpers
 				string kittenNameNumberedSmall = _picturesRepository.GetNewNumberOfImage(kittenName, true);
 				string dirPath = _server.MapPath(_pictureLinksConstructor.GetKittenPicturesFolder(kittenName, PathFullness.RelativePath));
 				string linkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
-				string smallLinkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
+				string smallLinkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumberedSmall, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
 
 				if (!Directory.Exists(dirPath))
 				{

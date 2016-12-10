@@ -152,9 +152,11 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\Resources\BackFish.png" />
     <Content Include="Content\Resources\BackFishBones.png" />
+    <Content Include="Content\Resources\favicon.ico" />
     <Content Include="Content\Resources\Logo2.png" />
     <Content Include="Content\Resources\mbackground.png" />
     <Content Include="Content\Resources\Slides\a17.png" />
+    <Content Include="Content\Resources\Slides\loading.gif" />
     <Content Include="Content\Resources\Slides\next.png" />
     <Content Include="Content\Resources\Slides\prev.png" />
     <Content Include="Content\Resources\Slides\t01.png" />
@@ -165,50 +167,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Resources\Breeds\Mainkun.png" />
-    <Content Include="Resources\Categories\Maincun.png" />
-    <Content Include="Resources\favicon.ico" />
-    <Content Include="Resources\Logo.png" />
-    <Content Include="Resources\Slides\01.jpg" />
-    <Content Include="Resources\Slides\02.jpg" />
-    <Content Include="Resources\Slides\03.jpg" />
-    <Content Include="Resources\Slides\04.jpg" />
-    <Content Include="Resources\Slides\05.jpg" />
-    <Content Include="Resources\Slides\06.jpg" />
-    <Content Include="Resources\Slides\07.jpg" />
-    <Content Include="Resources\Slides\08.jpg" />
-    <Content Include="Resources\Slides\09.jpg" />
-    <Content Include="Resources\Slides\10.jpg" />
-    <Content Include="Resources\Slides\11.jpg" />
-    <Content Include="Resources\Slides\12.jpg" />
-    <Content Include="Resources\Slides\a17.png" />
-    <Content Include="Resources\Slides\dummy-640x310-1.jpg" />
-    <Content Include="Resources\Slides\dummy-640x310-2.jpg" />
-    <Content Include="Resources\Slides\dummy-640x310-3.jpg" />
-    <Content Include="Resources\Slides\dummy-640x310-4.jpg" />
-    <Content Include="Resources\Slides\loading.gif" />
-    <Content Include="Resources\Slides\next.png" />
-    <Content Include="Resources\Slides\prev.png" />
-    <Content Include="Resources\Slides\slide1.jpg" />
-    <Content Include="Resources\Slides\slide2.jpg" />
-    <Content Include="Resources\Slides\slide3.jpg" />
-    <Content Include="Resources\Slides\slide4.jpg" />
-    <Content Include="Resources\Slides\slide5.jpg" />
-    <Content Include="Resources\Slides\slide6.jpg" />
-    <Content Include="Resources\Slides\t01.png" />
-    <Content Include="Resources\Slides\tested-on.png" />
-    <Content Include="Resources\Slides\thumb-01.jpg" />
-    <Content Include="Resources\Slides\thumb-02.jpg" />
-    <Content Include="Resources\Slides\thumb-03.jpg" />
-    <Content Include="Resources\Slides\thumb-04.jpg" />
-    <Content Include="Resources\Slides\thumb-05.jpg" />
-    <Content Include="Resources\Slides\thumb-06.jpg" />
-    <Content Include="Resources\Slides\thumb-07.jpg" />
-    <Content Include="Resources\Slides\thumb-08.jpg" />
-    <Content Include="Resources\Slides\thumb-09.jpg" />
-    <Content Include="Resources\Slides\thumb-10.jpg" />
-    <Content Include="Resources\Slides\thumb-11.jpg" />
-    <Content Include="Resources\Slides\thumb-12.jpg" />
+    <Content Include="Content\Resources\Breeds\bengal.jpg" />
+    <Content Include="Content\Resources\Breeds\Mainkun.jpg" />
+    <Content Include="Content\Resources\Breeds\Scotland.jpg" />
     <Content Include="robots.txt" />
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
@@ -316,8 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resources\ArticleImages\" />
-    <Folder Include="Resources\Kittens\" />
+    <Folder Include="Content\Resources\Kittens\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PrettyCats.DAL\PrettyCats.DAL.csproj">

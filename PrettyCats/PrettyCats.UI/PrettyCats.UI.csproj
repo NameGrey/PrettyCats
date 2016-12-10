@@ -124,9 +124,6 @@
     <Content Include="index.html" />
     <Content Include="Resources\BackFish.png" />
     <Content Include="Resources\BackFishBones.png" />
-    <Content Include="Resources\Breeds\bengal.jpg" />
-    <Content Include="Resources\Breeds\Mainkun.jpg" />
-    <Content Include="Resources\Breeds\Scotland.jpg" />
     <Content Include="Resources\Contacts.png" />
     <Content Include="Resources\Logo2.png" />
     <Content Include="Resources\mbackground.png" />
@@ -177,7 +174,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Breeds\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
