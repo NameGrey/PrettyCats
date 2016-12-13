@@ -152,6 +152,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\Resources\BackFish.png" />
     <Content Include="Content\Resources\BackFishBones.png" />
+    <Content Include="Content\Resources\Contacts.png" />
     <Content Include="Content\Resources\favicon.ico" />
     <Content Include="Content\Resources\Logo2.png" />
     <Content Include="Content\Resources\mbackground.png" />

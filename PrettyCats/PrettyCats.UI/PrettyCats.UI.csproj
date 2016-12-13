@@ -124,7 +124,6 @@
     <Content Include="index.html" />
     <Content Include="Resources\BackFish.png" />
     <Content Include="Resources\BackFishBones.png" />
-    <Content Include="Resources\Contacts.png" />
     <Content Include="Resources\Logo2.png" />
     <Content Include="Resources\mbackground.png" />
     <Content Include="Resources\top-picture.png" />

@@ -7,7 +7,7 @@
 <h2 style="text-align: center; color:white;"> Наши кошки</h2>
 
 <div class="container">
-	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
+	@Html.Partial("~/Views/KittenPages/PartialViews/_BackLink.cshtml", new[] { "Index", "Home" })
 	@{
 		if (Model != null)
 		{
@@ -25,12 +25,12 @@
 
 						if (curr <= countAll)
 						{
-							@Html.Partial("~/Views/KittenPages/KittenOnTheMainPageHtml.cshtml", Model[curr - 1])
+							@Html.Partial("~/Views/KittenPages/PartialViews/_KittenOnTheMainPageHtml.cshtml", Model[curr - 1])
 						}
 					}
 				</div>
 			}
 		}
 	}
-	@Html.Partial("~/Views/KittenPages/_BackLink.cshtml", new[] { "Index", "Home" })
+	@Html.Partial("~/Views/KittenPages/PartialViews/_BackLink.cshtml", new[] { "Index", "Home" })
 </div>
