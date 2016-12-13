@@ -27,6 +27,10 @@ admin-page-kitten > .alert {
     margin-top: 15px;
 }
 
+.message-place-component {
+    margin-top: 10px;
+}
+
 .kitten-field-error-message {
     font-size: smaller;
     margin-top: 11px;
