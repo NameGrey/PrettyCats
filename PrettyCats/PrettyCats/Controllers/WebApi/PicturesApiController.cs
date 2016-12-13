@@ -12,7 +12,7 @@ using PrettyCats.DAL.Repositories;
 using PrettyCats.Helpers;
 using PrettyCats.Services.Interfaces;
 
-namespace PrettyCats.Controllers
+namespace PrettyCats.Controllers.WebApi
 {
 	[RoutePrefix("api/pictures")]
 	public class PicturesApiController: ApiController

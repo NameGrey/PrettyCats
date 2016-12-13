@@ -3,7 +3,7 @@ using System.Web.Http;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 
-namespace PrettyCats.Controllers
+namespace PrettyCats.Controllers.WebApi
 {
 	[RoutePrefix("api/owners")]
 	public class OwnersApiController: ApiController
