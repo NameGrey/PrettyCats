@@ -5,7 +5,7 @@ angular.module("artDuviksApp").component("addEditKittenComponent",
     bindings: {
         kitten:"<"
     },
-    templateUrl: "Scripts/app/components/addEditKittenComponent/addEditKittenComponent.html",
+    templateUrl: "app/components/addEditKittenComponent/addEditKittenComponent.html",
     controller: function (kittenBackendCommunicator, kittensPathBuilder, $location, $timeout) {
         var errorMessageTimeout = 4000;
         var successMessageTimeout = 2000;

@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 var artDuviksApp = angular.module("artDuviksApp");
-var adminPartialsUrl = "Scripts/app/partials/";
+var adminPartialsUrl = "app/partials/";
 
 //Configure $routeProvider service
 artDuviksApp.config(function ($routeProvider, $locationProvider) {

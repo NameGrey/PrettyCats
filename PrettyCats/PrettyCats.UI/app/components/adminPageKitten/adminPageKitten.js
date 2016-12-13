@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 angular.module("artDuviksApp").component("adminPageKitten", {
-    templateUrl: "Scripts/app/components/adminPageKitten/adminPageKitten.html",
+    templateUrl: "app/components/adminPageKitten/adminPageKitten.html",
     bindings: {
         kitten: "<",
         removeKitten: "&",

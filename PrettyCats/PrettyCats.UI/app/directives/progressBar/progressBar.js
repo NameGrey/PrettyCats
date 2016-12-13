@@ -7,11 +7,6 @@
             currentErrors: "=",
             displayFlag:"="
         },
-        templateUrl:"Scripts/app/directives/progressBar/progressBar.html",
-        link: function (scope, el, attrs) {
-            scope.width = function () {
-                return currentStateNumber / currentStateNumber;
-            }
-        }
+        templateUrl:"app/directives/progressBar/progressBar.html"
     }
 });

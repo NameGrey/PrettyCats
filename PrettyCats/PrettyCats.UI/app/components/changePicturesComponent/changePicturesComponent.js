@@ -3,7 +3,7 @@
         pictures: "=",
         returnBackUrl: "<"
     },
-    templateUrl: "Scripts/app/components/changePicturesComponent/changePicturesComponent.html",
+    templateUrl: "app/components/changePicturesComponent/changePicturesComponent.html",
     controller: function (kittensImageWorker, $scope, $location, $timeout) {
         // TODO: extract logic for messages into separate service
         // because the same functionality is used in other parts of app

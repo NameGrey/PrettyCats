@@ -4,7 +4,7 @@ angular.module('artDuviksApp').directive('mainPhotoSelector',
 	function (kittensImageWorker, $compile) {
 	    return {
 	        restrict: 'E',
-	        templateUrl: "Scripts/app/directives/mainPhotoSelector/mainPhotoSelector.html",
+	        templateUrl: "app/directives/mainPhotoSelector/mainPhotoSelector.html",
 	        replace: true,
             scope: {
                 kitten:"="

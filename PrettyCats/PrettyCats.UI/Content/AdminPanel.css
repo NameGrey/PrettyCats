@@ -1,5 +1,5 @@
 ﻿body {
-	background-image: url('../Resources/mbackground.png');
+	background-image: url('../Content/Resources/mbackground.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding-top: 50px;
@@ -29,6 +29,12 @@ admin-page-kitten > .alert {
 
 .message-place-component {
     margin-top: 10px;
+}
+
+.top-right-button {
+    position: absolute;
+    top: 12px;
+    right: 5px;
 }
 
 .kitten-field-error-message {

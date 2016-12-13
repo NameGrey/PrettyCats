@@ -6,7 +6,7 @@ angular.module("artDuviksApp").component("adminKittensPageComponent",
        kittens: "<",
        addKittenLink: "<"
    },
-   templateUrl: "Scripts/app/components/adminKittensPageComponent/adminKittensPageComponent.html",
+   templateUrl: "app/components/adminKittensPageComponent/adminKittensPageComponent.html",
    controller: function (kittenBackendCommunicator, $timeout) {
        var ctrl = this;
        var messageInterval = 1000;

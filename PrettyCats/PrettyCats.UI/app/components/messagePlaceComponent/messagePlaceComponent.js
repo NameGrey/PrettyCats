@@ -6,7 +6,7 @@ angular.module("artDuviksApp").component('messagePlaceComponent', {
         successMessage: "<",
         cleanInterval: "&"
     },
-    templateUrl: "Scripts/app/components/messagePlaceComponent/messagePlaceComponent.html",
+    templateUrl: "app/components/messagePlaceComponent/messagePlaceComponent.html",
     controller: function () {
         var ctrl = this;
         this.$onChanges = function (changes) {

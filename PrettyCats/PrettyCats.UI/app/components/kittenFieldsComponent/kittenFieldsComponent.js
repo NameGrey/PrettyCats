@@ -2,7 +2,7 @@
 
 angular.module("artDuviksApp").component("kittenFieldsComponent",
 {
-    templateUrl: "Scripts/app/components/kittenFieldsComponent/kittenFieldsComponent.html",
+    templateUrl: "app/components/kittenFieldsComponent/kittenFieldsComponent.html",
     bindings: {
         kitten: "=",
         breeds: "<",
