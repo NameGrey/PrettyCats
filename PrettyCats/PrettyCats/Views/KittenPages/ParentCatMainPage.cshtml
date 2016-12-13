@@ -13,7 +13,7 @@
 		@{
 			string act = ViewBag.BackLink ?? "/";
 		}
-		@Html.Partial("~/Views/KittenPages/_BackLinkAbsolute.cshtml", act)
+		@Html.Partial("~/Views/KittenPages/PartialViews/_BackLinkAbsolute.cshtml", act)
 		<h2 style="text-align: center;">Информация о кошке</h2>
 	</div>
 
@@ -48,7 +48,7 @@
 		</div>
 		<div class="col-xs-6 col-md-6"></div>
 		<div class="col-xs-12 col-md-10 col-lg-8 col-md-offset-1 col-lg-offset-2">
-			@Html.Partial("~/Views/KittenPages/_BackLinkAbsolute.cshtml", act)
+			@Html.Partial("~/Views/KittenPages/PartialViews/_BackLinkAbsolute.cshtml", act)
 		</div>
 	</div>
 
