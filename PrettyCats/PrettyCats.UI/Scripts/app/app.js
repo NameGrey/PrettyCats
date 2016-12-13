@@ -2,8 +2,12 @@
 
 var artDuviksApp = angular.module("artDuviksApp", ["ngRoute"]);
 
-artDuviksApp.factory("configuration", function() {
-		return { ServerApi: "http://localhost:53820/api" };
+artDuviksApp.factory("configuration", function () {
+    var serverHost = "http://localhost:53820";
+    return {
+        ServerHost: serverHost,
+        ServerApi: serverHost + "/api"
+    };
 });
 
 artDuviksApp.controller("MainController", function () {

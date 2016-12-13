@@ -5,5 +5,6 @@ angular.module('artDuviksApp').controller('adminPanelCtrl',
         $scope.availableKittensLink = kittensPathBuilder.availableKittens;
         $scope.archiveKittensLink = kittensPathBuilder.archiveKittens;
         $scope.parentsLink = kittensPathBuilder.parents;
+        $scope.siteIndex = kittensPathBuilder.siteIndex;
     }
 );

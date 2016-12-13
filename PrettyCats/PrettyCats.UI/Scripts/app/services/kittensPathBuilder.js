@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('artDuviksApp').factory("kittensPathBuilder", function () {
+angular.module('artDuviksApp').factory("kittensPathBuilder", function (configuration) {
     return {
         buildKittenLink: function (kitten) {
             var path = "";
@@ -20,6 +20,7 @@ angular.module('artDuviksApp').factory("kittensPathBuilder", function () {
         availableKittens: "/available-kittens",
         addKitten: "/addKitten",
         addArchiveKitten: "/addArchiveKitten",
-        addParent: "/addParent"
+        addParent: "/addParent",
+        siteIndex: configuration.ServerHost
     }
 });
