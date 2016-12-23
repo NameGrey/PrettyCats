@@ -9,7 +9,7 @@ namespace PrettyCats.Controllers
 {
 	public class HomeController : Controller
 	{
-		private IKittensRepository _kittensRepository;
+		private readonly IKittensRepository _kittensRepository;
 
 		public HomeController()
 		{
@@ -43,15 +43,5 @@ namespace PrettyCats.Controllers
 		{
 			return View("ContactsPage");
 		}
-
-		//These pages should be removed when search system find new urls for them
-		#region Redirect pages
-
-		public ActionResult ContactsPage()
-		{
-			return RedirectPermanent("/contacts");
-		}
-
-		#endregion
 	}
 }
