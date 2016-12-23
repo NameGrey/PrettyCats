@@ -191,7 +191,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\WebApi\OwnersApiController.cs" />
-    <Compile Include="Controllers\DisplayPlacesApiController.cs" />
+    <Compile Include="Controllers\WebApi\DisplayPlacesApiController.cs" />
     <Compile Include="Controllers\WebApi\PicturesApiController.cs" />
     <Compile Include="Controllers\WebApi\KittenApiController.cs" />
     <Compile Include="Controllers\WebApi\BreedApiController.cs" />
