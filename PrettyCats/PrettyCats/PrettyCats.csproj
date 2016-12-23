@@ -233,7 +233,6 @@
     <Content Include="Views\InformPage\InformPage.cshtml" />
     <Content Include="Views\KittenPages\AllAvailableKittens.cshtml" />
     <Content Include="Views\KittenPages\PartialViews\_KittenOnTheMainPageHtml.cshtml" />
-    <Content Include="Views\Layouts\_AdminPanelLayout.cshtml" />
     <Content Include="Views\KittenPages\CategoryKittens.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\KittenPages\AllParents.cshtml" />
