@@ -216,8 +216,6 @@
     <Compile Include="Helpers\Log4NetLogger.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Helpers\SecurityHelper.cs" />
-    <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Models\KittenShortModelView.cs" />
     <Compile Include="Models\KittenOnTheAdminPageModelView.cs" />
     <Compile Include="Models\AddKittenModelView.cs" />
