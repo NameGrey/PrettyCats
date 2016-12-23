@@ -8,9 +8,7 @@ namespace PrettyCats.Controllers
 		[Route("kak-vibrat-kotenka")]
 		public ActionResult HowChooseKitten()
 		{
-			Pages page = new Pages();
-			page.Content = "sd";
-			page.Name = "Как выбрать котенка?";
+			Pages page = new Pages {Name = "Как выбрать котенка?"};
 
 			return View("InformPage", page);
 		}
@@ -18,9 +16,7 @@ namespace PrettyCats.Controllers
 		[Route("kitten-cost-price")]
 		public ActionResult KittenCostArticle()
 		{
-			Pages page = new Pages();
-			page.Content = "sd";
-			page.Name = "Сколько стоят породистые котята?";
+			Pages page = new Pages {Name = "Сколько стоят породистые котята?"};
 
 			return View("KittenCostArticle", page);
 		}
@@ -32,11 +28,6 @@ namespace PrettyCats.Controllers
 
 		[Route("articles")]
 		public ActionResult Articles()
-		{
-			return View();
-		}
-
-		public ActionResult Archive()
 		{
 			return View();
 		}
