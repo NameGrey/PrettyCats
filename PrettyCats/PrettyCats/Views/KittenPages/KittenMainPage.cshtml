@@ -22,7 +22,7 @@
 }
 
     
-
+@Scripts.Render("~/bundles/kittenMainPageScripts")
 <script>
     $(document).ready(function() {
         $('#table').flowtype({
@@ -34,11 +34,6 @@
         });
     });
 </script>
-
-<script src="@Url.Content("~/Scripts/DialogForm.js")"></script>
-<script src="@Url.Content("~/Scripts/FlowType.js")"></script>
-<script src="@Url.Content("~/Scripts/kittenMainPage.js")"></script>
-<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/app/DialogForm.css")">
 
 <div class="container">
 	<div class="row">
