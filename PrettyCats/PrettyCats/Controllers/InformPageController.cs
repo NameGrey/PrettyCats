@@ -1,24 +1,10 @@
 ﻿using System.Web.Mvc;
 using PrettyCats.DAL.Entities;
-using PrettyCats.Helpers;
 
 namespace PrettyCats.Controllers
 {
-	public class InformPageController : Controller
+	public class InformPageController : BaseController
 	{
-		protected override void OnException(ExceptionContext filterContext)
-		{
-			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
-
-			if (filterContext.HttpContext.IsCustomErrorEnabled)
-			{
-				filterContext.ExceptionHandled = true;
-				this.View("Error").ExecuteResult(this.ControllerContext);
-			}
-		}
-
-		// GET: InformPages
-
 		[Route("kak-vibrat-kotenka")]
 		public ActionResult HowChooseKitten()
 		{

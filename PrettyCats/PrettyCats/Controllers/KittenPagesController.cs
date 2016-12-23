@@ -7,12 +7,11 @@ using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.DAL.Repositories.DbRepositories;
-using PrettyCats.Helpers;
 using PrettyCats.Models;
 
 namespace PrettyCats.Controllers
 {
-	public class KittenPagesController : Controller
+	public class KittenPagesController : BaseController
 	{
 		private readonly IKittensRepository _kittensRepository;
 
@@ -26,6 +25,7 @@ namespace PrettyCats.Controllers
 
 		private void CustomizeMapper()
 		{
+			//TODO: Try to find better mapper to avoid so complex expressions
 			Mapper.Initialize(cfg=>
 			{
 				cfg.CreateMap<Pets, KittenModelView>()
@@ -48,16 +48,6 @@ namespace PrettyCats.Controllers
 						i => i.MapFrom(src => src.Pictures.FirstOrDefault(el => el.IsMainPicture) != null ? src.Pictures.First(el => el.IsMainPicture).Image : string.Empty));
 
 			});
-		}
-		protected override void OnException(ExceptionContext filterContext)
-		{
-			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
-
-			if (filterContext.HttpContext.IsCustomErrorEnabled)
-			{
-				filterContext.ExceptionHandled = true;
-				this.View("Error").ExecuteResult(this.ControllerContext);
-			}
 		}
 
 		[Route("kitten-page/{id}")]
