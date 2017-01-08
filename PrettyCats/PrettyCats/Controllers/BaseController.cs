@@ -1,14 +1,16 @@
 ﻿using System.Web.Mvc;
+using NLog;
 using PrettyCats.Helpers;
 
 namespace PrettyCats.Controllers
 {
 	public class BaseController: Controller
 	{
+		private Logger _logger = LogManager.GetCurrentClassLogger();
+
 		protected override void OnException(ExceptionContext filterContext)
 		{
-			// TODO: replace with Nlog 
-			//LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
+			_logger.Fatal(filterContext.Exception, "Unexpected controller error!");
 
 			if (filterContext.HttpContext.IsCustomErrorEnabled)
 			{

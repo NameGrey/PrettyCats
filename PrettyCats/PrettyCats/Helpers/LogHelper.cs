@@ -4,58 +4,25 @@ using NLog;
 
 namespace PrettyCats.Helpers
 {
-	public sealed class LogHelper
+	public static class LogHelper
 	{
-		private static readonly object _lock = new object();
-		private static volatile LogHelper _instance;
-		private static Logger _logger;
+		public const string StartAppFormatMessage = "Application is starting...";
+		public const string PageNotFoundFormatMessage = "Page not found - {0}";
+		public const string GlobalExceptionFormatMessage = "Global exception!";
 
-		private LogHelper()
-		{
-			
-		}
+		#region ImageWorker
 
-		public static LogHelper Instance
-		{
-			get
-			{
-				if (_instance == null)
-				{
-					lock (_lock)
-					{
-						if (_instance == null)
-						{
-							_instance = new LogHelper();
-							Debug.Write("Create logger");
-							_logger = LogManager.GetLogger("AppLogger");
-						}
-					}
-				}
-				return _instance;
-			}
-		}
+		public const string AddPhotoFormatMessage = "Add photo: " +
+		                                            "kittenNameNumbered='{0}'," +
+		                                            "kittenNameNumberedSmall='{1}'," +
+		                                            "dirPath='{2}'" +
+		                                            ",linkPath='{3}'," +
+		                                            "smallLinkPath='{4}'";
 
-		#region Logging methods
-
-		public void WriteInfo(string message)
-		{
-			_logger.Info(message);
-		}
-
-		public void WriteError(string message)
-		{
-			_logger.Error(message);
-		}
-
-		public void WriteFatalError(string message)
-		{
-			_logger.Fatal(message);
-		}
-
-		public void WriteFatalError(string message, Exception exception)
-		{
-			_logger.Fatal(exception, message);
-		}
+		public const string SaveMainPictureStartFormatMessage = "Save Main picture for {0}";
+		public const string SaveMainPictureInfFormatMessage = "Path = {0}";
+		public const string PictureRemovedFormatMessage = "Picture removed id = {0}";
+		public const string FileRemovedFormatMessage = "File removed Path = {0}";
 
 		#endregion
 	}

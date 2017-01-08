@@ -1,16 +1,15 @@
 ﻿using System.Web.Http.ExceptionHandling;
-using log4net;
-using log4net.Config;
+using NLog;
 
 namespace PrettyCats.Services
 {
 	public class GlobalExceptionsHandler:ExceptionHandler
 	{
-		private readonly ILog _logger = log4net.LogManager.GetLogger(typeof (GlobalExceptionsHandler));
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
 		public override void Handle(ExceptionHandlerContext context)
 		{
-			_logger.Error(context.Request.RequestUri, context.Exception);
+			_logger.Error(context.Exception, context.Request.RequestUri.AbsolutePath);
 			base.Handle(context);
 		}
 	}

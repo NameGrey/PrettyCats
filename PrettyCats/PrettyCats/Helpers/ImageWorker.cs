@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Helpers;
+using NLog;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.Services;
@@ -26,6 +27,7 @@ namespace PrettyCats.Helpers
 		private IPicturesRepository _picturesRepository;
 		private IPictureLinksConstructor _pictureLinksConstructor;
 		private HttpServerUtility _server;
+		private Logger _logger = LogManager.GetCurrentClassLogger();
 
 		public ImageWorker(IPicturesRepository picturesRepository, IPictureLinksConstructor pictureLinksConstructor, HttpServerUtility server)
 		{
@@ -46,6 +48,8 @@ namespace PrettyCats.Helpers
 				string dirPath = _server.MapPath(_pictureLinksConstructor.GetKittenPicturesFolder(kittenName, PathFullness.RelativePath));
 				string linkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumbered, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumbered;
 				string smallLinkPath = _pictureLinksConstructor.GetKittenImagePath(kittenNameNumberedSmall, false, true);//_pictureLinksConstructor.KittensImageDirectoryPath + "/" + kittenName + "/" + kittenNameNumberedSmall;
+
+				_logger.Info(LogHelper.AddPhotoFormatMessage, kittenNameNumbered, kittenNameNumberedSmall, dirPath, linkPath, smallLinkPath);
 
 				if (!Directory.Exists(dirPath))
 				{
@@ -75,6 +79,7 @@ namespace PrettyCats.Helpers
 		public string SaveMainPicture(string kittenName, Stream file)
 		{
 			var result = String.Empty;
+			_logger.Info(LogHelper.SaveMainPictureStartFormatMessage, kittenName);
 
 			// Verify that the user selected a file
 			if (file != null && file.Length > 0 && !String.IsNullOrEmpty(kittenName))
@@ -83,6 +88,8 @@ namespace PrettyCats.Helpers
 				result = _pictureLinksConstructor.GetKittenImagePath(kittenName);
 
 				var path = _server.MapPath(_pictureLinksConstructor.GetKittenImagePath(kittenName, true, false, PathFullness.RelativePath));
+
+				_logger.Info(LogHelper.SaveMainPictureStartFormatMessage, path);
 
 				RemoveFile(path);
 				sizeImage.Save(path, "jpg");
@@ -96,6 +103,8 @@ namespace PrettyCats.Helpers
 			{
 				_picturesRepository.Delete(picture.ID);
 				_picturesRepository.Save();
+
+				_logger.Info(LogHelper.PictureRemovedFormatMessage, picture.ID);
 
 				var smallKittenPath = _pictureLinksConstructor.GetSmallKittenImageFileName(picture.Image);
 				// Create relative paths removing server address from the path
@@ -200,6 +209,7 @@ namespace PrettyCats.Helpers
 			if (System.IO.File.Exists(path))
 			{
 				System.IO.File.Delete(path);
+				_logger.Info(LogHelper.FileRemovedFormatMessage, path);
 			}
 		}
 	}
