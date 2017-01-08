@@ -1,20 +1,62 @@
 ﻿using System;
+using System.Diagnostics;
+using NLog;
 
 namespace PrettyCats.Helpers
 {
-	//TODO: change logging system - use NLog instead of direct writing into file system
-	//TODO: and database using log4net. NLog is faster and logs async way. It doesn't affect
-	//TODO: perfomance of main application. It's needed to create a configuration inside application (not in conf file)
-	public static class LogHelper
+	public sealed class LogHelper
 	{
-		public static void WriteLog(string filename, string message)
-		{
-			var builder = new System.Text.StringBuilder();
-			builder.AppendLine("=======================" + DateTime.Now.ToString() + "=======================");
-			builder.AppendLine(message);
-			builder.AppendLine("=================================================");
+		private static readonly object _lock = new object();
+		private static volatile LogHelper _instance;
+		private static Logger _logger;
 
-			System.IO.File.AppendAllText(filename, builder.ToString());
+		private LogHelper()
+		{
+			
 		}
+
+		public static LogHelper Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					lock (_lock)
+					{
+						if (_instance == null)
+						{
+							_instance = new LogHelper();
+							Debug.Write("Create logger");
+							_logger = LogManager.GetLogger("AppLogger");
+						}
+					}
+				}
+				return _instance;
+			}
+		}
+
+		#region Logging methods
+
+		public void WriteInfo(string message)
+		{
+			_logger.Info(message);
+		}
+
+		public void WriteError(string message)
+		{
+			_logger.Error(message);
+		}
+
+		public void WriteFatalError(string message)
+		{
+			_logger.Fatal(message);
+		}
+
+		public void WriteFatalError(string message, Exception exception)
+		{
+			_logger.Fatal(exception, message);
+		}
+
+		#endregion
 	}
 }

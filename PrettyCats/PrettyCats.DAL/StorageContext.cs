@@ -22,6 +22,8 @@ namespace PrettyCats.DAL
 		public virtual DbSet<Pets> Pets { get; set; }
 		public virtual DbSet<Pictures> Pictures { get; set; }
 
+		public virtual DbSet<Log> Logs { get; set; }
+
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Pets>()
@@ -57,6 +59,12 @@ namespace PrettyCats.DAL
 				.HasRequired(i => i.Pet)
 				.WithMany(el => el.Pictures)
 				.HasForeignKey(i => i.PetID);
+
+			modelBuilder.Entity<Log>()
+				.Property(i => i.Logger).HasMaxLength(250);
+
+			modelBuilder.Entity<Log>()
+				.Property(i => i.Level).HasMaxLength(50);
 		}
 	}
 }

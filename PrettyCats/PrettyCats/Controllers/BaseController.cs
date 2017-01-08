@@ -7,7 +7,8 @@ namespace PrettyCats.Controllers
 	{
 		protected override void OnException(ExceptionContext filterContext)
 		{
-			LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
+			// TODO: replace with Nlog 
+			//LogHelper.WriteLog(Server.MapPath("~/App_Data/" + Settings.LogFileName), filterContext.Exception.ToString());
 
 			if (filterContext.HttpContext.IsCustomErrorEnabled)
 			{
