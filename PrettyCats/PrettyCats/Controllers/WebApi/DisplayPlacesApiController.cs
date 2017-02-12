@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using PrettyCats.DAL;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.DAL.Repositories.DbRepositories;
@@ -12,9 +11,9 @@ namespace PrettyCats.Controllers
 	{
 		private readonly IKittenDisplayPlaceRepository _displayPlaceRepository;
 
-		public DisplayPlacesApiController(IKittenDisplayPlaceRepository displayPlaceRepository)
+		public DisplayPlacesApiController()
 		{
-			_displayPlaceRepository = displayPlaceRepository;
+			_displayPlaceRepository = new DbDisplayPlacesRepository();
 		}
 
 		[Route("")]

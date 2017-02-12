@@ -2,6 +2,7 @@
 using System.Web.Http;
 using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
+using PrettyCats.DAL.Repositories.DbRepositories;
 
 namespace PrettyCats.Controllers.WebApi
 {
@@ -10,9 +11,9 @@ namespace PrettyCats.Controllers.WebApi
 	{
 		private readonly IKittenOwnerRepository _ownersRepository;
 
-		public OwnersApiController(IKittenOwnerRepository ownersRepository)
+		public OwnersApiController()
 		{
-			_ownersRepository = ownersRepository;
+			_ownersRepository = new DbOwnersRepository();
 		}
 
 		[Route("")]

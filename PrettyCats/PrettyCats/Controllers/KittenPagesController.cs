@@ -15,9 +15,9 @@ namespace PrettyCats.Controllers
 	{
 		private readonly IKittensRepository _kittensRepository;
 
-		public KittenPagesController(IKittensRepository kittensRepository)
+		public KittenPagesController()
 		{
-			_kittensRepository = kittensRepository;
+			_kittensRepository = new DBKittensRepository();
 
 			CustomizeMapper();
 		}

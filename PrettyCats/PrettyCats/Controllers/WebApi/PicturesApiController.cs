@@ -11,6 +11,8 @@ using PrettyCats.DAL.Entities;
 using PrettyCats.DAL.Repositories;
 using PrettyCats.Helpers;
 using PrettyCats.Services.Interfaces;
+using PrettyCats.DAL.Repositories.DbRepositories;
+using PrettyCats.Services;
 
 namespace PrettyCats.Controllers.WebApi
 {
@@ -21,10 +23,10 @@ namespace PrettyCats.Controllers.WebApi
 		private readonly IPictureLinksConstructor _picturesLinksConstructor;
 		private ImageWorker _imageWorker;
 
-		public PicturesApiController(IPicturesRepository picturesRepository, IPictureLinksConstructor picturesLinksConstructor)
+		public PicturesApiController()
 		{
-			_picturesRepository = picturesRepository;
-			_picturesLinksConstructor = picturesLinksConstructor;
+			_picturesRepository = new DbPicturesRepository();
+			_picturesLinksConstructor = new PicturesLinksConstructor();
 			_imageWorker = new ImageWorker(_picturesRepository, _picturesLinksConstructor, HttpContext.Current.Server);
 		}
 

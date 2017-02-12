@@ -1,7 +1,4 @@
 ﻿using System.Web.Mvc;
-using PrettyCats.DAL;
-using PrettyCats.DAL.Repositories;
-using PrettyCats.DAL.Repositories.DbRepositories;
 
 namespace PrettyCats.Controllers
 {
