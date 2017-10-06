@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\config.js" />
     <Content Include="packages.config" />
     <Content Include="app\components\addEditKittenComponent\addEditKittenComponent.js" />
     <Content Include="app\components\addEditKittenComponent\addEditKittenComponent.html" />
@@ -100,6 +101,7 @@
     <Content Include="app\directives\mainPhotoSelector\mainPhotoSelector.html" />
     <Content Include="app\templates\navigation.html" />
     <Content Include="app\templates\pageHeader.html" />
+    <Content Include="require.config.js" />
     <Content Include="Scripts\angular\angular.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -131,7 +133,6 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
-    <Content Include="app\app-route.js" />
     <Content Include="app\app.js" />
     <Content Include="app\components\adminPageKitten\adminPageKitten.js" />
     <Content Include="app\directives\mainPhotoSelector\mainPhotoSelector.js" />
