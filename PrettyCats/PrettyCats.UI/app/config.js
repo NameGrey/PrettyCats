@@ -5,14 +5,13 @@
 		var adminPartialsUrl = "app/partials/";
 		var artDuviksApp = angular.module("artDuviksApp");
 
-		//Configure $routeProvider service
 		artDuviksApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider
 				.state({
 					url: '/',
 					name: 'adminPanel',
 					title: 'Панель администратора',
-					templateUrl: adminPartialsUrl + 'admin.html'
+					template: '<admin-panel-component></admin-panel-component>'
 				})
 				.state({
 					url: '/available-kittens',

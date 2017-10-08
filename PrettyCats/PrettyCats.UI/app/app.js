@@ -1,15 +1,19 @@
 ﻿define([
 	'angular',
 	'app/config',
-	'angular-ui-router'
-], function(angular, configuration) {
+	'angular-ui-router',
+	'app/pages/adminPanel/components/adminPanelComponent'
+], function(angular, configurationService) {
 
 	'use strict';
 
-	var artDuviksApp = angular.module("artDuviksApp", ["ui.router"]);
+	var artDuviksApp = angular.module("artDuviksApp", [
+		'ui.router',
+		'adminPanel.module'
+	]);
 
-	configuration.configureRoutes();
-	configuration.configureHttpHeaders();
+	configurationService.configureRoutes();
+	configurationService.configureHttpHeaders();
 
 	artDuviksApp.init = function() {
 		angular.bootstrap(angular.element(document), ['artDuviksApp']);

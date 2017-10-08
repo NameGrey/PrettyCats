@@ -72,7 +72,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\common\common.module.js" />
     <Content Include="app\config.js" />
+    <Content Include="app\pages\adminPanel\adminPanel.module.js" />
     <Content Include="packages.config" />
     <Content Include="app\components\addEditKittenComponent\addEditKittenComponent.js" />
     <Content Include="app\components\addEditKittenComponent\addEditKittenComponent.html" />
@@ -84,9 +86,9 @@
     <Content Include="app\components\kittenFieldsComponent\kittenFieldsComponent.html" />
     <Content Include="app\components\kittenFieldsComponent\kittenFieldsComponent.js" />
     <Content Include="app\controllers\adminKittensCtrl.js" />
-    <Content Include="app\controllers\adminPanelCtrl.js" />
+    <Content Include="app\pages\adminPanel\components\adminPanelComponent.js" />
     <Content Include="app\partials\addKitten.html" />
-    <Content Include="app\partials\admin.html" />
+    <Content Include="app\pages\adminPanel\partials\adminPanel.html" />
     <Content Include="app\components\adminKittensPageComponent\adminKittensPageComponent.html" />
     <Content Include="app\partials\editKitten.html" />
     <Content Include="app\partials\kittensViews\archive-kittens.html" />
@@ -138,7 +140,7 @@
     <Content Include="app\directives\mainPhotoSelector\mainPhotoSelector.js" />
     <Content Include="app\directives\multiplayPhotoSelector.js" />
     <Content Include="app\services\kittensImageWorker.js" />
-    <Content Include="app\services\kittensPathBuilder.js" />
+    <Content Include="app\common\services\kittensPathBuilder.js" />
     <Content Include="Scripts\thirdparty\bootstrap\bootstrap.js" />
     <Content Include="Scripts\thirdparty\bootstrap\bootstrap.min.js" />
     <None Include="Scripts\thirdparty\jquery\jquery-2.1.4.intellisense.js" />
@@ -158,7 +160,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\common\components\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
