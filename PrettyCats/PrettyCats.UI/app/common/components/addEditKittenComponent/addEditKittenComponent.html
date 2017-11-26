@@ -1,0 +1,15 @@
+﻿    
+<div class="form-horizontal">
+    <h4>Редактирование котенка</h4>
+    <hr/>
+    <kitten-fields-component is-valid="addEditKittenCtrl.isValidFields" kitten="addEditKittenCtrl.kitten" breeds="addEditKittenCtrl.breeds" owners="addEditKittenCtrl.owners" parents="addEditKittenCtrl.parents" display-places="addEditKittenCtrl.displayPlaces">
+    </kitten-fields-component>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <input type="submit" value="Назад" ng-click="addEditKittenCtrl.returnBack(addEditKittenCtrl.kitten)" class="btn btn-default" />
+            <input ng-if="!addEditKittenCtrl.kitten.isNew" type="submit" value="Сохранить" ng-click="addEditKittenCtrl.saveEditedKitten(addEditKittenCtrl.kitten)" class="btn btn-default"/>
+            <input ng-if="addEditKittenCtrl.kitten.isNew" type="submit" value="Создать" ng-click="addEditKittenCtrl.addNewKitten(addEditKittenCtrl.kitten)" class="btn btn-default"/>
+        </div>
+    </div>
+    <message-place-component success-message="addEditKittenCtrl.successMessage" error-message="addEditKittenCtrl.errorMessage"></message-place-component>
+</div>

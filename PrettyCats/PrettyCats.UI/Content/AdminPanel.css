@@ -12,6 +12,11 @@
     margin-bottom: 0px;
 }
 
+progress-bar .progress-bar {
+    height: 10px;
+    display: block;
+}
+
 .admin-panel {
 	margin: 100px auto;
 	width: 700px;

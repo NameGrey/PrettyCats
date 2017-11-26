@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PrettyCats.UI</RootNamespace>
     <AssemblyName>PrettyCats.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,34 +74,53 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\common\common.module.js" />
+    <Content Include="app\common\services\configurationService.js" />
     <Content Include="app\config.js" />
+    <Content Include="app\pages\addKitten\components\addKittenComponent.js" />
     <Content Include="app\pages\adminPanel\adminPanel.module.js" />
+    <Content Include="app\pages\addKitten\addKitten.module.js" />
+    <Content Include="app\pages\addKitten\partials\addKitten.html" />
+    <Content Include="app\pages\editKitten\editKitten.module.js" />
+    <Content Include="app\pages\editKitten\partials\editKitten.html" />
+    <Content Include="app\pages\getArchiveKittensList\archiveKittens.module.js" />
+    <Content Include="app\pages\getArchiveKittensList\components\archiveKittensComponent.js" />
+    <Content Include="app\pages\getArchiveKittensList\partials\archiveKittens.html" />
+    <Content Include="app\pages\getAvailableKittensList\availableKittens.module.js" />
+    <Content Include="app\pages\getAvailableKittensList\components\availableKittensComponent.js" />
+    <Content Include="app\pages\getAvailableKittensList\partials\availableKittens.html" />
+    <Content Include="app\pages\editKitten\components\editKittenComponent.js" />
+    <Content Include="app\pages\getParentsList\parents.module.js" />
+    <Content Include="app\pages\getParentsList\components\parentsComponent.js" />
+    <Content Include="app\pages\getParentsList\partials\parents.html" />
+    <Content Include="app\pages\modifyPicturesOrder\modifyPicturesOrder.module.js" />
+    <Content Include="app\pages\modifyPicturesOrder\components\modifyPicturesOrderComponent.js" />
+    <Content Include="app\pages\modifyPicturesOrder\partials\modifyPicturesOrder.html" />
     <Content Include="packages.config" />
-    <Content Include="app\components\addEditKittenComponent\addEditKittenComponent.js" />
-    <Content Include="app\components\addEditKittenComponent\addEditKittenComponent.html" />
-    <Content Include="app\components\adminKittensPageComponent\adminKittensPageComponent.js" />
-    <Content Include="app\components\changePicturesComponent\changePicturesComponent.html" />
-    <Content Include="app\components\changePicturesComponent\changePicturesComponent.js" />
-    <Content Include="app\components\messagePlaceComponent\messagePlaceComponent.js" />
-    <Content Include="app\components\messagePlaceComponent\messagePlaceComponent.html" />
-    <Content Include="app\components\kittenFieldsComponent\kittenFieldsComponent.html" />
-    <Content Include="app\components\kittenFieldsComponent\kittenFieldsComponent.js" />
+    <Content Include="app\common\components\addEditKittenComponent\addEditKittenComponent.js" />
+    <Content Include="app\common\components\addEditKittenComponent\addEditKittenComponent.html" />
+    <Content Include="app\common\components\adminKittensPageComponent\adminKittensPageComponent.js" />
+    <Content Include="app\common\components\changePicturesComponent\changePicturesComponent.html" />
+    <Content Include="app\common\components\changePicturesComponent\changePicturesComponent.js" />
+    <Content Include="app\common\components\messagePlaceComponent\messagePlaceComponent.js" />
+    <Content Include="app\common\components\messagePlaceComponent\messagePlaceComponent.html" />
+    <Content Include="app\common\components\kittenFieldsComponent\kittenFieldsComponent.html" />
+    <Content Include="app\common\components\kittenFieldsComponent\kittenFieldsComponent.js" />
     <Content Include="app\controllers\adminKittensCtrl.js" />
     <Content Include="app\pages\adminPanel\components\adminPanelComponent.js" />
     <Content Include="app\partials\addKitten.html" />
     <Content Include="app\pages\adminPanel\partials\adminPanel.html" />
-    <Content Include="app\components\adminKittensPageComponent\adminKittensPageComponent.html" />
+    <Content Include="app\common\components\adminKittensPageComponent\adminKittensPageComponent.html" />
     <Content Include="app\partials\editKitten.html" />
     <Content Include="app\partials\kittensViews\archive-kittens.html" />
     <Content Include="app\partials\kittensViews\parents.html" />
     <Content Include="app\partials\kittensViews\available-kittens.html" />
     <Content Include="app\partials\modify-kitten-pictures.html" />
-    <Content Include="app\components\adminPageKitten\adminPageKitten.html" />
-    <Content Include="app\services\kittenBackendCommunicator.js" />
-    <Content Include="app\directives\progressBar\progressBar.html" />
-    <Content Include="app\directives\progressBar\progressBar.js" />
+    <Content Include="app\common\components\adminPageKitten\adminPageKitten.html" />
+    <Content Include="app\common\services\kittenBackendCommunicator.js" />
+    <Content Include="app\common\directives\progressBar\progressBar.html" />
+    <Content Include="app\common\directives\progressBar\progressBar.js" />
     <Content Include="app\templates\catSlider.html" />
-    <Content Include="app\directives\mainPhotoSelector\mainPhotoSelector.html" />
+    <Content Include="app\common\directives\mainPhotoSelector\mainPhotoSelector.html" />
     <Content Include="app\templates\navigation.html" />
     <Content Include="app\templates\pageHeader.html" />
     <Content Include="require.config.js" />
@@ -136,10 +156,10 @@
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Scripts\angular\angular-route.min.js.map" />
     <Content Include="app\app.js" />
-    <Content Include="app\components\adminPageKitten\adminPageKitten.js" />
-    <Content Include="app\directives\mainPhotoSelector\mainPhotoSelector.js" />
-    <Content Include="app\directives\multiplayPhotoSelector.js" />
-    <Content Include="app\services\kittensImageWorker.js" />
+    <Content Include="app\common\components\adminPageKitten\adminPageKitten.js" />
+    <Content Include="app\common\directives\mainPhotoSelector\mainPhotoSelector.js" />
+    <Content Include="app\common\directives\multiplayPhotosSelector.js" />
+    <Content Include="app\common\services\kittensImageWorker.js" />
     <Content Include="app\common\services\kittensPathBuilder.js" />
     <Content Include="Scripts\thirdparty\bootstrap\bootstrap.js" />
     <Content Include="Scripts\thirdparty\bootstrap\bootstrap.min.js" />
@@ -161,7 +181,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\common\components\" />
+    <Folder Include="app\services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

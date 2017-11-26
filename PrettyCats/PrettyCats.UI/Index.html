@@ -4,12 +4,20 @@
 	<title ng-bind="title"></title>
 	<meta charset="utf-8" />
 	<base href="/" />
+
+	<link href="/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+	<link href="/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+	<link href="Content/AdminPanel.css" rel="stylesheet" />
+
 	<script src="node_modules/requirejs/require.js"
 			data-main="require.config.js"></script>
 </head>
 <body>
 	<ui-view>
 	</ui-view>
+
+	<!--TODO: get rid of JQuery at all-->
+	<script src="Scripts/thirdparty/jquery/jquery-2.1.4.min.js"></script>
 </body>
 
 </html>

@@ -17,49 +17,49 @@
 					url: '/available-kittens',
 					name: 'availableKittens',
 					title: 'Панель доступных котят',
-					templateUrl: adminPartialsUrl + '/kittensViews/available-kittens.html'
+					template: '<available-kittens-component></available-kittens-component>'
 				})
 				.state({
 					url: '/archive-kittens',
 					name: 'archiveKittens',
 					title: 'Панель архивных котят',
-					templateUrl: adminPartialsUrl + '/kittensViews/archive-kittens.html'
+					template: '<archive-kittens-component></archive-kittens-component>'
 				})
 				.state({
 					url: '/parents',
 					name: 'parents',
 					title: 'Панель родителей',
-					templateUrl: adminPartialsUrl + '/kittensViews/parents.html'
+					template: '<parents-component></parents-component>'
 				})
 				.state({
 					url: '/addKitten', 
 					name: 'addKitten',
 					title: 'Добавление нового котенка',
-					templateUrl: adminPartialsUrl + 'addKitten.html'
+					template: '<add-kitten-component></add-kitten-component>'
 				})
 				.state({
 					url: '/addArchiveKitten',
 					name: 'addArchiveKitten',
 					title: 'Добавление нового котенка',
-					templateUrl: adminPartialsUrl + 'addKitten.html'
+					template: '<add-archive-component></add-archive-component'
 				})
 				.state({
 					url: '/addParent',
 					name: 'addParent',
 					title: 'Добавление нового родителя',
-					templateUrl: adminPartialsUrl + 'addKitten.html'
+					template: '<add-parent-component></add-parent-component'
 				})
 				.state({
 					url: '/editKitten/:id',
 					name: 'editKitten',
 					title: 'Редактирование нового котенка',
-					templateUrl: adminPartialsUrl + 'editKitten.html'
+					template: '<edit-kitten-component></edit-kitten-component'
 				})
 				.state({
 					url: '/kitten/modify-pictures/:id',
 					name: 'modifyPictures',
 					title: 'Редактирование фотографий котенка',
-					templateUrl: adminPartialsUrl + 'modify-kitten-pictures.html'
+					template: '<modify-pictures-order-component></modify-pictures-order-component>'
 				});
 
 			$urlRouterProvider.otherwise("/");

@@ -7,7 +7,7 @@ namespace PrettyCats.DAL
 	{
 		public StorageContext()
 #if DEBUG
-			: base("DBConnectionDebugLocal")
+			: base("DBConnectionDebug")
 #else
 			: base("DBConnectionDebug")
 #endif
